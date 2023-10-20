@@ -6,19 +6,21 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './loginComponents/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TopnavComponent } from './dashboard/topnav/topnav.component';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    TopnavComponent
+    TopnavComponent,
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [MatSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

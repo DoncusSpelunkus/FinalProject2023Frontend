@@ -11,11 +11,11 @@ export const customAxios = axios.create({
   }
 })
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class LoginServiceService {
-
+export class UserService {
 
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
@@ -33,16 +33,26 @@ export class LoginServiceService {
     )
   }
 
-  public async login(username: string, password: string) {
-    const response = await customAxios.post('/login', {username, password}).then(response => {
-      localStorage.setItem('auth', response.data);
+  private async getAllByWarehouse(warehouseId: number) {
+    await customAxios.get('/GetAllByWarehouseId/' + warehouseId).then(response => {
       return response;
     });
   }
 
-  public async register(username: string, password: string) {
-    const response = await customAxios.post('/register', {username, password}).then(response => {
-      localStorage.setItem('auth', response.data);
+  private async getByEmployeeId(employeeId: number) {
+    await customAxios.get('/GetEmployeeById' + employeeId).then(response => {
+      return response;
+    });
+  }
+  
+  private async updateEmployee(employee: any) {
+    await customAxios.put('/UpdateEmployee', employee).then(response => {
+      return response;
+    });
+  }
+
+  private async deleteEmployee(employeeId: number) {
+    await customAxios.delete('/DeleteEmployee/' + employeeId).then(response => {
       return response;
     });
   }

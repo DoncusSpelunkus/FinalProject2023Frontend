@@ -5,7 +5,7 @@ import { catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 
 export const customAxios = axios.create({
-  baseURL: environment.apiUrl + '/User',
+  baseURL: environment.apiUrl + '/Product',
   headers: {
     Authorization: `Bearer ${localStorage.getItem('auth')}`
   }
@@ -14,8 +14,7 @@ export const customAxios = axios.create({
 @Injectable({
   providedIn: 'root'
 })
-export class LoginServiceService {
-
+export class ProductService {
 
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
@@ -33,18 +32,24 @@ export class LoginServiceService {
     )
   }
 
-  public async login(username: string, password: string) {
-    const response = await customAxios.post('/login', {username, password}).then(response => {
-      localStorage.setItem('auth', response.data);
+  private async getBySku(sku: string) {
+    await customAxios.get('/GetProductBySku/' + sku).then(response => {
       return response;
     });
   }
 
-  public async register(username: string, password: string) {
-    const response = await customAxios.post('/register', {username, password}).then(response => {
-      localStorage.setItem('auth', response.data);
+  private async getByWarehouse(warehouseId: string) {
+    await customAxios.get('/GetProductByWarehouse/' + warehouseId).then(response => {
       return response;
     });
   }
+
+  private async createProduct(product: any) {
+    await customAxios.post('/CreateProduct', product).then(response => {
+      return response;
+    });
+  }
+
+
 
 }
