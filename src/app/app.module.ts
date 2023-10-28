@@ -13,12 +13,14 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
+import { LoginPageComponent } from './login-page/login-page/login-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
     TopnavComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,

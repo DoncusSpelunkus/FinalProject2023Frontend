@@ -26,12 +26,9 @@ export class LoginComponent {
     }
   }
 
-
   get emailInput() { return this.loginForm.get(FormControlNames.EMAIL); }
   get passwordInput() {
     console.log(this.loginForm.get([FormControlNames.PASSWORD]))
     return this.loginForm.get(FormControlNames.PASSWORD); }
-  @HostBinding('style.height') height = '100%';
-  @HostBinding('style.width') width = '100%';
 
 }
