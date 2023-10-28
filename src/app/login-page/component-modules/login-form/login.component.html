@@ -1,20 +1,22 @@
-<form class="flex flex-col justify-start items-start "
+<form class="flex flex-col justify-start items-start w-80"
   [formGroup]="loginForm"
   (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>Username</mat-label>
+  <mat-form-field class="w-full" appearance="fill">
+    <mat-label *ngIf="!emailInput?.value">Email / username</mat-label>
     <input matInput required
          formControlName="username"
          [placeholder]="'PeterGriffin@hotmail.dk'"
          [formControlName]="FormControlNames.EMAIL">
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="w-full" appearance="fill">
     <input matInput
            placeholder="Password" [type]="hide ? 'password' : 'text'"
            [formControlName]="FormControlNames.PASSWORD"
           required>
-    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
     <mat-hint *ngIf="!passwordInput?.value">Enter your password</mat-hint>
   </mat-form-field>
 

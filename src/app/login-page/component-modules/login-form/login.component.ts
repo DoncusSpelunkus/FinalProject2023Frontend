@@ -1,6 +1,6 @@
 import {Component, HostBinding} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {FormControlNames} from "../../constants/input-field-constants";
+import {FormControlNames} from "../../../../constants/input-field-constants";
 
 @Component({
   selector: 'app-login',

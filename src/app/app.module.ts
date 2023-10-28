@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './loginComponents/login.component';
+import { LoginComponent } from './login-page/component-modules/login-form/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TopnavComponent } from './dashboard/topnav/topnav.component';
 import {MatSnackBar} from "@angular/material/snack-bar"
