@@ -1,7 +1,11 @@
 module.exports = {
   content: ["./src/**/*.{html,js,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'quicksand': ['Quicksand', 'sans-serif'], // Define the font family name as "quicksand"
+      },
+    },
   },
   plugins: [],
 }
