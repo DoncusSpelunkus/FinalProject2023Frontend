@@ -1,11 +1,23 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <mat-label>Favorite food</mat-label>
-    <input matInput placeholder="Ex. Pizza" value="Sushi">
+<form class="flex flex-col justify-start items-start "
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input matInput required
+         formControlName="username"
+         [placeholder]="'PeterGriffin@hotmail.dk'"
+         [formControlName]="FormControlNames.EMAIL">
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <mat-label>Leave a comment</mat-label>
-    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  <mat-form-field>
+    <input matInput
+           placeholder="Password" [type]="hide ? 'password' : 'text'"
+           [formControlName]="FormControlNames.PASSWORD"
+          required>
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    <mat-hint *ngIf="!passwordInput?.value">Enter your password</mat-hint>
   </mat-form-field>
+
+
+  <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
 </form>
