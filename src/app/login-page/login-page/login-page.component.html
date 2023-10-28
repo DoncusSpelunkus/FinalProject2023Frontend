@@ -4,10 +4,29 @@
   <!-- Login section (form and brief info) -->
   <div class="w-full h-full flex flex-row justify-center">
     <!--  Left side  -->
-    <div class="w-7/12"></div>
+    <div class="w-8/12 flex justify-start items-center pl-20 pt-40 relative ">
+      <!--   WAREHOUSE GRAPHIC   -->
+      <div>
+        <img class="object-fill" src="../../../assets/3D-graphics/warehouse_1.png" alt="warehouse graphic">
+      </div>
+      <!--   FORKLIFT GRAPHIC   -->
+      <div class="w-16 absolute right-96 top-80">
+        <img class="object-contain" src="../../../assets/3D-graphics/forklift.png" alt="cute forklift graphic">
+      </div>
+    </div>
     <!--  Right side  -->
-    <div class="w-5/12 pb-10">
+    <div class="w-4/12 pb-10">
       <app-login></app-login>
+
+      <!--   SHELF GRAPHIC   -->
+      <div class="relative">
+          <div class="z-10 absolute -bottom-16 w-56 right-10">
+            <img class="object-contain" src="../../../assets/3D-graphics/shelf.png" alt="shelf">
+          </div>
+          <div class="z-20 absolute -bottom-20 right-20 w-24">
+            <img class="object-contain" src="../../../assets/3D-graphics/worker.png" alt="worker">
+          </div>
+        </div>
     </div>
   </div>
 
