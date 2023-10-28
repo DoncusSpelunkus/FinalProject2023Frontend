@@ -7,6 +7,8 @@ import { LoginComponent } from './loginComponents/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TopnavComponent } from './dashboard/topnav/topnav.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -14,11 +16,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     LoginComponent,
     DashboardComponent,
     TopnavComponent,
-    
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [MatSnackBar],
   bootstrap: [AppComponent]

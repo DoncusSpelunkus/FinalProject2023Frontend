@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, HostBinding} from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+
+
+
+  @HostBinding('style.height') height = '100%';
+  @HostBinding('style.width') width = '100%';
 }
