@@ -1,6 +1,7 @@
 import {Component, HostBinding} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormControlNames} from "../../../../constants/input-field-constants";
+import {emailValidator, getErrorMessage, valueRequired} from "../../../../util/validators/form-control-validators";
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,8 @@ export class LoginComponent {
   hide = true;
 
   loginForm = new FormGroup({
-    [FormControlNames.EMAIL]: new FormControl('', [Validators.required]),
-    [FormControlNames.PASSWORD]: new FormControl('', [Validators.required])
+    [FormControlNames.EMAIL]: new FormControl('', [emailValidator,valueRequired('Email')]),
+    [FormControlNames.PASSWORD]: new FormControl('', valueRequired('Password'))
   });
 
 
@@ -25,9 +26,17 @@ export class LoginComponent {
     }
   }
 
+  get isLoginInputValid() {
+    return false;
+  }
+
   get emailInput() { return this.loginForm.get(FormControlNames.EMAIL); }
   get passwordInput() {
-    console.log(this.loginForm.get([FormControlNames.PASSWORD]))
     return this.loginForm.get(FormControlNames.PASSWORD); }
 
+  getControlErrorMessage(controlName: string): string | null {
+    // Explicitly telling TypeScript that we're dealing with an AbstractControl here
+    const control = this.loginForm.get(controlName) as AbstractControl;
+    return getErrorMessage(control);
+  }
 }
