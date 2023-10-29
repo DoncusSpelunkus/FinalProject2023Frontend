@@ -1,9 +1,11 @@
 <!-- Entire page -->
-<div class="w-screen h-screen flex flex-col">
+<div class="w-full h-screen flex flex-col overflow-y-auto">
   <!-- Dashboard / navigation -->
-  <app-dashboard></app-dashboard>
+  <div class="sticky top-0 z-10"> <!-- Added sticky positioning -->
+    <app-dashboard></app-dashboard>
+  </div>
   <!--  Page content -->
-  <div class="overflow-auto flex-grow"> <!-- This wrapper is important -->
+  <div class="h-full flex-1"> <!-- This wrapper is important -->
     <router-outlet></router-outlet>
   </div>
 </div>

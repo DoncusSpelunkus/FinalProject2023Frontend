@@ -19,6 +19,7 @@
       <input matInput required
              [placeholder]="'PeterGriffin@hotmail.dk'"
              [formControlName]="FormControlNames.EMAIL">
+      <mat-icon matSuffix>email</mat-icon>
       <mat-error class="!text-red-500 font-quicksand font-semibold" *ngIf="getControlErrorMessage(FormControlNames.EMAIL)">
         {{getControlErrorMessage(FormControlNames.EMAIL)}}
       </mat-error>
