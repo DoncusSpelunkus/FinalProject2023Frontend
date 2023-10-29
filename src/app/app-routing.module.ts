@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './loginComponents/login.component';
-import { AppComponent } from './app.component';
+import {LoginPageComponent} from "./login-page/login-page/login-page.component";
 
 const routes: Routes = [
-  { path: 'login', component:  LoginComponent},
+  { path: 'login', component:  LoginPageComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];
@@ -14,6 +13,6 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class AppRoutingModule { 
-  
+export class AppRoutingModule {
+
 }

@@ -1,0 +1,46 @@
+<section class="flex flex-col justify-center items-start w-80 h-full space-y-4">
+
+  <!-- LOGO AND HEADER -->
+  <div class="w-full flex flex-col items-center ">
+    <div class="flex items-center justify-center h-40 w-40">
+      <img class="object-contain" src="../../../../assets/Logo/logo.png">
+    </div>
+    <header class="font-quicksand w-full items-center text-center font-black text-xl">WELCOME BACK!</header>
+  </div>
+
+  <!-- FORM -->
+  <form class="flex flex-col justify-start items-start w-full space-y-2"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()">
+
+    <!--  EMAIL  -->
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label *ngIf="!emailInput?.value">Email / username</mat-label>
+      <input matInput required
+             [placeholder]="'PeterGriffin@hotmail.dk'"
+             [formControlName]="FormControlNames.EMAIL">
+      <mat-error class="!text-red-500 font-quicksand font-semibold" *ngIf="getControlErrorMessage(FormControlNames.EMAIL)">
+        {{getControlErrorMessage(FormControlNames.EMAIL)}}
+      </mat-error>
+    </mat-form-field>
+
+
+    <!--  PASSWORD  -->
+    <mat-form-field class="w-full" appearance="fill">
+      <input matInput
+             placeholder="Password" [type]="hide ? 'password' : 'text'"
+             [formControlName]="FormControlNames.PASSWORD"
+             required>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error class="!text-red-500 font-quicksand font-semibold" *ngIf="getControlErrorMessage(FormControlNames.PASSWORD)">
+        {{getControlErrorMessage(FormControlNames.PASSWORD)}}
+      </mat-error>
+    </mat-form-field>
+
+    <!--  SUBMIT  -->
+    <button class="w-full my-4" mat-raised-button color="primary" [disabled]="!isLoginInputValid">Login</button>
+  </form>
+
+</section>
