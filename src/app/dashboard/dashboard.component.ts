@@ -1,4 +1,4 @@
-import {Component, HostBinding} from '@angular/core';
+import {Component, HostBinding, signal} from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +8,9 @@ import {Component, HostBinding} from '@angular/core';
 export class DashboardComponent {
   @HostBinding('style.width') width = '100%';
 
+  isExpanded = false;
+
   extendNavigation() {
-    console.log('extend nav bar')
+    this.isExpanded = true;
   }
 }

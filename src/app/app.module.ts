@@ -14,14 +14,16 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
 import { LoginPageComponent } from './login-page/login-page/login-page.component';
+import {CollapsableContainerDirective} from "../directives/collapsable-container.directive";
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    DashboardComponent,
-    TopnavComponent,
-    LoginPageComponent,
-  ],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        DashboardComponent,
+        TopnavComponent,
+        LoginPageComponent,
+        CollapsableContainerDirective,
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

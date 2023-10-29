@@ -1,11 +1,11 @@
 <div class="w-full flex justify-center items-center bg-transparent px-3 py-2 box-border">
 
   <!-- VISIBLE WRAPPER -->
-  <div class="w-full flex col items-center bg-green-800 px-2 rounded-md"
+  <div class="w-full flex flex-col items-center bg-green-800 px-2 rounded-md"
     (click)="extendNavigation()">
 
     <!--  PINNED SECTION  -->
-    <div class="h-16 flex flex-row justify-between w-full">
+    <div class="h-14 flex flex-row justify-between w-full">
       <!--  BRANDING  -->
       <div class="w-fit h-full flex justify-start items-center space-x-1"
         (click)="$event.stopPropagation()">
@@ -46,9 +46,25 @@
 
     </div>
 
-    <!--  OPTIONAL / EXTENDED SECTION  -->
-    <div>
+    <!--  EXPANDABLE CONTAINER -->
+    <div appExpandable [isExpanded]="isExpanded"
+      class="transition-all duration-500 ease-out flex w-full flex-col justify-center items-center">
+      <hr class="w-full border-green-800 border my-1 brightness-90">
+      <div class="w-full flex flex-row justify-between items-center pb-1.5">
+        <!--   BACK BTN   -->
+        <div class="flex items-center justify-center">
+          <button mat-button class="!text-white brightness-110 !bg-green-800">
+            <mat-icon class="text-white">arrow_back</mat-icon>
+            Back
+          </button>
+        </div>
 
+        <!--   EXTENDED ACTIONS   -->
+        <div></div>
+
+        <!--   COLLAPSE BTN   -->
+        <div></div>
+      </div>
     </div>
   </div>
 </div>
