@@ -7,4 +7,8 @@ import {Component, HostBinding} from '@angular/core';
 })
 export class DashboardComponent {
   @HostBinding('style.width') width = '100%';
+
+  extendNavigation() {
+    console.log('extend nav bar')
+  }
 }
