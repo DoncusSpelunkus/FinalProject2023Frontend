@@ -24,6 +24,7 @@ export class CollapsableContainerDirective {
     } else {
       this.collapse();
     }
+    this.cdRef.detectChanges();
   }
 
   private expand() {
@@ -35,8 +36,8 @@ export class CollapsableContainerDirective {
     this.renderer.setStyle(this.el.nativeElement, 'height', scrollHeight);
   }
 
-
   private collapse() {
     this.renderer.setStyle(this.el.nativeElement, 'height', '0');
+    console.log('collapse')
   }
 }

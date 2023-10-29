@@ -47,13 +47,13 @@
     </div>
 
     <!--  EXPANDABLE CONTAINER -->
-    <div appExpandable [isExpanded]="isExpanded"
+    <div appExpandable [isExpanded]="isExpanded" (click)="$event.stopPropagation()"
       class="transition-all duration-500 ease-out flex w-full flex-col justify-center items-center">
       <hr class="w-full border-green-800 border my-1 brightness-90">
       <div class="w-full flex flex-row justify-between items-center pb-1.5">
         <!--   BACK BTN   -->
         <div class="flex items-center justify-center">
-          <button mat-button class="!text-white brightness-110 !bg-green-800">
+          <button mat-button class="!text-white brightness-90 !bg-green-800">
             <mat-icon class="text-white">arrow_back</mat-icon>
             Back
           </button>
@@ -63,7 +63,12 @@
         <div></div>
 
         <!--   COLLAPSE BTN   -->
-        <div></div>
+        <div class="flex items-center justify-center">
+          <button mat-button class="!text-white brightness-90 !bg-green-800" (click)="collapseNavigation()">
+            <mat-icon class="text-white">arrow_drop_up</mat-icon>
+            Hide
+          </button>
+        </div>
       </div>
     </div>
   </div>

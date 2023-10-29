@@ -13,4 +13,8 @@ export class DashboardComponent {
   extendNavigation() {
     this.isExpanded = true;
   }
+
+  collapseNavigation() {
+    this.isExpanded = false;
+  }
 }
