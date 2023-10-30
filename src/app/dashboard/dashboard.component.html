@@ -1,3 +1,94 @@
-<div class="w-full h-20 flex justify-center items-center">
-  NAVIGATION
+<div class="w-full flex justify-center items-center bg-transparent px-3 py-2 box-border">
+
+  <!-- VISIBLE WRAPPER -->
+  <div class="w-full flex flex-col items-center bg-green-800 px-2 rounded-md"
+    (click)="extendNavigation()">
+
+    <!--  PINNED SECTION  -->
+    <div class="h-14 flex flex-row justify-between w-full">
+      <!--  BRANDING  -->
+      <div class="w-fit h-full flex justify-start items-center space-x-1"
+        (click)="$event.stopPropagation()">
+
+        <!-- LOGO -->
+        <div class="w-12 flex h-full items-center justify-center" >
+          <img class="object-contain" src="../../assets/Logo/logo.png" alt="LOGO">
+        </div>
+
+        <!-- TEXT -->
+        <div class="break-words whitespace-pre-line w-20 text-white font-quicksand font-bold text-base">
+          WHERE HOUSE
+        </div>
+
+      </div>
+
+      <!--  NAVIGATION  -->
+      <div class="flex w-fit items-center flex-row justify-center"
+        (click)="$event.stopPropagation()">
+        <ng-container *ngTemplateOutlet="publicActions"></ng-container>
+      </div>
+
+      <!--  USER ACTIONS  -->
+      <div class="w-fit h-full text-white flex items-center justify-center"
+        (click)="$event.stopPropagation()">
+        <!-- User Profile Icon -->
+
+        <!-- Settings Icon -->
+        <button mat-icon-button aria-label="Settings">
+          <mat-icon>settings</mat-icon>
+        </button>
+
+        <!-- Login Icon -->
+        <button mat-icon-button aria-label="Log in">
+          <mat-icon>login</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+    <!--  EXPANDABLE CONTAINER -->
+    <div appExpandable [isExpanded]="isExpanded" (click)="$event.stopPropagation()"
+      class="transition-all duration-500 ease-out flex w-full flex-col justify-center items-center">
+      <hr class="w-full border-green-800 border my-1 brightness-90">
+      <div class="w-full flex flex-row justify-between items-center pb-1.5">
+        <!--   BACK BTN   -->
+        <div class="flex items-center justify-center">
+          <button mat-button class="!text-white brightness-90 !bg-green-800">
+            <mat-icon class="text-white">arrow_back</mat-icon>
+            Back
+          </button>
+        </div>
+
+        <!--   EXTENDED ACTIONS   -->
+        <div></div>
+
+        <!--   COLLAPSE BTN   -->
+        <div class="flex items-center justify-center">
+          <button mat-button class="!text-white brightness-90 !bg-green-800" (click)="collapseNavigation()">
+            <mat-icon class="text-white">arrow_drop_up</mat-icon>
+            Hide
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!--  SUPER ADMIN ACTIONS  -->
+<ng-template #superAdminActions></ng-template>
+
+<!--  ADMIN ACTIONS  -->
+<ng-template #adminActions></ng-template>
+
+<!--  USER ACTIONS  -->
+<ng-template #userActions></ng-template>
+
+<!--  PUBLIC ACTIONS  -->
+<ng-template #publicActions>
+  <!-- About Us button -->
+  <button class="!text-white uppercase" mat-button>About Us</button>
+
+  <!-- Contact Us button -->
+  <button class="!text-white uppercase" mat-button>Contact Us</button>
+
+</ng-template>
