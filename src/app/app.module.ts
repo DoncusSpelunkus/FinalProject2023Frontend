@@ -19,6 +19,7 @@ import { ManageUsersPageComponent } from './manage-users/manage-users-page/manag
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 @NgModule({
     declarations: [
         AppComponent,
@@ -29,22 +30,23 @@ import {MatPaginatorModule} from "@angular/material/paginator";
         CollapsableContainerDirective,
         ManageUsersPageComponent,
     ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatIconModule,
-    CommonModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        CommonModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatProgressSpinnerModule
 
-  ],
+    ],
   providers: [MatSnackBar],
   bootstrap: [AppComponent]
 })
