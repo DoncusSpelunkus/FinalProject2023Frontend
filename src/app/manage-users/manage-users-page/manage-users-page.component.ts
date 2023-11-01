@@ -17,7 +17,7 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
   filterSubscription: Subscription;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'lastName'];
+  displayedColumns: string[] = ['name', 'lastName','delete','edit'];
   FormControlNames = FormControlNames
 
   users: { name: string; lastName: string }[] = [
