@@ -72,8 +72,10 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
     });
   }
 
+
+  //TODO implement filtering
   filterTable(value: string) {
-    console.log(value)
+    this.dataSource.filter = value.trim().toLowerCase();
   }
 
   @HostBinding('style.width') width = '100%'
