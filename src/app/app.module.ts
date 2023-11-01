@@ -15,6 +15,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
 import { LoginPageComponent } from './login-page/login-page/login-page.component';
 import {CollapsableContainerDirective} from "../directives/collapsable-container.directive";
+import { ManageUsersPageComponent } from './manage-users/manage-users-page/manage-users-page.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
 @NgModule({
     declarations: [
         AppComponent,
@@ -23,6 +27,7 @@ import {CollapsableContainerDirective} from "../directives/collapsable-container
         TopnavComponent,
         LoginPageComponent,
         CollapsableContainerDirective,
+        ManageUsersPageComponent,
     ],
   imports: [
     BrowserModule,
@@ -34,7 +39,10 @@ import {CollapsableContainerDirective} from "../directives/collapsable-container
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
 
   ],
   providers: [MatSnackBar],
