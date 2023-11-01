@@ -18,7 +18,27 @@ export class ManageUsersPageComponent implements OnInit{
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   FormControlNames = FormControlNames
 
-  users: any[] = [
+  users: { name: string; lastName: string }[] = [
+    { name: 'Emma', lastName: 'Johnson' },
+    { name: 'Noah', lastName: 'Williams' },
+    { name: 'Olivia', lastName: 'Brown' },
+    { name: 'Liam', lastName: 'Jones' },
+    { name: 'Sophia', lastName: 'Garcia' },
+    { name: 'Mason', lastName: 'Miller' },
+    { name: 'Ava', lastName: 'Davis' },
+    { name: 'Jacob', lastName: 'Rodriguez' },
+    { name: 'William', lastName: 'Martinez' },
+    { name: 'Isabella', lastName: 'Hernandez' },
+    { name: 'Ethan', lastName: 'Lopez' },
+    { name: 'James', lastName: 'Gonzalez' },
+    { name: 'Mia', lastName: 'Wilson' },
+    { name: 'Alexander', lastName: 'Anderson' },
+    { name: 'Michael', lastName: 'Thomas' },
+    { name: 'Charlotte', lastName: 'Taylor' },
+    { name: 'Benjamin', lastName: 'Moore' },
+    { name: 'Elijah', lastName: 'Jackson' },
+    { name: 'Amelia', lastName: 'Martin' },
+    { name: 'Oliver', lastName: 'Lee' },
   ];
 
   constructor(private fb: FormBuilder) {}
