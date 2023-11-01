@@ -1,7 +1,7 @@
 <div class="flex flex-col w-full h-full justify-start items-center">
 
   <!-- TABLE HEADER (SEARCH AND OTHER ACTIONS) -->
-  <section class="w-full flex justify-between flex-row h-fit" [formGroup]="formGroup">
+  <section class="w-full flex justify-between flex-row h-fit">
     <ng-container *ngTemplateOutlet="tableFilter" ></ng-container>
     <ng-container *ngTemplateOutlet="actionsSection"></ng-container>
   </section>
@@ -26,17 +26,19 @@
         <td mat-cell *matCellDef="let user"> action</td>
       </ng-container>
 
+
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
     <!-- Spinner container -->
-    <div class="w-full flex justify-center items-center">
-      <mat-spinner></mat-spinner>
-    </div>
+<!--    <div class="w-full flex justify-center items-center">-->
+<!--      <mat-spinner></mat-spinner>-->
+<!--    </div>-->
 
-<!--    &lt;!&ndash; Paginator &ndash;&gt;-->
-<!--    <mat-paginator></mat-paginator>-->
+    <!-- Paginator -->
+    <mat-paginator></mat-paginator>
 
   </div>
 
@@ -47,9 +49,9 @@
 </ng-template>
 
 <ng-template #tableFilter>
-  <mat-form-field appearance="outline" class="w-56">
+  <mat-form-field [formGroup]="formGroup" appearance="outline" class="w-56">
     <input matInput type="text" placeholder="Type to filter..." [formControlName]="FormControlNames.FILTER">
-    <button mat-icon-button matSuffix *ngIf="filterValue">
+    <button mat-icon-button matSuffix *ngIf="filterValue" (click)="clearFilterValue()">
       <mat-icon>close</mat-icon>
     </button>
     <mat-icon matPrefix *ngIf="!filterValue">search</mat-icon>
