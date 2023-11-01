@@ -15,6 +15,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
 import { LoginPageComponent } from './login-page/login-page/login-page.component';
 import {CollapsableContainerDirective} from "../directives/collapsable-container.directive";
+import { UserManagementPageComponent } from './user-management-page/user-management-page.component';
+import { LogsPageComponent } from './logs-page/logs-page.component';
+import { WarehouseManagementPageComponent } from './warehouse-management-page/warehouse-management-page.component';
+import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -23,6 +27,10 @@ import {CollapsableContainerDirective} from "../directives/collapsable-container
         TopnavComponent,
         LoginPageComponent,
         CollapsableContainerDirective,
+        UserManagementPageComponent,
+        LogsPageComponent,
+        WarehouseManagementPageComponent,
+        ShipmentPageComponent,
     ],
   imports: [
     BrowserModule,
