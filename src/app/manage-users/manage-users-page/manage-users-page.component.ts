@@ -83,6 +83,7 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
 
     this.filterSubscription = this.formGroup.get(FormControlNames.FILTER)!.valueChanges.subscribe(value => {
       this.filterTable(value);
+      this.updateRouteParams({ search: value });
     });
   }
 
@@ -125,6 +126,15 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
       if (this.formGroup.get(FormControlNames.FILTER)?.value !== searchQuery) {
         this.formGroup.get(FormControlNames.FILTER)?.setValue(searchQuery); // Prevent the emission of the event
       }
+    });
+  }
+
+  private updateRouteParams(paramsToUpdate: {[param: string]: any}) {
+    // Update the route params
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: paramsToUpdate,
+      queryParamsHandling: 'merge' // Merge with the existing query params
     });
   }
 }
