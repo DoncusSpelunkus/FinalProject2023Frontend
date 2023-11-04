@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   selector: 'app-manage-users-page',
   templateUrl: './manage-users-page.component.html'
 })
-export class ManageUsersPageComponent implements OnInit, OnDestroy{
+export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy{
 
   formGroup: FormGroup;
   dataSource = new MatTableDataSource<any>();
@@ -20,7 +20,10 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
   private filterSubscription: Subscription;
   private queryParamSubscription: Subscription;
 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  optionsPerPage = [3,5,10,15,25]
+
   displayedColumns: string[] = ['name', 'lastName','delete','edit'];
   FormControlNames = FormControlNames
 
@@ -56,8 +59,22 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.initializeSearch();
-    this.initializeDataSource();
     this.bindRouteValues();
+  }
+
+  ngAfterViewInit(): void {
+    this.paginator.pageSize = 3
+    this.initializeDataSource();
+    if (this.paginator) {
+      this.paginator.page.subscribe(event => {
+        console.log(event.pageIndex);
+        console.log(event.pageSize)
+        this.formGroup.patchValue({
+          pageIndex: event.pageIndex,
+          pageSize: event.pageSize
+        }, { emitEvent: false }); // Avoid emitting an event to prevent a feedback loop
+      });
+    }
   }
 
   ngOnDestroy(): void {
@@ -77,9 +94,7 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
    * @private
    */
   private initializeSearch() {
-    this.formGroup = this.fb.group({
-      [FormControlNames.FILTER]: ['']
-    });
+    this.initializeFormGroup();
 
     this.filterSubscription = this.formGroup.get(FormControlNames.FILTER)!.valueChanges.subscribe(value => {
       this.filterTable(value);
@@ -122,9 +137,24 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
    */
   private bindRouteValues() {
     this.queryParamSubscription = this.route.queryParams.subscribe(params => {
+      // Get each query parameter or default values
       const searchQuery = params['search'] || '';
+      const page = params['page'] || 1;
+      const itemsPerPage = params['itemsPerPage'] || 10;
+
+      // Compare and set the 'search' query parameter if it's different
       if (this.formGroup.get(FormControlNames.FILTER)?.value !== searchQuery) {
-        this.formGroup.get(FormControlNames.FILTER)?.setValue(searchQuery); // Prevent the emission of the event
+        this.formGroup.get(FormControlNames.FILTER)?.setValue(searchQuery, { emitEvent: false });
+      }
+
+      // Compare and set the 'page' query parameter if it's different
+      if (this.formGroup.get(FormControlNames.PAGE)?.value !== +page) {
+        this.formGroup.get(FormControlNames.PAGE)?.setValue(+page, { emitEvent: false });
+      }
+
+      // Compare and set the 'itemsPerPage' query parameter if it's different
+      if (this.formGroup.get(FormControlNames.ITEMS_PER_PAGE)?.value !== +itemsPerPage) {
+        this.formGroup.get(FormControlNames.ITEMS_PER_PAGE)?.setValue(+itemsPerPage, { emitEvent: false });
       }
     });
   }
@@ -135,6 +165,14 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
       relativeTo: this.route,
       queryParams: paramsToUpdate,
       queryParamsHandling: 'merge' // Merge with the existing query params
+    });
+  }
+
+  private initializeFormGroup() {
+    this.formGroup = this.fb.group({
+      [FormControlNames.FILTER]: [''],
+      [FormControlNames.PAGE]: [1],
+      [FormControlNames.ITEMS_PER_PAGE]: [10]
     });
   }
 }
