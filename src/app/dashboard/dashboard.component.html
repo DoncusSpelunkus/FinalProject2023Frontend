@@ -25,7 +25,7 @@
       <!--  NAVIGATION  -->
       <div class="flex w-fit items-center flex-row justify-center"
         (click)="$event.stopPropagation()">
-        <ng-container *ngTemplateOutlet="publicActions"></ng-container>
+        <ng-container *ngTemplateOutlet="currentActionsTemplate"></ng-container>
       </div>
 
       <!--  USER ACTIONS  -->
@@ -75,13 +75,29 @@
 </div>
 
 <!--  SUPER ADMIN ACTIONS  -->
-<ng-template #superAdminActions></ng-template>
+<ng-template #superAdminActions>
+  <!-- About Us button -->
+  <button class="!text-white uppercase" mat-button>manage users</button>
+
+</ng-template>
 
 <!--  ADMIN ACTIONS  -->
-<ng-template #adminActions></ng-template>
+<ng-template #adminActions>
+  <!-- About Us button -->
+  <button class="!text-white uppercase" mat-button>manage users</button>
+
+  <!-- Contact Us button -->
+  <button class="!text-white uppercase" mat-button>admin</button>
+</ng-template>
 
 <!--  USER ACTIONS  -->
-<ng-template #userActions></ng-template>
+<ng-template #userActions>
+  <!-- About Us button -->
+  <button class="!text-white uppercase" mat-button>user</button>
+
+  <!-- Contact Us button -->
+  <button class="!text-white uppercase" mat-button>user</button>
+</ng-template>
 
 <!--  PUBLIC ACTIONS  -->
 <ng-template #publicActions>

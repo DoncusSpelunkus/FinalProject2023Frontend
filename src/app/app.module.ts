@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login-page/component-modules/login-form/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TopnavComponent } from './dashboard/topnav/topnav.component';
 import {MatSnackBar} from "@angular/material/snack-bar"
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -29,7 +28,6 @@ import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
         AppComponent,
         LoginComponent,
         DashboardComponent,
-        TopnavComponent,
         LoginPageComponent,
         CollapsableContainerDirective,
         ManageUsersPageComponent,
