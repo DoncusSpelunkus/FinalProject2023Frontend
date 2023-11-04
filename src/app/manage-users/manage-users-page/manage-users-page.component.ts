@@ -123,7 +123,10 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
     setupDistinctControlSubscription(
       this.formGroup,
       FormControlNames.PAGE,
-      (value) => this.updateRouteParams({ page: value })
+      (value) => {
+        this.updateRouteParams({ page: value }),
+        this.paginator.pageIndex = value;
+      }
     )
   }
 
@@ -169,8 +172,9 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
       this.formGroup.patchValue({
           [FormControlNames.FILTER]: searchQuery,
           [FormControlNames.PAGE]: page
-        }
+        }, {emitEvent: true}
       )
+      console.log(page)
     });
   }
 
