@@ -5,6 +5,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {debounce, Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-manage-users-page',
@@ -43,12 +44,13 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
     { name: 'Oliver', lastName: 'Lee' },
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.initializeSearch();
-    this.dataSource.data = this.users;
-    this.dataSource.paginator = this.paginator;
+    this.initializeDataSource();
+    this.bindRouteValues();
   }
 
   ngOnDestroy(): void {
@@ -62,6 +64,11 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
     return this.formGroup?.get(FormControlNames.FILTER)?.value;
   }
 
+  /**
+   * Initialize form group, formcontrol for search query
+   * and subscribe to it's value change
+   * @private
+   */
   private initializeSearch() {
     this.formGroup = this.fb.group({
       [FormControlNames.FILTER]: ['']
@@ -86,5 +93,26 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
    */
   clearFilterValue() {
     this.formGroup.get(FormControlNames.FILTER)?.reset('');
+  }
+
+
+  /**
+   * TODO subscribe to service data value changes and link them
+   * Initialize data source data
+   * @private
+   */
+  private initializeDataSource() {
+    this.dataSource.data = this.users;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  /**
+   * This method should bind both ways the values of search query value
+   * the page number, and item per page count to the route
+   * so one will update the other
+   * @private
+   */
+  private bindRouteValues() {
+
   }
 }
