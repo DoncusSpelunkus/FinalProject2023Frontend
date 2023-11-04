@@ -11,8 +11,7 @@ import {ShipmentPageComponent} from "./shipment-page/shipment-page.component";
 const routes: Routes = [
   { path: 'login', component:  LoginPageComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' },
-  { path: "users", component: ManageUsersPageComponent, canActivate: [AdminGuardService] },
+  { path: "users", component: ManageUsersPageComponent},
   { path: "logs", component: LogsPageComponent, canActivate: [AdminGuardService] },
   { path: "warehouse", component: WarehouseManagementPageComponent},
   { path: "shipment", component: ShipmentPageComponent, canActivate: [SalesGuardService] },
