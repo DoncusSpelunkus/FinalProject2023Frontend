@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormControlNames} from "../../../../constants/input-field-constants";
-import {emailValidator, getErrorMessage, valueRequired} from "../../../../util/validators/form-control-validators";
+import {emailValidator, getErrorMessage, valueRequired} from "../../../../util/form-control-validators";
 import {LoginServiceService} from "../../../../services/login-service.service";
 
 @Component({

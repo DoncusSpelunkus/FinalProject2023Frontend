@@ -4,8 +4,9 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
-import {debounce, Subscription} from "rxjs";
+import {debounce, debounceTime, Subject, Subscription, take} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {setupDistinctControlSubscription} from "../../../util/subscription-setup";
 
 @Component({
   selector: 'app-manage-users-page',
@@ -18,6 +19,11 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
 
 
   private filterSubscription: Subscription;
+  private paginationSubscription: Subscription;
+  private itemCountPerPageSubscription: Subscription;
+
+
+  private routeParamsSubject = new Subject<{[param: string]: any}>();
   private queryParamSubscription: Subscription;
 
 
@@ -54,11 +60,22 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.routeParamsSubject.pipe(
+      debounceTime(300) // Debounce time in milliseconds
+    ).subscribe(paramsToUpdate => {
+      console.log(paramsToUpdate)
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: paramsToUpdate,
+        queryParamsHandling: 'merge'
+      });
+    });
+  }
 
 
   ngOnInit() {
-    this.initializeSearch();
+    this.initializeFormControl();
     this.bindRouteValues();
   }
 
@@ -67,12 +84,10 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
     this.initializeDataSource();
     if (this.paginator) {
       this.paginator.page.subscribe(event => {
-        console.log(event.pageIndex);
-        console.log(event.pageSize)
+        console.log(event.pageIndex)
         this.formGroup.patchValue({
-          pageIndex: event.pageIndex,
-          pageSize: event.pageSize
-        }, { emitEvent: false }); // Avoid emitting an event to prevent a feedback loop
+          [FormControlNames.PAGE]: event.pageIndex,
+        }, { emitEvent: true }); // Avoid emitting an event to prevent a feedback loop
       });
     }
   }
@@ -89,23 +104,34 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
   }
 
   /**
-   * Initialize form group, formcontrol for search query
-   * and subscribe to it's value change
+   * Initialize form group, form controls for search, pagination and page count
+   * create subscriptions for each form control to bind the route and value
    * @private
    */
-  private initializeSearch() {
+  private initializeFormControl() {
     this.initializeFormGroup();
 
-    this.filterSubscription = this.formGroup.get(FormControlNames.FILTER)!.valueChanges.subscribe(value => {
-      this.filterTable(value);
-      this.updateRouteParams({ search: value });
-    });
+    setupDistinctControlSubscription(
+      this.formGroup,
+      FormControlNames.FILTER,
+      (value) => {
+        this.updateRouteParams({search: value}),
+        this.filterTable(value)
+      }
+    )
+
+    setupDistinctControlSubscription(
+      this.formGroup,
+      FormControlNames.PAGE,
+      (value) => this.updateRouteParams({ page: value })
+    )
   }
 
 
   //TODO implement filtering
   filterTable(value: string) {
     this.dataSource.filter = value.trim().toLowerCase();
+    this.paginator.pageIndex = 0;
   }
 
   @HostBinding('style.width') width = '100%'
@@ -136,43 +162,26 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
    * @private
    */
   private bindRouteValues() {
-    this.queryParamSubscription = this.route.queryParams.subscribe(params => {
-      // Get each query parameter or default values
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
       const searchQuery = params['search'] || '';
-      const page = params['page'] || 1;
-      const itemsPerPage = params['itemsPerPage'] || 10;
+      const page = +params['page'] || 0;
 
-      // Compare and set the 'search' query parameter if it's different
-      if (this.formGroup.get(FormControlNames.FILTER)?.value !== searchQuery) {
-        this.formGroup.get(FormControlNames.FILTER)?.setValue(searchQuery, { emitEvent: false });
-      }
-
-      // Compare and set the 'page' query parameter if it's different
-      if (this.formGroup.get(FormControlNames.PAGE)?.value !== +page) {
-        this.formGroup.get(FormControlNames.PAGE)?.setValue(+page, { emitEvent: false });
-      }
-
-      // Compare and set the 'itemsPerPage' query parameter if it's different
-      if (this.formGroup.get(FormControlNames.ITEMS_PER_PAGE)?.value !== +itemsPerPage) {
-        this.formGroup.get(FormControlNames.ITEMS_PER_PAGE)?.setValue(+itemsPerPage, { emitEvent: false });
-      }
+      this.formGroup.patchValue({
+          [FormControlNames.FILTER]: searchQuery,
+          [FormControlNames.PAGE]: page
+        }
+      )
     });
   }
 
-  private updateRouteParams(paramsToUpdate: {[param: string]: any}) {
-    // Update the route params
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: paramsToUpdate,
-      queryParamsHandling: 'merge' // Merge with the existing query params
-    });
+  private updateRouteParams = (paramsToUpdate: {[param: string]: any}) => {
+    this.routeParamsSubject.next(paramsToUpdate);
   }
 
   private initializeFormGroup() {
     this.formGroup = this.fb.group({
-      [FormControlNames.FILTER]: [''],
       [FormControlNames.PAGE]: [1],
-      [FormControlNames.ITEMS_PER_PAGE]: [10]
+      [FormControlNames.FILTER]: ['']
     });
   }
 }
