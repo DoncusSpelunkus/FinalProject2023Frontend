@@ -21,6 +21,10 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { UserManagementPageComponent } from './user-management-page/user-management-page.component';
+import { LogsPageComponent } from './logs-page/logs-page.component';
+import { WarehouseManagementPageComponent } from './warehouse-management-page/warehouse-management-page.component';
+import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -30,6 +34,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         LoginPageComponent,
         CollapsableContainerDirective,
         ManageUsersPageComponent,
+        UserManagementPageComponent,
+        LogsPageComponent,
+        WarehouseManagementPageComponent,
+        ShipmentPageComponent,
     ],
     imports: [
         BrowserModule,
