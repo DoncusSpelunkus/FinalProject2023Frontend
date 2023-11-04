@@ -1,4 +1,5 @@
 export enum FormControlNames {
   PASSWORD = 'PASSWORD',
-  EMAIL = 'EMAIL'
+  EMAIL = 'EMAIL',
+  FILTER = 'FILTER',
 }
