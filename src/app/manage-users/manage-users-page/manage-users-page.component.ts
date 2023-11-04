@@ -5,7 +5,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {debounce, Subscription} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-manage-users-page',
@@ -15,7 +15,10 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
 
   formGroup: FormGroup;
   dataSource = new MatTableDataSource<any>();
-  filterSubscription: Subscription;
+
+
+  private filterSubscription: Subscription;
+  private queryParamSubscription: Subscription;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'lastName','delete','edit'];
@@ -44,8 +47,12 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
     { name: 'Oliver', lastName: 'Lee' },
   ];
 
-  constructor(private fb: FormBuilder,
-              private route: ActivatedRoute) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
 
   ngOnInit() {
     this.initializeSearch();
@@ -113,6 +120,11 @@ export class ManageUsersPageComponent implements OnInit, OnDestroy{
    * @private
    */
   private bindRouteValues() {
-
+    this.queryParamSubscription = this.route.queryParams.subscribe(params => {
+      const searchQuery = params['search'] || '';
+      if (this.formGroup.get(FormControlNames.FILTER)?.value !== searchQuery) {
+        this.formGroup.get(FormControlNames.FILTER)?.setValue(searchQuery); // Prevent the emission of the event
+      }
+    });
   }
 }
