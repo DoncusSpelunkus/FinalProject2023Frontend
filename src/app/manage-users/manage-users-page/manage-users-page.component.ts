@@ -1,10 +1,9 @@
-import {AfterViewInit, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {UserService} from "../../../services/user.service";
+import {AfterViewInit, Component, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
-import {debounce, debounceTime, Subject, Subscription, take} from "rxjs";
+import {debounceTime, Subject, Subscription, take} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {setupDistinctControlSubscription} from "../../../util/subscription-setup";
 
@@ -64,7 +63,6 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
     this.routeParamsSubject.pipe(
       debounceTime(300) // Debounce time in milliseconds
     ).subscribe(paramsToUpdate => {
-      console.log(paramsToUpdate)
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: paramsToUpdate,
@@ -84,7 +82,6 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
     this.initializeDataSource();
     if (this.paginator) {
       this.paginator.page.subscribe(event => {
-        console.log(event.pageIndex)
         this.formGroup.patchValue({
           [FormControlNames.PAGE]: event.pageIndex,
         }, { emitEvent: true }); // Avoid emitting an event to prevent a feedback loop
@@ -115,7 +112,7 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
       this.formGroup,
       FormControlNames.FILTER,
       (value) => {
-        this.updateRouteParams({search: value}),
+        this.updateRouteParams({search: value});
         this.filterTable(value)
       }
     )
@@ -124,7 +121,7 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
       this.formGroup,
       FormControlNames.PAGE,
       (value) => {
-        this.updateRouteParams({ page: value }),
+        this.updateRouteParams({ page: value });
         this.paginator.pageIndex = value;
       }
     )
@@ -174,7 +171,6 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
           [FormControlNames.PAGE]: page
         }, {emitEvent: true}
       )
-      console.log(page)
     });
   }
 
@@ -184,7 +180,7 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
 
   private initializeFormGroup() {
     this.formGroup = this.fb.group({
-      [FormControlNames.PAGE]: [1],
+      [FormControlNames.PAGE]: [0],
       [FormControlNames.FILTER]: ['']
     });
   }
