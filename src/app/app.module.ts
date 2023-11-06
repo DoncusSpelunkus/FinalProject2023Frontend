@@ -23,6 +23,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LogsPageComponent } from './logs-page/logs-page.component';
 import { WarehouseManagementPageComponent } from './warehouse-management-page/warehouse-management-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
+import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -34,6 +35,7 @@ import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
         LogsPageComponent,
         WarehouseManagementPageComponent,
         ShipmentPageComponent,
+        DashboardButtonComponent,
     ],
     imports: [
         BrowserModule,
