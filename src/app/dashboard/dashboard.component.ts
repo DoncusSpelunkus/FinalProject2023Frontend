@@ -92,18 +92,24 @@ export class DashboardComponent implements OnInit, AfterViewInit{
     })
   }
 
-  superAdminActions: ButtonConfig[] = [];
-  adminActions: ButtonConfig[] = [
+  superAdminConfig: ButtonConfig[] = [
+    inventoryButtonConfig,
+    productsButtonConfig
+  ];
+  adminConfig: ButtonConfig[] = [
     usersButtonConfig,
     inventoryButtonConfig,
     productsButtonConfig
   ]
-  userActions: ButtonConfig[] = [
+  userConfig: ButtonConfig[] = [
     usersButtonConfig,
     inventoryButtonConfig,
     productsButtonConfig
   ];
-  publicActions: ButtonConfig[];
+  publicConfig: ButtonConfig[] = [
+    inventoryButtonConfig,
+    productsButtonConfig
+  ];
 }
 
 export enum ActionTemplates {

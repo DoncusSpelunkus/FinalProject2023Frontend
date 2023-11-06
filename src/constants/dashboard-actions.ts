@@ -3,8 +3,7 @@ import {ButtonConfig} from "../app/dashboard/services/dashboard-communication.se
 export const usersButtonConfig: ButtonConfig = {
   identity: "USERS",
   displayValue: 'Users',
-  routeLink: 'userManagement',
-  childrenActions: [] // Empty as there are no children actions
+  routeLink: 'userManagement'
 };
 
 export const productsButtonConfig: ButtonConfig = {

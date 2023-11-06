@@ -82,28 +82,28 @@
 
 <!--  SUPER ADMIN ACTIONS  -->
 <ng-template #superAdminActions>
-  <app-dashboard-button *ngFor="let button of superAdminActions" [buttonConfig]="button">
-
-  </app-dashboard-button>
+  <ng-container *ngFor="let button of superAdminConfig">
+    <app-dashboard-button [buttonConfig]="button"></app-dashboard-button>
+  </ng-container>
 </ng-template>
 
 <!--  ADMIN ACTIONS  -->
 <ng-template #adminActions>
-  <app-dashboard-button *ngFor="let button of adminActions" [buttonConfig]="button">
-
-  </app-dashboard-button>
+  <ng-container *ngFor="let button of adminConfig">
+    <app-dashboard-button [buttonConfig]="button"></app-dashboard-button>
+  </ng-container>
 </ng-template>
 
 <!--  USER ACTIONS  -->
 <ng-template #userActions>
-  <app-dashboard-button *ngFor="let button of userActions" [buttonConfig]="button">
-
-  </app-dashboard-button>
+  <ng-container *ngFor="let button of userConfig">
+    <app-dashboard-button [buttonConfig]="button"></app-dashboard-button>
+  </ng-container>
 </ng-template>
 
 <!--  PUBLIC ACTIONS  -->
 <ng-template #publicActions>
-  <app-dashboard-button *ngFor="let button of publicActions" [buttonConfig]="button">
-
-  </app-dashboard-button>
+  <ng-container *ngFor="let button of publicConfig">
+    <app-dashboard-button [buttonConfig]="button"></app-dashboard-button>
+  </ng-container>
 </ng-template>
