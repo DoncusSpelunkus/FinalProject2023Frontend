@@ -11,7 +11,7 @@ export interface ButtonConfig {
   identity: ButtonIdentity,
   displayValue: string;
   routeLink: string;
-  childrenActions: ChildrenAction[];
+  childrenActions?: ChildrenAction[];
 }
 
 @Injectable({
@@ -25,7 +25,7 @@ export class DashboardCommunicationService {
   private extendedActionClick = new BehaviorSubject<null | symbol>(null);
   extendedActionClick$ = this.extendedActionClick.asObservable();
 
-  updateButtonConfig(config: ButtonConfig) {
+  updateButtonConfig(config: ButtonConfig | null) {
     this.buttonConfigSubject.next(config);
   }
 

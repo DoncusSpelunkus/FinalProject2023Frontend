@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, HostBinding, OnInit, signal, TemplateRef, ViewChild} from '@angular/core';
 import {ButtonConfig, DashboardCommunicationService} from "./services/dashboard-communication.service";
 import {identity, Subscription} from "rxjs";
+import {inventoryButtonConfig, productsButtonConfig, usersButtonConfig} from "../../constants/dashboard-actions";
 
 @Component({
   selector: 'app-dashboard',
@@ -91,42 +92,18 @@ export class DashboardComponent implements OnInit, AfterViewInit{
     })
   }
 
-  adminButtons: ButtonConfig[] = [
-    {
-      identity: "USERS",
-      displayValue: 'users',
-      routeLink: '',
-      childrenActions: [
-        {
-          actionLink:'link',
-          actionName:'MANAGE'
-        },
-        {
-          actionLink:'link',
-          actionName:'BAN'
-        }
-      ]
-    },
-    {
-      identity: "PRODUCTS",
-      displayValue: 'products',
-      routeLink: '',
-      childrenActions: [
-        {
-          actionLink:'link',
-          actionName:'MANAGE'
-        },
-        {
-          actionLink:'link',
-          actionName:'BAN'
-        },
-        {
-          actionLink:'link',
-          actionName:'BAN'
-        }
-      ]
-    }
+  superAdminActions: ButtonConfig[] = [];
+  adminActions: ButtonConfig[] = [
+    usersButtonConfig,
+    inventoryButtonConfig,
+    productsButtonConfig
   ]
+  userActions: ButtonConfig[] = [
+    usersButtonConfig,
+    inventoryButtonConfig,
+    productsButtonConfig
+  ];
+  publicActions: ButtonConfig[];
 }
 
 export enum ActionTemplates {

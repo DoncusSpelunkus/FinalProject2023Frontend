@@ -1,6 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ButtonConfig, DashboardCommunicationService} from "../../../services/dashboard-communication.service";
 import {Subscription} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard-button',
@@ -13,7 +14,9 @@ export class DashboardButtonComponent implements OnInit, OnDestroy{
 
   private buttonSelectionSubscription: Subscription;
 
-  constructor(public communicationService:DashboardCommunicationService) { }
+  constructor(public communicationService:DashboardCommunicationService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.setupSubscriptions();
@@ -38,5 +41,19 @@ export class DashboardButtonComponent implements OnInit, OnDestroy{
     if (this.buttonSelectionSubscription) {
       this.buttonSelectionSubscription.unsubscribe();
     }
+  }
+
+  handleClick() {
+    if (this.buttonConfig.childrenActions) {
+      this.communicationService.updateButtonConfig(this.buttonConfig);
+    } else {
+      this.communicationService.updateButtonConfig(null);
+      this.communicationService.emitExtendedActionClick();
+      this.handleNavigate();
+    }
+  }
+
+  private handleNavigate() {
+    this.router.navigateByUrl(this.buttonConfig.routeLink);
   }
 }

@@ -60,7 +60,7 @@
         </div>
 
         <!--   EXTENDED ACTIONS   -->
-        <div class="flex flex-row justify-center">
+        <div class="flex flex-row justify-center space-x-3">
           <ng-container *ngIf="selectedAction">
             <app-extended-actions *ngFor="let subAction of selectedAction.childrenActions"
                                   [config]="subAction">
@@ -82,24 +82,28 @@
 
 <!--  SUPER ADMIN ACTIONS  -->
 <ng-template #superAdminActions>
-  <!-- About Us button -->
-<!--  <app-dashboard-button></app-dashboard-button>-->
+  <app-dashboard-button *ngFor="let button of superAdminActions" [buttonConfig]="button">
 
+  </app-dashboard-button>
 </ng-template>
 
 <!--  ADMIN ACTIONS  -->
 <ng-template #adminActions>
-  <app-dashboard-button *ngFor="let button of adminButtons" [buttonConfig]="button">
+  <app-dashboard-button *ngFor="let button of adminActions" [buttonConfig]="button">
 
   </app-dashboard-button>
 </ng-template>
 
 <!--  USER ACTIONS  -->
 <ng-template #userActions>
-<!--  <app-dashboard-button></app-dashboard-button>-->
+  <app-dashboard-button *ngFor="let button of userActions" [buttonConfig]="button">
+
+  </app-dashboard-button>
 </ng-template>
 
 <!--  PUBLIC ACTIONS  -->
 <ng-template #publicActions>
-<!--  <app-dashboard-button></app-dashboard-button>-->
+  <app-dashboard-button *ngFor="let button of publicActions" [buttonConfig]="button">
+
+  </app-dashboard-button>
 </ng-template>
