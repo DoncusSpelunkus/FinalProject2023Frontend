@@ -24,6 +24,7 @@ import { LogsPageComponent } from './logs-page/logs-page.component';
 import { WarehouseManagementPageComponent } from './warehouse-management-page/warehouse-management-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
+import {MatRippleModule} from "@angular/material/core";
 @NgModule({
     declarations: [
         AppComponent,
@@ -37,23 +38,24 @@ import { DashboardButtonComponent } from './dashboard/component-modules/dashboar
         ShipmentPageComponent,
         DashboardButtonComponent,
     ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatIconModule,
-        CommonModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatProgressSpinnerModule,
-        BrowserAnimationsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    CommonModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule,
+    MatRippleModule
+  ],
   providers: [MatSnackBar],
   bootstrap: [AppComponent]
 })

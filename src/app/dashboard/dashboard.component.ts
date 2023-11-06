@@ -1,10 +1,12 @@
 import {AfterViewInit, Component, HostBinding, OnInit, signal, TemplateRef, ViewChild} from '@angular/core';
+import {ButtonConfig, DashboardCommunicationService} from "./services/dashboard-communication.service";
+import {identity} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements AfterViewInit{
+export class DashboardComponent implements OnInit, AfterViewInit{
 
   currentActionsTemplate: TemplateRef<any>;
 
@@ -17,7 +19,11 @@ export class DashboardComponent implements AfterViewInit{
 
   userRole: any;
 
-  constructor() {
+  constructor(private communicationService:DashboardCommunicationService) {
+  }
+
+  ngOnInit(): void {
+    this.setupSubscriptions();
   }
 
   ngAfterViewInit(): void {
@@ -34,6 +40,7 @@ export class DashboardComponent implements AfterViewInit{
   }
 
   @HostBinding('style.width') width = '100%';
+
 
   private getUserRole() {
     return ActionTemplates.Admin;
@@ -58,6 +65,51 @@ export class DashboardComponent implements AfterViewInit{
         this.currentActionsTemplate = this.publicActionsTemplate;
     }
   }
+
+  /**
+   * This method sets up the subscription to the dashboard communication
+   * service
+   * we start tracking the currently selected dashboard action
+   * to properly keep them selected, to display children actions
+   * and to manage it across the application
+   * @private
+   */
+  private setupSubscriptions() {
+
+  }
+
+  adminButtons: ButtonConfig[] = [
+    {
+      identity: "USERS",
+      displayValue: 'users',
+      routeLink: '',
+      childrenActions: [
+        {
+          actionLink:'link',
+          actionName:'MANAGE'
+        },
+        {
+          actionLink:'link',
+          actionName:'BAN'
+        }
+      ]
+    },
+    {
+      identity: "PRODUCTS",
+      displayValue: 'products',
+      routeLink: '',
+      childrenActions: [
+        {
+          actionLink:'link',
+          actionName:'MANAGE'
+        },
+        {
+          actionLink:'link',
+          actionName:'BAN'
+        }
+      ]
+    }
+  ]
 }
 
 export enum ActionTemplates {

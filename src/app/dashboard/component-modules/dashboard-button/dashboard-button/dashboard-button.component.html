@@ -1,1 +1,5 @@
-<p>dashboard-button works!</p>
+<button matRipple class="!text-white uppercase
+  {{isSelected ? 'bg-green-900' : ''}}"
+  (click)="communicationService?.updateButtonConfig(buttonConfig)">
+  {{buttonConfig.displayValue}}
+</button>

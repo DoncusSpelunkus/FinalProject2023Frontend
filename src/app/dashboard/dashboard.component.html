@@ -77,34 +77,23 @@
 <!--  SUPER ADMIN ACTIONS  -->
 <ng-template #superAdminActions>
   <!-- About Us button -->
-  <button class="!text-white uppercase" mat-button>manage users</button>
+<!--  <app-dashboard-button></app-dashboard-button>-->
 
 </ng-template>
 
 <!--  ADMIN ACTIONS  -->
 <ng-template #adminActions>
-  <!-- About Us button -->
-  <button class="!text-white uppercase" mat-button>manage users</button>
+  <app-dashboard-button *ngFor="let button of adminButtons" [buttonConfig]="button">
 
-  <!-- Contact Us button -->
-  <button class="!text-white uppercase" mat-button>admin</button>
+  </app-dashboard-button>
 </ng-template>
 
 <!--  USER ACTIONS  -->
 <ng-template #userActions>
-  <!-- About Us button -->
-  <button class="!text-white uppercase" mat-button>user</button>
-
-  <!-- Contact Us button -->
-  <button class="!text-white uppercase" mat-button>user</button>
+<!--  <app-dashboard-button></app-dashboard-button>-->
 </ng-template>
 
 <!--  PUBLIC ACTIONS  -->
 <ng-template #publicActions>
-  <!-- About Us button -->
-  <button class="!text-white uppercase" mat-button>About Us</button>
-
-  <!-- Contact Us button -->
-  <button class="!text-white uppercase" mat-button>Contact Us</button>
-
+<!--  <app-dashboard-button></app-dashboard-button>-->
 </ng-template>
