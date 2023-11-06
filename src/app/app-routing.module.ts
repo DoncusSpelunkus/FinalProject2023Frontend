@@ -9,14 +9,11 @@ import {WarehouseManagementPageComponent} from "./warehouse-management-page/ware
 import {ShipmentPageComponent} from "./shipment-page/shipment-page.component";
 
 const routes: Routes = [
-  { path: 'login', component:  LoginPageComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' },
-  { path: "userManagement", component: ManageUsersPageComponent, canActivate: [AdminGuardService] },
-  { path: "logs", component: LogsPageComponent, canActivate: [AdminGuardService] },
-  { path: "warehouse", component: WarehouseManagementPageComponent},
-  { path: "shipment", component: ShipmentPageComponent, canActivate: [SalesGuardService] },
-
+ { path: 'login', component:  LoginPageComponent},
+ { path: "userManagement", component: ManageUsersPageComponent},
+ { path: "logs", component: LogsPageComponent, canActivate: [AdminGuardService]},
+ { path: "warehouse", component: WarehouseManagementPageComponent},
+ { path: "shipment", component: ShipmentPageComponent, canActivate: [SalesGuardService]},
 ];
 
 @NgModule({

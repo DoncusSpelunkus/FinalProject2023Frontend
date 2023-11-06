@@ -24,6 +24,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LogsPageComponent } from './logs-page/logs-page.component';
 import { WarehouseManagementPageComponent } from './warehouse-management-page/warehouse-management-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
+import { ActivityService } from 'src/services/activityService';
 @NgModule({
     declarations: [
         AppComponent,
@@ -54,7 +55,7 @@ import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
         MatProgressSpinnerModule,
         BrowserAnimationsModule
     ],
-  providers: [MatSnackBar],
+  providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
