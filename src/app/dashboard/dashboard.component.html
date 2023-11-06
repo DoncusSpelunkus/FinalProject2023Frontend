@@ -60,7 +60,8 @@
         </div>
 
         <!--   EXTENDED ACTIONS   -->
-        <div class="flex flex-row justify-center space-x-3">
+        <div class="flex flex-row justify-center space-x-3 transition-all max-w-full overflow-clip duration-500 w-0 delay-500 ease-linear"
+          [class.!w-96]="isExpanded">
           <ng-container *ngIf="selectedAction">
             <app-extended-actions *ngFor="let subAction of selectedAction.childrenActions"
                                   [config]="subAction">

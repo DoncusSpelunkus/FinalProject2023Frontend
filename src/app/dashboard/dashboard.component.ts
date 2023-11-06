@@ -44,9 +44,6 @@ export class DashboardComponent implements OnInit, AfterViewInit{
     this.isExpanded = false;
   }
 
-  @HostBinding('style.width') width = '100%';
-
-
   private getUserRole() {
     return ActionTemplates.Admin;
   }
@@ -110,6 +107,8 @@ export class DashboardComponent implements OnInit, AfterViewInit{
     inventoryButtonConfig,
     productsButtonConfig
   ];
+
+  @HostBinding('style.width') width = '100%';
 }
 
 export enum ActionTemplates {
