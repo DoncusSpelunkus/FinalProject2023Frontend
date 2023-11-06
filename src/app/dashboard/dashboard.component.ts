@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, HostBinding, OnInit, signal, TemplateRef, ViewChild} from '@angular/core';
 import {ButtonConfig, DashboardCommunicationService} from "./services/dashboard-communication.service";
-import {identity} from "rxjs";
+import {identity, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,10 +16,14 @@ export class DashboardComponent implements OnInit, AfterViewInit{
   @ViewChild('userActions') userActionsTemplate: TemplateRef<any>;
 
   isExpanded = false;
+  selectedAction: ButtonConfig | null;
 
   userRole: any;
 
-  constructor(private communicationService:DashboardCommunicationService) {
+  private actionSelectionSubscription: Subscription;
+  private extendedActionClickSubscription: Subscription;
+
+  constructor(public communicationService:DashboardCommunicationService) {
   }
 
   ngOnInit(): void {
@@ -75,7 +79,16 @@ export class DashboardComponent implements OnInit, AfterViewInit{
    * @private
    */
   private setupSubscriptions() {
+    this.actionSelectionSubscription = this.communicationService.buttonConfig$.subscribe(selectedAction => {
+      this.selectedAction = selectedAction;
+      if (selectedAction?.childrenActions) {
+        this.extendNavigation();
+      }
+    })
 
+    this.extendedActionClickSubscription = this.communicationService.extendedActionClick$.subscribe(() => {
+      this.collapseNavigation();
+    })
   }
 
   adminButtons: ButtonConfig[] = [
@@ -102,6 +115,10 @@ export class DashboardComponent implements OnInit, AfterViewInit{
         {
           actionLink:'link',
           actionName:'MANAGE'
+        },
+        {
+          actionLink:'link',
+          actionName:'BAN'
         },
         {
           actionLink:'link',

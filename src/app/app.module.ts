@@ -25,6 +25,7 @@ import { WarehouseManagementPageComponent } from './warehouse-management-page/wa
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
 import {MatRippleModule} from "@angular/material/core";
+import { ExtendedActionsComponent } from './dashboard/component-modules/dashboard-button/extended-actions/extended-actions.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -37,6 +38,7 @@ import {MatRippleModule} from "@angular/material/core";
         WarehouseManagementPageComponent,
         ShipmentPageComponent,
         DashboardButtonComponent,
+        ExtendedActionsComponent,
     ],
   imports: [
     BrowserModule,

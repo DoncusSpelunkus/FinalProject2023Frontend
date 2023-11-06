@@ -22,7 +22,14 @@ export class DashboardCommunicationService {
   private buttonConfigSubject = new BehaviorSubject<ButtonConfig | null>(null);
   buttonConfig$ = this.buttonConfigSubject.asObservable();
 
+  private extendedActionClick = new BehaviorSubject<null | symbol>(null);
+  extendedActionClick$ = this.extendedActionClick.asObservable();
+
   updateButtonConfig(config: ButtonConfig) {
     this.buttonConfigSubject.next(config);
+  }
+
+  emitExtendedActionClick() {
+    this.extendedActionClick.next(null);
   }
 }
