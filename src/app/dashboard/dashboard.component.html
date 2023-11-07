@@ -23,9 +23,9 @@
       </div>
 
       <!--  NAVIGATION  -->
-      <div class="flex w-fit items-center flex-row justify-center"
+      <div class="flex w-fit items-center flex-row justify-center space-x-4"
         (click)="$event.stopPropagation()">
-        <ng-container *ngTemplateOutlet="publicActions"></ng-container>
+        <ng-container *ngTemplateOutlet="currentActionsTemplate"></ng-container>
       </div>
 
       <!--  USER ACTIONS  -->
@@ -60,7 +60,14 @@
         </div>
 
         <!--   EXTENDED ACTIONS   -->
-        <div></div>
+        <div class="flex flex-row justify-center space-x-3 transition-all max-w-full overflow-clip duration-500 w-0 delay-500 ease-linear"
+          [class.!w-96]="isExpanded">
+          <ng-container *ngIf="selectedAction">
+            <app-extended-actions *ngFor="let subAction of selectedAction.childrenActions"
+                                  [config]="subAction">
+            </app-extended-actions>
+          </ng-container>
+        </div>
 
         <!--   COLLAPSE BTN   -->
         <div class="flex items-center justify-center">
@@ -75,20 +82,29 @@
 </div>
 
 <!--  SUPER ADMIN ACTIONS  -->
-<ng-template #superAdminActions></ng-template>
+<ng-template #superAdminActions>
+  <ng-container *ngFor="let button of superAdminConfig">
+    <app-dashboard-button [buttonConfig]="button"></app-dashboard-button>
+  </ng-container>
+</ng-template>
 
 <!--  ADMIN ACTIONS  -->
-<ng-template #adminActions></ng-template>
+<ng-template #adminActions>
+  <ng-container *ngFor="let button of adminConfig">
+    <app-dashboard-button [buttonConfig]="button"></app-dashboard-button>
+  </ng-container>
+</ng-template>
 
 <!--  USER ACTIONS  -->
-<ng-template #userActions></ng-template>
+<ng-template #userActions>
+  <ng-container *ngFor="let button of userConfig">
+    <app-dashboard-button [buttonConfig]="button"></app-dashboard-button>
+  </ng-container>
+</ng-template>
 
 <!--  PUBLIC ACTIONS  -->
 <ng-template #publicActions>
-  <!-- About Us button -->
-  <button class="!text-white uppercase" mat-button>About Us</button>
-
-  <!-- Contact Us button -->
-  <button class="!text-white uppercase" mat-button>Contact Us</button>
-
+  <ng-container *ngFor="let button of publicConfig">
+    <app-dashboard-button [buttonConfig]="button"></app-dashboard-button>
+  </ng-container>
 </ng-template>

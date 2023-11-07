@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login-page/component-modules/login-form/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TopnavComponent } from './dashboard/topnav/topnav.component';
 import {MatSnackBar} from "@angular/material/snack-bar"
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -25,18 +24,23 @@ import { LogsPageComponent } from './logs-page/logs-page.component';
 import { WarehouseManagementPageComponent } from './warehouse-management-page/warehouse-management-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 import { ActivityService } from 'src/services/activityService';
+import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
+import {MatRippleModule} from "@angular/material/core";
+import { ExtendedActionsComponent } from './dashboard/component-modules/dashboard-button/extended-actions/extended-actions.component';
+
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
         DashboardComponent,
-        TopnavComponent,
         LoginPageComponent,
         CollapsableContainerDirective,
         ManageUsersPageComponent,
         LogsPageComponent,
         WarehouseManagementPageComponent,
         ShipmentPageComponent,
+        DashboardButtonComponent,
+        ExtendedActionsComponent,
     ],
     imports: [
         BrowserModule,
@@ -53,7 +57,8 @@ import { ActivityService } from 'src/services/activityService';
         MatSortModule,
         MatPaginatorModule,
         MatProgressSpinnerModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MatRippleModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

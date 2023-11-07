@@ -1,9 +1,10 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormControlNames } from "../../../../constants/input-field-constants";
-import { emailValidator, getErrorMessage, valueRequired } from "../../../../util/validators/form-control-validators";
-import { LoginServiceService } from "../../../../services/login-service.service";
+import {Component, HostBinding, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControlNames} from "../../../../constants/input-field-constants";
+import {emailValidator, getErrorMessage, valueRequired} from "../../../../util/form-control-validators";
+import {LoginServiceService} from "../../../../services/login-service.service";
 import { UserService } from 'src/services/user.service';
+
 
 @Component({
   selector: 'app-login',
