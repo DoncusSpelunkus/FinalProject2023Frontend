@@ -26,6 +26,8 @@ import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
 import {MatRippleModule} from "@angular/material/core";
 import { ExtendedActionsComponent } from './dashboard/component-modules/dashboard-button/extended-actions/extended-actions.component';
+import { DynamicDialogComponent } from './util/dynamic-dialog/dynamic-dialog.component';
+import { CreateUserComponent } from './manage-users/create-user/create-user.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -39,6 +41,8 @@ import { ExtendedActionsComponent } from './dashboard/component-modules/dashboar
         ShipmentPageComponent,
         DashboardButtonComponent,
         ExtendedActionsComponent,
+        DynamicDialogComponent,
+        CreateUserComponent,
     ],
   imports: [
     BrowserModule,
