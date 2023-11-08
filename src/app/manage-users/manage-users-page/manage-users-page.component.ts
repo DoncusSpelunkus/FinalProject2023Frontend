@@ -6,6 +6,9 @@ import {FormControlNames} from "../../../constants/input-field-constants";
 import {debounceTime, Subject, Subscription, take} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {setupDistinctControlSubscription} from "../../../util/subscription-setup";
+import {MatDialog} from "@angular/material/dialog";
+import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
+import {CreateUserComponent} from "../create-user/create-user.component";
 
 @Component({
   selector: 'app-manage-users-page',
@@ -58,7 +61,8 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.routeParamsSubject.pipe(
       debounceTime(300) // Debounce time in milliseconds
@@ -182,6 +186,17 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
     this.formGroup = this.fb.group({
       [FormControlNames.PAGE]: [0],
       [FormControlNames.FILTER]: ['']
+    });
+  }
+
+  openCreateUserDialog() {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '60%', // Set the height
+      data: {
+        component: CreateUserComponent,
+        inputs: {} // No dependent data to pass
+      }
     });
   }
 }

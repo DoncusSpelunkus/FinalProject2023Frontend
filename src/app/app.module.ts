@@ -28,6 +28,7 @@ import {MatRippleModule} from "@angular/material/core";
 import { ExtendedActionsComponent } from './dashboard/component-modules/dashboard-button/extended-actions/extended-actions.component';
 import { DynamicDialogComponent } from './util/dynamic-dialog/dynamic-dialog.component';
 import { CreateUserComponent } from './manage-users/create-user/create-user.component';
+import {MatDialogModule} from "@angular/material/dialog";
 @NgModule({
     declarations: [
         AppComponent,
@@ -60,7 +61,8 @@ import { CreateUserComponent } from './manage-users/create-user/create-user.comp
     MatPaginatorModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
-    MatRippleModule
+    MatRippleModule,
+    MatDialogModule
   ],
   providers: [MatSnackBar],
   bootstrap: [AppComponent]

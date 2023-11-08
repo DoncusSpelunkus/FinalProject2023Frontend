@@ -1,4 +1,4 @@
-import {Component, ComponentRef, Inject, OnInit, Type, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, ComponentRef, Inject, OnInit, Type, ViewChild, ViewContainerRef} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
 
@@ -6,8 +6,8 @@ import {LoadableComponent} from "../../../interfaces/component-interfaces";
   selector: 'app-dynamic-dialog',
   templateUrl: './dynamic-dialog.component.html'
 })
-export class DynamicDialogComponent implements OnInit {
-  @ViewChild('dynamicContent', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
+export class DynamicDialogComponent implements AfterViewInit {
+  @ViewChild('dynamicContent', { read: ViewContainerRef,static: false }) viewContainerRef: ViewContainerRef;
 
   componentRef: ComponentRef<LoadableComponent>;
 
@@ -16,24 +16,18 @@ export class DynamicDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { component: Type<any>, inputs: any }
   ) {}
 
-  ngOnInit() {
-    const componentRef = this.viewContainerRef.createComponent<LoadableComponent>(this.data.component);
-    this.componentRef = componentRef;
+  ngAfterViewInit(): void {
+    this.componentRef = this.viewContainerRef.createComponent<LoadableComponent>(this.data.component);
 
-    // Assign input data to the dynamically loaded component
-    Object.assign(componentRef.instance, this.data.inputs);
-
-    this.componentRef.instance.submit.subscribe(data => this.onSubmit(data));
-    this.componentRef.instance.cancel.subscribe(() => this.onCancel());
+    // Set data
+    this.componentRef.instance.setData(this.data.inputs);
   }
 
-  private onSubmit(data: any) {
-    // Handle submit logic
-    this.dialogRef.close(data);
+  onSubmit() {
+    this.dialogRef.close();
   }
 
-  private onCancel() {
-    // Handle cancel logic
+  onCancel() {
     this.dialogRef.close();
   }
 }
