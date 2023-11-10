@@ -15,12 +15,12 @@
 </ng-template>
 
 <ng-template #tableFilter>
-<!--  <mat-form-field [formGroup]="formGroup" appearance="outline" class="w-56">-->
-<!--    <input matInput type="text" placeholder="Type to filter..." [formControlName]="FormControlNames.FILTER">-->
-<!--    <button mat-icon-button matSuffix *ngIf="filterValue" (click)="clearFilterValue()">-->
-<!--      <mat-icon>close</mat-icon>-->
-<!--    </button>-->
-<!--    <mat-icon matPrefix *ngIf="!filterValue">search</mat-icon>-->
-<!--  </mat-form-field>-->
+  <mat-form-field [formGroup]="formGroup" appearance="outline" class="w-56">
+    <input matInput type="text" placeholder="Type to filter..." [formControlName]="FormControlNames.FILTER">
+    <button mat-icon-button matSuffix *ngIf="filterValue" (click)="clearFilterValue()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-icon matPrefix *ngIf="!filterValue">search</mat-icon>
+  </mat-form-field>
 </ng-template>
 
