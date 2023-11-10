@@ -21,7 +21,6 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LogsPageComponent } from './logs-page/logs-page.component';
-import { WarehouseManagementPageComponent } from './warehouse-management-page/warehouse-management-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
 import {MatRippleModule} from "@angular/material/core";
@@ -30,6 +29,7 @@ import { DynamicDialogComponent } from './util/dynamic-dialog/dynamic-dialog.com
 import { CreateUserComponent } from './manage-users/create-user/create-user.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { InventoryPageComponent } from './inventory-page/inventory-page.component';
+import { StockProductComponent } from './inventory-page/stock-product/stock-product/stock-product.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -39,13 +39,13 @@ import { InventoryPageComponent } from './inventory-page/inventory-page.componen
         CollapsableContainerDirective,
         ManageUsersPageComponent,
         LogsPageComponent,
-        WarehouseManagementPageComponent,
         ShipmentPageComponent,
         DashboardButtonComponent,
         ExtendedActionsComponent,
         DynamicDialogComponent,
         CreateUserComponent,
         InventoryPageComponent,
+        StockProductComponent,
     ],
   imports: [
     BrowserModule,

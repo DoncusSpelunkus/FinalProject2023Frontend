@@ -10,6 +10,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
 import {CreateUserComponent} from "../create-user/create-user.component";
 
+
+//TODO clean up subscriptions, iplement loading and actions in table
 @Component({
   selector: 'app-manage-users-page',
   templateUrl: './manage-users-page.component.html'
