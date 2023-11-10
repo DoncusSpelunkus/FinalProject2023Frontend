@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'login', component:  LoginPageComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: "userManagement", component: ManageUsersPageComponent},
+  { path: "inventory", component: InventoryPageComponent},
   { path: "logs", component: LogsPageComponent },
   { path: "shipment", component: ShipmentPageComponent, canActivate: [SalesGuardService] },
 

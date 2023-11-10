@@ -30,6 +30,7 @@ import { CreateUserComponent } from './manage-users/create-user/create-user.comp
 import {MatDialogModule} from "@angular/material/dialog";
 import { InventoryPageComponent } from './inventory-page/inventory-page.component';
 import { StockProductComponent } from './inventory-page/stock-product/stock-product/stock-product.component';
+import { IconComponent } from './util/icon/icon.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -46,6 +47,7 @@ import { StockProductComponent } from './inventory-page/stock-product/stock-prod
         CreateUserComponent,
         InventoryPageComponent,
         StockProductComponent,
+        IconComponent,
     ],
   imports: [
     BrowserModule,
