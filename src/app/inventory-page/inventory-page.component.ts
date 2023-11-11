@@ -18,12 +18,15 @@ export class InventoryPageComponent implements OnInit, AfterViewInit{
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  ExpandedRowType = ExpandedRowType;
   FormControlNames = FormControlNames;
   displayedColumns = ['Product name','Location','Relocate','Adjust quantity'];
 
   formGroup: FormGroup;
   dataSource = new MatTableDataSource<any>();
-
+  isExpandedRow = (productLocationIndex: number) => {
+    return this.dataSource.data[productLocationIndex].isExpanded;
+  }/* your condition to identify the row */;
   constructor(
     private dialog: MatDialog,
     private formBuilder: FormBuilder) {
@@ -71,6 +74,19 @@ export class InventoryPageComponent implements OnInit, AfterViewInit{
     this.dataSource.data = productLocations;
     this.dataSource.paginator = this.paginator;
   }
+
+  toggleRow(productLocation: any, rowType: ExpandedRowType) {
+    if (productLocation.expandedRow === rowType) {
+      productLocation.expandedRow = undefined;
+    } else {
+      productLocation.expandedRow = rowType;
+    }
+  }
+}
+
+export enum ExpandedRowType {
+  RELOCATE = "RELOCATE",
+  QUANTITY = "QUANTITY"
 }
 
 const productLocations: ProductLocationDisplayed[] = [
@@ -100,6 +116,6 @@ const productLocations: ProductLocationDisplayed[] = [
     Quantity: 30,
     LastUpdated: new Date("2023-10-01"),
     WarehouseId: 210,
-    ProductName: "Product J"
+    ProductName: "Product J",
   }
 ];

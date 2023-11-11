@@ -7,39 +7,64 @@
   </section>
 
   <div class="w-full h-fit">
-    <table mat-table [dataSource]="dataSource" class="font-quicksand">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="font-quicksand">
 
       <!--   PRODUCT NAME COLUMN   -->
       <ng-container matColumnDef="Product name">
         <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Product name</th>
-        <td mat-cell *matCellDef="let productLocation"> {{productLocation.name}}</td>
+        <td mat-cell *matCellDef="let productLocation"> {{productLocation.ProductName}}</td>
       </ng-container>
 
 
-      <!--   PRODUCT NAME COLUMN   -->
+      <!--   PRODUCT LOCATION COLUMN   -->
       <ng-container matColumnDef="Location">
         <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Location</th>
-        <td mat-cell *matCellDef="let productLocation"> {{productLocation.name}}</td>
+        <td mat-cell *matCellDef="let productLocation"> {{productLocation.LocationId}}</td>
       </ng-container>
 
 
-      <!--   PRODUCT NAME COLUMN   -->
+      <!--   RELOCATE COLUMN   -->
       <ng-container matColumnDef="Relocate">
-        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Relocate</th>
-        <td mat-cell *matCellDef="let productLocation"> {{productLocation.name}}</td>
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center">Relocate</span>
+        </th>
+        <td mat-cell *matCellDef="let productLocation">
+          <div class="w-full h-full flex justify-center">
+            <app-icon class="p-2 rounded-md bg-green-800 text-white text-xl" icon="expand-arrows"
+              (click)="toggleRow(productLocation,ExpandedRowType.RELOCATE)">
+            </app-icon>
+          </div>
+        </td>
       </ng-container>
 
 
-      <!--   PRODUCT NAME COLUMN   -->
+      <!--   QUANTITY COLUMN   -->
       <ng-container matColumnDef="Adjust quantity">
-        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Adjust quantity</th>
-        <td mat-cell *matCellDef="let productLocation"> {{productLocation.name}}</td>
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center">Adjust quantity</span>
+        </th>
+        <td mat-cell *matCellDef="let productLocation">
+          <div class="w-full h-full flex justify-center">
+            <app-icon class="p-2 rounded-md bg-blue-700 text-white text-xl" icon="arrow-break"
+              (click)="toggleRow(productLocation,ExpandedRowType.QUANTITY)">
+            </app-icon>
+          </div>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Expanded row">
+        <td mat-cell *matCellDef="let productLocation" [colSpan]="displayedColumns.length">
+          <app-relocate-product-row *ngIf="productLocation.expandedRow === ExpandedRowType.RELOCATE"></app-relocate-product-row>
+          <app-update-quantity-row *ngIf="productLocation.expandedRow === ExpandedRowType.QUANTITY"></app-update-quantity-row>
+        </td>
       </ng-container>
 
 
       <!--   Column definitions   -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let productLocation; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['Expanded row'];" class="!h-0"></tr>
 
 
     </table>
