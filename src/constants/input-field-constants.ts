@@ -4,4 +4,9 @@ export enum FormControlNames {
   FILTER = 'FILTER',
   PAGE = 'PAGE_INDEX',
 
+  AISLE = "Aisle",
+  ROW = "Row",
+  SHELF = "Shelf",
+  COLUMN = "Column"
+
 }
