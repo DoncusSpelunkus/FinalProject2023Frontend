@@ -7,10 +7,12 @@ import {ManageUsersPageComponent} from "./manage-users/manage-users-page/manage-
 import {LogsPageComponent} from "./logs-page/logs-page.component";
 import {WarehouseManagementPageComponent} from "./warehouse-management-page/warehouse-management-page.component";
 import {ShipmentPageComponent} from "./shipment-page/shipment-page.component";
+import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
   { path: 'login', component:  LoginPageComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent },
   { path: "userManagement", component: ManageUsersPageComponent},
   { path: "logs", component: LogsPageComponent, canActivate: [AdminGuardService] },
   { path: "warehouse", component: WarehouseManagementPageComponent},

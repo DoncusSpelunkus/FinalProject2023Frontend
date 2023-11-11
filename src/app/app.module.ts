@@ -29,6 +29,7 @@ import { ExtendedActionsComponent } from './dashboard/component-modules/dashboar
 import { DynamicDialogComponent } from './util/dynamic-dialog/dynamic-dialog.component';
 import { CreateUserComponent } from './manage-users/create-user/create-user.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -44,6 +45,7 @@ import {MatDialogModule} from "@angular/material/dialog";
         ExtendedActionsComponent,
         DynamicDialogComponent,
         CreateUserComponent,
+        PageNotFoundComponent,
     ],
   imports: [
     BrowserModule,
