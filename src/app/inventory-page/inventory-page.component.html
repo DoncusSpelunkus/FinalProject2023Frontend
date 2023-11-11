@@ -7,7 +7,7 @@
   </section>
 
   <div class="w-full h-fit">
-    <table mat-table class="font-quicksand">
+    <table mat-table [dataSource]="dataSource" class="font-quicksand">
 
       <!--   PRODUCT NAME COLUMN   -->
       <ng-container matColumnDef="productName">
@@ -22,6 +22,8 @@
 
 
     </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
 
   </div>
