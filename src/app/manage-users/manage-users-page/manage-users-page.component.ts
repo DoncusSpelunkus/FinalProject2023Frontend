@@ -34,7 +34,7 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
   @ViewChild(MatPaginator) paginator: MatPaginator;
   optionsPerPage = [3,5,10,15,25]
 
-  displayedColumns: string[] = ['name', 'lastName','delete','edit'];
+  displayedColumns: string[] = ['SKU','Quantity', 'Location','delete','edit'];
   FormControlNames = FormControlNames
 
   users: { name: string; lastName: string }[] = [

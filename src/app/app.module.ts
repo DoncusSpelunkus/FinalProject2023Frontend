@@ -31,6 +31,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { InventoryPageComponent } from './inventory-page/inventory-page.component';
 import { StockProductComponent } from './inventory-page/stock-product/stock-product/stock-product.component';
 import { IconComponent } from './util/icon/icon.component';
+import { RelocateProductRowComponent } from './inventory-page/relocate-product-row/relocate-product-row.component';
+import { UpdateQuantityRowComponent } from './inventory-page/update-quantity-row/update-quantity-row.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -48,6 +50,8 @@ import { IconComponent } from './util/icon/icon.component';
         InventoryPageComponent,
         StockProductComponent,
         IconComponent,
+        RelocateProductRowComponent,
+        UpdateQuantityRowComponent,
     ],
   imports: [
     BrowserModule,

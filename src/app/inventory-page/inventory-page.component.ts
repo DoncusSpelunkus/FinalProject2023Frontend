@@ -15,6 +15,7 @@ export class InventoryPageComponent implements OnInit{
   @HostBinding('style.height') height = '100%'
 
   FormControlNames = FormControlNames;
+  displayedColumns = ['Product name','Location','Relocate','Adjust quantity'];
 
   formGroup: FormGroup;
 
