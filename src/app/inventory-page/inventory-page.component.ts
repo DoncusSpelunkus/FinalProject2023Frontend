@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {ProductLocationDisplayed} from "../../entities/ProductLocation";
+import {ProductLocation} from "../../entities/ProductLocation";
 
 @Component({
   selector: 'app-inventory-page',
@@ -20,7 +20,7 @@ export class InventoryPageComponent implements OnInit, AfterViewInit{
 
   ExpandedRowType = ExpandedRowType;
   FormControlNames = FormControlNames;
-  displayedColumns = ['Product name','Location','Relocate','Adjust quantity'];
+  displayedColumns = ['SKU','Location','Relocate','Adjust quantity'];
 
   formGroup: FormGroup;
   dataSource = new MatTableDataSource<any>();
@@ -89,15 +89,14 @@ export enum ExpandedRowType {
   QUANTITY = "QUANTITY"
 }
 
-const productLocations: ProductLocationDisplayed[] = [
+const productLocations: ProductLocation[] = [
   {
     ProductLocationId: 1,
     ProductSKU: "SKU001",
     LocationId: 101,
     Quantity: 50,
     LastUpdated: new Date("2023-01-01"),
-    WarehouseId: 201,
-    ProductName: "Product A"
+    WarehouseId: 201
   },
   {
     ProductLocationId: 2,
@@ -105,8 +104,7 @@ const productLocations: ProductLocationDisplayed[] = [
     LocationId: 102,
     Quantity: 60,
     LastUpdated: new Date("2023-02-01"),
-    WarehouseId: 202,
-    ProductName: "Product B"
+    WarehouseId: 202
   },
   // ... add more objects here ...
   {
@@ -115,7 +113,6 @@ const productLocations: ProductLocationDisplayed[] = [
     LocationId: 110,
     Quantity: 30,
     LastUpdated: new Date("2023-10-01"),
-    WarehouseId: 210,
-    ProductName: "Product J",
+    WarehouseId: 210
   }
 ];
