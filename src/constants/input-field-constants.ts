@@ -7,6 +7,7 @@ export enum FormControlNames {
   AISLE = "Aisle",
   ROW = "Row",
   SHELF = "Shelf",
-  COLUMN = "Column"
+  COLUMN = "Column",
 
+  QUANTITY = "Quantity"
 }
