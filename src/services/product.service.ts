@@ -32,19 +32,19 @@ export class ProductService {
     )
   }
 
-  private async getBySku(sku: string) {
+  async getBySku(sku: string) {
     await customAxios.get('/GetProductBySku/' + sku).then(response => {
       return response;
     });
   }
 
-  private async getByWarehouse(warehouseId: string) {
+  async getByWarehouse(warehouseId: string) {
     await customAxios.get('/GetProductByWarehouse/' + warehouseId).then(response => {
       return response;
     });
   }
 
-  private async createProduct(product: any) {
+  async createProduct(product: any) {
     await customAxios.post('/CreateProduct', product).then(response => {
       return response;
     });

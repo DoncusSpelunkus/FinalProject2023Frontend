@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LoginPageComponent} from "./login-page/login-page/login-page.component";
+import { LoginPageComponent } from "./login-page/login-page/login-page.component";
 import { AdminGuardService } from 'src/services/adminGuard.service';
 import { SalesGuardService } from 'src/services/salesUserGuard.service';
 import {ManageUsersPageComponent} from "./manage-users/manage-users-page/manage-users-page.component";
@@ -15,9 +15,8 @@ const routes: Routes = [
   { path: '**', component: PageNotFoundComponent },
   { path: "userManagement", component: ManageUsersPageComponent},
   { path: "logs", component: LogsPageComponent, canActivate: [AdminGuardService] },
-  { path: "warehouse", component: WarehouseManagementPageComponent},
+  { path: "warehouse", component: WarehouseManagementPageComponent },
   { path: "shipment", component: ShipmentPageComponent, canActivate: [SalesGuardService] },
-
 ];
 
 @NgModule({

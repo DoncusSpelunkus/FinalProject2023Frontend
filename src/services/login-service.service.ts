@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import { catchError } from 'rxjs';
+import { BehaviorSubject, catchError } from 'rxjs';
 import { environment } from "src/enviroment";
+import { User } from 'src/entities/User';
+import { jwtDecode } from 'jwt-decode';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/User',
@@ -15,7 +17,6 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class LoginServiceService {
-
 
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
@@ -33,17 +34,17 @@ export class LoginServiceService {
     )
   }
 
-  public async login(username: string, password: string) {
+  async login(username: string, password: string) {
     const response = await customAxios.post('/login', {username, password}).then(response => {
       localStorage.setItem('auth', response.data);
-      return response;
+      return;
     });
   }
 
-  public async register(username: string, password: string) {
+  async register(username: string, password: string) {
     const response = await customAxios.post('/register', {username, password}).then(response => {
       localStorage.setItem('auth', response.data);
-      return response;
+      return;
     });
   }
 

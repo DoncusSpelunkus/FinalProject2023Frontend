@@ -3,12 +3,14 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '
 import {FormControlNames} from "../../../../constants/input-field-constants";
 import {emailValidator, getErrorMessage, valueRequired} from "../../../../util/form-control-validators";
 import {LoginServiceService} from "../../../../services/login-service.service";
+import { UserService } from 'src/services/user.service';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
   FormControlNames = FormControlNames;
 
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit{
 
 
   constructor(private formBuilder: FormBuilder,
-              private loginService: LoginServiceService) {
+    private loginService: LoginServiceService, private userService: UserService) {
 
   }
 
@@ -31,10 +33,16 @@ export class LoginComponent implements OnInit{
   }
 
   //TODO implement service logic
-  onSubmit() {
-    const email = this.emailInput;
-    const password = this.passwordInput;
-    this.loginService.login(email,password);
+  async onSubmit() {
+    try {
+      const email = this.emailInput;
+      const password = this.passwordInput;
+      await this.loginService.login(email, password);
+    }
+    catch (e) {
+      return;
+    }
+    await this.userService.getCurrentUser();
   }
 
   get isLoginInputValid() {
@@ -42,7 +50,7 @@ export class LoginComponent implements OnInit{
   }
 
   get emailInput() { return this.loginForm.get(FormControlNames.EMAIL)?.value; }
-  get passwordInput() {return this.loginForm.get(FormControlNames.PASSWORD)?.value; }
+  get passwordInput() { return this.loginForm.get(FormControlNames.PASSWORD)?.value; }
 
   getControlErrorMessage(controlName: string): string | null {
     const control = this.loginForm.get(controlName) as AbstractControl;
