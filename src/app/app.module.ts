@@ -27,6 +27,10 @@ import { ActivityService } from 'src/services/activityService';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
 import {MatRippleModule} from "@angular/material/core";
 import { ExtendedActionsComponent } from './dashboard/component-modules/dashboard-button/extended-actions/extended-actions.component';
+import { DynamicDialogComponent } from './util/dynamic-dialog/dynamic-dialog.component';
+import { CreateUserComponent } from './manage-users/create-user/create-user.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +45,9 @@ import { ExtendedActionsComponent } from './dashboard/component-modules/dashboar
         ShipmentPageComponent,
         DashboardButtonComponent,
         ExtendedActionsComponent,
+        DynamicDialogComponent,
+        CreateUserComponent,
+        PageNotFoundComponent,
     ],
     imports: [
         BrowserModule,
@@ -58,7 +65,8 @@ import { ExtendedActionsComponent } from './dashboard/component-modules/dashboar
         MatPaginatorModule,
         MatProgressSpinnerModule,
         BrowserAnimationsModule,
-        MatRippleModule
+        MatRippleModule,
+        MatDialogModule 
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

@@ -6,9 +6,13 @@ import { FormControlNames } from "../../../constants/input-field-constants";
 import {debounceTime, Subject, Subscription, take} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {setupDistinctControlSubscription} from "../../../util/subscription-setup";
+
 import { User } from 'src/entities/User';
 import { ActivityService } from 'src/services/activityService';
 import { UserService } from 'src/services/user.service';
+import {MatDialog} from "@angular/material/dialog";
+import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
+import {CreateUserComponent} from "../create-user/create-user.component";
 
 
 @Component({
@@ -42,7 +46,11 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute,  private activityMonitor: ActivityService, private userService: UserService
+    private route: ActivatedRoute,
+    private activityMonitor: ActivityService,
+    private userService: UserService,
+    private dialog: MatDialog
+
   ) {
     this.activityMonitor.startMonitoring();
     this.routeParamsSubject.pipe(
@@ -169,6 +177,17 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     this.formGroup = this.fb.group({
       [FormControlNames.PAGE]: [0],
       [FormControlNames.FILTER]: ['']
+    });
+  }
+
+  openCreateUserDialog() {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '60%', // Set the height
+      data: {
+        component: CreateUserComponent,
+        inputs: {} // No dependent data to pass
+      }
     });
   }
 }
