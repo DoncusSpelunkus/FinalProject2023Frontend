@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ButtonConfig, DashboardCommunicationService} from "../../../services/dashboard-communication.service";
+import {ButtonConfig, DashboardCommunicationService} from "../../../../../services/dashboard-communication.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 

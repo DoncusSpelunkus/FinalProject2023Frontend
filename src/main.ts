@@ -13,8 +13,5 @@ platformBrowserDynamic().bootstrapModule(AppModule)
   }
 
   if (environment.development) {
-    // Disable caching in development
-    if (window.localStorage) {
-      window.localStorage.clear();
-    }
+   
   }

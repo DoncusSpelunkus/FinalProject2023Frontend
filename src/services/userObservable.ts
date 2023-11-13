@@ -31,10 +31,11 @@ export class UserObservable {
 
     public async clearUser() {
         this.userSubject.next(null);
-        sessionStorage.removeItem('currentUser');
+        localStorage.removeItem('auth');
+        localStorage.removeItem('currentUser');
     }
 
     private saveUserToStorage(user: User) {
-        sessionStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('currentUser', JSON.stringify(user));
     }
 }

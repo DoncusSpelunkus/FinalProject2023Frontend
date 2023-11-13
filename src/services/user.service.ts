@@ -10,9 +10,6 @@ import { User } from 'src/entities/User';
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/User',
   withCredentials: true,
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('auth')}`
-  }
 })
 
 
@@ -35,7 +32,17 @@ export class UserService {
         catchError(rejected);
       }
     )
+
+    customAxios.interceptors.request.use((config) => {
+      const token = localStorage.getItem('auth');
+      if(token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
   }
+
+  
 
   async getAllByWarehouse(warehouseId: number) {
     let response = await customAxios.get('/GetAllByWarehouseId/' + warehouseId);

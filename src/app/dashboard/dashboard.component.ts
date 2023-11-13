@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, HostBinding, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
-import { ButtonConfig, DashboardCommunicationService } from "./services/dashboard-communication.service";
+import { ButtonConfig, DashboardCommunicationService } from "../../services/dashboard-communication.service";
 import { identity, Subscription } from "rxjs";
 import { inventoryButtonConfig, productsButtonConfig, usersButtonConfig } from "../../constants/dashboard-actions";
 import { UserObservable } from 'src/services/userObservable';
@@ -39,8 +39,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
   ngAfterViewInit(): void {
     this.userRole = this.getUserRole();
     this.enableUserActions();
@@ -62,13 +60,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   collapseNavigation() {
     this.isExpanded = false;
-  }
-
-  private updateUserRole() {
-    if (this.user) {
-      this.userRole = this.user?.role;
-      this.enableUserActions();
-    }
   }
 
   private getUserRole() {
@@ -134,8 +125,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   async logout() {
-    await this.userObservable.clearUser();
     this.route.navigateByUrl("/login");
+    await this.userObservable.clearUser();
     this.ngAfterViewInit();
     this.collapseNavigation();
   }

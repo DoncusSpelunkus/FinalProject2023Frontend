@@ -3,16 +3,17 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { FormControlNames } from "../../../constants/input-field-constants";
-import {debounceTime, Subject, Subscription, take} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
-import {setupDistinctControlSubscription} from "../../../util/subscription-setup";
+import { debounceTime, Subject, Subscription, take } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
+import { setupDistinctControlSubscription } from "../../../util/subscription-setup";
 
 import { User } from 'src/entities/User';
 import { ActivityService } from 'src/services/activityService';
 import { UserService } from 'src/services/user.service';
-import {MatDialog} from "@angular/material/dialog";
-import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
-import {CreateUserComponent} from "../create-user/create-user.component";
+import { MatDialog } from "@angular/material/dialog";
+import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog.component";
+import { CreateUserComponent } from "../create-user/create-user.component";
+import { UserObservable } from 'src/services/userObservable';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
 
   displayedColumns: string[] = ['name', 'email', 'delete', 'edit'];
   FormControlNames = FormControlNames
+  warehouseId: number | undefined;
 
   users: User[] = [];
 
@@ -49,7 +51,8 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     private route: ActivatedRoute,
     private activityMonitor: ActivityService,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private userObservable: UserObservable,
 
   ) {
     this.activityMonitor.startMonitoring();
@@ -65,14 +68,18 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.userObservable.user$.subscribe(user => {
+      this.warehouseId = user?.warehouseId;
+    })
+    await this.fetchUsers();
     this.initializeFormControl();
     this.bindRouteValues();
+    this.initializeDataSource();
   }
 
   ngAfterViewInit(): void {
     this.paginator.pageSize = 3
-    this.initializeDataSource();
     if (this.paginator) {
       this.paginator.page.subscribe(event => {
         this.formGroup.patchValue({
@@ -87,8 +94,9 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   private async fetchUsers() {
-    this.users = await this.userService.getAllByWarehouse(1); // TODO: get warehouse id from? We need to get the warehouse id from somewhere
-    console.log(this.users);
+    if(this.warehouseId){
+      this.users = await this.userService.getAllByWarehouse(this.warehouseId); // TODO: get warehouse id from? We need to get the warehouse id from somewhere
+    }
   }
 
   get filterValue(): string {

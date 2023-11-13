@@ -9,9 +9,7 @@ import { UserObservable } from './userObservable';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/User',
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('auth')}`
-  }
+  withCredentials: true,
 })
 
 @Injectable({
@@ -33,6 +31,14 @@ export class LoginServiceService {
         catchError(rejected);
       }
     )
+
+    customAxios.interceptors.request.use((config) => {
+      const token = localStorage.getItem('auth');
+      if(token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
   }
 
   async login(username: string, password: string) {
