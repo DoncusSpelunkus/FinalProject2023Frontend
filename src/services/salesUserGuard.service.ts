@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Observable } from "rxjs";
 import { jwtDecode } from "jwt-decode";
-import { Token } from "src/entities/dashboardRole";
+import { Token } from "src/entities/Token";
+
 
 @Injectable({
     providedIn: 'root'

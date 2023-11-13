@@ -3,5 +3,5 @@ export enum FormControlNames {
   EMAIL = 'EMAIL',
   FILTER = 'FILTER',
   PAGE = 'PAGE_INDEX',
-
+  USERNAME = 'USERNAME',
 }

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Observable } from "rxjs";
 import { jwtDecode } from "jwt-decode";
-import { Token } from "src/entities/dashboardRole";
+import { Token } from "src/entities/Token";
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +23,7 @@ export class AdminGuardService implements CanActivate {
                 if (currentdate < expiry && decodToken.role === "Admin") { // checks the role assigned to the token and exp date
                     return true;
                 }
-                else if (currentdate < expiry && decodToken.role === "User")
+                else if (currentdate < expiry && decodToken.role === "Base")
                     this.router.navigateByUrl("warehouse") // Redirects if the token has a user role
                 return false;
             }

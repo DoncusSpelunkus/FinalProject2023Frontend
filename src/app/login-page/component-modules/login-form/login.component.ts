@@ -1,9 +1,9 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormControlNames} from "../../../../constants/input-field-constants";
-import {emailValidator, getErrorMessage, valueRequired} from "../../../../util/form-control-validators";
+import {getErrorMessage, valueRequired} from "../../../../util/form-control-validators";
 import {LoginServiceService} from "../../../../services/login-service.service";
-import { UserService } from 'src/services/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,12 +18,13 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
 
-  emailFormControl!: FormControl;
+  usernameFormControl!: FormControl;
   passwordFormControl!: FormControl;
 
 
   constructor(private formBuilder: FormBuilder,
-    private loginService: LoginServiceService, private userService: UserService) {
+    private loginService: LoginServiceService,
+    private route: Router) {
 
   }
 
@@ -35,21 +36,21 @@ export class LoginComponent implements OnInit {
   //TODO implement service logic
   async onSubmit() {
     try {
-      const email = this.emailInput;
+      const username = this.usernameInput;
       const password = this.passwordInput;
-      await this.loginService.login(email, password);
+      await this.loginService.login(username, password)
+      this.route.navigate(['/warehouse']);
     }
     catch (e) {
       return;
     }
-    await this.userService.getCurrentUser();
   }
 
   get isLoginInputValid() {
     return this.loginForm.valid;
   }
 
-  get emailInput() { return this.loginForm.get(FormControlNames.EMAIL)?.value; }
+  get usernameInput() { return this.loginForm.get(FormControlNames.USERNAME)?.value; }
   get passwordInput() { return this.loginForm.get(FormControlNames.PASSWORD)?.value; }
 
   getControlErrorMessage(controlName: string): string | null {
@@ -59,13 +60,13 @@ export class LoginComponent implements OnInit {
 
   private initializeFormGroup() {
     this.loginForm = this.formBuilder.group({
-      [FormControlNames.EMAIL]: this.emailFormControl,
+      [FormControlNames.USERNAME]: this.usernameFormControl,
       [FormControlNames.PASSWORD]: this.passwordFormControl,
     });
   }
 
   private initializeFormControls() {
-    this.emailFormControl = this.formBuilder.control('', [emailValidator, valueRequired('Email')]);
+    this.usernameFormControl = this.formBuilder.control('', valueRequired('Username'));
     this.passwordFormControl = this.formBuilder.control('', valueRequired('Password'));
   }
 }

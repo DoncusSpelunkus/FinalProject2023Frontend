@@ -1,13 +1,16 @@
-import {AfterViewInit, Component, HostBinding, OnInit, signal, TemplateRef, ViewChild} from '@angular/core';
-import {ButtonConfig, DashboardCommunicationService} from "./services/dashboard-communication.service";
-import {identity, Subscription} from "rxjs";
-import {inventoryButtonConfig, productsButtonConfig, usersButtonConfig} from "../../constants/dashboard-actions";
+import { AfterViewInit, Component, HostBinding, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
+import { ButtonConfig, DashboardCommunicationService } from "./services/dashboard-communication.service";
+import { identity, Subscription } from "rxjs";
+import { inventoryButtonConfig, productsButtonConfig, usersButtonConfig } from "../../constants/dashboard-actions";
+import { UserObservable } from 'src/services/userObservable';
+import { User } from 'src/entities/User';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements OnInit, AfterViewInit{
+export class DashboardComponent implements OnInit, AfterViewInit {
 
   currentActionsTemplate: TemplateRef<any>;
 
@@ -20,32 +23,68 @@ export class DashboardComponent implements OnInit, AfterViewInit{
   selectedAction: ButtonConfig | null;
 
   userRole: any;
+  user: User | null = null;
+  login: boolean = false;
+
+  private userSubscription: Subscription;
 
   private actionSelectionSubscription: Subscription;
   private extendedActionClickSubscription: Subscription;
 
-  constructor(public communicationService:DashboardCommunicationService) {
+  async ngOnInit(): Promise<void> {
+    await this.setupSubscriptions();
   }
 
-  ngOnInit(): void {
-    this.setupSubscriptions();
+  constructor(public communicationService: DashboardCommunicationService, private userObservable: UserObservable, private route: Router, private activeRoute: ActivatedRoute) {
+
   }
+
+
 
   ngAfterViewInit(): void {
     this.userRole = this.getUserRole();
     this.enableUserActions();
   }
 
+  ngOnDestroy(): void {
+    this.actionSelectionSubscription.unsubscribe();
+    this.extendedActionClickSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
+  }
+
   extendNavigation() {
-    this.isExpanded = true;
+    const currentPath = this.route.url;
+    if (currentPath.includes('/login'))
+      this.collapseNavigation();
+    else
+      this.isExpanded = true;
   }
 
   collapseNavigation() {
     this.isExpanded = false;
   }
 
+  private updateUserRole() {
+    if (this.user) {
+      this.userRole = this.user?.role;
+      this.enableUserActions();
+    }
+  }
+
   private getUserRole() {
-    return ActionTemplates.Admin;
+    if (this.userRole) {
+      switch (this.userRole.toLowerCase()) {
+        case "admin":
+          return ActionTemplates.Admin;
+        case "sales":
+          return ActionTemplates.Admin;
+        case "base":
+          return ActionTemplates.User;
+        default:
+          return ActionTemplates.Public;
+      }
+    }
+    return ActionTemplates.Public;
   }
 
   private enableUserActions() {
@@ -76,7 +115,12 @@ export class DashboardComponent implements OnInit, AfterViewInit{
    * and to manage it across the application
    * @private
    */
-  private setupSubscriptions() {
+  private async setupSubscriptions() {
+    this.userSubscription = this.userObservable.user$.subscribe((user) => {
+      this.userRole = user?.role;
+      this.ngAfterViewInit();
+    });
+
     this.actionSelectionSubscription = this.communicationService.buttonConfig$.subscribe(selectedAction => {
       this.selectedAction = selectedAction;
       if (selectedAction?.childrenActions) {
@@ -87,6 +131,13 @@ export class DashboardComponent implements OnInit, AfterViewInit{
     this.extendedActionClickSubscription = this.communicationService.extendedActionClick$.subscribe(() => {
       this.collapseNavigation();
     })
+  }
+
+  async logout() {
+    await this.userObservable.clearUser();
+    this.route.navigateByUrl("/login");
+    this.ngAfterViewInit();
+    this.collapseNavigation();
   }
 
   superAdminConfig: ButtonConfig[] = [
@@ -104,9 +155,8 @@ export class DashboardComponent implements OnInit, AfterViewInit{
     productsButtonConfig
   ];
   publicConfig: ButtonConfig[] = [
-    inventoryButtonConfig,
-    productsButtonConfig
   ];
+
 
   @HostBinding('style.width') width = '100%';
 }

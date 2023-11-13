@@ -11,12 +11,13 @@ import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
   { path: 'login', component:  LoginPageComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent },
-  { path: "userManagement", component: ManageUsersPageComponent},
+  { path: "userManagement", component: ManageUsersPageComponent, canActivate: [AdminGuardService]},
   { path: "logs", component: LogsPageComponent, canActivate: [AdminGuardService] },
-  { path: "warehouse", component: WarehouseManagementPageComponent },
+  { path: "warehouse", component: WarehouseManagementPageComponent},
   { path: "shipment", component: ShipmentPageComponent, canActivate: [SalesGuardService] },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '404', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '404'},
 ];
 
 @NgModule({
