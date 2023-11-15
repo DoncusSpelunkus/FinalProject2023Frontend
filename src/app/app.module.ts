@@ -31,6 +31,7 @@ import { DynamicDialogComponent } from './util/dynamic-dialog/dynamic-dialog.com
 import { CreateUserComponent } from './manage-users/create-user/create-user.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         MatProgressSpinnerModule,
         BrowserAnimationsModule,
         MatRippleModule,
-        MatDialogModule 
+        MatDialogModule,
+        MatSelectModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

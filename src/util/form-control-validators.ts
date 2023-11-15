@@ -1,4 +1,4 @@
-import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
 
 export function emailValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
@@ -20,6 +20,22 @@ export function valueRequired(controlName: string): ValidatorFn {
   };
 }
 
+export function matchingValuesValidator(controlName1: string, controlName2: string): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const formGroup = control as FormGroup; // Cast the AbstractControl to FormGroup
+
+    const control1 = formGroup.get(controlName1);
+    const control2 = formGroup.get(controlName2);
+
+    // Check if either control is not present, to avoid errors
+    if (!control1 || !control2) {
+      return null;
+    }
+
+    // Return an error object if values do not match, otherwise return null
+    return control1.value === control2.value ? null : { 'valuesNotMatching': true };
+  };
+}
 
 // Utility function to get the first error message of a control
 export function getErrorMessage(control: AbstractControl): string | null {
