@@ -47,7 +47,7 @@ export function getErrorMessage(control: AbstractControl): string | null {
   const firstErrorKey = Object.keys(control.errors)[0];
 
   // Return the message of the first error (we assume here every error has a 'message' field)
-  return control.errors[firstErrorKey].message;
+  return control.errors[firstErrorKey]?.message;
 }
 
 

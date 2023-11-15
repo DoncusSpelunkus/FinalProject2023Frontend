@@ -21,8 +21,14 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   formGroup: FormGroup;
 
   hidePassword = true;
-
   hideConfirmPassword = true;
+
+  roles = [
+    {value: 'standard'},
+    {value: 'admin'},
+    {value: 'sales'},
+  ]
+
   constructor(private formBuilder: FormBuilder) {
   }
 
@@ -40,12 +46,12 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
 
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
-      [FormControlNames.NAME]: ['',valueRequired],
-      [FormControlNames.USERNAME]: ['',valueRequired],
-      [FormControlNames.EMAIL]: ['',valueRequired,emailValidator],
+      [FormControlNames.NAME]: ['',[valueRequired]],
+      [FormControlNames.USERNAME]: ['',[valueRequired]],
+      [FormControlNames.EMAIL]: ['',[valueRequired,emailValidator]],
       [FormControlNames.ROLE]: ['',valueRequired],
-      [FormControlNames.PASSWORD]: ['',valueRequired],
-      [FormControlNames.PASSWORD_CONFIRMATION]: ['',valueRequired,emailValidator]
+      [FormControlNames.PASSWORD]: ['',[valueRequired]],
+      [FormControlNames.PASSWORD_CONFIRMATION]: ['',[valueRequired,emailValidator]]
     }, {validators: matchingValuesValidator(FormControlNames.PASSWORD,FormControlNames.PASSWORD_CONFIRMATION)}
     )
   }
