@@ -6,16 +6,13 @@ import { environment } from "src/enviroment";
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/Product',
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('auth')}`
-  }
+  withCredentials: true,
 })
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
       response => {
@@ -30,6 +27,14 @@ export class ProductService {
         catchError(rejected);
       }
     )
+
+    customAxios.interceptors.request.use((config) => {
+      const token = localStorage.getItem('auth');
+      if(token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
   }
 
   async getBySku(sku: string) {

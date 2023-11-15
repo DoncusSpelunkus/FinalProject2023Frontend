@@ -15,12 +15,12 @@
 
     <!--  EMAIL  -->
     <mat-form-field class="w-full" appearance="fill">
-      <mat-label *ngIf="!emailInput?.value">Email / username</mat-label>
+      <mat-label *ngIf="!usernameInput?.value">Username</mat-label>
       <input matInput required
-             [placeholder]="'PeterGriffin@hotmail.dk'"
-             [formControlName]="FormControlNames.EMAIL">
-      <mat-icon matSuffix>email</mat-icon>
-      <mat-error class="!text-red-500 font-quicksand font-semibold" *ngIf="getControlErrorMessage(FormControlNames.EMAIL)">
+             [placeholder]="'PeterGriff'"
+             [formControlName]="FormControlNames.USERNAME" required>
+      <mat-icon matSuffix>person</mat-icon>
+      <mat-error class="!text-red-500 font-quicksand font-semibold" *ngIf="getControlErrorMessage(FormControlNames.USERNAME)">
         {{getControlErrorMessage(FormControlNames.EMAIL)}}
       </mat-error>
     </mat-form-field>
@@ -28,13 +28,13 @@
 
     <!--  PASSWORD  -->
     <mat-form-field class="w-full" appearance="fill">
+      <mat-label *ngIf="!passwordInput?.value">Password</mat-label>
       <input matInput
              placeholder="Password" [type]="hide ? 'password' : 'text'"
-             [formControlName]="FormControlNames.PASSWORD"
-             required>
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+             [formControlName]="FormControlNames.PASSWORD" required>
+      <!--<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
+      </button>-->
       <mat-error class="!text-red-500 font-quicksand font-semibold" *ngIf="getControlErrorMessage(FormControlNames.PASSWORD)">
         {{getControlErrorMessage(FormControlNames.PASSWORD)}}
       </mat-error>

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {ChildrenAction, DashboardCommunicationService} from "../../../services/dashboard-communication.service";
+import {ChildrenAction, DashboardCommunicationService} from "../../../../../services/dashboard-communication.service";
 
 @Component({
   selector: 'app-extended-actions',
