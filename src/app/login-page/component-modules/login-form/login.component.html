@@ -41,7 +41,13 @@
     </mat-form-field>
 
     <!--  SUBMIT  -->
-    <button class="w-full my-4" mat-raised-button color="primary" [disabled]="!isLoginInputValid">Login</button>
+    <button class="w-full my-4" mat-raised-button color="primary" [disabled]="!isLoginInputValid" style="display: flex; align-items: center; justify-content: center; position: relative;">
+      <div style="text-align: center; width: 100%;">
+        <img *ngIf="isLoading" style="width: 24px; margin: 0 auto; display: block;" src="../../../../assets/loading/spinnergif.gif">
+        <div *ngIf="!isLoading">Submit</div>
+      </div>
+    </button>
+    
   </form>
 
 </section>
