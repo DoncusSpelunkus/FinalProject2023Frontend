@@ -56,7 +56,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
       [FormControlNames.ROLE]: ['',valueRequired(FormControlNames.ROLE)],
       [FormControlNames.PASSWORD]: ['',valueRequired(FormControlNames.PASSWORD)],
       [FormControlNames.PASSWORD_CONFIRMATION]: ['',valueRequired(FormControlNames.PASSWORD_CONFIRMATION)]
-    }
+    }, {validators: matchingValuesValidator(FormControlNames.PASSWORD,FormControlNames.PASSWORD_CONFIRMATION)}
     )
   }
 }

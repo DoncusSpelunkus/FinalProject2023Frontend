@@ -21,19 +21,29 @@ export function valueRequired(controlName: string): ValidatorFn {
 }
 
 export function matchingValuesValidator(controlName1: string, controlName2: string): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    const formGroup = control as FormGroup; // Cast the AbstractControl to FormGroup
+  return (formGroup: AbstractControl): ValidationErrors | null => {
+    const group = formGroup as FormGroup;
+    const control1 = group.get(controlName1);
+    const control2 = group.get(controlName2);
 
-    const control1 = formGroup.get(controlName1);
-    const control2 = formGroup.get(controlName2);
-
-    // Check if either control is not present, to avoid errors
     if (!control1 || !control2) {
+      // One of the controls is not present in the FormGroup
       return null;
     }
 
-    // Return an error object if values do not match, otherwise return null
-    return control1.value === control2.value ? null : { 'valuesNotMatching': true };
+    if (control1.value !== control2.value) {
+      // Values don't match, so set an error on the second control
+      control2.setErrors({ matchingValues: { message: 'Value doesn\'t match' } });
+      return { matchingValues: { message: 'Confirmation values don\'t match' } }; // This line is optional
+    }
+
+    // If values match and there's an existing error, clear it
+    if (control2.errors && control2.errors['matchingValues']) {
+      control2.setErrors({ ...control2.errors, matchingValues: null });
+      control2.updateValueAndValidity({ emitEvent: false });
+    }
+
+    return null; // Values match, no error
   };
 }
 
