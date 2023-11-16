@@ -1,4 +1,4 @@
-<section class="flex flex-col justify-center items-start w-80 h-full space-y-4">
+<section class="flex flex-col justify-center items-start w-80 h-full space-y-4 relative">
 
   <!-- LOGO AND HEADER -->
   <div class="w-full flex flex-col items-center ">
@@ -32,9 +32,9 @@
       <input matInput
              placeholder="Password" [type]="hide ? 'password' : 'text'"
              [formControlName]="FormControlNames.PASSWORD" required>
-      <!--<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>-->
+      </button>
       <mat-error class="!text-red-500 font-quicksand font-semibold" *ngIf="getControlErrorMessage(FormControlNames.PASSWORD)">
         {{getControlErrorMessage(FormControlNames.PASSWORD)}}
       </mat-error>
@@ -44,4 +44,14 @@
     <button class="w-full my-4" mat-raised-button color="primary" [disabled]="!isLoginInputValid">Login</button>
   </form>
 
+  <!-- SHELF GRAPHIC -->
+  <div class="absolute bottom-0 -right-48 pointer-events-none"> <!-- Positioned absolutely and stretched to the container's edges -->
+    <div class="absolute right-20 bottom-8 w-48"> <!-- Positioned absolutely within the first div -->
+      <img class="object-contain w-full" src="../../../assets/3D-graphics/shelf.png" alt="shelf"> <!-- Adjusted size -->
+    </div>
+
+    <div class="absolute right-36 bottom-6 z-20 w-20">
+      <img class="object-contain" src="../../../assets/3D-graphics/worker.png" alt="worker">
+    </div>
+  </div>
 </section>
