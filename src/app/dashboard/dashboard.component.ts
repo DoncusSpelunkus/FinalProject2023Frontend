@@ -5,12 +5,14 @@ import { inventoryButtonConfig, productsButtonConfig, usersButtonConfig } from "
 import { UserObservable } from 'src/services/HelperSevices/userObservable';
 import { User } from 'src/entities/User';
 import { ActivatedRoute, Router } from '@angular/router';
+import {LocationStrategy} from "@angular/common";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
+  @HostBinding('style.width') width = '100%';
 
   currentActionsTemplate: TemplateRef<any>;
 
@@ -35,7 +37,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     await this.setupSubscriptions();
   }
 
-  constructor(public communicationService: DashboardCommunicationService, private userObservable: UserObservable, private route: Router, private activeRoute: ActivatedRoute) {
+  constructor(public communicationService: DashboardCommunicationService,
+              private userObservable: UserObservable,
+              private route: Router,
+              private activeRoute: ActivatedRoute,
+              private location: LocationStrategy) {
 
   }
 
@@ -98,6 +104,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  handleGoBack() {
+    this.location.back();
+  }
+
   /**
    * This method sets up the subscription to the dashboard communication
    * service
@@ -130,7 +140,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.ngAfterViewInit();
     this.collapseNavigation();
   }
-
   superAdminConfig: ButtonConfig[] = [
     inventoryButtonConfig,
     productsButtonConfig
@@ -147,9 +156,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ];
   publicConfig: ButtonConfig[] = [
   ];
-
-
-  @HostBinding('style.width') width = '100%';
 }
 
 export enum ActionTemplates {

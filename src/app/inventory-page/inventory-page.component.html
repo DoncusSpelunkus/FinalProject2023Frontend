@@ -1,0 +1,99 @@
+<section class="flex flex-col w-full h-full justify-start items-center">
+
+  <!-- TABLE HEADER (SEARCH AND OTHER ACTIONS) -->
+  <section class="w-full flex justify-between flex-row h-fit">
+    <ng-container *ngTemplateOutlet="tableFilter" ></ng-container>
+    <ng-container *ngTemplateOutlet="actionsSection"></ng-container>
+  </section>
+
+  <div class="w-full h-fit">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="font-quicksand">
+
+      <!--   PRODUCT NAME COLUMN   -->
+      <ng-container matColumnDef="SKU">
+        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Product name</th>
+        <td mat-cell *matCellDef="let productLocation"> {{productLocation.ProductSKU}}</td>
+      </ng-container>
+
+
+      <!--   PRODUCT LOCATION COLUMN   -->
+      <ng-container matColumnDef="Location">
+        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Location</th>
+        <td mat-cell *matCellDef="let productLocation"> {{productLocation.LocationId}}</td>
+      </ng-container>
+
+
+      <!--   RELOCATE COLUMN   -->
+      <ng-container matColumnDef="Relocate">
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center">Relocate</span>
+        </th>
+        <td mat-cell *matCellDef="let productLocation">
+          <div class="w-full h-full flex justify-center">
+            <app-icon matRipple class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125" icon="expand-arrows"
+              (click)="toggleRow(productLocation,ExpandedRowType.RELOCATE)">
+            </app-icon>
+          </div>
+        </td>
+      </ng-container>
+
+
+      <!--   QUANTITY COLUMN   -->
+      <ng-container matColumnDef="Adjust quantity">
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center">Adjust quantity</span>
+        </th>
+        <td mat-cell *matCellDef="let productLocation">
+          <div class="w-full h-full flex justify-center">
+            <app-icon matRipple class="p-1.5 rounded-md bg-blue-700 text-white text-xl hover:brightness-125" icon="arrow-break"
+              (click)="toggleRow(productLocation,ExpandedRowType.QUANTITY)">
+            </app-icon>
+          </div>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Expanded row">
+        <td mat-cell *matCellDef="let productLocation" [colSpan]="displayedColumns.length">
+          <app-relocate-product-row *ngIf="productLocation.expandedRow === ExpandedRowType.RELOCATE"
+            [productLocation]="productLocation">
+          </app-relocate-product-row>
+          <app-update-quantity-row *ngIf="productLocation.expandedRow === ExpandedRowType.QUANTITY"
+            [productLocation]="productLocation">
+          </app-update-quantity-row>
+        </td>
+      </ng-container>
+
+
+      <!--   Column definitions   -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let productLocation; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['Expanded row'];" class="!h-0"></tr>
+
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+
+  </div>
+
+
+</section>
+
+
+
+<ng-template #actionsSection>
+  <button mat-raised-button class="!h-14" color="primary" (click)="openStockProductsWindow()">Create user</button>
+</ng-template>
+
+<ng-template #tableFilter>
+  <mat-form-field [formGroup]="formGroup" appearance="outline" class="w-56">
+    <input matInput type="text" placeholder="Type to filter..." [formControlName]="FormControlNames.FILTER">
+    <button mat-icon-button matSuffix *ngIf="filterValue" (click)="clearFilterValue()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-icon matPrefix *ngIf="!filterValue">search</mat-icon>
+  </mat-form-field>
+</ng-template>
+

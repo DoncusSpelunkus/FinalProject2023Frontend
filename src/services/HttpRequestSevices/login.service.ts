@@ -3,7 +3,7 @@ import axios, { Axios, AxiosError } from 'axios';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { BehaviorSubject, catchError } from 'rxjs';
 import { environment } from "src/enviroment";
-import { User } from 'src/entities/User';
+import {CreateUserDTO, User} from 'src/entities/User';
 import { jwtDecode } from 'jwt-decode';
 import { UserObservable } from '../HelperSevices/userObservable';
 
