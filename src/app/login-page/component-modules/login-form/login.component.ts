@@ -2,7 +2,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormControlNames} from "../../../../constants/input-field-constants";
 import {getErrorMessage, valueRequired} from "../../../../util/form-control-validators";
-import {LoginServiceService} from "../../../../services/login-service.service";
+import {LoginService} from "../../../../services/login.service";
 import { Router } from '@angular/router';
 
 
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
-    private loginService: LoginServiceService,
+    private loginService: LoginService,
     private route: Router) {
 
   }

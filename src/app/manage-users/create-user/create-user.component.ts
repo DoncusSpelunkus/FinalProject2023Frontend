@@ -1,6 +1,6 @@
 import {Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
-import {AbstractControl, EmailValidator, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {
   emailValidator,
@@ -9,6 +9,9 @@ import {
   valueRequired
 } from "../../../util/form-control-validators";
 import {Subscription} from "rxjs";
+import {LoginService} from "../../../services/login.service";
+import {CreateUserDTO} from "../../../entities/User";
+import {UserObservable} from "../../../services/userObservable";
 
 @Component({
   selector: 'app-create-user',
@@ -32,7 +35,9 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
     {value: 'sales'},
   ]
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private registerService: LoginService,
+              private userObservable: UserObservable) {
   }
 
   ngOnInit(): void {
@@ -43,8 +48,9 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   setData(data: any): void {
   }
 
-  submit() {
-    console.log(this.formGroup.value)
+  async submit() {
+    const createUserDTO: CreateUserDTO = this.getRequestBody();
+    await this.registerService.createUser(createUserDTO);
   }
 
   getControlErrorMessage(controlName: string): string | null {
@@ -81,5 +87,17 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
           break;
       }
     })
+  }
+
+  private getRequestBody(): CreateUserDTO {
+    const createUserDTO: CreateUserDTO = {
+      email: this.formGroup.get(FormControlNames.EMAIL)?.value,
+      name: this.formGroup.get(FormControlNames.NAME)?.value,
+      password: this.formGroup.get(FormControlNames.PASSWORD)?.value,
+      role: this.formGroup.get(FormControlNames.ROLE)?.value,
+      username: this.formGroup.get(FormControlNames.USERNAME)?.value,
+      warehouseId: this.userObservable.getCurrentUserSynchronously()?.warehouseId
+    }
+    return createUserDTO;
   }
 }
