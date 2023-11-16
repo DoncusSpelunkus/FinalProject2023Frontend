@@ -5,13 +5,14 @@ import {FormControlNames} from "../../../constants/input-field-constants";
 import {
   emailValidator,
   getErrorMessage,
-  matchingValuesValidator, passwordStrengthValidator,
+  matchingValuesValidator,
+  passwordStrengthValidator,
   valueRequired
 } from "../../../util/form-control-validators";
 import {Subscription} from "rxjs";
-import {LoginService} from "../../../services/login.service";
 import {CreateUserDTO} from "../../../entities/User";
 import {UserObservable} from "../../../services/userObservable";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-create-user',
@@ -36,7 +37,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   ]
 
   constructor(private formBuilder: FormBuilder,
-              private registerService: LoginService,
+              private userService: UserService,
               private userObservable: UserObservable) {
   }
 
@@ -50,7 +51,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
 
   async submit() {
     const createUserDTO: CreateUserDTO = this.getRequestBody();
-    await this.registerService.createUser(createUserDTO);
+    await this.userService.createUser(createUserDTO);
   }
 
   getControlErrorMessage(controlName: string): string | null {
@@ -90,14 +91,13 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   }
 
   private getRequestBody(): CreateUserDTO {
-    const createUserDTO: CreateUserDTO = {
+    return {
       email: this.formGroup.get(FormControlNames.EMAIL)?.value,
       name: this.formGroup.get(FormControlNames.NAME)?.value,
       password: this.formGroup.get(FormControlNames.PASSWORD)?.value,
       role: this.formGroup.get(FormControlNames.ROLE)?.value,
       username: this.formGroup.get(FormControlNames.USERNAME)?.value,
       warehouseId: this.userObservable.getCurrentUserSynchronously()?.warehouseId
-    }
-    return createUserDTO;
+    };
   }
 }

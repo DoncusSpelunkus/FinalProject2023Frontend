@@ -3,7 +3,7 @@ import axios from 'axios';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import {  catchError } from 'rxjs';
 import { environment } from "src/enviroment";
-import { User } from 'src/entities/User';
+import {CreateUserDTO, User} from 'src/entities/User';
 
 
 
@@ -42,7 +42,7 @@ export class UserService {
     });
   }
 
-  
+
 
   async getAllByWarehouse(warehouseId: number) {
     let response = await customAxios.get('/GetAllByWarehouseId/' + warehouseId);
@@ -69,6 +69,12 @@ export class UserService {
 
   async deleteEmployee(employeeId: number) {
     await customAxios.delete('/DeleteEmployee/' + employeeId).then(response => {
+      return response;
+    });
+  }
+
+  async createUser(createUserDTO: CreateUserDTO) {
+    await customAxios.post('/register', createUserDTO).then(response => {
       return response;
     });
   }

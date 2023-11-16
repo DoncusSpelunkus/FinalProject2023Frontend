@@ -64,10 +64,4 @@ export class LoginService {
     });
   }
 
-  async createUser(createUserDTO: CreateUserDTO) {
-    const response = await customAxios.post('/register', createUserDTO).then(response => {
-      return;
-    });
-  }
-
 }
