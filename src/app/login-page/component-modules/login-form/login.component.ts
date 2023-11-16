@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormControlNames } from "../../../../constants/input-field-constants";
 import { getErrorMessage, valueRequired } from "../../../../util/form-control-validators";
-import { LoginServiceService } from "../../../../services/HttpRequestSevices/login-service.service";
+import { LoginServiceService } from "../../../../services/HttpRequestSevices/login.service";
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
