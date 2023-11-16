@@ -47,6 +47,35 @@ export function matchingValuesValidator(controlName1: string, controlName2: stri
   };
 }
 
+export function passwordStrengthValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    if (!value) {
+      // If no value, don't return error (let required validator handle this)
+      return null;
+    }
+
+    const hasUpperCase = /[A-Z]/.test(value);
+    const hasLowerCase = /[a-z]/.test(value);
+    const hasNumeric = /\d/.test(value);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+    const isLengthValid = value.length >= 8;
+
+    const passwordValid = hasUpperCase && hasLowerCase && hasNumeric && hasSpecialChar && isLengthValid;
+
+    if (!passwordValid) {
+      // Return an object if the password does not meet criteria
+      return {
+        passwordStrength: {
+          message: 'Password must be at least 8 characters long, include a number, an uppercase letter, and a symbol.'
+        }
+      };
+    }
+
+    return null; // Return null if the password meets all criteria
+  };
+}
+
 // Utility function to get the first error message of a control
 export function getErrorMessage(control: AbstractControl): string | null {
   if (!control.errors) {

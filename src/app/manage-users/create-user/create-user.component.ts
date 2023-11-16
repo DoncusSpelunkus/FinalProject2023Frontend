@@ -1,13 +1,14 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
 import {AbstractControl, EmailValidator, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {
   emailValidator,
   getErrorMessage,
-  matchingValuesValidator,
+  matchingValuesValidator, passwordStrengthValidator,
   valueRequired
 } from "../../../util/form-control-validators";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-create-user',
@@ -20,9 +21,11 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   FormControlNames = FormControlNames;
   formGroup: FormGroup;
 
+  @Output() isValidEmitter = new EventEmitter<boolean>();
+  private formGroupStatusSubscription: Subscription;
+
   hidePassword = true;
   hideConfirmPassword = true;
-
   roles = [
     {value: 'standard'},
     {value: 'admin'},
@@ -34,6 +37,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
 
   ngOnInit(): void {
     this.initializeFormGroup();
+    this.initializeSubscriptions()
   }
 
   setData(data: any): void {
@@ -54,9 +58,28 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
       [FormControlNames.USERNAME]: ['',valueRequired(FormControlNames.USERNAME)],
       [FormControlNames.EMAIL]: ['',[valueRequired(FormControlNames.EMAIL),emailValidator]],
       [FormControlNames.ROLE]: ['',valueRequired(FormControlNames.ROLE)],
-      [FormControlNames.PASSWORD]: ['',valueRequired(FormControlNames.PASSWORD)],
+      [FormControlNames.PASSWORD]: ['',[valueRequired(FormControlNames.PASSWORD), passwordStrengthValidator()]],
       [FormControlNames.PASSWORD_CONFIRMATION]: ['',valueRequired(FormControlNames.PASSWORD_CONFIRMATION)]
     }, {validators: matchingValuesValidator(FormControlNames.PASSWORD,FormControlNames.PASSWORD_CONFIRMATION)}
     )
+  }
+
+  private initializeSubscriptions() {
+    this.formGroupStatusSubscription = this.formGroup.statusChanges.subscribe(status => {
+      switch (status) {
+        case "VALID":
+          this.isValidEmitter.emit(true);
+          break;
+        case "DISABLED":
+          this.isValidEmitter.emit(false);
+          break;
+        case "INVALID":
+          this.isValidEmitter.emit(false);
+          break;
+        case "PENDING":
+          this.isValidEmitter.emit(false);
+          break;
+      }
+    })
   }
 }

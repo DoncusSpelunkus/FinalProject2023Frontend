@@ -1,10 +1,10 @@
 export enum FormControlNames {
-  PASSWORD = 'PASSWORD',
-  EMAIL = 'EMAIL',
-  PASSWORD_CONFIRMATION = "PASSWORD_CONFIRMATION",
+  PASSWORD = 'Password',
+  EMAIL = 'Email',
+  PASSWORD_CONFIRMATION = "Password confirmation",
   FILTER = 'FILTER',
   PAGE = 'PAGE_INDEX',
-  USERNAME = 'USERNAME',
-  NAME = "NAME",
-  ROLE = "ROLE",
+  USERNAME = 'Username',
+  NAME = "Name",
+  ROLE = "Role",
 }
