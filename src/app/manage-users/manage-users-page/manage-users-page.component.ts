@@ -1,14 +1,20 @@
-import {AfterViewInit, Component, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {FormControlNames} from "../../../constants/input-field-constants";
-import {debounceTime, Subject, Subscription, take} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
-import {setupDistinctControlSubscription} from "../../../util/subscription-setup";
-import {MatDialog} from "@angular/material/dialog";
-import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
-import {CreateUserComponent} from "../create-user/create-user.component";
+import { AfterViewInit, Component, HostBinding, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormControlNames } from "../../../constants/input-field-constants";
+import { debounceTime, Subject, Subscription, take } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
+import { setupDistinctControlSubscription } from "../../../util/subscription-setup";
+
+import { User } from 'src/entities/User';
+import { ActivityService } from 'src/services/activityService';
+import { UserService } from 'src/services/user.service';
+import { MatDialog } from "@angular/material/dialog";
+import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog.component";
+import { CreateUserComponent } from "../create-user/create-user.component";
+import { UserObservable } from 'src/services/userObservable';
+
 
 
 //TODO clean up subscriptions, iplement loading and actions in table
@@ -16,10 +22,10 @@ import {CreateUserComponent} from "../create-user/create-user.component";
   selector: 'app-manage-users-page',
   templateUrl: './manage-users-page.component.html'
 })
-export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy{
+export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   formGroup: FormGroup;
-  dataSource = new MatTableDataSource<any>();
+  dataSource = new MatTableDataSource<User>();
 
 
   private filterSubscription: Subscription;
@@ -27,45 +33,31 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
   private itemCountPerPageSubscription: Subscription;
 
 
-  private routeParamsSubject = new Subject<{[param: string]: any}>();
+  private routeParamsSubject = new Subject<{ [param: string]: any }>();
   private queryParamSubscription: Subscription;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  optionsPerPage = [3,5,10,15,25]
+  optionsPerPage = [3, 5, 10, 15, 25]
 
-  displayedColumns: string[] = ['name', 'lastName','delete','edit'];
+  displayedColumns: string[] = ['name', 'email', 'delete', 'edit'];
   FormControlNames = FormControlNames
+  warehouseId: number | undefined;
 
-  users: { name: string; lastName: string }[] = [
-    { name: 'Emma', lastName: 'Johnson' },
-    { name: 'Noah', lastName: 'Williams' },
-    { name: 'Olivia', lastName: 'Brown' },
-    { name: 'Liam', lastName: 'Jones' },
-    { name: 'Sophia', lastName: 'Garcia' },
-    { name: 'Mason', lastName: 'Miller' },
-    { name: 'Ava', lastName: 'Davis' },
-    { name: 'Jacob', lastName: 'Rodriguez' },
-    { name: 'William', lastName: 'Martinez' },
-    { name: 'Isabella', lastName: 'Hernandez' },
-    { name: 'Ethan', lastName: 'Lopez' },
-    { name: 'James', lastName: 'Gonzalez' },
-    { name: 'Mia', lastName: 'Wilson' },
-    { name: 'Alexander', lastName: 'Anderson' },
-    { name: 'Michael', lastName: 'Thomas' },
-    { name: 'Charlotte', lastName: 'Taylor' },
-    { name: 'Benjamin', lastName: 'Moore' },
-    { name: 'Elijah', lastName: 'Jackson' },
-    { name: 'Amelia', lastName: 'Martin' },
-    { name: 'Oliver', lastName: 'Lee' },
-  ];
+  users: User[] = [];
+
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private activityMonitor: ActivityService,
+    private userService: UserService,
+    private dialog: MatDialog,
+    private userObservable: UserObservable,
+
   ) {
+    this.activityMonitor.startMonitoring();
     this.routeParamsSubject.pipe(
       debounceTime(300) // Debounce time in milliseconds
     ).subscribe(paramsToUpdate => {
@@ -78,14 +70,18 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
   }
 
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.userObservable.user$.subscribe(user => {
+      this.warehouseId = user?.warehouseId;
+    })
+    await this.fetchUsers();
     this.initializeFormControl();
     this.bindRouteValues();
+    this.initializeDataSource();
   }
 
   ngAfterViewInit(): void {
     this.paginator.pageSize = 3
-    this.initializeDataSource();
     if (this.paginator) {
       this.paginator.page.subscribe(event => {
         this.formGroup.patchValue({
@@ -99,7 +95,10 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
     this.filterSubscription.unsubscribe();
   }
 
-  private fetchUsers() {
+  private async fetchUsers() {
+    if(this.warehouseId){
+      this.users = await this.userService.getAllByWarehouse(this.warehouseId); // TODO: get warehouse id from? We need to get the warehouse id from somewhere
+    }
   }
 
   get filterValue(): string {
@@ -118,7 +117,7 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
       this.formGroup,
       FormControlNames.FILTER,
       (value) => {
-        this.updateRouteParams({search: value});
+        this.updateRouteParams({ search: value });
         this.filterTable(value)
       }
     )
@@ -173,14 +172,14 @@ export class ManageUsersPageComponent implements OnInit,AfterViewInit, OnDestroy
       const page = +params['page'] || 0;
 
       this.formGroup.patchValue({
-          [FormControlNames.FILTER]: searchQuery,
-          [FormControlNames.PAGE]: page
-        }, {emitEvent: true}
+        [FormControlNames.FILTER]: searchQuery,
+        [FormControlNames.PAGE]: page
+      }, { emitEvent: true }
       )
     });
   }
 
-  private updateRouteParams = (paramsToUpdate: {[param: string]: any}) => {
+  private updateRouteParams = (paramsToUpdate: { [param: string]: any }) => {
     this.routeParamsSubject.next(paramsToUpdate);
   }
 

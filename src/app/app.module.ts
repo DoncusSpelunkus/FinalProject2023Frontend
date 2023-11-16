@@ -22,6 +22,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LogsPageComponent } from './logs-page/logs-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
+import { ActivityService } from 'src/services/activityService';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
 import {MatRippleModule} from "@angular/material/core";
 import { ExtendedActionsComponent } from './dashboard/component-modules/dashboard-button/extended-actions/extended-actions.component';
@@ -33,6 +34,8 @@ import { StockProductComponent } from './inventory-page/stock-product/stock-prod
 import { IconComponent } from './util/icon/icon.component';
 import { RelocateProductRowComponent } from './inventory-page/relocate-product-row/relocate-product-row.component';
 import { UpdateQuantityRowComponent } from './inventory-page/update-quantity-row/update-quantity-row.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -52,27 +55,28 @@ import { UpdateQuantityRowComponent } from './inventory-page/update-quantity-row
         IconComponent,
         RelocateProductRowComponent,
         UpdateQuantityRowComponent,
+        PageNotFoundComponent,
     ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatIconModule,
-    CommonModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    BrowserAnimationsModule,
-    MatRippleModule,
-    MatDialogModule
-  ],
-  providers: [MatSnackBar],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        CommonModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatProgressSpinnerModule,
+        BrowserAnimationsModule,
+        MatRippleModule,
+        MatDialogModule
+    ],
+  providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

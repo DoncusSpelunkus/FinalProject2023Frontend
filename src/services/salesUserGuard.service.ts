@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Observable } from "rxjs";
 import { jwtDecode } from "jwt-decode";
+import { Token } from "src/entities/Token";
+
 
 @Injectable({
     providedIn: 'root'
@@ -29,9 +31,4 @@ export class SalesGuardService implements CanActivate {
         }
         return false;
     }
-}
-
-class Token { // a small expression of the token
-    exp?: number;
-    role?: string;
 }

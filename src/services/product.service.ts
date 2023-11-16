@@ -6,16 +6,13 @@ import { environment } from "src/enviroment";
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/Product',
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('auth')}`
-  }
+  withCredentials: true,
 })
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
       response => {
@@ -30,21 +27,29 @@ export class ProductService {
         catchError(rejected);
       }
     )
+
+    customAxios.interceptors.request.use((config) => {
+      const token = localStorage.getItem('auth');
+      if(token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
   }
 
-  private async getBySku(sku: string) {
+  async getBySku(sku: string) {
     await customAxios.get('/GetProductBySku/' + sku).then(response => {
       return response;
     });
   }
 
-  private async getByWarehouse(warehouseId: string) {
+  async getByWarehouse(warehouseId: string) {
     await customAxios.get('/GetProductByWarehouse/' + warehouseId).then(response => {
       return response;
     });
   }
 
-  private async createProduct(product: any) {
+  async createProduct(product: any) {
     await customAxios.post('/CreateProduct', product).then(response => {
       return response;
     });
