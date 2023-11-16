@@ -77,7 +77,6 @@ import {MatSelectModule} from "@angular/material/select";
         MatRippleModule,
         MatDialogModule,
         MatSelectModule
-        MatDialogModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]
