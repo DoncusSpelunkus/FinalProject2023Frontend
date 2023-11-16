@@ -35,6 +35,7 @@ import { IconComponent } from './util/icon/icon.component';
 import { RelocateProductRowComponent } from './inventory-page/relocate-product-row/relocate-product-row.component';
 import { UpdateQuantityRowComponent } from './inventory-page/update-quantity-row/update-quantity-row.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
     declarations: [
@@ -74,7 +75,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         MatProgressSpinnerModule,
         BrowserAnimationsModule,
         MatRippleModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSelectModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

@@ -10,6 +10,7 @@ export class DynamicDialogComponent implements AfterViewInit {
   @ViewChild('dynamicContent', { read: ViewContainerRef,static: false }) viewContainerRef: ViewContainerRef;
 
   componentRef: ComponentRef<LoadableComponent>;
+  isValid = false; // keep track if the form inside of dialog is valid
 
   constructor(
     public dialogRef: MatDialogRef<DynamicDialogComponent>,
@@ -21,9 +22,13 @@ export class DynamicDialogComponent implements AfterViewInit {
 
     // Set data
     this.componentRef.instance.setData(this.data.inputs);
+    this.componentRef.instance.isValidEmitter.subscribe(isValid => {
+      this.isValid = isValid
+    })
   }
 
   onSubmit() {
+    this.componentRef.instance.submit();
     this.dialogRef.close(DialogResponse.NO);
   }
 
