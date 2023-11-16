@@ -15,7 +15,7 @@ export const customAxios = axios.create({
 @Injectable({
   providedIn: 'root'
 })
-export class LoginServiceService {
+export class LoginService {
 
   constructor(private matSnackbar: MatSnackBar, private userObservable: UserObservable) {
     customAxios.interceptors.response.use(
