@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     private route: Router,
     private matSnackbar: MatSnackBar
   ) {
+    
 
   }
 
