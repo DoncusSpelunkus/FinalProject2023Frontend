@@ -3,8 +3,17 @@ export enum FormControlNames {
   EMAIL = 'Email',
   PASSWORD_CONFIRMATION = "Password confirmation",
   FILTER = 'FILTER',
-  PAGE = 'PAGE_INDEX',
-  USERNAME = 'Username',
+  USERNAME = 'USERNAME',
   NAME = "Name",
   ROLE = "Role",
+
+  PAGE = 'PAGE_INDEX',
+
+  AISLE = "Aisle",
+  ROW = "Row",
+  SHELF = "Shelf",
+  COLUMN = "Column",
+
+  QUANTITY = "Quantity",
+
 }
