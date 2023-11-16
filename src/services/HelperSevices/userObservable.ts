@@ -38,8 +38,4 @@ export class UserObservable {
     private saveUserToStorage(user: User) {
         localStorage.setItem('currentUser', JSON.stringify(user));
     }
-
-    public getCurrentUserSynchronously() {
-      return this.userSubject.value;
-    }
 }

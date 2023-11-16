@@ -35,13 +35,13 @@
 
         <!-- Settings Icon -->
         <button mat-icon-button aria-label="Settings">
-          <app-icon class="text-white text-2xl" icon="setting"></app-icon>
+          <mat-icon>settings</mat-icon>
         </button>
 
         <!-- Login Icon -->
         <button mat-icon-button aria-label="Log in" (click)="logout()">
-
-          <app-icon class="text-white text-2xl" icon="signout"></app-icon>
+          
+          <mat-icon>logout</mat-icon>
         </button>
       </div>
 
@@ -54,7 +54,7 @@
       <div class="w-full flex flex-row justify-between items-center pb-1.5">
         <!--   BACK BTN   -->
         <div class="flex items-center justify-center">
-          <button mat-button class="!text-white brightness-90 !bg-green-800" (click)="handleGoBack()">
+          <button mat-button class="!text-white brightness-90 !bg-green-800">
             <mat-icon class="text-white">arrow_back</mat-icon>
             Back
           </button>

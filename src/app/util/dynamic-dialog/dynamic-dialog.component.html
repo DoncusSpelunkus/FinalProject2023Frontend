@@ -1,18 +1,15 @@
 <section class="w-full h-full flex flex-col p-10 pb-5 relative">
-  <button class="w-7 h-7 bg-green-800 rounded-md flex justify-center items-center absolute right-3 top-3" (click)="handleNo()">
-    <app-icon class="text-xl text-white" icon="times"></app-icon>
+  <button class="w-8 h-8 bg-green-800 rounded-md flex justify-center items-center absolute right-6 top-6">
+    <mat-icon class="text-white">close</mat-icon>
   </button>
   <!-- Dynamic component is loaed here -->
-  <section class="w-full h-full p-4">
+  <section class="w-full h-full">
     <ng-template #dynamicContent></ng-template>
   </section>
 
   <!-- Actions -->
   <section class="h-fit w-full flex flex-row justify-around space-x-10">
-    <button class="bg-transparent ring-green-800 ring-1 rounded-md px-3 py-1.5 !text-green-800 uppercase font-quicksand w-full max-w-full font-black" (click)="handleNo()">Cancel</button>
-    <button class="bg-green-800 px-3 py-1.5 !text-white uppercase rounded-md font-quicksand w-full max-w-full font-black" [disabled]="!isValid"
-            [class.brightness-75]="!isValid"
-            [class.opacity-75]="!isValid"
-            (click)="onSubmit()">Submit</button>
+    <button class="bg-transparent ring-green-800 ring-1 rounded-md px-3 py-1.5 !text-green-800 uppercase font-quicksand w-full max-w-full font-black" (click)="onCancel()">Cancel</button>
+    <button class="bg-green-800 px-3 py-1.5 !text-white uppercase rounded-md font-quicksand w-full max-w-full font-black" (click)="onSubmit()">Submit</button>
   </section>
 </section>

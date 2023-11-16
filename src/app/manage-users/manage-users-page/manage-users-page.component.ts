@@ -16,8 +16,6 @@ import { CreateUserComponent } from "../create-user/create-user.component";
 import { UserObservable } from 'src/services/HelperSevices/userObservable';
 
 
-
-//TODO clean up subscriptions, iplement loading and actions in table
 @Component({
   selector: 'app-manage-users-page',
   templateUrl: './manage-users-page.component.html'

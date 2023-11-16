@@ -21,6 +21,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LogsPageComponent } from './logs-page/logs-page.component';
+import { WarehouseManagementPageComponent } from './warehouse-management-page/warehouse-management-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 import { ActivityService } from 'src/services/HelperSevices/activityService';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
@@ -29,13 +30,7 @@ import { ExtendedActionsComponent } from './dashboard/component-modules/dashboar
 import { DynamicDialogComponent } from './util/dynamic-dialog/dynamic-dialog.component';
 import { CreateUserComponent } from './manage-users/create-user/create-user.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import { InventoryPageComponent } from './inventory-page/inventory-page.component';
-import { StockProductComponent } from './inventory-page/stock-product/stock-product/stock-product.component';
-import { IconComponent } from './util/icon/icon.component';
-import { RelocateProductRowComponent } from './inventory-page/relocate-product-row/relocate-product-row.component';
-import { UpdateQuantityRowComponent } from './inventory-page/update-quantity-row/update-quantity-row.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
     declarations: [
@@ -46,16 +41,12 @@ import {MatSelectModule} from "@angular/material/select";
         CollapsableContainerDirective,
         ManageUsersPageComponent,
         LogsPageComponent,
+        WarehouseManagementPageComponent,
         ShipmentPageComponent,
         DashboardButtonComponent,
         ExtendedActionsComponent,
         DynamicDialogComponent,
         CreateUserComponent,
-        InventoryPageComponent,
-        StockProductComponent,
-        IconComponent,
-        RelocateProductRowComponent,
-        UpdateQuantityRowComponent,
         PageNotFoundComponent,
     ],
     imports: [
@@ -75,8 +66,7 @@ import {MatSelectModule} from "@angular/material/select";
         MatProgressSpinnerModule,
         BrowserAnimationsModule,
         MatRippleModule,
-        MatDialogModule,
-        MatSelectModule
+        MatDialogModule 
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]
