@@ -24,6 +24,7 @@ export class DynamicDialogComponent implements AfterViewInit {
   }
 
   onSubmit() {
+    this.componentRef.instance.submit();
     this.dialogRef.close();
   }
 

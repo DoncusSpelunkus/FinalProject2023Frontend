@@ -16,6 +16,7 @@
       <mat-label>Name</mat-label>
       <input matInput [formControlName]="FormControlNames.NAME" placeholder="Name">
       <mat-icon matSuffix>badge</mat-icon>
+      <mat-error>{{getControlErrorMessage(FormControlNames.NAME)}}</mat-error>
     </mat-form-field>
 
   </section>
@@ -26,6 +27,7 @@
       <mat-label>Email</mat-label>
       <input matInput [formControlName]="FormControlNames.EMAIL" type="email" placeholder="Email">
       <mat-icon matSuffix>email</mat-icon>
+      <mat-error>{{getControlErrorMessage(FormControlNames.EMAIL)}}</mat-error>
     </mat-form-field>
 
     <!-- Role Field -->
@@ -35,6 +37,7 @@
         <mat-option *ngFor="let role of roles" [value]="role.value">{{role.value}}</mat-option>
       </mat-select>
       <mat-icon matSuffix>people</mat-icon>
+      <mat-error>{{getControlErrorMessage(FormControlNames.ROLE)}}</mat-error>
     </mat-form-field>
 
   </section>
@@ -48,6 +51,7 @@
       <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
+      <mat-error>{{getControlErrorMessage(FormControlNames.PASSWORD)}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="w-full" appearance="fill">
@@ -56,6 +60,7 @@
       <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
         <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
+      <mat-error>{{getControlErrorMessage(FormControlNames.PASSWORD_CONFIRMATION)}}</mat-error>
     </mat-form-field>
 
   </section>
