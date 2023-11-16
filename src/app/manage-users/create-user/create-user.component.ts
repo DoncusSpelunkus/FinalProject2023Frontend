@@ -11,8 +11,8 @@ import {
 } from "../../../util/form-control-validators";
 import {Subscription} from "rxjs";
 import {CreateUserDTO} from "../../../entities/User";
-import {UserObservable} from "../../../services/userObservable";
-import {UserService} from "../../../services/user.service";
+import {UserObservable} from "../../../services/HelperSevices/userObservable";
+import {UserService} from "../../../services/HttpRequestSevices/user.service";
 
 @Component({
   selector: 'app-create-user',
