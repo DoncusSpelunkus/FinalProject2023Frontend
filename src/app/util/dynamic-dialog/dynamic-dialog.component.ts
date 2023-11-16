@@ -24,10 +24,15 @@ export class DynamicDialogComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    this.dialogRef.close();
+    this.dialogRef.close(DialogResponse.NO);
   }
 
-  onCancel() {
-    this.dialogRef.close();
+  handleNo() {
+    this.dialogRef.close(DialogResponse.YES)
   }
+}
+
+export enum DialogResponse {
+  YES = "YES",
+  NO = "NO"
 }
