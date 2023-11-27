@@ -14,6 +14,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog.component";
 import { CreateUserComponent } from "../create-user/create-user.component";
 import { UserObservable } from 'src/services/userObservable';
+import {DeleteUserConfirmationComponent} from "../delete-user-confirmation/delete-user-confirmation.component";
 
 
 
@@ -193,6 +194,17 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
       data: {
         component: CreateUserComponent,
         inputs: {} // No dependent data to pass
+      }
+    });
+  }
+
+  openDeleteUserDialog(user: any) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '50%', // Set the width
+      height: '35%', // Set the height
+      data: {
+        component: DeleteUserConfirmationComponent,
+        inputs: user   // No dependent data to pass
       }
     });
   }

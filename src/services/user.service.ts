@@ -71,7 +71,7 @@ export class UserService {
   }
 
   async deleteEmployee(employeeId: number) {
-    await customAxios.delete('/DeleteEmployee/' + employeeId).then(response => {
+    await customAxios.delete('/Delete/' + employeeId).then(response => {
       return response;
     });
   }
