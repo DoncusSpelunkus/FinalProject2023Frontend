@@ -72,10 +72,6 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
 
   }
 
-  submit() {
-    console.log(this.formGroup.value)
-  }
-
   private initializeSubscriptions() {
     this.formGroupStatusSubscription = this.formGroup.statusChanges.subscribe(status => {
       switch (status) {
