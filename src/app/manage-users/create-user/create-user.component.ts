@@ -43,7 +43,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
 
   ngOnInit(): void {
     this.initializeFormGroup();
-    this.initializeSubscriptions()
+    this.initializeSubscriptions();
   }
 
   setData(data: any): void {
@@ -69,6 +69,11 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
       [FormControlNames.PASSWORD_CONFIRMATION]: ['',valueRequired(FormControlNames.PASSWORD_CONFIRMATION)]
     }, {validators: matchingValuesValidator(FormControlNames.PASSWORD,FormControlNames.PASSWORD_CONFIRMATION)}
     )
+
+  }
+
+  submit() {
+    console.log(this.formGroup.value)
   }
 
   private initializeSubscriptions() {
