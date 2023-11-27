@@ -53,8 +53,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     private route: ActivatedRoute,
     private activityMonitor: ActivityService,
     private userService: UserService,
-    private dialog: MatDialog,
-    private userObservable: UserObservable,
+    private dialog: MatDialog
 
   ) {
     this.activityMonitor.startMonitoring();
@@ -71,9 +70,6 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
 
 
   async ngOnInit() {
-    this.userObservable.user$.subscribe(user => {
-      this.warehouseId = user?.warehouseId;
-    })
     await this.fetchUsers();
     this.initializeFormControl();
     this.bindRouteValues();
@@ -96,9 +92,9 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   private async fetchUsers() {
-    if(this.warehouseId){
-      this.users = await this.userService.getAllByWarehouse(this.warehouseId); // TODO: get warehouse id from? We need to get the warehouse id from somewhere
-    }
+    this.userService.getAllByWarehouse().then((users) => {
+      this.dataSource.data = users
+    });
   }
 
   get filterValue(): string {

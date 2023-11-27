@@ -4,6 +4,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import {  catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 import {CreateUserDTO, User} from 'src/entities/User';
+import {UserObservable} from "./userObservable";
 
 
 
@@ -18,7 +19,8 @@ export const customAxios = axios.create({
 })
 export class UserService {
 
-  constructor(private matSnackbar: MatSnackBar) {
+  constructor(private matSnackbar: MatSnackBar,
+              private userObservable: UserObservable) {
     customAxios.interceptors.response.use(
       response => {
         if (response.status == 201) {
@@ -44,7 +46,8 @@ export class UserService {
 
 
 
-  async getAllByWarehouse(warehouseId: number) {
+  async getAllByWarehouse() {
+    const warehouseId = this.userObservable.getUserSynchronously().warehouseId;
     let response = await customAxios.get('/GetAllByWarehouseId/' + warehouseId);
 
     let users: User[] = response.data.map((any: any) => {
