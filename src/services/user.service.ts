@@ -52,13 +52,15 @@ export class UserService {
   }
 
   async deleteEmployee(employeeId: number) {
-    await customAxios.delete('/Delete/' + employeeId).then(() => {
+    await customAxios.delete('/Delete/' + employeeId).then(response => {
       this.userStore.deleteEmployee(employeeId);
+      return response
     });
   }
 
   async createUser(createUserDTO: CreateUserDTO) {
     await customAxios.post('/register', createUserDTO).then(response => {
+      this.userStore.createUser(response);
       return response;
     });
   }

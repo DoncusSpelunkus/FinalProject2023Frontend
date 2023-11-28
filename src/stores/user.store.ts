@@ -25,4 +25,11 @@ export class UserStore {
     const updatedEmployeeList = currentEmployeeList.filter(user => user.employeeId != employeeId);
     this.usersSubject.next(updatedEmployeeList)
   }
+
+  createUser(response: any) {
+    const user = response.data;
+    const employeeList = this.usersSubject.value;
+    employeeList.push(user)
+    this.usersSubject.next(employeeList)
+  }
 }
