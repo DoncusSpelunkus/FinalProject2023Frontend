@@ -15,6 +15,7 @@ import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog
 import { CreateUserComponent } from "../create-user/create-user.component";
 import { UserObservable } from 'src/services/userObservable';
 import {DeleteUserConfirmationComponent} from "../delete-user-confirmation/delete-user-confirmation.component";
+import {UserStore} from "../../../stores/user.store";
 
 
 
@@ -54,6 +55,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     private route: ActivatedRoute,
     private activityMonitor: ActivityService,
     private userService: UserService,
+    private userStore: UserStore,
     private dialog: MatDialog
 
   ) {
@@ -93,9 +95,13 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   private async fetchUsers() {
-    this.userService.getAllByWarehouse().then((users) => {
-      this.dataSource.data = users
-    });
+    // this.userService.getAllByWarehouse().then((users) => {
+    //   this.dataSource.data = users
+    // });
+    this.userService.getAllByWarehouse();
+    this.userStore.getUsers.subscribe((users) => {
+      this.dataSource.data = users;
+    })
   }
 
   get filterValue(): string {
