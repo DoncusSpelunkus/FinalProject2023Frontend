@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, HostBinding, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
-import { ButtonConfig, DashboardCommunicationService } from "../../services/dashboard-communication.service";
+import { ButtonConfig, DashboardCommunicationService } from "../../services/HelperSevices/dashboard-communication.service";
 import { identity, Subscription } from "rxjs";
 import { inventoryButtonConfig, productsButtonConfig, usersButtonConfig } from "../../constants/dashboard-actions";
-import { UserObservable } from 'src/services/userObservable';
+import { UserObservable } from 'src/services/HelperSevices/userObservable';
 import { User } from 'src/entities/User';
 import { ActivatedRoute, Router } from '@angular/router';
 import {LocationStrategy} from "@angular/common";

@@ -1,4 +1,4 @@
-import {ButtonConfig} from "../services/dashboard-communication.service";
+import {ButtonConfig} from "../services/HelperSevices/dashboard-communication.service";
 
 export const usersButtonConfig: ButtonConfig = {
   identity: "USERS",
