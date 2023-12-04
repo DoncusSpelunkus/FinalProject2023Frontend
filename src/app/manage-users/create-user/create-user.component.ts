@@ -43,7 +43,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
 
   ngOnInit(): void {
     this.initializeFormGroup();
-    this.initializeSubscriptions()
+    this.initializeSubscriptions();
   }
 
   setData(data: any): void {
@@ -51,6 +51,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
 
   async submit() {
     const createUserDTO: CreateUserDTO = this.getRequestBody();
+    console.log(createUserDTO);
     await this.userService.createUser(createUserDTO);
   }
 
@@ -69,6 +70,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
       [FormControlNames.PASSWORD_CONFIRMATION]: ['',valueRequired(FormControlNames.PASSWORD_CONFIRMATION)]
     }, {validators: matchingValuesValidator(FormControlNames.PASSWORD,FormControlNames.PASSWORD_CONFIRMATION)}
     )
+
   }
 
   private initializeSubscriptions() {
@@ -97,7 +99,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
       password: this.formGroup.get(FormControlNames.PASSWORD)?.value,
       role: this.formGroup.get(FormControlNames.ROLE)?.value,
       username: this.formGroup.get(FormControlNames.USERNAME)?.value,
-      warehouseId: this.userObservable.getCurrentUserSynchronously()?.warehouseId
+      warehouseId: this.userObservable.getUserSynchronously().warehouseId
     };
   }
 }

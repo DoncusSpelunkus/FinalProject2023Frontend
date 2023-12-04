@@ -39,7 +39,13 @@ export class UserObservable {
         localStorage.setItem('currentUser', JSON.stringify(user));
     }
 
-    public getCurrentUserSynchronously() {
-      return this.userSubject.value;
+    public getUserSynchronously(){
+      const storedUser = localStorage.getItem('currentUser');
+      let user = new User();
+      if(storedUser) {
+        Object.assign(user, JSON.parse(storedUser));
+        return user;
+      }
+      return user;
     }
 }

@@ -36,6 +36,8 @@ import { RelocateProductRowComponent } from './inventory-page/relocate-product-r
 import { UpdateQuantityRowComponent } from './inventory-page/update-quantity-row/update-quantity-row.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MatSelectModule} from "@angular/material/select";
+import { DeleteUserConfirmationComponent } from './manage-users/delete-user-confirmation/delete-user-confirmation.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
     declarations: [
@@ -57,6 +59,7 @@ import {MatSelectModule} from "@angular/material/select";
         RelocateProductRowComponent,
         UpdateQuantityRowComponent,
         PageNotFoundComponent,
+        DeleteUserConfirmationComponent,
     ],
     imports: [
         BrowserModule,
@@ -76,7 +79,8 @@ import {MatSelectModule} from "@angular/material/select";
         BrowserAnimationsModule,
         MatRippleModule,
         MatDialogModule,
-        MatSelectModule
+        MatSelectModule,
+        MatCheckboxModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

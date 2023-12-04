@@ -14,6 +14,9 @@ import { MatDialog } from "@angular/material/dialog";
 import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog.component";
 import { CreateUserComponent } from "../create-user/create-user.component";
 import { UserObservable } from 'src/services/HelperSevices/userObservable';
+import {DeleteUserConfirmationComponent} from "../delete-user-confirmation/delete-user-confirmation.component";
+import {UserStore} from "../../../stores/user.store";
+
 
 
 
@@ -53,8 +56,8 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     private route: ActivatedRoute,
     private activityMonitor: ActivityService,
     private userService: UserService,
-    private dialog: MatDialog,
-    private userObservable: UserObservable,
+    private userStore: UserStore,
+    private dialog: MatDialog
 
   ) {
     this.activityMonitor.startMonitoring();
@@ -71,9 +74,6 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
 
 
   async ngOnInit() {
-    this.userObservable.user$.subscribe(user => {
-      this.warehouseId = user?.warehouseId;
-    })
     await this.fetchUsers();
     this.initializeFormControl();
     this.bindRouteValues();
@@ -96,9 +96,13 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   private async fetchUsers() {
-    if(this.warehouseId){
-      this.users = await this.userService.getAllByWarehouse(this.warehouseId); // TODO: get warehouse id from? We need to get the warehouse id from somewhere
-    }
+    // this.userService.getAllByWarehouse().then((users) => {
+    //   this.dataSource.data = users
+    // });
+    this.userService.getAllByWarehouse();
+    this.userStore.getUsers.subscribe((users) => {
+      this.dataSource.data = users;
+    })
   }
 
   get filterValue(): string {
@@ -197,6 +201,17 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
       data: {
         component: CreateUserComponent,
         inputs: {} // No dependent data to pass
+      }
+    });
+  }
+
+  openDeleteUserDialog(user: any) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '50%', // Set the width
+      height: '35%', // Set the height
+      data: {
+        component: DeleteUserConfirmationComponent,
+        inputs: user   // No dependent data to pass
       }
     });
   }
