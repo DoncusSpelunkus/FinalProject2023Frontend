@@ -1,5 +1,10 @@
 import { Product } from "src/entities/Product";
 
+export class establishConnection {
+    static readonly type = '[Product] Establish connection'
+    constructor() { }
+}
+
 export class getProducts {
     static readonly type = '[Product] Get products'
     constructor() { }

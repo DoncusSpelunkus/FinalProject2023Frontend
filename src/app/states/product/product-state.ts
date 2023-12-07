@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
 import { Product } from "src/entities/Product";
-import { getLocations, getProductLocations, getProducts } from "./product-actions";
-import { ProductSocket } from "src/services/SocketServices/ProductSocket";
+import { establishConnection, getLocations, getProductLocations, getProducts } from "./product-actions";
+import { ProductSocket } from "src/services/SocketServices/productService.service";
 import { ProductLocation } from "src/entities/ProductLocation";
 
 export interface ProductStateModel {
@@ -51,5 +51,11 @@ export class ProductState {
             })
         })
     }
+
+    @Action(establishConnection)
+    establishConnection({ dispatch }: StateContext<ProductStateModel>) {
+        this.productSocket.establishConnection();
+    }
+
     
 }

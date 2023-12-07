@@ -6,6 +6,8 @@ import { getErrorMessage, valueRequired } from "../../../../util/form-control-va
 import { LoginService} from "../../../../services/HttpRequestSevices/login.service";
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngxs/store';
+import { establishConnection } from 'src/app/states/product/product-actions';
 
 
 @Component({
@@ -29,7 +31,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private loginService: LoginService,
     private route: Router,
-    private matSnackbar: MatSnackBar
+    private matSnackbar: MatSnackBar,
+    private store: Store
   ) {
 
 
@@ -47,6 +50,7 @@ export class LoginComponent implements OnInit {
     const password = this.passwordInput;
     try {
       await this.loginService.login(username, password)
+      this.store.dispatch(new establishConnection());
     }
     catch (e) {
       this.matSnackbar.open("Something went wrong", 'x', { duration: 1000 })

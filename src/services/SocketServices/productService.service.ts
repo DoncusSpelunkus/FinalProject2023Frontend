@@ -4,6 +4,9 @@ import * as signalR from "@aspnet/signalr";
 import { Subject } from "rxjs";
 
 
+
+
+
 @Injectable({
     providedIn: 'root'
 })
@@ -18,11 +21,11 @@ export class ProductSocket {
     constructor() { }
 
 
-    public establishConnection() { // Run this method when the user has logged in
+    public establishConnection() { // We want to run this method on a later stage to insure token avaliability
         this.hubConnection = new signalR.HubConnectionBuilder()
             .withUrl(environment.socketUrl, {
                 accessTokenFactory: () => {
-                    return localStorage.getItem("token");
+                    return localStorage.getItem("auth");
                 }
             })
             .build();
@@ -52,5 +55,9 @@ export class ProductSocket {
     public getProductLocations() {
         return this.productLocationSubject.asObservable();
     }
+
+
+
+
 
 }
