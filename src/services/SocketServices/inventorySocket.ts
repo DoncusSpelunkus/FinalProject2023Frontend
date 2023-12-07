@@ -9,53 +9,63 @@ import { Subject } from "rxjs";
 export class InventorySocket {
 
     private hubConnection: signalR.HubConnection;
+
     private productSubject = new Subject<any>();
     private locationSubject = new Subject<any>();
     private productLocationSubject = new Subject<any>();
+    private connectionEstablished = false;
 
 
     constructor() {
-        if (localStorage.getItem("auth") != null) {
-            this.establishConnection();
-        }
+        this.establishConnection();
     }
 
-    public establishConnection() { // We establish a connection with a socket defined by our enbironment file
-        try {
-            this.hubConnection = new signalR.HubConnectionBuilder()
-                .withUrl(environment.inventorySocketUrl, {
-                    accessTokenFactory: () => {
-                        return localStorage.getItem("auth") || '';
-                    }
-                })
-                .build();
+    public async establishConnection() { // We establish a connection with a socket defined by our enbironment file
+        if (localStorage.getItem("auth") != null) {
+            try {
+                if (this.connectionEstablished == true) { return; }
+                this.hubConnection = new signalR.HubConnectionBuilder()
+                    .withUrl(environment.inventorySocketUrl, {
+                        accessTokenFactory: () => {
+                            return localStorage.getItem("auth") || '';
+                        }
+                    })
+                    .build();
+                try {
+                    await this.hubConnection.start().then(() => console.log("Inventory socket started"));
+                    this.connectionEstablished = true;
+                }
+                catch (error) {
+                    console.log(error)
+                    return
+                }
+                // we describe the event we want to listen to and what we want to do when we get the event
+                this.hubConnection.on("ProductListUpdate", (data) => {
+                    this.productSubject.next(data);
+                });
 
-            this.hubConnection.start().then(() => console.log("MainSocket started"));
-            
+                this.hubConnection.on("LocationListUpdate", (data) => {
+                    this.locationSubject.next(data);
+                });
 
-            // we describe the event we want to listen to and what we want to do when we get the event
-            this.hubConnection.on("ProductListUpdate", (data) => {
-                this.productSubject.next(data);
-                console.log(data);
-            });
+                this.hubConnection.on("ProductLocationListUpdate", (data) => {
+                    this.productLocationSubject.next(data);
+                });
 
-            this.hubConnection.on("LocationListUpdate", (data) => {
-                this.locationSubject.next(data);
-                console.log(data)
-            });
-
-            this.hubConnection.on("ProductLocationListUpdate", (data) => {
-                this.productLocationSubject.next(data);
-                console.log(data)
-            });
-        }
-        catch (error) {
-            console.log(error)
+                this.hubConnection.onclose(async () => {
+                    this.connectionEstablished = false;
+                    await this.establishConnection();
+                });
+            }
+            catch (error) {
+                console.log(error)
+            }
         }
     }
 
     public terminateConnection() {
         this.hubConnection.stop();
+        this.connectionEstablished = false;
     }
 
     // We return the subject as an observable so we can subscribe to it

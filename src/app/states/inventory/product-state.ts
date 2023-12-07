@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
 import { Product } from "src/entities/Product";
-import { createItem, establishConnection, getLocations, getProductLocations, getProducts, deleteItem, updateItem } from "./product-actions";
+import { createItem, getLocations, getProductLocations, getProducts, deleteItem, updateItem } from "./product-actions";
 import { ProductLocation } from "src/entities/ProductLocation";
 import { InventorySocket } from "src/services/SocketServices/inventorySocket";
 import { InventoryService } from "src/services/HttpRequestSevices/inventory.service";
+import { establishConnection } from "../crossStateAction";
 
 export interface InventoryStateModel {
     products: Product[];
@@ -55,7 +56,7 @@ export class InventoryState {
     }
 
     @Action(establishConnection)
-    establishConnection({ }: StateContext<InventoryStateModel>) {
+    async establishConnection({ }: StateContext<InventoryStateModel>) {
         this.inventorySocket.establishConnection();
     }
 

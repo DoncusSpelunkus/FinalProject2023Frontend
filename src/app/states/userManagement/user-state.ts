@@ -3,7 +3,8 @@ import { Action, State, StateContext } from "@ngxs/store";
 import { User } from "src/entities/User";
 import { UserManagementService } from "src/services/HttpRequestSevices/userManagement.service";
 import { UserManagementSocket } from "src/services/SocketServices/UserManagementSocket";
-import { createUser, establishConnection, getUsers } from "./user-actions";
+import { createUser, getUsers } from "./user-actions";
+import { establishConnection } from "../crossStateAction";
 
 export interface UserManagementStateModel {
     users: User[];
@@ -23,7 +24,7 @@ export class UserManagementState {
         private userManagementService: UserManagementService) {}
     
     @Action(establishConnection)
-    establishConnection({ }: StateContext<UserManagementStateModel>) {
+    async establishConnection({ }: StateContext<UserManagementStateModel>) {
         this.userManagementSocket.establishConnection();
     }
 
@@ -41,7 +42,7 @@ export class UserManagementState {
         this.userManagementService.createUser(payload)
     }
 
-    
+
 
 
     

@@ -11,45 +11,51 @@ export class UserManagementSocket {
 
     private hubConnection: signalR.HubConnection;
     private userSubject = new Subject<any>();
+    private connectionEstablished = false;
 
 
     constructor() {
-        if (localStorage.getItem("auth") != null) {
-            this.establishConnection();
-        }
+        this.establishConnection();
     }
 
-    public establishConnection() { // We want to run this method on a later stage to insure token avaliability
-        this.hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl(environment.userManagementSocketUrl, {
-                accessTokenFactory: () => {
-                    return localStorage.getItem("auth") || '';
+    public async establishConnection() { // We establish a connection with a socket defined by our enbironment file
+        if (localStorage.getItem("auth") != null) {
+            try {
+                if (this.connectionEstablished == true) { return; }
+                this.hubConnection = new signalR.HubConnectionBuilder()
+                    .withUrl(environment.userManagementSocketUrl, {
+                        accessTokenFactory: () => {
+                            return localStorage.getItem("auth") || '';
+                        }
+                    })
+                    .build();
+                try {
+                    await this.hubConnection.start().then(() => console.log("Inventory socket started"));
+                    this.connectionEstablished = true;
                 }
-            })
-            .build();
+                catch (error) {
+                    console.log(error)
+                    return
+                }
+                // we describe the event we want to listen to and what we want to do when we get the event
+                this.hubConnection.on("UserListUpdate", (data) => {
+                    this.userSubject.next(data);
+                });
 
-        this.hubConnection.start().then(() => console.log("MainSocket started"));
-
-
-
-        this.hubConnection.on("ProductListUpdate", (data) => {
-            this.userSubject.next(data);
-            console.log(data);
-        });
-
-        this.hubConnection.on("LocationListUpdate", (data) => {
-            this.userSubject.next(data);
-            console.log(data)
-        });
-
-        this.hubConnection.on("ProductLocationListUpdate", (data) => {
-            this.userSubject.next(data);
-            console.log(data)
-        });
+                this.hubConnection.onclose(async () => {
+                    this.connectionEstablished = false;
+                    await this.establishConnection();
+                });
+            }
+            catch (error) {
+                console.log(error)
+            }
+        }
     }
 
     public terminateConnection() {
         this.hubConnection.stop();
+        this.connectionEstablished = false;
     }
 
     public getUsers() {

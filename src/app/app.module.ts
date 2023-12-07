@@ -41,6 +41,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { NgxsModule } from '@ngxs/store';
 import { LogState } from './states/log/log-state';
 import { InventoryState } from './states/inventory/product-state';
+import { UserManagementState } from './states/userManagement/user-state';
 
 @NgModule({
     declarations: [
@@ -85,7 +86,7 @@ import { InventoryState } from './states/inventory/product-state';
         MatDialogModule,
         MatSelectModule,
         MatCheckboxModule,
-        NgxsModule.forRoot([LogState, InventoryState], {
+        NgxsModule.forRoot([LogState, InventoryState, UserManagementState], {
             developmentMode: true
           })
     ],

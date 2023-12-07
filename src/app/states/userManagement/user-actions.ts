@@ -1,10 +1,5 @@
 import { CreateUserDTO } from "src/entities/User"
 
-export class establishConnection {
-    static readonly type = '[UserManagement] Establish connection'
-    constructor() { }
-}
-
 export class getUsers {
     static readonly type = '[UserManagement] Get users'
     constructor() { }
