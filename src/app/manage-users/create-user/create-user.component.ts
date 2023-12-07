@@ -25,15 +25,16 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   FormControlNames = FormControlNames;
   formGroup: FormGroup;
 
+  private isUpdatingEmployee: boolean;
   @Output() isValidEmitter = new EventEmitter<boolean>();
-  private formGroupStatusSubscription: Subscription;
 
+  private formGroupStatusSubscription: Subscription;
   hidePassword = true;
   hideConfirmPassword = true;
   roles = [
-    {value: 'standard'},
-    {value: 'admin'},
-    {value: 'sales'},
+    {value: 'Standard'},
+    {value: 'Admin'},
+    {value: 'Sales'},
   ]
 
   constructor(private formBuilder: FormBuilder,
@@ -47,12 +48,24 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   }
 
   setData(data: any): void {
+    setTimeout(() => {
+      this.formGroup.patchValue({
+        [FormControlNames.NAME]: data.name,
+        [FormControlNames.USERNAME]: data.username,
+        [FormControlNames.EMAIL]: data.email,
+        [FormControlNames.ROLE]: data.role // User has to be created through ui for this to work, value has to match existing option
+      });
+    }, 0);
+    this.isUpdatingEmployee = true;
   }
 
   async submit() {
     const createUserDTO: CreateUserDTO = this.getRequestBody();
-    console.log(createUserDTO);
-    await this.userService.createUser(createUserDTO);
+    if (this.isUpdatingEmployee) {
+      await this.userService.updateEmployee(createUserDTO);
+    } else {
+      await this.userService.createUser(createUserDTO);
+    }
   }
 
   getControlErrorMessage(controlName: string): string | null {

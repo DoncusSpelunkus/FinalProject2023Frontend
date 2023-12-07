@@ -214,4 +214,15 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
       }
     });
   }
+
+  openEditUserDialog(user: any) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '60%', // Set the height
+      data: {
+        component: CreateUserComponent,
+        inputs: user // No dependent data to pass
+      }
+    });
+  }
 }
