@@ -21,7 +21,9 @@ export interface UserManagementStateModel {
 export class UserManagementState {
     constructor(
         private userManagementSocket: UserManagementSocket,
-        private userManagementService: UserManagementService) {}
+        private userManagementService: UserManagementService) {
+
+        }
     
     @Action(establishConnection)
     async establishConnection({ }: StateContext<UserManagementStateModel>) {
@@ -41,9 +43,5 @@ export class UserManagementState {
     createUser({}: StateContext<UserManagementStateModel>,{payload}: createUser) {
         this.userManagementService.createUser(payload)
     }
-
-
-
-
     
 }

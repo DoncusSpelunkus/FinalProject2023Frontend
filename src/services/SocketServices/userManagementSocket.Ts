@@ -30,11 +30,12 @@ export class UserManagementSocket {
                     })
                     .build();
                 try {
-                    await this.hubConnection.start().then(() => console.log("Inventory socket started"));
                     this.connectionEstablished = true;
+                    await this.hubConnection.start();
                 }
                 catch (error) {
                     console.log(error)
+                    this.connectionEstablished = false;
                     return
                 }
                 // we describe the event we want to listen to and what we want to do when we get the event
@@ -42,14 +43,12 @@ export class UserManagementSocket {
                     this.userSubject.next(data);
                 });
 
-                this.hubConnection.onclose(async () => {
-                    this.connectionEstablished = false;
-                    await this.establishConnection();
-                });
+                
             }
             catch (error) {
                 console.log(error)
             }
+            this.requestUsers();
         }
     }
 
@@ -59,6 +58,11 @@ export class UserManagementSocket {
     }
 
     public getUsers() {
+
         return this.userSubject.asObservable();
+    }
+
+    private requestUsers() {
+        this.hubConnection.invoke("RequestUsers");
     }
 }
