@@ -12,7 +12,7 @@ export const customAxios = axios.create({
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class InventoryService {
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
       response => {

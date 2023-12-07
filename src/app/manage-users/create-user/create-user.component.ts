@@ -12,7 +12,7 @@ import {
 import {Subscription} from "rxjs";
 import {CreateUserDTO} from "../../../entities/User";
 import {UserObservable} from "../../../services/HelperSevices/userObservable";
-import {UserService} from "../../../services/HttpRequestSevices/user.service";
+import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 
 @Component({
   selector: 'app-create-user',
@@ -37,7 +37,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   ]
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
+              private userService: UserManagementService,
               private userObservable: UserObservable) {
   }
 

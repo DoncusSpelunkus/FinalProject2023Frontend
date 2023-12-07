@@ -4,32 +4,26 @@ import * as signalR from "@aspnet/signalr";
 import { Subject } from "rxjs";
 
 
-
-
-
 @Injectable({
     providedIn: 'root'
 })
-export class ProductSocket {
+export class UserManagementSocket {
 
     private hubConnection: signalR.HubConnection;
-    private productSubject = new Subject<any>();
-    private locationSubject = new Subject<any>();
-    private productLocationSubject = new Subject<any>();
+    private userSubject = new Subject<any>();
 
 
     constructor() {
-        if(localStorage.getItem("auth") != null){
+        if (localStorage.getItem("auth") != null) {
             this.establishConnection();
         }
-     }
-
+    }
 
     public establishConnection() { // We want to run this method on a later stage to insure token avaliability
         this.hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl(environment.productSocketUrl, {
+            .withUrl(environment.userManagementSocketUrl, {
                 accessTokenFactory: () => {
-                    return localStorage.getItem("auth");
+                    return localStorage.getItem("auth") || '';
                 }
             })
             .build();
@@ -39,17 +33,17 @@ export class ProductSocket {
 
 
         this.hubConnection.on("ProductListUpdate", (data) => {
-            this.productSubject.next(data);
+            this.userSubject.next(data);
             console.log(data);
         });
 
         this.hubConnection.on("LocationListUpdate", (data) => {
-            this.locationSubject.next(data);
+            this.userSubject.next(data);
             console.log(data)
         });
 
         this.hubConnection.on("ProductLocationListUpdate", (data) => {
-            this.productLocationSubject.next(data);
+            this.userSubject.next(data);
             console.log(data)
         });
     }
@@ -58,20 +52,7 @@ export class ProductSocket {
         this.hubConnection.stop();
     }
 
-    public getProducts() {
-        return this.productSubject.asObservable();
+    public getUsers() {
+        return this.userSubject.asObservable();
     }
-
-    public getLocations() {
-        return this.locationSubject.asObservable();
-    }
-
-    public getProductLocations() {
-        return this.productLocationSubject.asObservable();
-    }
-
-
-
-
-
 }

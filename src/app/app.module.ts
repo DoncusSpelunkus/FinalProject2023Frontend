@@ -40,7 +40,7 @@ import { DeleteUserConfirmationComponent } from './manage-users/delete-user-conf
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { NgxsModule } from '@ngxs/store';
 import { LogState } from './states/log/log-state';
-import { ProductState } from './states/product/product-state';
+import { InventoryState } from './states/inventory/product-state';
 
 @NgModule({
     declarations: [
@@ -85,7 +85,7 @@ import { ProductState } from './states/product/product-state';
         MatDialogModule,
         MatSelectModule,
         MatCheckboxModule,
-        NgxsModule.forRoot([LogState, ProductState], {
+        NgxsModule.forRoot([LogState, InventoryState], {
             developmentMode: true
           })
     ],

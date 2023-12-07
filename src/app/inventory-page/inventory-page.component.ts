@@ -8,7 +8,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { ProductLocation } from "../../entities/ProductLocation";
 import { Select } from '@ngxs/store';
-import { ProductSelector } from '../states/product/product-selector';
+import { ProductSelector } from '../states/inventory/product-selector';
 import { Observable, Subscription } from 'rxjs';
 import { Product } from 'src/entities/Product';
 

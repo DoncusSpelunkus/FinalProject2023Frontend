@@ -9,7 +9,7 @@ import { setupDistinctControlSubscription } from "../../../util/subscription-set
 
 import { User } from 'src/entities/User';
 import { ActivityService } from 'src/services/HelperSevices/activityService';
-import { UserService } from 'src/services/HttpRequestSevices/user.service';
+import { UserManagementService } from 'src/services/HttpRequestSevices/userManagement.service';
 import { MatDialog } from "@angular/material/dialog";
 import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog.component";
 import { CreateUserComponent } from "../create-user/create-user.component";
@@ -55,7 +55,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     private router: Router,
     private route: ActivatedRoute,
     private activityMonitor: ActivityService,
-    private userService: UserService,
+    private userService: UserManagementService,
     private userStore: UserStore,
     private dialog: MatDialog
 

@@ -7,7 +7,7 @@ import { LoginService} from "../../../../services/HttpRequestSevices/login.servi
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngxs/store';
-import { establishConnection } from 'src/app/states/product/product-actions';
+import { establishConnection } from 'src/app/states/inventory/product-actions';
 
 
 @Component({

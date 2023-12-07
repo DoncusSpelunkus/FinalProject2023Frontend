@@ -17,7 +17,7 @@ export const customAxios = axios.create({
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserManagementService {
 
   constructor(private matSnackbar: MatSnackBar,
               private userObservable: UserObservable,
