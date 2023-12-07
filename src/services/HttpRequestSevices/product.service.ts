@@ -37,22 +37,34 @@ export class ProductService {
     });
   }
 
-  async getBySku(sku: string) {
-    await customAxios.get('/GetProductBySku/' + sku).then(response => {
+  async deleteItem(id: number, type: String): Promise<any> {
+    try {
+      const response = await customAxios.delete('/Delete/' + type + '/' + id);
       return response;
-    });
+    }
+    catch(error) {
+      throw error;
+    }
   }
 
-  async getByWarehouse(warehouseId: string) {
-    await customAxios.get('/GetProductByWarehouse/' + warehouseId).then(response => {
+  async createItem(item: object, type: String): Promise<any> {
+    try {
+      const response = await customAxios.post('/Create/' + type, item);
       return response;
-    });
+    }
+    catch(error) {
+      throw error;
+    }
   }
 
-  async createProduct(product: any) {
-    await customAxios.post('/CreateProduct', product).then(response => {
+  async updateItem(item: object, type: String): Promise<any> {
+    try {
+      const response = await customAxios.put('/Update/' + type, item);
       return response;
-    });
+    }
+    catch(error) {
+      throw error;
+    }
   }
 
 

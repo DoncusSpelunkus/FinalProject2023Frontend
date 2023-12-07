@@ -18,30 +18,44 @@ export class ProductSocket {
     private productLocationSubject = new Subject<any>();
 
 
-    constructor() { }
+    constructor() {
+        if(localStorage.getItem("auth") != null){
+            this.establishConnection();
+        }
+     }
 
 
     public establishConnection() { // We want to run this method on a later stage to insure token avaliability
         this.hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl(environment.socketUrl, {
+            .withUrl(environment.productSocketUrl, {
                 accessTokenFactory: () => {
                     return localStorage.getItem("auth");
                 }
             })
             .build();
+
         this.hubConnection.start().then(() => console.log("MainSocket started"));
+
+
 
         this.hubConnection.on("ProductListUpdate", (data) => {
             this.productSubject.next(data);
+            console.log(data);
         });
 
         this.hubConnection.on("LocationListUpdate", (data) => {
             this.locationSubject.next(data);
+            console.log(data)
         });
 
         this.hubConnection.on("ProductLocationListUpdate", (data) => {
             this.productLocationSubject.next(data);
+            console.log(data)
         });
+    }
+
+    public terminateConnection() {
+        this.hubConnection.stop();
     }
 
     public getProducts() {
