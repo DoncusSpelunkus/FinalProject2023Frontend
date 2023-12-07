@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
-import {UserService} from "../../../services/user.service";
+import {UserService} from "../../../services/HttpRequestSevices/user.service";
 import {User} from "../../../entities/User";
 
 @Component({

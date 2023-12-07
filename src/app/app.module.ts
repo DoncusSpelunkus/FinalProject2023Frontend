@@ -38,6 +38,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import {MatSelectModule} from "@angular/material/select";
 import { DeleteUserConfirmationComponent } from './manage-users/delete-user-confirmation/delete-user-confirmation.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { NgxsModule } from '@ngxs/store';
+import { LogState } from './states/log/log-state';
+import { ProductState } from './states/product/product-state';
 
 @NgModule({
     declarations: [
@@ -59,9 +62,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         RelocateProductRowComponent,
         UpdateQuantityRowComponent,
         PageNotFoundComponent,
-        DeleteUserConfirmationComponent,
+        DeleteUserConfirmationComponent
     ],
     imports: [
+        
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
@@ -80,7 +84,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         MatRippleModule,
         MatDialogModule,
         MatSelectModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        NgxsModule.forRoot([LogState, ProductState], {
+            developmentMode: true
+          })
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

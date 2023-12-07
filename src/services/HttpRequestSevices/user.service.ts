@@ -4,9 +4,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import {  catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 import {CreateUserDTO, User} from 'src/entities/User';
-import {UserObservable} from "./userObservable";
-import {UserStore} from "../stores/user.store";
-
+import { UserObservable } from '../HelperSevices/userObservable';
+import { UserStore } from 'src/stores/user.store';
 
 
 export const customAxios = axios.create({
