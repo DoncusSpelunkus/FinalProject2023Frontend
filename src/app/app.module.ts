@@ -43,6 +43,8 @@ import { LogState } from './states/log/log-state';
 import { InventoryState } from './states/inventory/product-state';
 import { UserManagementState } from './states/userManagement/user-state';
 import {MatStepperModule} from "@angular/material/stepper";
+import { ManageProductsComponent } from './manage-products/manage-products.component';
+import { CreateProductComponent } from './manage-products/create-product/create-product.component';
 
 @NgModule({
     declarations: [
@@ -64,7 +66,9 @@ import {MatStepperModule} from "@angular/material/stepper";
         RelocateProductRowComponent,
         UpdateQuantityRowComponent,
         PageNotFoundComponent,
-        DeleteUserConfirmationComponent
+        DeleteUserConfirmationComponent,
+        ManageProductsComponent,
+        CreateProductComponent
     ],
     imports: [
 

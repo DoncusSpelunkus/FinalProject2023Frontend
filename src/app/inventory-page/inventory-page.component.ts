@@ -12,6 +12,7 @@ import { ProductSelector } from '../states/inventory/product-selector';
 import { Observable, Subscription } from 'rxjs';
 import { Product } from 'src/entities/Product';
 import {FormBuilding} from "../../interfaces/component-interfaces";
+import {CreateProductComponent} from "../manage-products/create-product/create-product.component";
 
 
 @Component({
@@ -55,7 +56,7 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
       width: '75%', // Set the width
       height: '75%', // Set the height
       data: {
-        component: StockProductComponent,
+        component: CreateProductComponent,
         inputs: null // No dependent data to pass
       }
     });
