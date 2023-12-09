@@ -200,7 +200,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
       height: '60%', // Set the height
       data: {
         component: CreateUserComponent,
-        inputs: {} // No dependent data to pass
+        inputs: null // No dependent data to pass
       }
     });
   }

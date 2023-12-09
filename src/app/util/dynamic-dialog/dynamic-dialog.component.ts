@@ -21,7 +21,9 @@ export class DynamicDialogComponent implements AfterViewInit {
     this.componentRef = this.viewContainerRef.createComponent<LoadableComponent>(this.data.component);
 
     // Set data
-    this.componentRef.instance.setData(this.data.inputs);
+    if (this.data.inputs) {
+      this.componentRef.instance.setData(this.data.inputs);
+    }
     this.componentRef.instance.isValidEmitter.subscribe(isValid => {
       this.isValid = isValid
     })
