@@ -3,7 +3,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { FormControlNames } from "../../../constants/input-field-constants";
-import { debounceTime, Subject, Subscription, take } from "rxjs";
+import {debounceTime, Observable, Subject, Subscription, take} from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { setupDistinctControlSubscription } from "../../../util/subscription-setup";
 
@@ -16,6 +16,9 @@ import { CreateUserComponent } from "../create-user/create-user.component";
 import { UserObservable } from 'src/services/HelperSevices/userObservable';
 import {DeleteUserConfirmationComponent} from "../delete-user-confirmation/delete-user-confirmation.component";
 import {UserStore} from "../../../stores/user.store";
+import {Select} from "@ngxs/store";
+import {ProductSelector} from "../../states/inventory/product-selector";
+import {Product} from "../../../entities/Product";
 
 
 
@@ -29,7 +32,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
 
   formGroup: FormGroup;
   dataSource = new MatTableDataSource<User>();
-
+  @Select(ProductSelector.getProductLocations) users$!: Observable<User[]>; // Will get the products from the store
 
   private filterSubscription: Subscription;
   private paginationSubscription: Subscription;
@@ -96,11 +99,12 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   private async fetchUsers() {
-    // this.userService.getAllByWarehouse().then((users) => {
-    //   this.dataSource.data = users
-    // });
-    this.userService.getAllByWarehouse();
-    this.userStore.getUsers.subscribe((users) => {
+    // this.userService.getAllByWarehouse();
+    // this.userStore.getUsers.subscribe((users) => {
+    //   this.dataSource.data = users;
+    // })
+
+    this.users$.subscribe((users) => {
       this.dataSource.data = users;
     })
   }
