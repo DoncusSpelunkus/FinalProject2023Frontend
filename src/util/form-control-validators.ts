@@ -20,6 +20,17 @@ export function valueRequired(controlName: string): ValidatorFn {
   };
 }
 
+export function numberOnly(controlName: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    // Check if the control has a value and if that value is a number
+    if (control.value && isNaN(control.value)) {
+      // Control value is not a number, so return error code and custom message
+      return { numberOnly: { message: `${controlName} must be a number` } };
+    }
+    return null; // No error
+  };
+}
+
 export function matchingValuesValidator(controlName1: string, controlName2: string): ValidatorFn {
   return (formGroup: AbstractControl): ValidationErrors | null => {
     const group = formGroup as FormGroup;

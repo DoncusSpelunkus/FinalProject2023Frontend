@@ -1,90 +1,51 @@
-<mat-stepper [linear]="true" #stepper>
-  <mat-step [stepControl]="productInfoFormGroup" label="Product info">
-    <form [formGroup]="productInfoFormGroup" class="flex flex-col justify-center items-center w-full">
 
-      <!--   TOP ROW INPUTS (SKU and Name)   -->
-      <section class="flex flex-row justify-between items-center space-x-8 w-full">
+<form [formGroup]="formGroup" class="flex flex-col justify-center items-center w-full">
 
-        <mat-form-field class="w-full" appearance="fill">
-          <mat-label>{{FormControlNames.SKU}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.SKU" type="text" placeholder="ABC-12345-S-BL">
-          <mat-icon matSuffix>qr_code</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.SKU,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+  <!--   TOP ROW INPUTS (SKU and Quantity)   -->
+  <section class="flex flex-row justify-between items-center space-x-8 w-full">
 
-        <mat-form-field class="w-full" appearance="fill">
-          <mat-label>{{FormControlNames.NAME}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.NAME" type="text" placeholder="Blue garment">
-          <mat-icon matSuffix>tag</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.NAME,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>{{FormControlNames.SKU}}</mat-label>
+      <input matInput [formControlName]="FormControlNames.SKU" type="text" placeholder="ABC-12345-S-BL">
+      <mat-error>{{getControlErrorMessage(FormControlNames.SKU,formGroup)}}</mat-error>
+    </mat-form-field>
 
-      </section>
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>{{FormControlNames.QUANTITY}}</mat-label>
+      <input matInput [formControlName]="FormControlNames.QUANTITY" type="text" placeholder="10pcs">
+      <mat-error>{{getControlErrorMessage(FormControlNames.QUANTITY,formGroup)}}</mat-error>
+    </mat-form-field>
+
+  </section>
 
 
-      <!--   MIDDLE ROW INPUTS (Description)   -->
-      <section class="w-full">
-        <mat-form-field class="w-full" appearance="fill">
-          <mat-label>{{FormControlNames.DESCRIPTION}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.DESCRIPTION" type="text" placeholder="250g, Blue, Soft textile">
-          <mat-icon matSuffix>description</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.DESCRIPTION,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
-      </section>
+  <!--   BOTTOM ROW INPUTS (Location)   -->
+  <section class="w-full flex flex-row justify-between items-center space-x-8">
 
-      <!--   BOTTOM ROW INPUTS (Category,Brand and type)   -->
-      <section class="w-full flex flex-row justify-between items-center space-x-4">
+    <mat-form-field class="w-40 max-w-full" appearance="fill">
+      <mat-label>{{FormControlNames.AISLE}}</mat-label>
+      <input matInput [formControlName]="FormControlNames.AISLE" type="text" placeholder="00">
+      <mat-error>{{getControlErrorMessage(FormControlNames.AISLE,formGroup)}}</mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="w-40 max-w-full" appearance="fill">
-          <mat-label>{{FormControlNames.CATEGORY}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.CATEGORY" type="text" placeholder="Email">
-          <mat-icon matSuffix>category</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.CATEGORY,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+    <mat-form-field class="w-40 max-w-full" appearance="fill">
+      <mat-label>{{FormControlNames.COLUMN}}</mat-label>
+      <input matInput [formControlName]="FormControlNames.COLUMN" type="text" placeholder="00">
+      <mat-error>{{getControlErrorMessage(FormControlNames.COLUMN,formGroup)}}</mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="w-40 max-w-full" appearance="fill">
-          <mat-label>{{FormControlNames.BRAND}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.BRAND" type="text" placeholder="Email">
-          <mat-icon matSuffix>shield_moon</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.BRAND,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+    <mat-form-field class="w-40 max-w-full" appearance="fill">
+      <mat-label>{{FormControlNames.ROW}}</mat-label>
+      <input matInput [formControlName]="FormControlNames.ROW" type="text" placeholder="00">
+      <mat-icon matSuffix>view_list</mat-icon>
+      <mat-error>{{getControlErrorMessage(FormControlNames.ROW,formGroup)}}</mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="w-40 max-w-full" appearance="fill">
-          <mat-label>{{FormControlNames.TYPE}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.TYPE" type="text" placeholder="Email">
-          <mat-icon matSuffix>view_list</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.TYPE,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
-
-      </section>
-
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="productDimensionsFormGroup" label="Dimensions">
-    <form [formGroup]="productDimensionsFormGroup">
-
-      <mat-form-field class="w-40 max-w-full" appearance="fill">
-        <mat-label>{{FormControlNames.TYPE}}</mat-label>
-        <input matInput [formControlName]="FormControlNames.TYPE" type="text" placeholder="Email">
-        <mat-icon matSuffix>view_list</mat-icon>
-        <mat-error>{{getControlErrorMessage(FormControlNames.TYPE,productInfoFormGroup)}}</mat-error>
-      </mat-form-field>
-
-
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step label="Supplier info">
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-stepper>
+    <mat-form-field class="w-40 max-w-full" appearance="fill">
+      <mat-label>{{FormControlNames.SHELF}}</mat-label>
+      <input matInput [formControlName]="FormControlNames.SHELF" type="text" placeholder="00">
+      <mat-icon matSuffix>view_list</mat-icon>
+      <mat-error>{{getControlErrorMessage(FormControlNames.SHELF,formGroup)}}</mat-error>
+    </mat-form-field>
+  </section>
+</form>
