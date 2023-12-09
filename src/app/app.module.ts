@@ -42,6 +42,7 @@ import { NgxsModule } from '@ngxs/store';
 import { LogState } from './states/log/log-state';
 import { InventoryState } from './states/inventory/product-state';
 import { UserManagementState } from './states/userManagement/user-state';
+import {MatStepperModule} from "@angular/material/stepper";
 
 @NgModule({
     declarations: [
@@ -66,7 +67,7 @@ import { UserManagementState } from './states/userManagement/user-state';
         DeleteUserConfirmationComponent
     ],
     imports: [
-        
+
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
@@ -88,7 +89,8 @@ import { UserManagementState } from './states/userManagement/user-state';
         MatCheckboxModule,
         NgxsModule.forRoot([LogState, InventoryState, UserManagementState], {
             developmentMode: true
-          })
+        }),
+        MatStepperModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

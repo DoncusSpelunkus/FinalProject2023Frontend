@@ -15,5 +15,10 @@ export enum FormControlNames {
   COLUMN = "Column",
 
   QUANTITY = "Quantity",
+  SKU = "SKU",
+  DESCRIPTION = "Description",
+  CATEGORY = "Category",
+  BRAND = "Brand",
+  TYPE = "Type"
 
 }

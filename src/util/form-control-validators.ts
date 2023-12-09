@@ -89,4 +89,9 @@ export function getErrorMessage(control: AbstractControl): string | null {
   return control.errors[firstErrorKey]?.message;
 }
 
+export const getControlErrorMessage = (controlName: string,formGroup: FormGroup): string | null  => {
+  const control = formGroup.get(controlName) as AbstractControl;
+  return getErrorMessage(control);
+}
+
 

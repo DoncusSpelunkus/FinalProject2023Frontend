@@ -1,1 +1,86 @@
-<p>stock-product works!</p>
+<mat-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="productInfoFormGroup" label="Product info">
+    <form [formGroup]="productInfoFormGroup" class="flex flex-col justify-center items-center w-full">
+
+      <!--   TOP ROW INPUTS (SKU and Name)   -->
+      <section class="flex flex-row justify-between items-center space-x-8 w-full">
+
+        <mat-form-field class="w-full" appearance="fill">
+          <mat-label>{{FormControlNames.SKU}}</mat-label>
+          <input matInput [formControlName]="FormControlNames.SKU" type="text" placeholder="ABC-12345-S-BL">
+          <mat-icon matSuffix>qr_code</mat-icon>
+          <mat-error>{{getControlErrorMessage(FormControlNames.SKU,productInfoFormGroup)}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full" appearance="fill">
+          <mat-label>{{FormControlNames.NAME}}</mat-label>
+          <input matInput [formControlName]="FormControlNames.NAME" type="text" placeholder="Blue garment">
+          <mat-icon matSuffix>tag</mat-icon>
+          <mat-error>{{getControlErrorMessage(FormControlNames.NAME,productInfoFormGroup)}}</mat-error>
+        </mat-form-field>
+
+      </section>
+
+
+      <!--   MIDDLE ROW INPUTS (Description)   -->
+      <section class="w-full">
+        <mat-form-field class="w-full" appearance="fill">
+          <mat-label>{{FormControlNames.DESCRIPTION}}</mat-label>
+          <input matInput [formControlName]="FormControlNames.DESCRIPTION" type="text" placeholder="250g, Blue, Soft textile">
+          <mat-icon matSuffix>description</mat-icon>
+          <mat-error>{{getControlErrorMessage(FormControlNames.DESCRIPTION,productInfoFormGroup)}}</mat-error>
+        </mat-form-field>
+      </section>
+
+      <!--   BOTTOM ROW INPUTS (Category,Brand and type)   -->
+      <section class="w-full flex-row justify-between items-center">
+
+        <mat-form-field class="w-full" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput [formControlName]="FormControlNames.SKU" type="text" placeholder="Email">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error>{{getControlErrorMessage(FormControlNames.SKU,productInfoFormGroup)}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput [formControlName]="FormControlNames.SKU" type="text" placeholder="Email">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error>{{getControlErrorMessage(FormControlNames.SKU,productInfoFormGroup)}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput [formControlName]="FormControlNames.SKU" type="text" placeholder="Email">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error>{{getControlErrorMessage(FormControlNames.SKU,productInfoFormGroup)}}</mat-error>
+        </mat-form-field>
+
+      </section>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="productDimensionsFormGroup" label="Dimensions">
+    <form [formGroup]="productDimensionsFormGroup">
+<!--      <mat-form-field>-->
+<!--        <mat-label>Address</mat-label>-->
+<!--        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"-->
+<!--               required>-->
+<!--      </mat-form-field>-->
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step label="Supplier info">
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
