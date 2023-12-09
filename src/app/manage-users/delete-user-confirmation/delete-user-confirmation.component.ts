@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
-import {UserService} from "../../../services/user.service";
+import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 import {User} from "../../../entities/User";
 
 @Component({
@@ -14,7 +14,7 @@ export class DeleteUserConfirmationComponent implements LoadableComponent{
   @Output() isValidEmitter = new EventEmitter<boolean>();
 
   selectedUser: User;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserManagementService) {
   }
 
   setData(data: any): void {

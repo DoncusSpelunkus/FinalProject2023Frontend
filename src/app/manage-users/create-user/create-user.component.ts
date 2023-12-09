@@ -11,8 +11,8 @@ import {
 } from "../../../util/form-control-validators";
 import {Subscription} from "rxjs";
 import {CreateUserDTO} from "../../../entities/User";
-import {UserObservable} from "../../../services/userObservable";
-import {UserService} from "../../../services/user.service";
+import {UserObservable} from "../../../services/HelperSevices/userObservable";
+import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 
 @Component({
   selector: 'app-create-user',
@@ -38,7 +38,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   ]
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
+              private userService: UserManagementService,
               private userObservable: UserObservable) {
   }
 

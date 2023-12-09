@@ -1,9 +1,14 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {FormControlNames} from "../../../../constants/input-field-constants";
-import {getErrorMessage, valueRequired} from "../../../../util/form-control-validators";
-import {LoginService} from "../../../../services/login.service";
+
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControlNames } from "../../../../constants/input-field-constants";
+import { getErrorMessage, valueRequired } from "../../../../util/form-control-validators";
+import { LoginService } from "../../../../services/HttpRequestSevices/login.service";
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngxs/store';
+import { establishConnection } from 'src/app/states/crossStateAction';
+import { forkJoin, map } from 'rxjs';
 
 
 @Component({
@@ -12,6 +17,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+
+  isLoading = false;
   FormControlNames = FormControlNames;
 
   hide = true;
@@ -24,7 +31,11 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private route: Router) {
+    private route: Router,
+    private matSnackbar: MatSnackBar,
+    private store: Store
+  ) {
+
 
   }
 
@@ -33,17 +44,38 @@ export class LoginComponent implements OnInit {
     this.initializeFormGroup();
   }
 
+
   //TODO implement service logic
   async onSubmit() {
+    const allStores = this.store.snapshot();
+    this.isLoading = true;
+    const username = this.usernameInput;
+    const password = this.passwordInput;
     try {
-      const username = this.usernameInput;
-      const password = this.passwordInput;
       await this.loginService.login(username, password)
-      this.route.navigate(['/warehouse']);
+      try {
+
+        // Map each state and dispatch the establishConnection action
+
+        const loginObservables = Object.keys(allStores).map(stateName => {
+          console.log(stateName)
+          return this.store.dispatch(new establishConnection());
+        });
+        await forkJoin(loginObservables).toPromise();
+      }
+      catch (e) {
+        console.log(e)
+        // We expect some will fail as only admin's should have all connections
+      }
     }
     catch (e) {
+      this.matSnackbar.open("Something went wrong", 'x', { duration: 1000 })
       return;
     }
+    finally {
+      this.isLoading = false;
+    }
+    this.route.navigate(['/warehouse']);
   }
 
   get isLoginInputValid() {

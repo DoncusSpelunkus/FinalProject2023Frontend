@@ -8,14 +8,15 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { setupDistinctControlSubscription } from "../../../util/subscription-setup";
 
 import { User } from 'src/entities/User';
-import { ActivityService } from 'src/services/activityService';
-import { UserService } from 'src/services/user.service';
+import { ActivityService } from 'src/services/HelperSevices/activityService';
+import { UserManagementService } from 'src/services/HttpRequestSevices/userManagement.service';
 import { MatDialog } from "@angular/material/dialog";
 import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog.component";
 import { CreateUserComponent } from "../create-user/create-user.component";
-import { UserObservable } from 'src/services/userObservable';
+import { UserObservable } from 'src/services/HelperSevices/userObservable';
 import {DeleteUserConfirmationComponent} from "../delete-user-confirmation/delete-user-confirmation.component";
 import {UserStore} from "../../../stores/user.store";
+
 
 
 
@@ -54,7 +55,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     private router: Router,
     private route: ActivatedRoute,
     private activityMonitor: ActivityService,
-    private userService: UserService,
+    private userService: UserManagementService,
     private userStore: UserStore,
     private dialog: MatDialog
 

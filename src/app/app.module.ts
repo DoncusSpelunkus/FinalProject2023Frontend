@@ -22,7 +22,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LogsPageComponent } from './logs-page/logs-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
-import { ActivityService } from 'src/services/activityService';
+import { ActivityService } from 'src/services/HelperSevices/activityService';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
 import {MatRippleModule} from "@angular/material/core";
 import { ExtendedActionsComponent } from './dashboard/component-modules/dashboard-button/extended-actions/extended-actions.component';
@@ -38,6 +38,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import {MatSelectModule} from "@angular/material/select";
 import { DeleteUserConfirmationComponent } from './manage-users/delete-user-confirmation/delete-user-confirmation.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { NgxsModule } from '@ngxs/store';
+import { LogState } from './states/log/log-state';
+import { InventoryState } from './states/inventory/product-state';
+import { UserManagementState } from './states/userManagement/user-state';
 
 @NgModule({
     declarations: [
@@ -59,9 +63,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         RelocateProductRowComponent,
         UpdateQuantityRowComponent,
         PageNotFoundComponent,
-        DeleteUserConfirmationComponent,
+        DeleteUserConfirmationComponent
     ],
     imports: [
+        
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
@@ -80,7 +85,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         MatRippleModule,
         MatDialogModule,
         MatSelectModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        NgxsModule.forRoot([LogState, InventoryState, UserManagementState], {
+            developmentMode: true
+          })
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

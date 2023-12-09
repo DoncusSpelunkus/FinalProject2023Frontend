@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from "./login-page/login-page/login-page.component";
-import { AdminGuardService } from 'src/services/adminGuard.service';
-import { SalesGuardService } from 'src/services/salesUserGuard.service';
+import { AdminGuardService } from 'src/services/AuthGuardSevices/adminGuard.service';
+import { SalesGuardService } from 'src/services/AuthGuardSevices/salesUserGuard.service';
 import {ManageUsersPageComponent} from "./manage-users/manage-users-page/manage-users-page.component";
 import {LogsPageComponent} from "./logs-page/logs-page.component";
 import {ShipmentPageComponent} from "./shipment-page/shipment-page.component";
