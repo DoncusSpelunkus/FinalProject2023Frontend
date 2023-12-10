@@ -5,56 +5,68 @@
       <!--   TOP ROW INPUTS (SKU and Name)   -->
       <section class="flex flex-row justify-between items-center space-x-8 w-full">
 
-        <mat-form-field class="w-full" appearance="fill">
-          <mat-label>{{FormControlNames.SKU}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.SKU" type="text" placeholder="ABC-12345-S-BL">
-          <mat-icon matSuffix>qr_code</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.SKU,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.SKU"
+          [icon]="'qr_code'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'ABC-12345-S-BL'">
+        </app-text-input>
 
-        <mat-form-field class="w-full" appearance="fill">
-          <mat-label>{{FormControlNames.NAME}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.NAME" type="text" placeholder="Blue garment">
-          <mat-icon matSuffix>tag</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.NAME,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.NAME"
+          [icon]="'tag'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'Blue garment'">
+        </app-text-input>
 
       </section>
 
 
       <!--   MIDDLE ROW INPUTS (Description)   -->
       <section class="w-full">
-        <mat-form-field class="w-full" appearance="fill">
-          <mat-label>{{FormControlNames.DESCRIPTION}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.DESCRIPTION" type="text" placeholder="250g, Blue, Soft textile">
-          <mat-icon matSuffix>description</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.DESCRIPTION,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.DESCRIPTION"
+          [icon]="'description'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'250g, Blue, Soft textile'">
+        </app-text-input>
+
       </section>
 
       <!--   BOTTOM ROW INPUTS (Category,Brand and type)   -->
       <section class="w-full flex flex-row justify-between items-center space-x-4">
 
-        <mat-form-field class="w-40 max-w-full" appearance="fill">
-          <mat-label>{{FormControlNames.CATEGORY}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.CATEGORY" type="text" placeholder="Email">
-          <mat-icon matSuffix>category</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.CATEGORY,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+        <app-text-input
+          class="w-44"
+          [inputFormControlName]="FormControlNames.CATEGORY"
+          [icon]="'category'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'shirts'">
+        </app-text-input>
 
-        <mat-form-field class="w-40 max-w-full" appearance="fill">
-          <mat-label>{{FormControlNames.BRAND}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.BRAND" type="text" placeholder="Email">
-          <mat-icon matSuffix>shield_moon</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.BRAND,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+        <app-text-input
+          class="w-44"
+          [inputFormControlName]="FormControlNames.BRAND"
+          [icon]="'add_circle_outline'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'Gucci'"
+          (iconClickEmitter)="handleOpenCreateBrandDialog()">
+        </app-text-input>
 
-        <mat-form-field class="w-40 max-w-full" appearance="fill">
-          <mat-label>{{FormControlNames.TYPE}}</mat-label>
-          <input matInput [formControlName]="FormControlNames.TYPE" type="text" placeholder="Email">
-          <mat-icon matSuffix>view_list</mat-icon>
-          <mat-error>{{getControlErrorMessage(FormControlNames.TYPE,productInfoFormGroup)}}</mat-error>
-        </mat-form-field>
+        <app-text-input
+          class="w-44"
+          [inputFormControlName]="FormControlNames.TYPE"
+          [icon]="'add_circle_outline'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'tank top'"
+          (iconClickEmitter)="handleOpenCreateTypeDialog()">
+
+
+        </app-text-input>
 
       </section>
 
@@ -65,13 +77,6 @@
   </mat-step>
   <mat-step [stepControl]="productDimensionsFormGroup" label="Dimensions">
     <form [formGroup]="productDimensionsFormGroup">
-
-      <mat-form-field class="w-40 max-w-full" appearance="fill">
-        <mat-label>{{FormControlNames.TYPE}}</mat-label>
-        <input matInput [formControlName]="FormControlNames.TYPE" type="text" placeholder="Email">
-        <mat-icon matSuffix>view_list</mat-icon>
-        <mat-error>{{getControlErrorMessage(FormControlNames.TYPE,productInfoFormGroup)}}</mat-error>
-      </mat-form-field>
 
 
       <div>

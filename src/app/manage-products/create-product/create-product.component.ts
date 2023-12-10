@@ -44,4 +44,12 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
       [FormControlNames.SKU]: ['',valueRequired(FormControlNames.SKU)]
     })
   }
+
+  handleOpenCreateTypeDialog() {
+    console.log('create type')
+  }
+
+  handleOpenCreateBrandDialog() {
+    console.log('create brand')
+  }
 }

@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {FormBuilding} from "../../../interfaces/component-interfaces";
 
@@ -9,6 +9,8 @@ import {FormBuilding} from "../../../interfaces/component-interfaces";
 export class TextInputComponent extends FormBuilding{
 
 
+  @Output() iconClickEmitter = new EventEmitter<any>();
+
   @Input() inputFormControlName: string;
   @Input() inputFormGroup: FormGroup;
   @Input() showLabel = true;
@@ -16,4 +18,7 @@ export class TextInputComponent extends FormBuilding{
   @Input() icon: string;
 
 
+  emitIconClickEvent() {
+    this.iconClickEmitter.emit();
+  }
 }

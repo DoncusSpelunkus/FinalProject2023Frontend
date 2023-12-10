@@ -54,9 +54,9 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
   openStockProductsWindow() {
     this.dialog.open(DynamicDialogComponent, {
       width: '75%', // Set the width
-      height: '45%', // Set the height
+      height: '80%', // Set the height
       data: {
-        component: StockProductComponent,
+        component: CreateProductComponent,
         inputs: null // No dependent data to pass
       }
     });
