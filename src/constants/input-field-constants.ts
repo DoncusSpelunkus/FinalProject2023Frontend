@@ -19,6 +19,15 @@ export enum FormControlNames {
   DESCRIPTION = "Description",
   CATEGORY = "Category",
   BRAND = "Brand",
-  TYPE = "Type"
+  TYPE = "Type",
+
+  WEIGHT = 'Weight',
+  LENGTH = 'Length',
+  WIDTH = 'Width',
+  HEIGHT = 'Height',
+  SUPPLIER_NAME = 'Supplier name',
+  SUPPLIER_CONTACT = 'Supplier contact',
+  EXPIRY_DATE = 'Expiry date',
+  MINIMUM_CAPACITY = 'Minimum capacity'
 
 }

@@ -1,6 +1,6 @@
 <mat-stepper [linear]="true" #stepper>
   <mat-step [stepControl]="productInfoFormGroup" label="Product info">
-    <form [formGroup]="productInfoFormGroup" class="flex flex-col justify-center items-center w-full">
+    <form [formGroup]="productInfoFormGroup" class="flex-col flex space-y-4 h-full w-full justify-center items-center">
 
       <!--   TOP ROW INPUTS (SKU and Name)   -->
       <section class="flex flex-row justify-between items-center space-x-8 w-full">
@@ -70,7 +70,7 @@
           [placeholder]="'Silk'"
           (iconClickEmitter)="handleOpenCreateTypeDialog()">
         </app-select-input>
-        
+
 
       </section>
 
@@ -79,21 +79,95 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="productDimensionsFormGroup" label="Dimensions">
-    <form [formGroup]="productDimensionsFormGroup">
+  <mat-step [stepControl]="productStorageInfoFormGroup" label="Storage details">
 
+    <form [formGroup]="productStorageInfoFormGroup" class="flex-col flex space-y-4 h-full w-full justify-center items-center">
 
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
+      <section class="flex flex-row justify-between space-x-8">
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.WEIGHT"
+          [icon]="'scale'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'50kg'">
+        </app-text-input>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.LENGTH"
+          [icon]="'height'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'10'">
+        </app-text-input>
+
+      </section>
+
+      <section class="flex flex-row justify-between space-x-8">
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.WIDTH"
+          [icon]="'height'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'25'">
+        </app-text-input>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.HEIGHT"
+          [icon]="'height'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'30'">
+        </app-text-input>
+
+      </section>
+
+      <section class="flex flex-row justify-between space-x-8">
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.EXPIRY_DATE"
+          [icon]="'calendar_month'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'12/12/2012'">
+        </app-text-input>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.MINIMUM_CAPACITY"
+          [icon]="'minimize'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'10'">
+        </app-text-input>
+
+      </section>
+
     </form>
   </mat-step>
   <mat-step label="Supplier info">
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
+
+    <form [formGroup]="productStorageInfoFormGroup" class="flex-col flex space-y-4 h-full w-full justify-center items-center">
+
+      <section class="w-full flex flex-col justify-between">
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.SUPPLIER_NAME"
+          [icon]="'supervised_user_circle'"
+          [inputFormGroup]="supplierInfoFormGroup"
+          [placeholder]="'Huawei'">
+        </app-text-input>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.SUPPLIER_CONTACT"
+          [icon]="'quick_contacts_mail'"
+          [inputFormGroup]="supplierInfoFormGroup"
+          [placeholder]="'bmw@gmail.com +45 111 222 34'">
+        </app-text-input>
+
+      </section>
+    </form>
   </mat-step>
 </mat-stepper>

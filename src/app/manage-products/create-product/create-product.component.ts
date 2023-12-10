@@ -14,7 +14,9 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
 
   productInfoFormGroup: FormGroup;
 
-  productDimensionsFormGroup: FormGroup;
+  productStorageInfoFormGroup: FormGroup;
+
+  supplierInfoFormGroup: FormGroup;
 
   constructor(private _formBuilder: FormBuilder) {
     super();
@@ -39,8 +41,18 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
       [FormControlNames.TYPE]: ['',valueRequired(FormControlNames.TYPE)]
     })
 
-    this.productDimensionsFormGroup = this._formBuilder.group({
-      [FormControlNames.SKU]: ['',valueRequired(FormControlNames.SKU)]
+    this.productStorageInfoFormGroup = this._formBuilder.group({
+      [FormControlNames.EXPIRY_DATE]: ['',valueRequired(FormControlNames.EXPIRY_DATE)],
+      [FormControlNames.MINIMUM_CAPACITY]: ['',valueRequired(FormControlNames.MINIMUM_CAPACITY)],
+      [FormControlNames.WIDTH]: ['',valueRequired(FormControlNames.WIDTH)],
+      [FormControlNames.WEIGHT]: ['',valueRequired(FormControlNames.WEIGHT)],
+      [FormControlNames.LENGTH]: ['',valueRequired(FormControlNames.LENGTH)],
+      [FormControlNames.HEIGHT]: ['',valueRequired(FormControlNames.HEIGHT)]
+    })
+
+    this.supplierInfoFormGroup = this._formBuilder.group({
+      [FormControlNames.SUPPLIER_NAME]: ['',valueRequired(FormControlNames.SUPPLIER_NAME)],
+      [FormControlNames.SUPPLIER_CONTACT]: ['',valueRequired(FormControlNames.SUPPLIER_CONTACT)]
     })
   }
 
