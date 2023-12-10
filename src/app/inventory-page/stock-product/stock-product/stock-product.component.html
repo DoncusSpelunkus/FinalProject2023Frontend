@@ -10,6 +10,13 @@
       <mat-error>{{getControlErrorMessage(FormControlNames.SKU,formGroup)}}</mat-error>
     </mat-form-field>
 
+    <app-text-input
+      [inputFormControlName]="FormControlNames.SKU"
+      [inputFormGroup]="formGroup"
+      [label]="FormControlNames.SKU">
+    </app-text-input>
+
+
     <mat-form-field class="w-full" appearance="fill">
       <mat-label>{{FormControlNames.QUANTITY}}</mat-label>
       <input matInput [formControlName]="FormControlNames.QUANTITY" type="text" placeholder="10pcs">

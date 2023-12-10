@@ -1,4 +1,5 @@
-import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {FormControlNames} from "../constants/input-field-constants";
 
 export function emailValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
@@ -103,6 +104,10 @@ export function getErrorMessage(control: AbstractControl): string | null {
 export const getControlErrorMessage = (controlName: string,formGroup: FormGroup): string | null  => {
   const control = formGroup.get(controlName) as AbstractControl;
   return getErrorMessage(control);
+}
+
+export const getFormControl = (formControlName: string, formGroup: FormGroup) => {
+  return formGroup.get(formControlName) as FormControl;
 }
 
 

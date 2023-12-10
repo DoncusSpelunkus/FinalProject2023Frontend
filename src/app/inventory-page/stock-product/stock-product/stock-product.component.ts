@@ -67,4 +67,5 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
       }
     })
   }
+
 }

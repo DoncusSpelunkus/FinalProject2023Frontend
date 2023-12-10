@@ -45,31 +45,33 @@ import { UserManagementState } from './states/userManagement/user-state';
 import {MatStepperModule} from "@angular/material/stepper";
 import { ManageProductsComponent } from './manage-products/manage-products.component';
 import { CreateProductComponent } from './manage-products/create-product/create-product.component';
+import {TextInputComponent} from "./util/text-input/text-input.component";
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        DashboardComponent,
-        LoginPageComponent,
-        CollapsableContainerDirective,
-        ManageUsersPageComponent,
-        LogsPageComponent,
-        ShipmentPageComponent,
-        DashboardButtonComponent,
-        ExtendedActionsComponent,
-        DynamicDialogComponent,
-        CreateUserComponent,
-        InventoryPageComponent,
-        StockProductComponent,
-        IconComponent,
-        RelocateProductRowComponent,
-        UpdateQuantityRowComponent,
-        PageNotFoundComponent,
-        DeleteUserConfirmationComponent,
-        ManageProductsComponent,
-        CreateProductComponent
-    ],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    LoginPageComponent,
+    CollapsableContainerDirective,
+    ManageUsersPageComponent,
+    LogsPageComponent,
+    ShipmentPageComponent,
+    DashboardButtonComponent,
+    ExtendedActionsComponent,
+    DynamicDialogComponent,
+    CreateUserComponent,
+    InventoryPageComponent,
+    StockProductComponent,
+    IconComponent,
+    RelocateProductRowComponent,
+    UpdateQuantityRowComponent,
+    PageNotFoundComponent,
+    DeleteUserConfirmationComponent,
+    ManageProductsComponent,
+    CreateProductComponent,
+    TextInputComponent
+  ],
     imports: [
 
         BrowserModule,
