@@ -24,7 +24,7 @@ import { LogsPageComponent } from './logs-page/logs-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 import { ActivityService } from 'src/services/HelperSevices/activityService';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
-import {MatRippleModule} from "@angular/material/core";
+import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
 import { ExtendedActionsComponent } from './dashboard/component-modules/dashboard-button/extended-actions/extended-actions.component';
 import { DynamicDialogComponent } from './util/dynamic-dialog/dynamic-dialog.component';
 import { CreateUserComponent } from './manage-users/create-user/create-user.component';
@@ -47,6 +47,7 @@ import { ManageProductsComponent } from './manage-products/manage-products.compo
 import { CreateProductComponent } from './manage-products/create-product/create-product.component';
 import {TextInputComponent} from "./util/text-input/text-input.component";
 import { SelectInputComponent } from './util/select-input/select-input.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -98,7 +99,9 @@ import { SelectInputComponent } from './util/select-input/select-input.component
         NgxsModule.forRoot([LogState, InventoryState, UserManagementState], {
             developmentMode: true
         }),
-        MatStepperModule
+        MatStepperModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]
