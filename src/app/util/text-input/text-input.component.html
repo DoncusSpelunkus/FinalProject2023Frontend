@@ -1,6 +1,8 @@
-<mat-form-field class="w-full" appearance="fill">
-  <mat-label *ngIf="label">{{label}}</mat-label>
-  <input matInput [formControlName]="inputFormControlName" type="text" [placeholder]="placeholder">
-  <mat-icon *ngIf="icon" matSuffix>{{icon}}</mat-icon>
-  <mat-error>{{getControlErrorMessage(FormControlNames.SKU,inputFormGroup)}}</mat-error>
-</mat-form-field>
+<section class="w-full">
+  <mat-form-field class="w-full" appearance="fill" [formGroup]="inputFormGroup">
+    <mat-label *ngIf="showLabel">{{inputFormControlName}}</mat-label>
+    <input matInput [formControlName]="inputFormControlName" type="text" [placeholder]="placeholder">
+    <mat-icon *ngIf="icon" matSuffix>{{icon}}</mat-icon>
+    <mat-error>{{getControlErrorMessage(inputFormControlName,inputFormGroup)}}</mat-error>
+  </mat-form-field>
+</section>

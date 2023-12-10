@@ -4,24 +4,19 @@
   <!--   TOP ROW INPUTS (SKU and Quantity)   -->
   <section class="flex flex-row justify-between items-center space-x-8 w-full">
 
-    <mat-form-field class="w-full" appearance="fill">
-      <mat-label>{{FormControlNames.SKU}}</mat-label>
-      <input matInput [formControlName]="FormControlNames.SKU" type="text" placeholder="ABC-12345-S-BL">
-      <mat-error>{{getControlErrorMessage(FormControlNames.SKU,formGroup)}}</mat-error>
-    </mat-form-field>
-
     <app-text-input
+      class="w-32 max-w-full"
       [inputFormControlName]="FormControlNames.SKU"
       [inputFormGroup]="formGroup"
-      [label]="FormControlNames.SKU">
+      [placeholder]="'ABC-12345-S-BL'">
     </app-text-input>
 
-
-    <mat-form-field class="w-full" appearance="fill">
-      <mat-label>{{FormControlNames.QUANTITY}}</mat-label>
-      <input matInput [formControlName]="FormControlNames.QUANTITY" type="text" placeholder="10pcs">
-      <mat-error>{{getControlErrorMessage(FormControlNames.QUANTITY,formGroup)}}</mat-error>
-    </mat-form-field>
+    <app-text-input
+      class="w-32 max-w-full"
+      [inputFormControlName]="FormControlNames.QUANTITY"
+      [inputFormGroup]="formGroup"
+      [placeholder]="'10pcs'">
+    </app-text-input>
 
   </section>
 
@@ -29,30 +24,36 @@
   <!--   BOTTOM ROW INPUTS (Location)   -->
   <section class="w-full flex flex-row justify-between items-center space-x-8">
 
-    <mat-form-field class="w-40 max-w-full" appearance="fill">
-      <mat-label>{{FormControlNames.AISLE}}</mat-label>
-      <input matInput [formControlName]="FormControlNames.AISLE" type="text" placeholder="00">
-      <mat-error>{{getControlErrorMessage(FormControlNames.AISLE,formGroup)}}</mat-error>
-    </mat-form-field>
+    <app-text-input
+      class="w-32 max-w-full"
+      [inputFormControlName]="FormControlNames.AISLE"
+      [inputFormGroup]="formGroup"
+      [placeholder]="'00'">
+    </app-text-input>
 
-    <mat-form-field class="w-40 max-w-full" appearance="fill">
-      <mat-label>{{FormControlNames.COLUMN}}</mat-label>
-      <input matInput [formControlName]="FormControlNames.COLUMN" type="text" placeholder="00">
-      <mat-error>{{getControlErrorMessage(FormControlNames.COLUMN,formGroup)}}</mat-error>
-    </mat-form-field>
 
-    <mat-form-field class="w-40 max-w-full" appearance="fill">
-      <mat-label>{{FormControlNames.ROW}}</mat-label>
-      <input matInput [formControlName]="FormControlNames.ROW" type="text" placeholder="00">
-      <mat-icon matSuffix>view_list</mat-icon>
-      <mat-error>{{getControlErrorMessage(FormControlNames.ROW,formGroup)}}</mat-error>
-    </mat-form-field>
+    <app-text-input
+      class="w-32 max-w-full"
+      [inputFormControlName]="FormControlNames.COLUMN"
+      [inputFormGroup]="formGroup"
+      [placeholder]="'00'">
+    </app-text-input>
 
-    <mat-form-field class="w-40 max-w-full" appearance="fill">
-      <mat-label>{{FormControlNames.SHELF}}</mat-label>
-      <input matInput [formControlName]="FormControlNames.SHELF" type="text" placeholder="00">
-      <mat-icon matSuffix>view_list</mat-icon>
-      <mat-error>{{getControlErrorMessage(FormControlNames.SHELF,formGroup)}}</mat-error>
-    </mat-form-field>
+
+    <app-text-input
+      class="w-32 max-w-full"
+      [inputFormControlName]="FormControlNames.ROW"
+      [inputFormGroup]="formGroup"
+      [placeholder]="'00'">
+    </app-text-input>
+
+
+    <app-text-input
+      class="w-32 max-w-full"
+      [inputFormControlName]="FormControlNames.SHELF"
+      [inputFormGroup]="formGroup"
+      [placeholder]="'00'">
+    </app-text-input>
+
   </section>
 </form>

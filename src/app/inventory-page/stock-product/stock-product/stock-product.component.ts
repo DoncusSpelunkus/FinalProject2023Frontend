@@ -34,6 +34,7 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   }
 
   submit(): void {
+    console.log(this.formGroup.value);
   }
 
   isLinear = false;
