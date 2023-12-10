@@ -48,25 +48,29 @@
           [placeholder]="'shirts'">
         </app-text-input>
 
-        <app-text-input
+        <app-select-input
           class="w-44"
           [inputFormControlName]="FormControlNames.BRAND"
-          [icon]="'add_circle_outline'"
           [inputFormGroup]="productInfoFormGroup"
+          [list]="brandList"
+          [displayValue]="'value'"
+          [showIcon]="true"
           [placeholder]="'Gucci'"
           (iconClickEmitter)="handleOpenCreateBrandDialog()">
-        </app-text-input>
+        </app-select-input>
 
-        <app-text-input
+
+        <app-select-input
           class="w-44"
           [inputFormControlName]="FormControlNames.TYPE"
-          [icon]="'add_circle_outline'"
           [inputFormGroup]="productInfoFormGroup"
-          [placeholder]="'tank top'"
+          [list]="brandList"
+          [showIcon]="true"
+          [displayValue]="'value'"
+          [placeholder]="'Silk'"
           (iconClickEmitter)="handleOpenCreateTypeDialog()">
-
-
-        </app-text-input>
+        </app-select-input>
+        
 
       </section>
 

@@ -46,6 +46,7 @@ import {MatStepperModule} from "@angular/material/stepper";
 import { ManageProductsComponent } from './manage-products/manage-products.component';
 import { CreateProductComponent } from './manage-products/create-product/create-product.component';
 import {TextInputComponent} from "./util/text-input/text-input.component";
+import { SelectInputComponent } from './util/select-input/select-input.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {TextInputComponent} from "./util/text-input/text-input.component";
     DeleteUserConfirmationComponent,
     ManageProductsComponent,
     CreateProductComponent,
-    TextInputComponent
+    TextInputComponent,
+    SelectInputComponent
   ],
     imports: [
 

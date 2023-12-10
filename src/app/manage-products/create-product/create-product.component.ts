@@ -29,7 +29,6 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
   }
 
   isLinear = false;
-
   private initializeFormGroups() {
     this.productInfoFormGroup = this._formBuilder.group({
       [FormControlNames.SKU]: ['',valueRequired(FormControlNames.SKU)],
@@ -52,4 +51,9 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
   handleOpenCreateBrandDialog() {
     console.log('create brand')
   }
+
+  brandList: any[] = [
+    {value: 'bmw'},
+    {value:'caca'}
+  ];
 }

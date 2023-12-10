@@ -1,0 +1,11 @@
+<section class="w-full justify-center items-center flex space-x-2">
+  <mat-form-field class="w-full" appearance="fill" [formGroup]="inputFormGroup">
+    <mat-label *ngIf="showLabel">{{inputFormControlName}}</mat-label>
+    <mat-select [formControlName]="inputFormControlName" type="text" [placeholder]="placeholder" [value]="getCurrentFormControl.value[displayValue]">
+      <mat-option *ngFor="let option of list" [value]="option[displayValue]">{{option[displayValue]}}</mat-option>
+    </mat-select>
+    <mat-error>{{getControlErrorMessage(inputFormControlName,inputFormGroup)}}</mat-error>
+  </mat-form-field>
+
+  <app-icon [icon]="'plus-circle'" class="text-3xl pb-3.5 hover:cursor-pointer" (click)="emitIconClickEvent()"></app-icon>
+</section>
