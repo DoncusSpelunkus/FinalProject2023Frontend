@@ -31,10 +31,12 @@ export class UserManagementState {
     }
 
     @Action(getUsers)
-    getUsers({ getState, patchState }: StateContext<UserManagementStateModel>) {
+    getUsers(ctx: StateContext<UserManagementStateModel>) {
         this.userManagementSocket.getUsers().subscribe((data) => {
-            patchState({
-                users: [...getState().users, data]
+            const state = ctx.getState();
+            ctx.setState({
+                ...state,
+                users: data
             })
         })
     }

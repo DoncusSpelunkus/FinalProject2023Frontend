@@ -45,7 +45,7 @@ export class UserManagementService {
   }
 
   async updateEmployee(employee: any) {
-    await customAxios.put('/UpdateEmployee', employee).then(response => {
+    await customAxios.put('/Update', employee).then(response => {
       return response;
     });
   }

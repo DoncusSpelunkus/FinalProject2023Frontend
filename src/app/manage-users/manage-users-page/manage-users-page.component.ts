@@ -3,19 +3,19 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { FormControlNames } from "../../../constants/input-field-constants";
-import { debounceTime, Subject, Subscription, take } from "rxjs";
+import { debounceTime, Observable, Subject, Subscription, take } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { setupDistinctControlSubscription } from "../../../util/subscription-setup";
-
 import { User } from 'src/entities/User';
 import { ActivityService } from 'src/services/HelperSevices/activityService';
 import { UserManagementService } from 'src/services/HttpRequestSevices/userManagement.service';
 import { MatDialog } from "@angular/material/dialog";
 import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog.component";
 import { CreateUserComponent } from "../create-user/create-user.component";
-import { UserObservable } from 'src/services/HelperSevices/userObservable';
-import {DeleteUserConfirmationComponent} from "../delete-user-confirmation/delete-user-confirmation.component";
-import {UserStore} from "../../../stores/user.store";
+import { DeleteUserConfirmationComponent } from "../delete-user-confirmation/delete-user-confirmation.component";
+import { UserStore } from "../../../stores/user.store";
+import { Select } from "@ngxs/store";
+import { UserSelector } from 'src/app/states/userManagement/user-selectors';
 
 
 
@@ -30,6 +30,8 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   formGroup: FormGroup;
   dataSource = new MatTableDataSource<User>();
 
+  @Select(UserSelector.getUsers) users$!: Observable<User[]>; // Will get the products from the store
+  private subscription: Subscription = new Subscription();
 
   private filterSubscription: Subscription;
   private paginationSubscription: Subscription;
@@ -96,13 +98,13 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   private async fetchUsers() {
-    // this.userService.getAllByWarehouse().then((users) => {
-    //   this.dataSource.data = users
-    // });
-    this.userService.getAllByWarehouse();
-    this.userStore.getUsers.subscribe((users) => {
-      this.dataSource.data = users;
-    })
+    this.subscription.add(
+      this.users$.subscribe(
+        (users: User[]) => {
+          this.dataSource.data = users;
+          console.log(users)
+        })
+    );
   }
 
   get filterValue(): string {
@@ -200,7 +202,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
       height: '60%', // Set the height
       data: {
         component: CreateUserComponent,
-        inputs: {} // No dependent data to pass
+        inputs: null // No dependent data to pass
       }
     });
   }
@@ -229,5 +231,16 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     if (this.queryParamSubscription) {
       this.queryParamSubscription.unsubscribe();
     }
+  }
+
+  openEditUserDialog(user: any) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '60%', // Set the height
+      data: {
+        component: CreateUserComponent,
+        inputs: user // No dependent data to pass
+      }
+    });
   }
 }

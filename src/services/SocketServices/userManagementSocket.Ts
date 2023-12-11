@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/enviroment";
 import * as signalR from "@aspnet/signalr";
 import { Subject } from "rxjs";
+import { Store } from "@ngxs/store";
+import { getUsers } from "src/app/states/userManagement/user-actions";
 
 
 @Injectable({
@@ -14,7 +16,7 @@ export class UserManagementSocket {
     private connectionEstablished = false;
 
 
-    constructor() {
+    constructor(private store: Store) {
         this.establishConnection();
     }
 
@@ -42,7 +44,7 @@ export class UserManagementSocket {
                 this.hubConnection.on("UserListUpdate", (data) => {
                     this.userSubject.next(data);
                 });
-
+                this.store.dispatch(new getUsers());
                 
             }
             catch (error) {
