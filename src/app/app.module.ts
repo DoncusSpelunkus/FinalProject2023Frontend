@@ -48,6 +48,7 @@ import { CreateProductComponent } from './manage-products/create-product/create-
 import {TextInputComponent} from "./util/text-input/text-input.component";
 import { SelectInputComponent } from './util/select-input/select-input.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { SearchSelectInputComponent } from './util/search-select-input/search-select-input.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     ManageProductsComponent,
     CreateProductComponent,
     TextInputComponent,
-    SelectInputComponent
+    SelectInputComponent,
+    SearchSelectInputComponent
   ],
     imports: [
 

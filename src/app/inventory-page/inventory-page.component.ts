@@ -56,7 +56,7 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
       width: '75%', // Set the width
       height: '80%', // Set the height
       data: {
-        component: CreateProductComponent,
+        component: StockProductComponent,
         inputs: null // No dependent data to pass
       }
     });
