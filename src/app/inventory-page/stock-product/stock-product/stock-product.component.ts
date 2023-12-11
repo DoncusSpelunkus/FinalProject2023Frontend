@@ -69,4 +69,12 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
     })
   }
 
+
+  list: any[] = [
+    {value: 'value'},
+    {value: 'valueq1'},
+    {value: 'value21'},
+    {value: 'idk'},
+  ]
+
 }

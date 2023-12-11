@@ -26,10 +26,6 @@ export class SelectInputComponent extends FormBuilding {
     this.iconClickEmitter.emit();
   }
 
-  selectOption(option: any) {
-    this.getCurrentFormControl.setValue(option);
-  }
-
   get getCurrentFormControl() {
     return getFormControl(this.inputFormControlName,this.inputFormGroup);
   }
