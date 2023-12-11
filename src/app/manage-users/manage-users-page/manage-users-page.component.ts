@@ -94,17 +94,16 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngOnDestroy(): void {
-    this.filterSubscription.unsubscribe();
+    this.destroySubscriptions();
   }
 
   private async fetchUsers() {
-    this.subscription.add(
+    this.subscription =
       this.users$.subscribe(
         (users: User[]) => {
           this.dataSource.data = users;
           console.log(users)
         })
-    );
   }
 
   get filterValue(): string {
@@ -227,5 +226,31 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
         inputs: user // No dependent data to pass
       }
     });
+  }
+
+  private destroySubscriptions() {
+    if (this.subscription && !this.subscription.closed) {
+      this.subscription.unsubscribe();
+    }
+
+    if (this.filterSubscription && !this.filterSubscription.closed) {
+      this.filterSubscription.unsubscribe();
+    }
+
+    if (this.paginationSubscription && !this.paginationSubscription.closed) {
+      this.paginationSubscription.unsubscribe();
+    }
+
+    if (this.routeParamsSubject) {
+      this.routeParamsSubject.unsubscribe();
+    }
+
+    if (this.queryParamSubscription && !this.queryParamSubscription.closed) {
+      this.queryParamSubscription.unsubscribe();
+    }
+
+    if (this.itemCountPerPageSubscription && !this.itemCountPerPageSubscription.closed) {
+      this.itemCountPerPageSubscription.unsubscribe();
+    }
   }
 }
