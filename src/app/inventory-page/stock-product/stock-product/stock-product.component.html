@@ -5,14 +5,15 @@
   <section class="flex flex-row justify-between items-center space-x-8 w-full">
 
     <app-text-input
-      class="w-32 max-w-full"
+      class="w-full max-w-full"
       [inputFormControlName]="FormControlNames.SKU"
       [inputFormGroup]="formGroup"
+      [icon]="'qr_code'"
       [placeholder]="'ABC-12345-S-BL'">
     </app-text-input>
 
     <app-text-input
-      class="w-32 max-w-full"
+      class="w-full max-w-full"
       [inputFormControlName]="FormControlNames.QUANTITY"
       [inputFormGroup]="formGroup"
       [placeholder]="'10pcs'">
