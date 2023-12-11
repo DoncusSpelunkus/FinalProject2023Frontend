@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {getFormControl} from "../../../util/form-control-validators";
-import {map, Observable, startWith} from "rxjs";
+import {map, Observable, ReplaySubject, startWith} from "rxjs";
 
 @Component({
   selector: 'app-search-select-input',
@@ -18,12 +18,14 @@ export class SearchSelectInputComponent implements OnInit{
 
   @Input() showIcon = false;
 
-  @Input() displayValue: string
+  @Input() displayValueProperty: string
+  @Input() searchValueProperty: string
 
   searchControl = new FormControl();
-  filteredList: any[];
 
-  filteredOptions: Observable<any[]>;
+  filteredOptions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+
+  isLoading: any;
 
   emitIconClickEvent() {
     this.iconClickEmitter.emit();
@@ -34,14 +36,22 @@ export class SearchSelectInputComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.filteredList = this.list;
+    this.filteredOptions.next(this.list);
     this.searchControl.valueChanges.subscribe(value => {
-      this.filteredList = this._filter(value);
+      this.changeLoadingWithTimeout(1000);
+      this.filteredOptions.next(this.filter(value))
     });
   }
 
-  private _filter(value: string): any[] {
+  private filter(value: string): any[] {
     const filterValue = value.toLowerCase();
-    return this.list.filter(option => option.includes(filterValue));
+    return this.list.filter(option => option[this.searchValueProperty].includes(filterValue));
+  }
+
+  private changeLoadingWithTimeout(duration: number) {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, duration);
   }
 }

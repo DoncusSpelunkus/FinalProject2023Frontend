@@ -25,40 +25,11 @@
   <!--   BOTTOM ROW INPUTS (Location)   -->
   <section class="w-full flex flex-row justify-between items-center space-x-8">
 
-    <app-text-input
-      class="w-32 max-w-full"
-      [inputFormControlName]="FormControlNames.AISLE"
-      [inputFormGroup]="formGroup"
-      [placeholder]="'00'">
-    </app-text-input>
-
-
-    <app-text-input
-      class="w-32 max-w-full"
-      [inputFormControlName]="FormControlNames.COLUMN"
-      [inputFormGroup]="formGroup"
-      [placeholder]="'00'">
-    </app-text-input>
-
-
-    <app-text-input
-      class="w-32 max-w-full"
-      [inputFormControlName]="FormControlNames.ROW"
-      [inputFormGroup]="formGroup"
-      [placeholder]="'00'">
-    </app-text-input>
-
-
-    <app-text-input
-      class="w-32 max-w-full"
+    <app-search-select-input class="w-full"
       [inputFormControlName]="FormControlNames.SHELF"
       [inputFormGroup]="formGroup"
-      [placeholder]="'00'">
-    </app-text-input>
-
-    <app-search-select-input
-      [inputFormControlName]="FormControlNames.SHELF"
-      [inputFormGroup]="formGroup"
+      [displayValueProperty]="'value'"
+      [searchValueProperty]="'value'"
       [list]="list">
     </app-search-select-input>
 

@@ -49,6 +49,7 @@ import {TextInputComponent} from "./util/text-input/text-input.component";
 import { SelectInputComponent } from './util/select-input/select-input.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { SearchSelectInputComponent } from './util/search-select-input/search-select-input.component';
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { SearchSelectInputComponent } from './util/search-select-input/search-se
         }),
         MatStepperModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        NgxMatSelectSearchModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]
