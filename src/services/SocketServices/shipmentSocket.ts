@@ -6,11 +6,11 @@ import { Subject } from "rxjs";
 @Injectable({
     providedIn: 'root'
 })
-export class LogSocket {
+export class ShipmentSocket {
 
     private hubConnection: signalR.HubConnection;
 
-    private logsSubject = new Subject<any>();
+    private shipmentSubject = new Subject<any>();
     private connectionEstablished = false;
 
 
@@ -23,7 +23,7 @@ export class LogSocket {
             try {
                 if (this.connectionEstablished == true) { return; }
                 this.hubConnection = new signalR.HubConnectionBuilder()
-                    .withUrl(environment.logsSocketUrl, {
+                    .withUrl(environment.shipmentSocketUrl, {
                         accessTokenFactory: () => {
                             return localStorage.getItem("auth") || '';
                         }
@@ -39,10 +39,9 @@ export class LogSocket {
                     return
                 }
                 // we describe the event we want to listen to and what we want to do when we get the event
-                this.hubConnection.on("LogsListUpdate", (data) => {
-                    console.log("log")
-                    this.logsSubject.next(data);
-                    console.log(data + "log")
+                this.hubConnection.on("ShipmentListUpdate", (data) => {
+                    this.shipmentSubject.next(data);
+                    console.log(data)
                 });
 
             }
@@ -58,7 +57,7 @@ export class LogSocket {
     }
 
     // We return the subject as an observable so we can subscribe to it
-    public getLogs() {
-        return this.logsSubject.asObservable();
+    public getProducts() {
+        return this.shipmentSubject.asObservable();
     }
 }
