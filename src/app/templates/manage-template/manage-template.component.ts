@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Host, HostBinding} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {FormBuilding} from "../../../interfaces/component-interfaces";
@@ -9,6 +9,9 @@ import {getFormControl} from "../../../util/form-control-validators";
   templateUrl: './manage-template.component.html'
 })
 export class ManageTemplateComponent extends FormBuilding{
+
+  @HostBinding('style.width') width = '100%';
+  @HostBinding('style.height') height = '100%';
 
   tableFormGroup: FormGroup;
   constructor(private formBuilder: FormBuilder) {
