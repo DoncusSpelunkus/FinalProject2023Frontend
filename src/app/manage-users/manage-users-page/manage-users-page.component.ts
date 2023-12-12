@@ -94,7 +94,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngOnDestroy(): void {
-    this.filterSubscription.unsubscribe();
+    this.destroySubscriptions();
   }
 
   private async fetchUsers() {
@@ -215,6 +215,21 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
         inputs: user   // No dependent data to pass
       }
     });
+  }
+
+  private destroySubscriptions() {
+    if (this.filterSubscription) {
+      this.filterSubscription.unsubscribe();
+    }
+    if (this.paginationSubscription) {
+      this.paginationSubscription.unsubscribe();
+    }
+    if (this.queryParamSubscription) {
+      this.queryParamSubscription.unsubscribe();
+    }
+    if (this.queryParamSubscription) {
+      this.queryParamSubscription.unsubscribe();
+    }
   }
 
   openEditUserDialog(user: any) {

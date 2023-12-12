@@ -24,7 +24,7 @@ import { LogsPageComponent } from './logs-page/logs-page.component';
 import { ShipmentPageComponent } from './shipment-page/shipment-page.component';
 import { ActivityService } from 'src/services/HelperSevices/activityService';
 import { DashboardButtonComponent } from './dashboard/component-modules/dashboard-button/dashboard-button/dashboard-button.component';
-import {MatRippleModule} from "@angular/material/core";
+import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
 import { ExtendedActionsComponent } from './dashboard/component-modules/dashboard-button/extended-actions/extended-actions.component';
 import { DynamicDialogComponent } from './util/dynamic-dialog/dynamic-dialog.component';
 import { CreateUserComponent } from './manage-users/create-user/create-user.component';
@@ -42,31 +42,44 @@ import { NgxsModule } from '@ngxs/store';
 import { LogState } from './states/log/log-state';
 import { InventoryState } from './states/inventory/product-state';
 import { UserManagementState } from './states/userManagement/user-state';
+import {MatStepperModule} from "@angular/material/stepper";
+import { ManageProductsComponent } from './manage-products/manage-products.component';
+import { CreateProductComponent } from './manage-products/create-product/create-product.component';
+import {TextInputComponent} from "./util/text-input/text-input.component";
+import { SelectInputComponent } from './util/select-input/select-input.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import { SearchSelectInputComponent } from './util/search-select-input/search-select-input.component';
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        DashboardComponent,
-        LoginPageComponent,
-        CollapsableContainerDirective,
-        ManageUsersPageComponent,
-        LogsPageComponent,
-        ShipmentPageComponent,
-        DashboardButtonComponent,
-        ExtendedActionsComponent,
-        DynamicDialogComponent,
-        CreateUserComponent,
-        InventoryPageComponent,
-        StockProductComponent,
-        IconComponent,
-        RelocateProductRowComponent,
-        UpdateQuantityRowComponent,
-        PageNotFoundComponent,
-        DeleteUserConfirmationComponent
-    ],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    LoginPageComponent,
+    CollapsableContainerDirective,
+    ManageUsersPageComponent,
+    LogsPageComponent,
+    ShipmentPageComponent,
+    DashboardButtonComponent,
+    ExtendedActionsComponent,
+    DynamicDialogComponent,
+    CreateUserComponent,
+    InventoryPageComponent,
+    StockProductComponent,
+    IconComponent,
+    RelocateProductRowComponent,
+    UpdateQuantityRowComponent,
+    PageNotFoundComponent,
+    DeleteUserConfirmationComponent,
+    ManageProductsComponent,
+    CreateProductComponent,
+    TextInputComponent,
+    SelectInputComponent,
+    SearchSelectInputComponent
+  ],
     imports: [
-        
+
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
@@ -88,7 +101,11 @@ import { UserManagementState } from './states/userManagement/user-state';
         MatCheckboxModule,
         NgxsModule.forRoot([LogState, InventoryState, UserManagementState], {
             developmentMode: true
-          })
+        }),
+        MatStepperModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgxMatSelectSearchModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

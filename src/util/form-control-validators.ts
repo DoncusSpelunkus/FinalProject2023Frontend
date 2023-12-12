@@ -1,4 +1,5 @@
-import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {FormControlNames} from "../constants/input-field-constants";
 
 export function emailValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
@@ -15,6 +16,17 @@ export function valueRequired(controlName: string): ValidatorFn {
     if (!control.value || (typeof control.value === 'string' && control.value.trim() === '')) {
       // Control is empty, so return error code and custom message
       return { required: { message: `${controlName} is required` } };
+    }
+    return null; // No error
+  };
+}
+
+export function numberOnly(controlName: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    // Check if the control has a value and if that value is a number
+    if (control.value && isNaN(control.value)) {
+      // Control value is not a number, so return error code and custom message
+      return { numberOnly: { message: `${controlName} must be a number` } };
     }
     return null; // No error
   };
@@ -87,6 +99,15 @@ export function getErrorMessage(control: AbstractControl): string | null {
 
   // Return the message of the first error (we assume here every error has a 'message' field)
   return control.errors[firstErrorKey]?.message;
+}
+
+export const getControlErrorMessage = (controlName: string,formGroup: FormGroup): string | null  => {
+  const control = formGroup.get(controlName) as AbstractControl;
+  return getErrorMessage(control);
+}
+
+export const getFormControl = (formControlName: string, formGroup: FormGroup) => {
+  return formGroup.get(formControlName) as FormControl;
 }
 
 

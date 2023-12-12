@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, HostBinding, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  OnInit,
+  signal,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { ButtonConfig, DashboardCommunicationService } from "../../services/HelperSevices/dashboard-communication.service";
 import { identity, Subscription } from "rxjs";
 import { inventoryButtonConfig, productsButtonConfig, usersButtonConfig } from "../../constants/dashboard-actions";
@@ -35,11 +44,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   async ngOnInit(): Promise<void> {
     await this.setupSubscriptions();
+    this.enableUserActions();
   }
 
   constructor(public communicationService: DashboardCommunicationService,
               private userObservable: UserObservable,
               private route: Router,
+              private cdRef: ChangeDetectorRef,
               private activeRoute: ActivatedRoute,
               private location: LocationStrategy) {
 
@@ -47,6 +58,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.userRole = this.getUserRole();
+    console.log(this.userRole)
     this.enableUserActions();
   }
 
@@ -69,6 +81,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   private getUserRole() {
+    this.tryAndSetUserOnReload();
     if (this.userRole) {
       switch (this.userRole.toLowerCase()) {
         case "admin":
@@ -84,23 +97,28 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     return ActionTemplates.Public;
   }
 
-  private enableUserActions() {
+  private   enableUserActions() {
+    this.tryAndSetUserOnReload();
     const template = this.userRole;
     switch (template) {
       case ActionTemplates.Public:
         this.currentActionsTemplate = this.publicActionsTemplate;
+        console.log('public')
         break;
       case ActionTemplates.SuperAdmin:
         this.currentActionsTemplate = this.superAdminActionsTemplate;
         break;
       case ActionTemplates.Admin:
         this.currentActionsTemplate = this.adminActionsTemplate;
+        console.log('admin')
         break;
       case ActionTemplates.User:
         this.currentActionsTemplate = this.userActionsTemplate;
+        console.log('user')
         break;
       default:
         this.currentActionsTemplate = this.publicActionsTemplate;
+        console.log('default')
     }
   }
 
@@ -117,7 +135,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    * @private
    */
   private async setupSubscriptions() {
-    this.userSubscription = this.userObservable.user$.subscribe((user) => {
+    this. userSubscription = this.userObservable.user$.subscribe((user) => {
       this.userRole = user?.role;
       this.ngAfterViewInit();
     });
@@ -155,13 +173,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     productsButtonConfig
   ];
   publicConfig: ButtonConfig[] = [
+    usersButtonConfig
   ];
+
+  private tryAndSetUserOnReload() {
+    this.userRole = this.userObservable.getUserSynchronously()?.role;
+    this.cdRef.detectChanges();
+  }
 }
 
 export enum ActionTemplates {
-  Public = 'public',
-  SuperAdmin = 'superAdmin',
-  Admin = 'admin',
-  User = 'user',
+  Public = 'Public',
+  SuperAdmin = 'SuperAdmin',
+  Admin = 'Admin',
+  User = 'User',
 }
 

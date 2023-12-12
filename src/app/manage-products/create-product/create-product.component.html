@@ -1,0 +1,174 @@
+<mat-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="productInfoFormGroup" label="Product info">
+    <form [formGroup]="productInfoFormGroup" class="flex-col flex space-y-4 h-full w-full justify-center items-center">
+
+      <!--   TOP ROW INPUTS (SKU and Name)   -->
+      <section class="flex flex-row justify-between items-center space-x-8 w-full">
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.SKU"
+          [icon]="'qr_code'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'ABC-12345-S-BL'">
+        </app-text-input>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.NAME"
+          [icon]="'tag'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'Blue garment'">
+        </app-text-input>
+
+      </section>
+
+
+      <!--   MIDDLE ROW INPUTS (Description)   -->
+      <section class="w-full">
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.DESCRIPTION"
+          [icon]="'description'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'250g, Blue, Soft textile'">
+        </app-text-input>
+
+      </section>
+
+      <!--   BOTTOM ROW INPUTS (Category,Brand and type)   -->
+      <section class="w-full flex flex-row justify-between items-center space-x-4">
+
+        <app-text-input
+          class="w-44"
+          [inputFormControlName]="FormControlNames.CATEGORY"
+          [icon]="'category'"
+          [inputFormGroup]="productInfoFormGroup"
+          [placeholder]="'shirts'">
+        </app-text-input>
+
+        <app-select-input
+          class="w-44"
+          [inputFormControlName]="FormControlNames.BRAND"
+          [inputFormGroup]="productInfoFormGroup"
+          [list]="brandList"
+          [displayValue]="'value'"
+          [showIcon]="true"
+          [placeholder]="'Gucci'"
+          (iconClickEmitter)="handleOpenCreateBrandDialog()">
+        </app-select-input>
+
+
+        <app-select-input
+          class="w-44"
+          [inputFormControlName]="FormControlNames.TYPE"
+          [inputFormGroup]="productInfoFormGroup"
+          [list]="brandList"
+          [showIcon]="true"
+          [displayValue]="'value'"
+          [placeholder]="'Silk'"
+          (iconClickEmitter)="handleOpenCreateTypeDialog()">
+        </app-select-input>
+
+
+      </section>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="productStorageInfoFormGroup" label="Storage details">
+
+    <form [formGroup]="productStorageInfoFormGroup" class="flex-col flex space-y-4 h-full w-full justify-center items-center">
+
+      <section class="flex flex-row justify-between space-x-8">
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.WEIGHT"
+          [icon]="'scale'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'50kg'">
+        </app-text-input>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.LENGTH"
+          [icon]="'height'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'10'">
+        </app-text-input>
+
+      </section>
+
+      <section class="flex flex-row justify-between space-x-8">
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.WIDTH"
+          [icon]="'height'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'25'">
+        </app-text-input>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.HEIGHT"
+          [icon]="'height'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'30'">
+        </app-text-input>
+
+      </section>
+
+      <section class="flex flex-row justify-between space-x-8">
+
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" [formControlName]="FormControlNames.EXPIRY_DATE">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+          <mat-error>{{getControlErrorMessage(FormControlNames.EXPIRY_DATE,productStorageInfoFormGroup)}}</mat-error>
+        </mat-form-field>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.MINIMUM_CAPACITY"
+          [icon]="'minimize'"
+          [inputFormGroup]="productStorageInfoFormGroup"
+          [placeholder]="'10'">
+        </app-text-input>
+
+      </section>
+
+    </form>
+  </mat-step>
+  <mat-step label="Supplier info">
+
+    <form [formGroup]="productStorageInfoFormGroup" class="flex-col flex space-y-4 h-full w-full justify-center items-center">
+
+      <section class="w-full flex flex-col justify-between">
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.SUPPLIER_NAME"
+          [icon]="'supervised_user_circle'"
+          [inputFormGroup]="supplierInfoFormGroup"
+          [placeholder]="'Huawei'">
+        </app-text-input>
+
+        <app-text-input
+          class="w-full"
+          [inputFormControlName]="FormControlNames.SUPPLIER_CONTACT"
+          [icon]="'quick_contacts_mail'"
+          [inputFormGroup]="supplierInfoFormGroup"
+          [placeholder]="'bmw@gmail.com +45 111 222 34'">
+        </app-text-input>
+
+      </section>
+    </form>
+  </mat-step>
+</mat-stepper>

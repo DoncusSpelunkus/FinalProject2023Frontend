@@ -11,6 +11,8 @@ import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
 import { Observable, Subscription } from 'rxjs';
 import { Product } from 'src/entities/Product';
+import {FormBuilding} from "../../interfaces/component-interfaces";
+import {CreateProductComponent} from "../manage-products/create-product/create-product.component";
 
 
 @Component({
@@ -51,11 +53,11 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
 
   openStockProductsWindow() {
     this.dialog.open(DynamicDialogComponent, {
-      width: '60%', // Set the width
-      height: '60%', // Set the height
+      width: '75%', // Set the width
+      height: '80%', // Set the height
       data: {
         component: StockProductComponent,
-        inputs: {} // No dependent data to pass
+        inputs: null // No dependent data to pass
       }
     });
   }

@@ -1,1 +1,37 @@
-<p>stock-product works!</p>
+
+<form [formGroup]="formGroup" class="flex flex-col justify-center items-center w-full">
+
+  <!--   TOP ROW INPUTS (SKU and Quantity)   -->
+  <section class="flex flex-row justify-between items-center space-x-8 w-full">
+
+    <app-text-input
+      class="w-full max-w-full"
+      [inputFormControlName]="FormControlNames.SKU"
+      [inputFormGroup]="formGroup"
+      [icon]="'qr_code'"
+      [placeholder]="'ABC-12345-S-BL'">
+    </app-text-input>
+
+    <app-text-input
+      class="w-full max-w-full"
+      [inputFormControlName]="FormControlNames.QUANTITY"
+      [inputFormGroup]="formGroup"
+      [placeholder]="'10pcs'">
+    </app-text-input>
+
+  </section>
+
+
+  <!--   BOTTOM ROW INPUTS (Location)   -->
+  <section class="w-full flex flex-row justify-between items-center space-x-8">
+
+    <app-search-select-input class="w-full"
+      [inputFormControlName]="FormControlNames.SHELF"
+      [inputFormGroup]="formGroup"
+      [displayValueProperty]="'value'"
+      [searchValueProperty]="'value'"
+      [list]="list">
+    </app-search-select-input>
+
+  </section>
+</form>

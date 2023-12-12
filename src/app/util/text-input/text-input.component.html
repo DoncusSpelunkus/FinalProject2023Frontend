@@ -1,0 +1,8 @@
+<section class="w-full">
+  <mat-form-field class="w-full" appearance="fill" [formGroup]="inputFormGroup">
+    <mat-label *ngIf="showLabel">{{inputFormControlName}}</mat-label>
+    <input matInput [formControlName]="inputFormControlName" type="text" [placeholder]="placeholder">
+    <mat-icon *ngIf="icon" matSuffix (click)="emitIconClickEvent()">{{icon}}</mat-icon>
+    <mat-error>{{getControlErrorMessage(inputFormControlName,inputFormGroup)}}</mat-error>
+  </mat-form-field>
+</section>

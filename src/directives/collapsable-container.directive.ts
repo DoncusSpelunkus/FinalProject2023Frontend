@@ -38,6 +38,5 @@ export class CollapsableContainerDirective {
 
   private collapse() {
     this.renderer.setStyle(this.el.nativeElement, 'height', '0');
-    console.log('collapse')
   }
 }

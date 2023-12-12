@@ -1,0 +1,16 @@
+<mat-form-field class="w-full">
+  <mat-select [formControl]="getCurrentFormControl" placeholder="Bank">
+    <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+    <mat-option>
+      <ngx-mat-select-search [formControl]="searchControl" [searching]="isLoading">
+        <span ngxMatSelectNoEntriesFound>
+         No entries found
+        </span>
+      </ngx-mat-select-search>
+    </mat-option>
+
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option[displayValueProperty]">
+      {{option[displayValueProperty]}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

@@ -28,7 +28,7 @@ export const inventoryButtonConfig: ButtonConfig = {
   routeLink: 'inventory', // Assuming 'inventory' is the correct route
   childrenActions: [
     {
-      actionLink: 'manageInventory',
+      actionLink: 'inventory',
       actionName: 'Manage'
     },
     {
