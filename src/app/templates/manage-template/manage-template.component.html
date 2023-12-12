@@ -1,0 +1,26 @@
+<div class="flex flex-col w-full h-full justify-start items-center">
+
+  <section class="w-full flex justify-between flex-row h-fit">
+    <ng-container *ngTemplateOutlet="tableFilter" ></ng-container>
+    <ng-container *ngTemplateOutlet="actionsSection"></ng-container>
+  </section>
+
+
+</div>
+
+
+
+
+<ng-template #actionsSection>
+  <button mat-raised-button class="!h-14" color="primary" >Create user</button>
+</ng-template>
+
+<ng-template #tableFilter>
+  <mat-form-field [formGroup]="tableFormGroup" appearance="outline" class="w-56">
+    <input matInput type="text" placeholder="Type to filter..." [formControlName]="FormControlNames.FILTER">
+    <button mat-icon-button matSuffix *ngIf="filterValue" (click)="clearFilterValue()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-icon matPrefix *ngIf="!filterValue">search</mat-icon>
+  </mat-form-field>
+</ng-template>

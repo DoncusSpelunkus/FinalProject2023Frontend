@@ -8,6 +8,7 @@ export enum FormControlNames {
   ROLE = "Role",
 
   PAGE = 'PAGE_INDEX',
+  ITEMS_PER_PAGE = "ITEMS_PER_PAGE",
 
   AISLE = "Aisle",
   ROW = "Row",
