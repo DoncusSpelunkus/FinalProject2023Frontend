@@ -162,7 +162,6 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
    * @private
    */
   private initializeDataSource() {
-    this.dataSource.data = this.users;
     this.dataSource.paginator = this.paginator;
   }
 
