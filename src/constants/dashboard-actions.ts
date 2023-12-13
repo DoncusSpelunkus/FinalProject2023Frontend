@@ -55,7 +55,7 @@ export const locationButtonConfig: ButtonConfig = {
   childrenActions: [
     {
       actionLink: 'locations',
-      actionName: 'Locations'
+      actionName: 'Manage'
     },
 
   ]
