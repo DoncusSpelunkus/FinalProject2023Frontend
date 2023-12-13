@@ -8,6 +8,7 @@ import {LogsPageComponent} from "./logs-page/logs-page.component";
 import {ShipmentPageComponent} from "./shipment-page/shipment-page.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {InventoryPageComponent} from "./inventory-page/inventory-page.component";
+import {ManageTemplateComponent} from "./templates/manage-template/manage-template.component";
 
 const routes: Routes = [
   { path: 'login', component:  LoginPageComponent},
@@ -16,8 +17,9 @@ const routes: Routes = [
   { path: "inventory", component: InventoryPageComponent},
   { path: "shipment", component: ShipmentPageComponent, canActivate: [SalesGuardService] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'template', component: ManageTemplateComponent},
   { path: '404', component: PageNotFoundComponent },
-  { path: '**', redirectTo: '404'},
+  { path: '**', redirectTo: '404'}
 ];
 
 @NgModule({
