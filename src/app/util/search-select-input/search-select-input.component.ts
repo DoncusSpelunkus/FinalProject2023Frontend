@@ -12,7 +12,11 @@ export class SearchSelectInputComponent implements OnInit{
 
   @Input() inputFormControlName: string;
   @Input() inputFormGroup: FormGroup;
-  @Input() list: any[]
+  @Input('list')
+  set inputList(list: any[]) {
+    this.filteredOptions.next(list);
+    this.list = list
+  }
   @Input() showLabel = true;
   @Input() placeholder: string;
 
@@ -20,6 +24,8 @@ export class SearchSelectInputComponent implements OnInit{
 
   @Input() displayValueProperty: string
   @Input() searchValueProperty: string
+
+  private list: any[]
 
   searchControl = new FormControl();
 
@@ -36,7 +42,6 @@ export class SearchSelectInputComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.filteredOptions.next(this.list);
     this.searchControl.valueChanges.subscribe(value => {
       this.changeLoadingWithTimeout(1000);
       this.filteredOptions.next(this.filter(value))
