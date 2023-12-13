@@ -1,0 +1,17 @@
+<!-- CARD -->
+<div class="w-64 h-80 ring-2 ring-green-800 shadow-2xl rounded-lg flex flex-col justify-end items-center hover:scale-110 transition-all duration-300 ease-out">
+
+  <section class="w-full h-4/6 flex flex-col justify-center items-center space-y-8">
+    <app-icon class="text-green-800 text-8xl" [icon]="icon"></app-icon>
+    <span class="font-quicksand text-2xl text-green-800 font-black">{{displayText}}</span>
+  </section>
+
+
+  <section class="w-full h-2/6 border-t-2 border-solid border-green-800 flex justify-center items-center">
+    <app-button
+      [displayText]="buttonText">
+    </app-button>
+  </section>
+
+
+</div>

@@ -35,6 +35,10 @@ export class ButtonComponent {
   }
 
   get roleMatchesUser(): boolean {
-    return this.userObservable.getUserSynchronously().role === this.role;
+    if (!this.role) {
+      return true;
+    } else {
+      return this.userObservable.getUserSynchronously().role === this.role;
+    }
   }
 }

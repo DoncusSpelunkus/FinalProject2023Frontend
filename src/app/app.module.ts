@@ -52,6 +52,7 @@ import { SearchSelectInputComponent } from './util/search-select-input/search-se
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import { ButtonComponent } from './util/button/button.component';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
+import { SettingsCardComponent } from './util/settings-card/settings-card.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { SettingsPageComponent } from './settings-page/settings-page.component';
     SelectInputComponent,
     SearchSelectInputComponent,
     ButtonComponent,
-    SettingsPageComponent
+    SettingsPageComponent,
+    SettingsCardComponent
   ],
     imports: [
 
