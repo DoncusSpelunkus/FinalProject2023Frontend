@@ -11,6 +11,7 @@ import {InventoryPageComponent} from "./inventory-page/inventory-page.component"
 import {UnauthenticatedAccessGuard} from "../services/AuthGuardSevices/unauthenticated-access-guard.service";
 import {SettingsPageComponent} from "./settings-page/settings-page.component";
 import {AuthenticatedGuard} from "../services/AuthGuardSevices/authenticatedGuard";
+import {ManageProductsComponent} from "./manage-products/manage-products.component";
 
 const routes: Routes = [
   { path: 'login', component:  LoginPageComponent, canActivate: [UnauthenticatedAccessGuard]},
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "inventory", component: InventoryPageComponent},
   { path: "shipment", component: ShipmentPageComponent, canActivate: [SalesGuardService] },
   { path: "settings", component: SettingsPageComponent, canActivate:[AuthenticatedGuard]},
+  { path: "products", component: ManageProductsComponent, canActivate: [SalesGuardService]},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '404'},

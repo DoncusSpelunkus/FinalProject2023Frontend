@@ -12,7 +12,7 @@ export const productsButtonConfig: ButtonConfig = {
   routeLink: 'products', // Assuming 'products' is the correct route
   childrenActions: [
     {
-      actionLink: 'manageProducts',
+      actionLink: 'products',
       actionName: 'Manage'
     },
     {
