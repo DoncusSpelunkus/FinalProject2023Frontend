@@ -2,13 +2,13 @@ export enum FormControlNames {
   PASSWORD = 'Password',
   EMAIL = 'Email',
   PASSWORD_CONFIRMATION = "Password confirmation",
-  FILTER = 'FILTER',
+  FILTER = 'search',
   USERNAME = 'USERNAME',
   NAME = "Name",
   ROLE = "Role",
 
-  PAGE = 'PAGE_INDEX',
-  ITEMS_PER_PAGE = "ITEMS_PER_PAGE",
+  PAGE = 'page',
+  ITEMS_PER_PAGE = "pageSize",
 
   AISLE = "Aisle",
   ROW = "Row",

@@ -1,12 +1,12 @@
-import {AfterViewInit, Component, Host, HostBinding, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {FormBuilding} from "../../../interfaces/component-interfaces";
 import {getFormControl} from "../../../util/form-control-validators";
 import {MatTableDataSource} from "@angular/material/table";
-import {User} from "../../../entities/User";
-import {ActivatedRoute, Route, Router} from "@angular/router";
-import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {ActivatedRoute, Router} from "@angular/router";
+import {MatPaginator} from "@angular/material/paginator";
+import {debounceTime} from "rxjs";
 
 @Component({
   selector: 'app-manage-template',
@@ -87,21 +87,36 @@ export class ManageTemplateComponent extends FormBuilding implements OnInit, Aft
     getFormControl(FormControlNames.PAGE, this.tableFormGroup)
       .setValue(currentParams[FormControlNames.PAGE] || '', { emitEvent: true });
 
-
-    console.log(currentParams[FormControlNames.PAGE])
-    console.log(getFormControl(FormControlNames.PAGE, this.tableFormGroup).value)
-
     getFormControl(FormControlNames.ITEMS_PER_PAGE, this.tableFormGroup)
       .setValue(currentParams[FormControlNames.ITEMS_PER_PAGE] || '', { emitEvent: true });
   }
 
   private bindControlsToElements() {
-    getFormControl(FormControlNames.PAGE,this.tableFormGroup).valueChanges.subscribe((value) => {
-      const pageIndex = Number(value) || 0;
-      this.paginator.pageIndex = pageIndex;
-      this.updateRouteParams(FormControlNames.PAGE,pageIndex);
-      console.log(pageIndex)
-    })
+    getFormControl(FormControlNames.ITEMS_PER_PAGE, this.tableFormGroup).valueChanges
+      .pipe(debounceTime(300))
+      .subscribe((value) => {
+        const pageSize = Number(value) || 0;
+        this.paginator.pageSize = pageSize;
+        this.updateRouteParams(FormControlNames.ITEMS_PER_PAGE, value);
+      });
+
+    getFormControl(FormControlNames.PAGE, this.tableFormGroup).valueChanges
+      .pipe(debounceTime(300))
+      .subscribe((value) => {
+        const pageIndex = Number(value) || 0;
+        this.paginator.pageIndex = pageIndex;
+        this.updateRouteParams(FormControlNames.PAGE, value);
+      });
+
+    getFormControl(FormControlNames.FILTER, this.tableFormGroup).valueChanges
+      .pipe(debounceTime(300))
+      .subscribe((value) => {
+        const query = value?.toString() || '';
+        this.dataSource.filter = query.trim().toLowerCase();
+        this.updateRouteParams(FormControlNames.FILTER, value);
+      });
+
+
   }
 
   private bindElementsToControls() {
@@ -110,6 +125,7 @@ export class ManageTemplateComponent extends FormBuilding implements OnInit, Aft
 
     this.paginator.page.subscribe((page) => {
       getFormControl(FormControlNames.PAGE,this.tableFormGroup).setValue(page.pageIndex,{emitEvent:true});
+      getFormControl(FormControlNames.ITEMS_PER_PAGE,this.tableFormGroup).setValue(page.pageSize,{emitEvent:true});
     })
   }
 
