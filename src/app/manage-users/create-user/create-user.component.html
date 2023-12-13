@@ -33,7 +33,7 @@
     <mat-form-field class="w-full" appearance="fill">
       <mat-label>Role</mat-label>
       <mat-select [formControlName]="FormControlNames.ROLE">
-        <mat-option *ngFor="let role of roles" [value]="role.value">{{role.value}}</mat-option>
+        <mat-option class="capitalize" *ngFor="let role of roles" [value]="role.value">{{role.value}}</mat-option>
       </mat-select>
       <mat-icon matSuffix>people</mat-icon>
       <mat-error>{{getControlErrorMessage(FormControlNames.ROLE)}}</mat-error>

@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   async ngOnInit(): Promise<void> {
     await this.setupSubscriptions();
+    this.tryAndSetUserOnReload();
     this.enableUserActions();
   }
 
@@ -57,8 +58,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.userRole = this.getUserRole();
-    console.log(this.userRole)
     this.enableUserActions();
   }
 
@@ -80,39 +79,22 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.isExpanded = false;
   }
 
-  private getUserRole() {
-    this.tryAndSetUserOnReload();
-    if (this.userRole) {
-      switch (this.userRole.toLowerCase()) {
-        case "admin":
-          return ActionTemplates.Admin;
-        case "sales":
-          return ActionTemplates.Admin;
-        case "base":
-          return ActionTemplates.User;
-        default:
-          return ActionTemplates.Public;
-      }
-    }
-    return ActionTemplates.Public;
-  }
-
-  private   enableUserActions() {
-    this.tryAndSetUserOnReload();
+  private enableUserActions() {
     const template = this.userRole;
+    console.log(template)
     switch (template) {
-      case ActionTemplates.Public:
+      case UserRoles.EMPLOYEE:
         this.currentActionsTemplate = this.publicActionsTemplate;
         console.log('public')
         break;
-      case ActionTemplates.SuperAdmin:
+      case UserRoles.SuperAdmin:
         this.currentActionsTemplate = this.superAdminActionsTemplate;
         break;
-      case ActionTemplates.Admin:
+      case UserRoles.Admin:
         this.currentActionsTemplate = this.adminActionsTemplate;
         console.log('admin')
         break;
-      case ActionTemplates.User:
+      case UserRoles.Sales:
         this.currentActionsTemplate = this.userActionsTemplate;
         console.log('user')
         break;
@@ -137,7 +119,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   private async setupSubscriptions() {
     this. userSubscription = this.userObservable.user$.subscribe((user) => {
       this.userRole = user?.role;
-      this.ngAfterViewInit();
+      console.log('changed',this.userRole)
+      this.enableUserActions();
     });
 
     this.actionSelectionSubscription = this.communicationService.buttonConfig$.subscribe(selectedAction => {
@@ -182,10 +165,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 }
 
-export enum ActionTemplates {
-  Public = 'Public',
-  SuperAdmin = 'SuperAdmin',
-  Admin = 'Admin',
-  User = 'User',
+export enum UserRoles {
+  EMPLOYEE = 'employee',
+  SuperAdmin = 'superAdmin',
+  Admin = 'admin',
+  Sales = 'sales',
 }
 
