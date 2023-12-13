@@ -53,6 +53,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import { ButtonComponent } from './util/button/button.component';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
 import { SettingsCardComponent } from './util/settings-card/settings-card.component';
+import { ChangePasswordComponent } from './settings-page/modals/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { SettingsCardComponent } from './util/settings-card/settings-card.compon
     SearchSelectInputComponent,
     ButtonComponent,
     SettingsPageComponent,
-    SettingsCardComponent
+    SettingsCardComponent,
+    ChangePasswordComponent
   ],
     imports: [
 
