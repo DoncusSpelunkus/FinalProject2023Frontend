@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngxs/store';
 import { establishConnection } from 'src/app/states/crossStateAction';
 import { forkJoin, map } from 'rxjs';
+import {handleRoleBasedNavigation} from "../../../../util/role-based-actions";
+import {UserObservable} from "../../../../services/HelperSevices/userObservable";
 
 
 @Component({
@@ -33,7 +35,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private route: Router,
     private matSnackbar: MatSnackBar,
-    private store: Store
+    private store: Store,
+    private userObservable: UserObservable
   ) {
 
 
@@ -74,8 +77,8 @@ export class LoginComponent implements OnInit {
     }
     finally {
       this.isLoading = false;
+      handleRoleBasedNavigation(this.userObservable.getUserSynchronously().role,this.route)
     }
-    this.route.navigate(['/warehouse']);
   }
 
   get isLoginInputValid() {

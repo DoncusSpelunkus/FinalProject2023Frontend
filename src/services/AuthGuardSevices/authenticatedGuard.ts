@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { Token } from "src/entities/Token";
 import {UserRoles} from "../../app/dashboard/dashboard.component";
 import {inventoryButtonConfig, usersButtonConfig} from "../../constants/dashboard-actions";
+import {handleRoleBasedNavigation} from "../../util/role-based-actions";
 
 @Injectable({
   providedIn: 'root'
@@ -31,24 +32,9 @@ export class AuthenticatedGuard implements CanActivate {
     console.log(decodedToken)
 
     if (decodedToken.exp && new Date(decodedToken.exp * 1000) > currentdate) {
-      return this.handleRoleBasedNavigation(decodedToken.role);
+      return handleRoleBasedNavigation(decodedToken.role,this.router);
     }
     return true;
   }
 
-  private handleRoleBasedNavigation(role: string): boolean {
-    switch (role) {
-      case UserRoles.Admin:
-        this.router.navigateByUrl(usersButtonConfig.routeLink)
-        return false;
-      case UserRoles.Sales:
-        this.router.navigateByUrl(inventoryButtonConfig.childrenActions[0].actionLink);
-        return false;
-      case UserRoles.EMPLOYEE:
-        this.router.navigateByUrl(inventoryButtonConfig.childrenActions[0].actionLink);
-        return false;
-      default:
-        return false;
-    }
-  }
 }
