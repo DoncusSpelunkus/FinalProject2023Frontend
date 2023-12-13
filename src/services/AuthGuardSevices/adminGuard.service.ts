@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from "rxjs";
 import { jwtDecode } from "jwt-decode";
 import { Token } from "src/entities/Token";
+import {UserRoles} from "../../app/dashboard/dashboard.component";
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +21,7 @@ export class AdminGuardService implements CanActivate {
             let currentdate = new Date();
             if (decodToken.exp) {
                 let expiry = new Date(decodToken.exp * 1000);
-                if (currentdate < expiry && decodToken.role === "Admin") { // checks the role assigned to the token and exp date
+                if (currentdate < expiry && decodToken.role === UserRoles.Admin) { // checks the role assigned to the token and exp date
                     return true;
                 }
                 else if (currentdate < expiry && decodToken.role === "Base")

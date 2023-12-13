@@ -143,20 +143,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
   superAdminConfig: ButtonConfig[] = [
     inventoryButtonConfig,
-    productsButtonConfig
+    productsButtonConfig,
+    usersButtonConfig
   ];
   adminConfig: ButtonConfig[] = [
     usersButtonConfig,
     inventoryButtonConfig,
     productsButtonConfig
   ]
-  userConfig: ButtonConfig[] = [
-    usersButtonConfig,
+  salesConfig: ButtonConfig[] = [
     inventoryButtonConfig,
     productsButtonConfig
   ];
   publicConfig: ButtonConfig[] = [
-    usersButtonConfig
   ];
 
   private tryAndSetUserOnReload() {

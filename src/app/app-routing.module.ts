@@ -8,9 +8,10 @@ import {LogsPageComponent} from "./logs-page/logs-page.component";
 import {ShipmentPageComponent} from "./shipment-page/shipment-page.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {InventoryPageComponent} from "./inventory-page/inventory-page.component";
+import {AuthenticatedGuard} from "../services/AuthGuardSevices/authenticatedGuard";
 
 const routes: Routes = [
-  { path: 'login', component:  LoginPageComponent},
+  { path: 'login', component:  LoginPageComponent, canActivate: [AuthenticatedGuard]},
   { path: "userManagement", component: ManageUsersPageComponent, canActivate: [AdminGuardService]},
   { path: "logs", component: LogsPageComponent, canActivate: [AdminGuardService] },
   { path: "inventory", component: InventoryPageComponent},
