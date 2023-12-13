@@ -34,12 +34,12 @@
         <!-- User Profile Icon -->
 
         <!-- Settings Icon -->
-        <button mat-icon-button aria-label="Settings">
+        <button mat-icon-button aria-label="Settings" *ngIf="userRole">
           <app-icon class="text-white text-2xl" icon="setting"></app-icon>
         </button>
 
         <!-- Login Icon -->
-        <button mat-icon-button aria-label="Log in" (click)="logout()">
+        <button *ngIf="userRole" mat-icon-button aria-label="Log in" (click)="logout()">
 
           <app-icon class="text-white text-2xl" icon="signout"></app-icon>
         </button>
