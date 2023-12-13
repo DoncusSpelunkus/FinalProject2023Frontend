@@ -85,7 +85,7 @@ import { ManageTemplateComponent } from './templates/manage-template/manage-temp
     ButtonComponent,
     SettingsPageComponent,
     SettingsCardComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
     SearchSelectInputComponent,
     ManageTemplateComponent
   ],
