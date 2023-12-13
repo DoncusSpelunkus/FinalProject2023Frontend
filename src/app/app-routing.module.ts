@@ -12,6 +12,7 @@ import {UnauthenticatedAccessGuard} from "../services/AuthGuardSevices/unauthent
 import {SettingsPageComponent} from "./settings-page/settings-page.component";
 import {AuthenticatedGuard} from "../services/AuthGuardSevices/authenticatedGuard";
 import {ManageProductsComponent} from "./manage-products/manage-products.component";
+import {ManageTemplateComponent} from "./templates/manage-template/manage-template.component";
 
 const routes: Routes = [
   { path: 'login', component:  LoginPageComponent, canActivate: [UnauthenticatedAccessGuard]},
@@ -23,7 +24,7 @@ const routes: Routes = [
   { path: "products", component: ManageProductsComponent, canActivate: [SalesGuardService]},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '404', component: PageNotFoundComponent },
-  { path: '**', redirectTo: '404'},
+  { path: '**', redirectTo: '404'}
 ];
 
 @NgModule({
