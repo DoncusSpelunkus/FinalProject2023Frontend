@@ -14,10 +14,6 @@ export const productsButtonConfig: ButtonConfig = {
     {
       actionLink: 'products',
       actionName: 'Manage'
-    },
-    {
-      actionLink: 'banProducts',
-      actionName: 'Ban'
     }
   ]
 };
@@ -29,15 +25,44 @@ export const inventoryButtonConfig: ButtonConfig = {
   childrenActions: [
     {
       actionLink: 'inventory',
-      actionName: 'Manage'
+      actionName: 'Stock'
     },
-    {
-      actionLink: 'reviewInventory',
-      actionName: 'Review'
-    },
-    {
-      actionLink: 'auditInventory',
-      actionName: 'Audit'
-    }
+
   ]
+};
+
+export const systemButtonConfig: ButtonConfig = {
+  identity: "SYSTEM",
+  displayValue: 'System',
+  routeLink: 'inventory', // Assuming 'inventory' is the correct route
+  childrenActions: [
+    {
+      actionLink: 'logs',
+      actionName: 'Logs'
+    },
+    {
+      actionLink: 'shipments',
+      actionName: 'Shipments'
+    }
+
+  ]
+};
+
+export const locationButtonConfig: ButtonConfig = {
+  identity: "LOCATION",
+  displayValue: 'Locations',
+  routeLink: '',
+  childrenActions: [
+    {
+      actionLink: 'locations',
+      actionName: 'Locations'
+    },
+
+  ]
+};
+
+export const shipmentButtonConfig: ButtonConfig = {
+  identity: "SHIPMENT",
+  displayValue: 'Shipments',
+  routeLink: 'shipments',
 };

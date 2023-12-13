@@ -21,7 +21,7 @@ export class SalesGuardService implements CanActivate {
             let currentdate = new Date();
             if (decodToken.exp) {
                 let expiry = new Date(decodToken.exp * 1000);
-                if (currentdate < expiry && decodToken.role === ("admin" || "sales") ) { // checks the role assigned to the token and exp date
+                if (currentdate < expiry && decodToken.role === 'admin' || decodToken.role === 'sales' ) { // checks the role assigned to the token and exp date
                     return true;
                 }
                 else if (currentdate < expiry && decodToken.role === "User")

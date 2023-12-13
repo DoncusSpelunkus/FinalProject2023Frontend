@@ -10,7 +10,12 @@ import {
 } from '@angular/core';
 import { ButtonConfig, DashboardCommunicationService } from "../../services/HelperSevices/dashboard-communication.service";
 import { identity, Subscription } from "rxjs";
-import { inventoryButtonConfig, productsButtonConfig, usersButtonConfig } from "../../constants/dashboard-actions";
+import {
+  inventoryButtonConfig, locationButtonConfig,
+  productsButtonConfig, shipmentButtonConfig,
+  systemButtonConfig,
+  usersButtonConfig
+} from "../../constants/dashboard-actions";
 import { UserObservable } from 'src/services/HelperSevices/userObservable';
 import { User } from 'src/entities/User';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -142,18 +147,23 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.collapseNavigation();
   }
   superAdminConfig: ButtonConfig[] = [
+    usersButtonConfig,
     inventoryButtonConfig,
     productsButtonConfig,
-    usersButtonConfig
+    systemButtonConfig,
+    locationButtonConfig
   ];
   adminConfig: ButtonConfig[] = [
     usersButtonConfig,
     inventoryButtonConfig,
-    productsButtonConfig
+    productsButtonConfig,
+    systemButtonConfig,
+    locationButtonConfig
   ]
   salesConfig: ButtonConfig[] = [
     inventoryButtonConfig,
-    productsButtonConfig
+    productsButtonConfig,
+    shipmentButtonConfig
   ];
   publicConfig: ButtonConfig[] = [
   ];

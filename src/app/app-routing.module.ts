@@ -13,14 +13,16 @@ import {SettingsPageComponent} from "./settings-page/settings-page.component";
 import {AuthenticatedGuard} from "../services/AuthGuardSevices/authenticatedGuard";
 import {ManageProductsComponent} from "./manage-products/manage-products.component";
 import {ManageTemplateComponent} from "./templates/manage-template/manage-template.component";
+import {LocationsPageComponent} from "./locations-page/locations-page.component";
 
 const routes: Routes = [
   { path: 'login', component:  LoginPageComponent, canActivate: [UnauthenticatedAccessGuard]},
   { path: "userManagement", component: ManageUsersPageComponent, canActivate: [AdminGuardService]},
   { path: "logs", component: LogsPageComponent, canActivate: [AdminGuardService] },
-  { path: "inventory", component: InventoryPageComponent},
-  { path: "shipment", component: ShipmentPageComponent, canActivate: [SalesGuardService] },
+  { path: "inventory", component: InventoryPageComponent, canActivate: [SalesGuardService]},
+  { path: "shipments", component: ShipmentPageComponent, canActivate: [SalesGuardService]},
   { path: "settings", component: SettingsPageComponent, canActivate:[AuthenticatedGuard]},
+  { path: 'locations', component: LocationsPageComponent, canActivate: [AdminGuardService]},
   { path: "products", component: ManageProductsComponent, canActivate: [SalesGuardService]},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '404', component: PageNotFoundComponent },

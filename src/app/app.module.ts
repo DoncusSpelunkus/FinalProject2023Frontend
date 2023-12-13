@@ -55,6 +55,7 @@ import { SettingsPageComponent } from './settings-page/settings-page.component';
 import { SettingsCardComponent } from './util/settings-card/settings-card.component';
 import { ChangePasswordComponent } from './settings-page/modals/change-password/change-password.component';
 import { ManageTemplateComponent } from './templates/manage-template/manage-template.component';
+import { LocationsPageComponent } from './locations-page/locations-page.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { ManageTemplateComponent } from './templates/manage-template/manage-temp
     SettingsCardComponent,
     ChangePasswordComponent,
     SearchSelectInputComponent,
-    ManageTemplateComponent
+    ManageTemplateComponent,
+    LocationsPageComponent
   ],
     imports: [
 

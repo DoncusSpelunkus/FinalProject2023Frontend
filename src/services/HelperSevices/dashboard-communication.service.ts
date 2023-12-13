@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 
-export type ButtonIdentity = 'USERS' | 'PRODUCTS' | 'INVENTORY';
+export type ButtonIdentity = 'USERS' | 'PRODUCTS' | 'INVENTORY' | 'SYSTEM' | 'LOCATION' | 'SHIPMENT';
 
 export interface ChildrenAction {
   actionName: string;
