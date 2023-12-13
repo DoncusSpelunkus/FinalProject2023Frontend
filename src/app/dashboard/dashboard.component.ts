@@ -162,6 +162,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.userRole = this.userObservable.getUserSynchronously()?.role;
     this.cdRef.detectChanges();
   }
+
+  handleOpenSettingsPage() {
+    this.route.navigateByUrl('settings')
+  }
 }
 
 export enum UserRoles {

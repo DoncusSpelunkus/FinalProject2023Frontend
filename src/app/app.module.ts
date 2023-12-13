@@ -51,6 +51,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import { SearchSelectInputComponent } from './util/search-select-input/search-select-input.component';
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import { ButtonComponent } from './util/button/button.component';
+import { SettingsPageComponent } from './settings-page/settings-page.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { ButtonComponent } from './util/button/button.component';
     TextInputComponent,
     SelectInputComponent,
     SearchSelectInputComponent,
-    ButtonComponent
+    ButtonComponent,
+    SettingsPageComponent
   ],
     imports: [
 

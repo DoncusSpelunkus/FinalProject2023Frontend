@@ -1,20 +1,15 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Observable } from "rxjs";
-import { jwtDecode } from "jwt-decode";
 import { Token } from "src/entities/Token";
-import {UserRoles} from "../../app/dashboard/dashboard.component";
-import {inventoryButtonConfig, usersButtonConfig} from "../../constants/dashboard-actions";
-import {handleRoleBasedNavigation} from "../../util/role-based-actions";
+import {jwtDecode} from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthenticatedGuard implements CanActivate {
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -23,18 +18,26 @@ export class AuthenticatedGuard implements CanActivate {
     const localToken = localStorage.getItem('auth');
 
     if (!localToken) {
-      return true;
+      this.navigateToLogin();
+      return false;
     }
 
-    const decodedToken = jwtDecode<Token>(localToken);
-    const currentdate = new Date();
+    try {
+      const decodedToken = jwtDecode<Token>(localToken);
+      const currentdate = new Date();
 
-    console.log(decodedToken)
-
-    if (decodedToken.exp && new Date(decodedToken.exp * 1000) > currentdate) {
-      return handleRoleBasedNavigation(decodedToken.role,this.router);
+      if (decodedToken.exp && new Date(decodedToken.exp * 1000) > currentdate) {
+        return true; // The token is valid
+      }
+    } catch (error) {
+      console.error("Token decoding failed", error);
     }
-    return true;
+
+    this.navigateToLogin();
+    return false;
   }
 
+  private navigateToLogin(): void {
+    this.router.navigateByUrl("/login");  // Redirect to your login route
+  }
 }
