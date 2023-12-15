@@ -26,7 +26,7 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<SimpleDummyData>();
 
-  displayedColumns = ['name'];
+  displayedColumns = ['dateShipped','addShipmentDetail','removeShipmentDetail','info','delete'];
 
   constructor(
     private formBuilder: FormBuilder,
