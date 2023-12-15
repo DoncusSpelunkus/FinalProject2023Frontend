@@ -7,12 +7,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {debounceTime} from "rxjs";
+import {SimpleDummyData} from "../templates/manage-template/manage-template.component";
 
 @Component({
-  selector: 'app-shipment-page',
-  templateUrl: './shipment-page.component.html'
+  selector: 'app-locations-page',
+  templateUrl: './locations-page.component.html'
 })
-export class ShipmentPageComponent extends FormBuilding implements OnInit, AfterViewInit{
+export class LocationsPageComponent extends FormBuilding implements OnInit, AfterViewInit{
 
   @HostBinding('style.width') width = '100%';
   @HostBinding('style.height') height = '100%';
@@ -136,8 +137,4 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
       queryParamsHandling: 'merge', // preserve other query params
     });
   }
-}
-
-export interface SimpleDummyData {
-  name: string;
 }

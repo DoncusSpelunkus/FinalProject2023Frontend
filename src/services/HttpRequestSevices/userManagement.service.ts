@@ -6,6 +6,7 @@ import { environment } from "src/enviroment";
 import {CreateUserDTO, User} from 'src/entities/User';
 import { UserObservable } from '../HelperSevices/userObservable';
 import { UserStore } from 'src/stores/user.store';
+import {ChangePasswordDTO} from "../../entities/PasswordConfirmation";
 
 
 export const customAxios = axios.create({
@@ -86,5 +87,9 @@ export class UserManagementService {
       }
       return config;
     });
+  }
+
+  changeUserPassword(dto: ChangePasswordDTO) {
+    //TODO implement call to endpoint
   }
 }

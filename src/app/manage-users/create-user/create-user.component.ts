@@ -13,6 +13,7 @@ import {Subscription} from "rxjs";
 import {CreateUserDTO} from "../../../entities/User";
 import {UserObservable} from "../../../services/HelperSevices/userObservable";
 import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
+import {UserRoles} from "../../dashboard/dashboard.component";
 
 @Component({
   selector: 'app-create-user',
@@ -31,15 +32,12 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   private formGroupStatusSubscription: Subscription;
   hidePassword = true;
   hideConfirmPassword = true;
-  roles = [
-    {value: 'Standard'},
-    {value: 'Admin'},
-    {value: 'Sales'},
-  ]
+  roles: any[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserManagementService,
               private userObservable: UserObservable) {
+    this.roles = this.mapEnumToArray(UserRoles);
   }
 
   ngOnInit(): void {
@@ -115,4 +113,8 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
       warehouseId: this.userObservable.getUserSynchronously().warehouseId
     };
   }
+  private mapEnumToArray(enumObj: any): any[] {
+    return Object.keys(enumObj).map(key => ({ value: enumObj[key] }));
+  }
+
 }

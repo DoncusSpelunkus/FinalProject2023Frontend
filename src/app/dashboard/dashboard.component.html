@@ -34,12 +34,12 @@
         <!-- User Profile Icon -->
 
         <!-- Settings Icon -->
-        <button mat-icon-button aria-label="Settings">
+        <button mat-icon-button aria-label="Settings" *ngIf="userRole" (click)="handleOpenSettingsPage()">
           <app-icon class="text-white text-2xl" icon="setting"></app-icon>
         </button>
 
         <!-- Login Icon -->
-        <button mat-icon-button aria-label="Log in" (click)="logout()">
+        <button *ngIf="userRole" mat-icon-button aria-label="Log in" (click)="logout()">
 
           <app-icon class="text-white text-2xl" icon="signout"></app-icon>
         </button>
@@ -98,7 +98,7 @@
 
 <!--  USER ACTIONS  -->
 <ng-template #userActions>
-  <ng-container *ngFor="let button of userConfig">
+  <ng-container *ngFor="let button of salesConfig">
     <app-dashboard-button [buttonConfig]="button"></app-dashboard-button>
   </ng-container>
 </ng-template>

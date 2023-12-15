@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormControlNames} from "../../../../constants/input-field-constants";
 import {getControlErrorMessage, numberOnly, valueRequired} from "../../../../util/form-control-validators";
 import {Subscription} from "rxjs";
+import {LocationService} from "../../../../services/HttpRequestSevices/location.service";
 
 @Component({
   selector: 'app-stock-product',
@@ -17,12 +18,17 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
 
   private isFormValidSubscription: Subscription;
 
-  constructor(private _formBuilder: FormBuilder) {
+
+  productLocations: any[]
+
+  constructor(private _formBuilder: FormBuilder,
+              private locationService: LocationService) {
     super();
   }
   ngOnInit(): void {
     this.initializeFormGroups();
     this.initializeSubscriptions();
+    this.initializeData();
   }
 
   ngOnDestroy(): void {
@@ -69,12 +75,9 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
     })
   }
 
-
-  list: any[] = [
-    {value: 'value'},
-    {value: 'valueq1'},
-    {value: 'value21'},
-    {value: 'idk'},
-  ]
-
+  private initializeData() {
+    this.locationService.getLocationsInWarehouse().then(value => {
+      this.productLocations = value.data
+    })
+  }
 }
