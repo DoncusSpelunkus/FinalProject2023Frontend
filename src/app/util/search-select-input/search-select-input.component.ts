@@ -2,12 +2,13 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {getFormControl} from "../../../util/form-control-validators";
 import {map, Observable, ReplaySubject, startWith} from "rxjs";
+import {FormBuilding} from "../../../interfaces/component-interfaces";
 
 @Component({
   selector: 'app-search-select-input',
   templateUrl: './search-select-input.component.html'
 })
-export class SearchSelectInputComponent implements OnInit{
+export class SearchSelectInputComponent extends FormBuilding implements OnInit{
   @Output() iconClickEmitter = new EventEmitter<any>();
 
   @Input() inputFormControlName: string;
@@ -33,12 +34,8 @@ export class SearchSelectInputComponent implements OnInit{
 
   isLoading: any;
 
-  emitIconClickEvent() {
-    this.iconClickEmitter.emit();
-  }
-
-  get getCurrentFormControl() {
-    return getFormControl(this.inputFormControlName,this.inputFormGroup);
+  constructor() {
+    super();
   }
 
   ngOnInit() {
@@ -46,6 +43,14 @@ export class SearchSelectInputComponent implements OnInit{
       this.changeLoadingWithTimeout(1000);
       this.filteredOptions.next(this.filter(value))
     });
+  }
+
+  emitIconClickEvent() {
+    this.iconClickEmitter.emit();
+  }
+
+  get getCurrentFormControl() {
+    return getFormControl(this.inputFormControlName,this.inputFormGroup);
   }
 
   private filter(value: string): any[] {

@@ -1,8 +1,8 @@
 <mat-form-field class="w-full">
-  <mat-select [formControl]="getCurrentFormControl" placeholder="Bank">
+  <mat-select [formControl]="getCurrentFormControl" [placeholder]="placeholder">
     <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
     <mat-option>
-      <ngx-mat-select-search [formControl]="searchControl" [searching]="isLoading">
+      <ngx-mat-select-search [formControl]="searchControl" [searching]="isLoading" [placeholderLabel]="'Search...'" >
         <span ngxMatSelectNoEntriesFound>
          No entries found
         </span>
@@ -13,4 +13,6 @@
       {{option[displayValueProperty]}}
     </mat-option>
   </mat-select>
+
+  <mat-error>{{getControlErrorMessage(inputFormControlName,inputFormGroup)}}</mat-error>
 </mat-form-field>

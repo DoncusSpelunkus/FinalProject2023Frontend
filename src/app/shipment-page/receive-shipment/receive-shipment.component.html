@@ -6,8 +6,10 @@
 
     <!--  List  -->
     <section class="w-full h-full">
-      <mat-selection-list>
-        <mat-list-option *ngFor="let detail of details">{{detail}}</mat-list-option>
+      <mat-selection-list (selectionChange)="onSelectionChange($event)">
+        <mat-list-option *ngFor="let detail of details; let i = index" [value]="{ detail, index: i }">
+          {{ detail }}
+        </mat-list-option>
       </mat-selection-list>
     </section>
 
@@ -25,6 +27,24 @@
 
   <!-- Create shipment details section -->
   <section class="flex-col flex items-center justify-start w-1/2 h-full">
+
+    <app-search-select-input
+      class="w-full"
+      [inputFormControlName]="FormControlNames.SKU"
+      [placeholder]="'ABC-12345-S-BL'"
+      [inputFormGroup]="formGroup"
+      [displayValueProperty]="'value'"
+      [searchValueProperty]="'value'"
+      [list]="productSKUs">
+    </app-search-select-input>
+
+    <app-text-input
+      class="w-full max-w-full"
+      [inputFormControlName]="FormControlNames.QUANTITY"
+      [inputFormGroup]="formGroup"
+      [icon]="'cancel'"
+      [placeholder]="'726'">
+    </app-text-input>
 
   </section>
 
