@@ -11,6 +11,10 @@ import {MatDialog} from "@angular/material/dialog";
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
 import {StockProductComponent} from "../inventory-page/stock-product/stock-product/stock-product.component";
 import {ReceiveShipmentComponent} from "./receive-shipment/receive-shipment.component";
+import {DeleteShipmentComponent} from "./delete-shipment/delete-shipment.component";
+import {ShipmentInfoComponent} from "./shipment-info/shipment-info.component";
+import {RemoveShipmentDetailsComponent} from "./remove-shipment-details/remove-shipment-details.component";
+import {AddShipmentDetailsComponent} from "./add-shipment-details/add-shipment-details.component";
 
 @Component({
   selector: 'app-shipment-page',
@@ -154,19 +158,47 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
   }
 
   handleOpenDeleteShipmentDialog(shipment) {
-    
+    this.dialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '70%', // Set the height
+      data: {
+        component: DeleteShipmentComponent,
+        inputs: shipment // No dependent data to pass
+      }
+    });
   }
 
   handleOpenShipmentInfoDialog(shipment) {
-    
+    this.dialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '70%', // Set the height
+      data: {
+        component: ShipmentInfoComponent,
+        inputs: shipment // No dependent data to pass
+      }
+    });
   }
 
   handleOpenRemoveDetailsDialog(shipment) {
-    
+    this.dialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '70%', // Set the height
+      data: {
+        component: RemoveShipmentDetailsComponent,
+        inputs: shipment // No dependent data to pass
+      }
+    });
   }
 
   handleOpenAddDetailsDialog(shipment) {
-    
+    this.dialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '70%', // Set the height
+      data: {
+        component: AddShipmentDetailsComponent,
+        inputs: shipment // No dependent data to pass
+      }
+    });
   }
 }
 
