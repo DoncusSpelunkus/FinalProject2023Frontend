@@ -159,8 +159,8 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
 
   handleOpenDeleteShipmentDialog(shipment) {
     this.dialog.open(DynamicDialogComponent, {
-      width: '75%', // Set the width
-      height: '70%', // Set the height
+      width: '45%', // Set the width
+      height: '30%', // Set the height
       data: {
         component: DeleteShipmentComponent,
         inputs: shipment // No dependent data to pass
