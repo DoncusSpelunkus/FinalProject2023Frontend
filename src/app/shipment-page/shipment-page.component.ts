@@ -152,6 +152,22 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
       }
     });
   }
+
+  handleOpenDeleteShipmentDialog(shipment) {
+    
+  }
+
+  handleOpenShipmentInfoDialog(shipment) {
+    
+  }
+
+  handleOpenRemoveDetailsDialog(shipment) {
+    
+  }
+
+  handleOpenAddDetailsDialog(shipment) {
+    
+  }
 }
 
 export interface SimpleDummyData {

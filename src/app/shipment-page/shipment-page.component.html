@@ -13,7 +13,7 @@
       <!--   Shipment data column   -->
       <ng-container matColumnDef="dateShipped">
         <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef> Shipment date </th>
-        <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+        <td mat-cell *matCellDef="let shipment"> {{shipment.name}} </td>
       </ng-container>
 
       <!--   Add details action column   -->
@@ -21,9 +21,13 @@
         <th mat-header-cell *matHeaderCellDef>
           <span class="font-quicksand !font-black flex w-full justify-center">Add details</span>
         </th>
-        <td mat-cell *matCellDef="let user">
+        <td mat-cell *matCellDef="let shipment">
           <div class="w-full h-full flex justify-center">
-            <app-icon matRipple class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125" icon="plus">
+            <app-icon
+              matRipple
+              class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125 transition-all hover:scale-110 duration-300"
+              icon="plus"
+              (click)="handleOpenAddDetailsDialog(shipment)">
             </app-icon>
           </div>
         </td>
@@ -34,9 +38,13 @@
         <th mat-header-cell *matHeaderCellDef>
           <span class="font-quicksand !font-black flex w-full justify-center">Remove details</span>
         </th>
-        <td mat-cell *matCellDef="let user">
+        <td mat-cell *matCellDef="let shipment">
           <div class="w-full h-full flex justify-center">
-            <app-icon matRipple class="p-1.5 rounded-md bg-blue-700 text-white text-xl hover:brightness-125" icon="minus">
+            <app-icon
+              matRipple
+              class="p-1.5 rounded-md bg-blue-700 text-white text-xl hover:brightness-125 transition-all hover:scale-110 duration-300"
+              icon="minus"
+              (click)="handleOpenRemoveDetailsDialog(shipment)">
             </app-icon>
           </div>
         </td>
@@ -47,9 +55,13 @@
         <th mat-header-cell *matHeaderCellDef>
           <span class="font-quicksand !font-black flex w-full justify-center">Info</span>
         </th>
-        <td mat-cell *matCellDef="let user">
+        <td mat-cell *matCellDef="let shipment">
           <div class="w-full h-full flex justify-center">
-            <app-icon matRipple class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125" icon="info-circle">
+            <app-icon
+              matRipple
+              class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125 transition-all hover:scale-110 duration-300"
+              icon="info-circle"
+              (click)="handleOpenShipmentInfoDialog(shipment)">
             </app-icon>
           </div>
         </td>
@@ -60,9 +72,13 @@
         <th mat-header-cell *matHeaderCellDef>
           <span class="font-quicksand !font-black flex w-full justify-center">Delete</span>
         </th>
-        <td mat-cell *matCellDef="let user">
+        <td mat-cell *matCellDef="let shipment">
           <div class="w-full h-full flex justify-center">
-            <app-icon matRipple class="p-1.5 rounded-md bg-red-600 text-white text-xl hover:brightness-125" icon="trash">
+            <app-icon
+              matRipple
+              class="p-1.5 rounded-md bg-red-600 text-white text-xl hover:brightness-125 transition-all hover:scale-110 duration-300"
+              icon="trash"
+              (click)="handleOpenDeleteShipmentDialog(shipment)">
             </app-icon>
           </div>
         </td>
