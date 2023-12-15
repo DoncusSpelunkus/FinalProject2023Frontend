@@ -1,1 +1,67 @@
-<p>add-shipment-details works!</p>
+ <section class="flex flex-row w-full h-full justify-center items-center space-x-10 overflow-hidden" [formGroup]="shipmentCreationFormGroup">
+
+    <!-- List of Shipment Detail objects -->
+    <section class="flex-col flex justify-end w-1/2 h-full">
+
+      <!--  List  -->
+      <section class="w-full h-full overflow-clip">
+        <mat-selection-list class="max-h-full overflow-scroll" (selectionChange)="onSelectionChange($event)">
+          <mat-list-option *ngFor="let detail of getShipmentDetailsList; let i = index" [value]="{ detail, index: i }">
+            <b>SKU:</b> {{detail.ProductSKU}} <b>Quantity: </b>{{detail.Quantity}}
+          </mat-list-option>
+        </mat-selection-list>
+      </section>
+
+
+      <!--  Manage actions (delete)  -->
+      <section class="w-full h-fit px-2">
+        <app-button
+          class="w-full"
+          [displayText]="'DELETE'"
+          [color]="'red'"
+          [disabledCheck]="isSelectedIndicesEmpty"
+          (buttonClickEmitter)="handleDeleteDetailsClick()">
+        </app-button>
+      </section>
+
+
+    </section>
+
+
+    <!-- Create shipment details section -->
+    <section class="flex-col flex items-center justify-start w-1/2 h-full">
+
+      <app-search-select-input
+        class="w-full"
+        [inputFormControlName]="FormControlNames.SKU"
+        [placeholder]="'ABC-12345-S-BL'"
+        [inputFormGroup]="shipmentDetailCreationFormGroup"
+        [displayValueProperty]="'value'"
+        [searchValueProperty]="'value'"
+        [list]="productSKUs"
+        [showIcon]="true"
+        (iconClickEmitter)="handleOpenCreateProductModal()">
+      </app-search-select-input>
+
+      <app-text-input
+        class="w-full max-w-full"
+        [inputFormControlName]="FormControlNames.QUANTITY"
+        [inputFormGroup]="shipmentDetailCreationFormGroup"
+        [icon]="'cancel'"
+        [placeholder]="'726'">
+      </app-text-input>
+
+      <section class="w-full flex px-2 h-full justify-center items-end">
+        <app-button
+          class="w-full"
+          [displayText]="'CREATE'"
+          [color]="'green'"
+          [disabledCheck]="isFormValid"
+          (buttonClickEmitter)="handleAddDetailsObject()">
+        </app-button>
+      </section>
+
+    </section>
+
+  </section>
+
