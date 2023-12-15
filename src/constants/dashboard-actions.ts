@@ -13,8 +13,17 @@ export const productsButtonConfig: ButtonConfig = {
   childrenActions: [
     {
       actionLink: 'products',
-      actionName: 'Manage'
+      actionName: 'Products'
+    },
+    {
+      actionLink: 'brands',
+      actionName: 'Brands'
+    },
+    {
+      actionLink: 'types',
+      actionName: 'Types'
     }
+
   ]
 };
 
