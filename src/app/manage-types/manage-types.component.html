@@ -1,1 +1,47 @@
-<p>manage-types works!</p>
+<div class="flex flex-col w-full h-full justify-start items-center">
+
+  <section class="w-full flex justify-between flex-row h-fit">
+    <ng-container *ngTemplateOutlet="tableFilter" ></ng-container>
+    <ng-container *ngTemplateOutlet="actionsSection"></ng-container>
+  </section>
+
+
+  <!-- Table container -->
+  <div class="w-full h-fit">
+    <table mat-table [dataSource]="dataSource" class="font-quicksand">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+      </ng-container>
+
+      <!-- Columns -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <!-- Paginator -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+  </div>
+
+
+</div>
+
+
+
+
+<ng-template #actionsSection>
+  <button mat-raised-button class="!h-14" color="primary" >Create product</button>
+</ng-template>
+
+<ng-template #tableFilter>
+  <mat-form-field [formGroup]="tableFormGroup" appearance="outline" class="w-56">
+    <input matInput type="text" placeholder="Type to filter..." [formControlName]="FormControlNames.FILTER">
+    <button mat-icon-button matSuffix *ngIf="filterValue" (click)="clearFilterValue()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-icon matPrefix *ngIf="!filterValue">search</mat-icon>
+  </mat-form-field>
+</ng-template>
