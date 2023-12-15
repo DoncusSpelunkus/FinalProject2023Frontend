@@ -9,6 +9,14 @@ export class ReceiveShipmentComponent implements LoadableComponent{
 
   isValidEmitter = new EventEmitter<boolean>();
 
+  details: any[] = [
+    'value1',
+    'value2',
+    'value3',
+    'value4',
+    'value5'
+  ];
+
   setData(data: any): void {
   }
 

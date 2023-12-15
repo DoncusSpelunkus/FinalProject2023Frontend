@@ -57,6 +57,7 @@ import { ChangePasswordComponent } from './settings-page/modals/change-password/
 import { ManageTemplateComponent } from './templates/manage-template/manage-template.component';
 import { LocationsPageComponent } from './locations-page/locations-page.component';
 import { ReceiveShipmentComponent } from './shipment-page/receive-shipment/receive-shipment.component';
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -120,7 +121,8 @@ import { ReceiveShipmentComponent } from './shipment-page/receive-shipment/recei
         MatStepperModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        NgxMatSelectSearchModule
+        NgxMatSelectSearchModule,
+        MatListModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]
