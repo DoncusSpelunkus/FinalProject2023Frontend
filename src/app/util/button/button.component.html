@@ -6,6 +6,7 @@
   }"
         class="!rounded-md w-full flex flex-row space-x-2.5 items-center justify-center px-4 py-1.5 uppercase font-black"
         [disabled]="isDisabled"
+        [class.brightness-50]="isDisabled"
         (click)="onButtonClick()">
   <h1 class="font-quicksand">{{displayText}}</h1>
   <app-icon *ngIf="icon" class="text-lg z-10" [icon]="icon" [ngClass]="{'text-white': !outline, 'text-green-800': outline}"></app-icon>

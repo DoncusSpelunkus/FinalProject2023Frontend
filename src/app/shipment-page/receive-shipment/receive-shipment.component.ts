@@ -15,6 +15,8 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
 
   formGroup: FormGroup;
 
+  selectedFormDetailIndices: any[];
+
   details: any[] = [
     'value1',
     'value2',
@@ -22,12 +24,7 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
     'value4',
     'value5'
   ];
-  productSKUs: any[] = [
-    {value: '21-124'},
-    {value: '21-gds'},
-    {value: '21-12312'},
-    {value: '21-FDSF-ewg'},
-  ];
+  productSKUs: any[] = []
 
   constructor(private formBuilder: FormBuilder) {
     super();
@@ -45,10 +42,8 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
 
   onSelectionChange(event: MatSelectionListChange) {
     const selectedOptions = event.source.selectedOptions.selected;
-    const selectedIndices = selectedOptions.map(option => option.value.index);
+    this.selectedFormDetailIndices = selectedOptions.map(option => option.value.index);
 
-    console.log('Selected indices:', selectedIndices);
-    // Now you can use selectedIndices to remove items from 'details'
   }
 
   private initializeFormGroup() {
@@ -56,5 +51,13 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
       [FormControlNames.QUANTITY]: ['', valueRequired(FormControlNames.QUANTITY)],
       [FormControlNames.SKU]: ['', valueRequired(FormControlNames.SKU)],
     })
+  }
+
+  isSelectedIndicesEmpty = () => {
+    return !this.selectedFormDetailIndices || this.selectedFormDetailIndices.length === 0
+  }
+
+  handleDeleteDetailsClick() {
+    console.log('delete')
   }
 }
