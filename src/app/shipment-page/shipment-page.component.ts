@@ -7,6 +7,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {debounceTime} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
+import {StockProductComponent} from "../inventory-page/stock-product/stock-product/stock-product.component";
+import {ReceiveShipmentComponent} from "./receive-shipment/receive-shipment.component";
 
 @Component({
   selector: 'app-shipment-page',
@@ -27,7 +31,8 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog,) {
     super();
     this.initializeFormGroup();
   }
@@ -134,6 +139,17 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
       relativeTo: this.route,
       queryParams: { [paramName]: value || null },
       queryParamsHandling: 'merge', // preserve other query params
+    });
+  }
+
+  handleOpenReceiveShipmentModal() {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '80%', // Set the height
+      data: {
+        component: ReceiveShipmentComponent,
+        inputs: null // No dependent data to pass
+      }
     });
   }
 }
