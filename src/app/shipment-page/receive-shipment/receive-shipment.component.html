@@ -1,4 +1,4 @@
-<section class="flex flex-col space-y-8 w-full h-full justify-center items-center overflow-hidden">
+<section class="flex flex-col space-y-8 w-full h-full justify-center items-center overflow-hidden" [formGroup]="shipmentCreationFormGroup">
 
   <section class="flex flex-row w-full h-full justify-center items-center space-x-10 overflow-hidden">
 
@@ -31,7 +31,7 @@
 
 
     <!-- Create shipment details section -->
-    <section class="flex-col flex items-center justify-end w-1/2 h-full">
+    <section class="flex-col flex items-center justify-start w-1/2 h-full">
 
       <app-search-select-input
         class="w-full"
@@ -51,7 +51,7 @@
         [placeholder]="'726'">
       </app-text-input>
 
-      <section class="w-full px-2">
+      <section class="w-full flex px-2 h-full justify-center items-end">
         <app-button
           class="w-full"
           [displayText]="'CREATE'"
