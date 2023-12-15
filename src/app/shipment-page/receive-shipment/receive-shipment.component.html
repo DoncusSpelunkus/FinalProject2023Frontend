@@ -1,11 +1,11 @@
 <!-- Main container -->
-<section class="flex flex-row w-full h-full justify-center items-center space-x-8">
+<section class="flex flex-row w-full h-full justify-center items-center space-x-10">
 
   <!-- List of Shipment Detail objects -->
   <section class="flex-col flex justify-start w-1/2 h-full">
 
     <!--  List  -->
-    <section>
+    <section class="w-full h-full">
       <mat-selection-list>
         <mat-list-option *ngFor="let detail of details">{{detail}}</mat-list-option>
       </mat-selection-list>
@@ -13,7 +13,7 @@
 
 
     <!--  Manage actions (delete)  -->
-    <section class="w-full h-fit">
+    <section class="w-full h-fit p-2">
       <app-button class="w-full" [displayText]="'DELETE'" [color]="'red'">
 
       </app-button>
