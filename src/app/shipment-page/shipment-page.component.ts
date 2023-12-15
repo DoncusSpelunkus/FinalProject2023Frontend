@@ -145,7 +145,7 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
   handleOpenReceiveShipmentModal() {
     this.dialog.open(DynamicDialogComponent, {
       width: '75%', // Set the width
-      height: '80%', // Set the height
+      height: '70%', // Set the height
       data: {
         component: ReceiveShipmentComponent,
         inputs: null // No dependent data to pass

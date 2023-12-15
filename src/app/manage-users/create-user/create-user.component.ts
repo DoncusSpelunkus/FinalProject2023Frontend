@@ -14,6 +14,7 @@ import {CreateUserDTO} from "../../../entities/User";
 import {UserObservable} from "../../../services/HelperSevices/userObservable";
 import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 import {UserRoles} from "../../dashboard/dashboard.component";
+import {getFormGroupValiditySubscription} from "../../../util/subscription-setup";
 
 @Component({
   selector: 'app-create-user',
@@ -85,22 +86,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   }
 
   private initializeSubscriptions() {
-    this.formGroupStatusSubscription = this.formGroup.statusChanges.subscribe(status => {
-      switch (status) {
-        case "VALID":
-          this.isValidEmitter.emit(true);
-          break;
-        case "DISABLED":
-          this.isValidEmitter.emit(false);
-          break;
-        case "INVALID":
-          this.isValidEmitter.emit(false);
-          break;
-        case "PENDING":
-          this.isValidEmitter.emit(false);
-          break;
-      }
-    })
+    this.formGroupStatusSubscription = getFormGroupValiditySubscription(this.formGroup,this.isValidEmitter);
   }
 
   private getRequestBody(): CreateUserDTO {
