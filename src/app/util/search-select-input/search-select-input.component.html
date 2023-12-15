@@ -1,18 +1,24 @@
-<mat-form-field class="w-full">
-  <mat-select [formControl]="getCurrentFormControl" [placeholder]="placeholder">
-    <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
-    <mat-option>
-      <ngx-mat-select-search [formControl]="searchControl" [searching]="isLoading" [placeholderLabel]="'Search...'" >
+<section class="flex flex-row justify-center items-center space-x-4">
+  <mat-form-field class="w-full">
+    <mat-label *ngIf="showLabel">{{inputFormControlName}}</mat-label>
+    <mat-select [formControl]="getCurrentFormControl" [placeholder]="placeholder">
+      <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+      <mat-option>
+        <ngx-mat-select-search [formControl]="searchControl" [searching]="isLoading" [placeholderLabel]="'Search...'" >
         <span ngxMatSelectNoEntriesFound>
          No entries found
         </span>
-      </ngx-mat-select-search>
-    </mat-option>
+        </ngx-mat-select-search>
+      </mat-option>
 
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option[displayValueProperty]">
-      {{option[displayValueProperty]}}
-    </mat-option>
-  </mat-select>
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option[displayValueProperty]">
+        {{option[displayValueProperty]}}
+      </mat-option>
+    </mat-select>
 
-  <mat-error>{{getControlErrorMessage(inputFormControlName,inputFormGroup)}}</mat-error>
-</mat-form-field>
+    <mat-error>{{getControlErrorMessage(inputFormControlName,inputFormGroup)}}</mat-error>
+  </mat-form-field>
+
+
+  <app-icon *ngIf="showIcon" [icon]="'plus-circle'" class="text-3xl pb-3.5 hover:cursor-pointer hover:scale-110 transition-all duration-300" (click)="emitIconClickEvent()"></app-icon>
+</section>

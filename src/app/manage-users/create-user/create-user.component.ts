@@ -14,7 +14,7 @@ import {CreateUserDTO} from "../../../entities/User";
 import {UserObservable} from "../../../services/HelperSevices/userObservable";
 import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 import {UserRoles} from "../../dashboard/dashboard.component";
-import {getFormGroupValiditySubscription} from "../../../util/subscription-setup";
+import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 
 @Component({
   selector: 'app-create-user',
@@ -86,7 +86,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   }
 
   private initializeSubscriptions() {
-    this.formGroupStatusSubscription = getFormGroupValiditySubscription(this.formGroup,this.isValidEmitter);
+    this.formGroupStatusSubscription = getCombinedFormGroupValiditySubscription([this.formGroup],this.isValidEmitter);
   }
 
   private getRequestBody(): CreateUserDTO {

@@ -40,7 +40,9 @@
         [inputFormGroup]="shipmentDetailCreationFormGroup"
         [displayValueProperty]="'value'"
         [searchValueProperty]="'value'"
-        [list]="productSKUs">
+        [list]="productSKUs"
+        [showIcon]="true"
+        (iconClickEmitter)="handleOpenCreateProductModal()">
       </app-search-select-input>
 
       <app-text-input

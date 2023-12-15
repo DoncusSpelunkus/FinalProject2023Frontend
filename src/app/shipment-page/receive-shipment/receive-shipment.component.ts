@@ -5,8 +5,12 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {nonEmptyListValidator, numberOnly, valueRequired} from "../../../util/form-control-validators";
 import {ShipmentDetailsDTO} from "../../../entities/ShipmentDetailsDTO";
-import {getFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {Subscription} from "rxjs";
+import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
+import {CreateUserComponent} from "../../manage-users/create-user/create-user.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateProductComponent} from "../../manage-products/create-product/create-product.component";
+import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 
 @Component({
   selector: 'app-receive-shipment',
@@ -29,7 +33,8 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
     {value: '21-FDSF-ewg'},
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private dialog: MatDialog) {
     super();
   }
 
@@ -90,7 +95,7 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
   }
 
   private initializeSubscriptions() {
-    this.formDetailsListSubscription = getFormGroupValiditySubscription(this.shipmentCreationFormGroup,this.isValidEmitter);
+    this.formDetailsListSubscription = getCombinedFormGroupValiditySubscription([this.shipmentCreationFormGroup],this.isValidEmitter);
   }
 
   ngOnDestroy(): void {
@@ -101,5 +106,16 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
 
   get getShipmentDetailsList() {
     return this.shipmentCreationFormGroup.get(FormControlNames.SHIPMENT_DETAIL_LIST).value
+  }
+
+  handleOpenCreateProductModal() {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '70%', // Set the width
+      height: '70%', // Set the height
+      data: {
+        component: CreateProductComponent,
+        inputs: null // No dependent data to pass
+      }
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
+import {combineLatest, debounceTime, distinctUntilChanged, Subscription} from 'rxjs';
 import {EventEmitter} from "@angular/core";
 
 export function setupDistinctControlSubscription(
@@ -20,21 +20,14 @@ export function setupDistinctControlSubscription(
     .subscribe(callback);
 }
 
-export function getFormGroupValiditySubscription(formGroup: FormGroup,isValidEmitter: EventEmitter<any>): Subscription {
-  return formGroup.statusChanges.subscribe(status => {
-    switch (status) {
-      case "VALID":
-        isValidEmitter.emit(true);
-        break;
-      case "DISABLED":
-        isValidEmitter.emit(false);
-        break;
-      case "INVALID":
-        isValidEmitter.emit(false);
-        break;
-      case "PENDING":
-        isValidEmitter.emit(false);
-        break;
-    }
-  })
+export function getCombinedFormGroupValiditySubscription(
+  formGroups: FormGroup[],
+  isValidEmitter: EventEmitter<boolean>
+): Subscription {
+  const statusObservables = formGroups.map(formGroup => formGroup.statusChanges);
+
+  return combineLatest(statusObservables).subscribe(statuses => {
+    const allValid = statuses.every(status => status === 'VALID');
+    isValidEmitter.emit(allValid);
+  });
 }

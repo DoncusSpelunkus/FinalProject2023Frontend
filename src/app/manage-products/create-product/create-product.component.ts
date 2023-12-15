@@ -1,14 +1,16 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
+import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html'
 })
-export class CreateProductComponent extends FormBuilding implements LoadableComponent, OnInit{
+export class CreateProductComponent extends FormBuilding implements LoadableComponent, OnInit, OnDestroy{
 
   @Output() isValidEmitter = new EventEmitter<any>;
 
@@ -17,12 +19,14 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
   productStorageInfoFormGroup: FormGroup;
 
   supplierInfoFormGroup: FormGroup;
+  private formGroupStatusSubscription: Subscription;
 
   constructor(private _formBuilder: FormBuilder) {
     super();
   }
   ngOnInit(): void {
     this.initializeFormGroups();
+    this.initializeSubscriptions();
   }
 
   setData(data: any): void {
@@ -68,4 +72,14 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
     {value: 'bmw'},
     {value:'caca'}
   ];
+
+  private initializeSubscriptions() {
+    this.formGroupStatusSubscription = getCombinedFormGroupValiditySubscription([this.productStorageInfoFormGroup,this.supplierInfoFormGroup,this.productInfoFormGroup],this.isValidEmitter)
+  }
+
+  ngOnDestroy(): void {
+    if (this.formGroupStatusSubscription) {
+      this.formGroupStatusSubscription.unsubscribe();
+    }
+  }
 }
