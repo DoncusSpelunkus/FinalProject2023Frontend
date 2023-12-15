@@ -16,8 +16,12 @@
 
     <!--  Manage actions (delete)  -->
     <section class="w-full h-fit p-2">
-      <app-button class="w-full" [displayText]="'DELETE'" [color]="'red'" [disabledCheck]="isSelectedIndicesEmpty" (buttonClickEmitter)="handleDeleteDetailsClick()">
-
+      <app-button
+        class="w-full"
+        [displayText]="'DELETE'"
+        [color]="'red'"
+        [disabledCheck]="isSelectedIndicesEmpty"
+        (buttonClickEmitter)="handleDeleteDetailsClick()">
       </app-button>
     </section>
 

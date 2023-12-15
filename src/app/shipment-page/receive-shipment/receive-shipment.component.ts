@@ -16,7 +16,6 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
   formGroup: FormGroup;
 
   selectedFormDetailIndices: any[];
-
   details: any[] = [
     'value1',
     'value2',
@@ -57,7 +56,12 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
     return !this.selectedFormDetailIndices || this.selectedFormDetailIndices.length === 0
   }
 
+  /**
+   * Remove all details objects that are selected by sorting the ones that don't match an index
+   *
+   */
   handleDeleteDetailsClick() {
-    console.log('delete')
+    const indicesSet = new Set(this.selectedFormDetailIndices);
+    this.details = this.details.filter((_, index) => !indicesSet.has(index));
   }
 }
