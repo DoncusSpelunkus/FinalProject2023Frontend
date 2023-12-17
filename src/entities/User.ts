@@ -9,6 +9,7 @@ export class User{
 }
 
 export class CreateUserDTO {
+  EmployeeId?: number;
   name: string;
   email: string;
   username: string;

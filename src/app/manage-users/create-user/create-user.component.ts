@@ -15,6 +15,8 @@ import {UserObservable} from "../../../services/HelperSevices/userObservable";
 import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 import {UserRoles} from "../../dashboard/dashboard.component";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
+import { Store } from '@ngxs/store';
+import { createUser, updateUser } from 'src/app/states/userManagement/user-actions';
 
 @Component({
   selector: 'app-create-user',
@@ -34,9 +36,10 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   hidePassword = true;
   hideConfirmPassword = true;
   roles: any[] = [];
+  id: number;
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserManagementService,
+              private store: Store,
               private userObservable: UserObservable) {
     this.roles = this.mapEnumToArray(UserRoles);
   }
@@ -55,15 +58,18 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
         [FormControlNames.ROLE]: data.role // User has to be created through ui for this to work, value has to match existing option
       });
     }, 0);
+    this.id = data.employeeId;
     this.isUpdatingEmployee = true;
   }
 
   async submit() {
     const createUserDTO: CreateUserDTO = this.getRequestBody();
     if (this.isUpdatingEmployee) {
-      await this.userService.updateEmployee(createUserDTO);
+      createUserDTO.EmployeeId = this.id;
+      this.store.dispatch(new updateUser(createUserDTO));
+      console.log(createUserDTO);
     } else {
-      await this.userService.createUser(createUserDTO);
+      this.store.dispatch(new createUser(createUserDTO));
     }
   }
 
