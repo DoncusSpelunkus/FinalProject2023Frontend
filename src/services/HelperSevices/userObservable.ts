@@ -11,7 +11,6 @@ export class UserObservable {
     user$ = this.userSubject.asObservable();
 
     constructor() {
-        console.log("UserObservable created");
     }
 
     public async setUser(user: User) {

@@ -6,8 +6,11 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
-import {debounceTime} from "rxjs";
+import {Observable, Subscription, debounceTime} from "rxjs";
 import {SimpleDummyData} from "../templates/manage-template/manage-template.component";
+import { Brand } from 'src/entities/Inventory';
+import { Select } from '@ngxs/store';
+import { ProductSelector } from '../states/inventory/product-selector';
 
 @Component({
   selector: 'app-locations-page',
@@ -21,9 +24,12 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   tableFormGroup: FormGroup;
-  dataSource = new MatTableDataSource<SimpleDummyData>();
+  dataSource = new MatTableDataSource<Location>();
 
-  displayedColumns = ['name'];
+  displayedColumns = ['Location id'];
+
+  @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the types from the store
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,20 +69,12 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   }
 
   private initializeSourceData(): void {
-    const values: SimpleDummyData[] = [
-      {name: 'Bob'},
-      {name: 'bin'},
-      {name: 'bon'},
-      {name: 'Van'},
-      {name: 'Helsing'},
-      {name: 'John'},
-      {name: 'Alex'},
-      {name: 'Tiffany'},
-      {name: 'JAke'},
-      {name: 'Alex'},
-      {name: 'Twink'},
-    ]
-    this.dataSource.data = values;
+    this.subscription.add(
+      this.locations$.subscribe(
+        (locations: Location[]) => {
+          this.dataSource.data = locations;
+        })
+    );
   }
 
   private setInitialValuesFromQueryParams() {

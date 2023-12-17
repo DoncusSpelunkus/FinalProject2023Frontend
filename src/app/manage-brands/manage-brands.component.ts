@@ -6,7 +6,10 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
-import {debounceTime} from "rxjs";
+import {Observable, Subscription, debounceTime} from "rxjs";
+import { Brand } from 'src/entities/Inventory';
+import { Select } from '@ngxs/store';
+import { ProductSelector } from '../states/inventory/product-selector';
 
 @Component({
   selector: 'app-manage-brands',
@@ -20,7 +23,10 @@ export class ManageBrandsComponent extends FormBuilding implements OnInit, After
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   tableFormGroup: FormGroup;
-  dataSource = new MatTableDataSource<SimpleDummyData>();
+  dataSource = new MatTableDataSource<Brand>();
+
+  @Select(ProductSelector.getBrands) brands$!: Observable<Brand[]>; // Will get the types from the store
+  private subscription: Subscription = new Subscription();
 
   displayedColumns = ['name'];
 
@@ -62,20 +68,12 @@ export class ManageBrandsComponent extends FormBuilding implements OnInit, After
   }
 
   private initializeSourceData(): void {
-    const values: SimpleDummyData[] = [
-      {name: 'Bob'},
-      {name: 'bin'},
-      {name: 'bon'},
-      {name: 'Van'},
-      {name: 'Helsing'},
-      {name: 'John'},
-      {name: 'Alex'},
-      {name: 'Tiffany'},
-      {name: 'JAke'},
-      {name: 'Alex'},
-      {name: 'Twink'},
-    ]
-    this.dataSource.data = values;
+    this.subscription.add(
+      this.brands$.subscribe(
+        (brands: Brand[]) => {
+          this.dataSource.data = brands;
+        })
+    );
   }
 
   private setInitialValuesFromQueryParams() {

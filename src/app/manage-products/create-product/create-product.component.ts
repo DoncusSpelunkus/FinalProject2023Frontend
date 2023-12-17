@@ -5,6 +5,9 @@ import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {Subscription} from "rxjs";
+import { Store } from '@ngxs/store';
+import { createItem } from 'src/app/states/inventory/product-actions';
+import { EntityTypes } from 'src/constants/product-types';
 
 @Component({
   selector: 'app-create-product',
@@ -21,7 +24,8 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
   supplierInfoFormGroup: FormGroup;
   private formGroupStatusSubscription: Subscription;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,
+    private store: Store) {
     super();
   }
   ngOnInit(): void {
@@ -75,6 +79,13 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
 
   private initializeSubscriptions() {
     this.formGroupStatusSubscription = getCombinedFormGroupValiditySubscription([this.productStorageInfoFormGroup,this.supplierInfoFormGroup,this.productInfoFormGroup],this.isValidEmitter)
+  }
+
+  private CreateProduct(){
+    let product = {
+      sku: "123"
+    }
+    this.store.dispatch(new createItem(product, EntityTypes[1]));
   }
 
   ngOnDestroy(): void {
