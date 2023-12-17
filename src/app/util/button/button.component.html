@@ -1,7 +1,13 @@
 <button *ngIf="roleMatchesUser" mat-ripple
-        class="!bg-green-800 !text-white !rounded-md w-fit flex flex-row space-x-2.5 items-center justify-center px-4 py-1.5 uppercase"
-  [disabled]="isDisabled"
-  (click)="onButtonClick()">
+        [ngClass]="{
+    '!bg-green-800 !text-white': color === 'green' && !outline,
+    '!bg-red-500 text-white': color === 'red' && !outline,
+    '!bg-transparent !border-2 !border-green-800 !text-green-800': outline
+  }"
+        class="!rounded-md w-full flex flex-row space-x-2.5 items-center justify-center px-4 py-1.5 uppercase font-black"
+        [disabled]="isDisabled"
+        [class.brightness-50]="isDisabled"
+        (click)="onButtonClick()">
   <h1 class="font-quicksand">{{displayText}}</h1>
-  <app-icon *ngIf="icon" class="text-white text-lg z-10" [icon]="icon"></app-icon>
+  <app-icon *ngIf="icon" class="text-lg z-10" [icon]="icon" [ngClass]="{'text-white': !outline, 'text-green-800': outline}"></app-icon>
 </button>

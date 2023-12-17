@@ -7,6 +7,14 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {debounceTime} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
+import {StockProductComponent} from "../inventory-page/stock-product/stock-product/stock-product.component";
+import {ReceiveShipmentComponent} from "./receive-shipment/receive-shipment.component";
+import {DeleteShipmentComponent} from "./delete-shipment/delete-shipment.component";
+import {ShipmentInfoComponent} from "./shipment-info/shipment-info.component";
+import {RemoveShipmentDetailsComponent} from "./remove-shipment-details/remove-shipment-details.component";
+import {AddShipmentDetailsComponent} from "./add-shipment-details/add-shipment-details.component";
 
 @Component({
   selector: 'app-shipment-page',
@@ -22,12 +30,13 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<SimpleDummyData>();
 
-  displayedColumns = ['name'];
+  displayedColumns = ['dateShipped','addShipmentDetail','removeShipmentDetail','info','delete'];
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog,) {
     super();
     this.initializeFormGroup();
   }
@@ -134,6 +143,61 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
       relativeTo: this.route,
       queryParams: { [paramName]: value || null },
       queryParamsHandling: 'merge', // preserve other query params
+    });
+  }
+
+  handleOpenReceiveShipmentModal() {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '70%', // Set the height
+      data: {
+        component: ReceiveShipmentComponent,
+        inputs: null // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenDeleteShipmentDialog(shipment) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '45%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: DeleteShipmentComponent,
+        inputs: shipment // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenShipmentInfoDialog(shipment) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '70%', // Set the height
+      data: {
+        component: ShipmentInfoComponent,
+        inputs: shipment // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenRemoveDetailsDialog(shipment) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '70%', // Set the height
+      data: {
+        component: RemoveShipmentDetailsComponent,
+        inputs: shipment // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenAddDetailsDialog(shipment) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '50%', // Set the height
+      data: {
+        component: AddShipmentDetailsComponent,
+        inputs: shipment // No dependent data to pass
+      }
     });
   }
 }
