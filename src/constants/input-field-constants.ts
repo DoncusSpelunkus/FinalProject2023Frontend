@@ -29,6 +29,9 @@ export enum FormControlNames {
   SUPPLIER_NAME = 'Supplier name',
   SUPPLIER_CONTACT = 'Supplier contact',
   EXPIRY_DATE = 'Expiry date',
-  MINIMUM_CAPACITY = 'Minimum capacity'
+  DATE_RECEIVED = 'Date received',
+  MINIMUM_CAPACITY = 'Minimum capacity',
+
+  SHIPMENT_DETAIL_LIST = "SHIPMENT_DETAIL_LIST"
 
 }

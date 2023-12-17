@@ -58,6 +58,13 @@ import { ManageTemplateComponent } from './templates/manage-template/manage-temp
 import { LocationsPageComponent } from './locations-page/locations-page.component';
 import { ManageBrandsComponent } from './manage-brands/manage-brands.component';
 import { ManageTypesComponent } from './manage-types/manage-types.component';
+import { ReceiveShipmentComponent } from './shipment-page/receive-shipment/receive-shipment.component';
+import {MatListModule} from "@angular/material/list";
+import { AddShipmentDetailsComponent } from './shipment-page/add-shipment-details/add-shipment-details.component';
+import { RemoveShipmentDetailsComponent } from './shipment-page/remove-shipment-details/remove-shipment-details.component';
+import { DeleteShipmentComponent } from './shipment-page/delete-shipment/delete-shipment.component';
+import { ShipmentInfoComponent } from './shipment-page/shipment-info/shipment-info.component';
+
 
 @NgModule({
   declarations: [
@@ -94,6 +101,12 @@ import { ManageTypesComponent } from './manage-types/manage-types.component';
     LocationsPageComponent,
     ManageBrandsComponent,
     ManageTypesComponent
+    ReceiveShipmentComponent,
+    AddShipmentDetailsComponent,
+    RemoveShipmentDetailsComponent,
+    DeleteShipmentComponent,
+    ShipmentInfoComponent
+
   ],
     imports: [
 
@@ -122,7 +135,8 @@ import { ManageTypesComponent } from './manage-types/manage-types.component';
         MatStepperModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        NgxMatSelectSearchModule
+        NgxMatSelectSearchModule,
+        MatListModule
     ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]

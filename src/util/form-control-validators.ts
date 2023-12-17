@@ -21,6 +21,19 @@ export function valueRequired(controlName: string): ValidatorFn {
   };
 }
 
+export function nonEmptyListValidator(controlName: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+
+    if (!value || !Array.isArray(value) || value.length === 0) {
+      // The control value is not an array or is an empty array
+      return { nonEmptyList: { message: `${controlName} must not be empty` } };
+    }
+
+    return null; // No error
+  };
+}
+
 export function numberOnly(controlName: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     // Check if the control has a value and if that value is a number

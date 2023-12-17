@@ -11,6 +11,8 @@ export class ButtonComponent {
   @Input() displayText: string;
   @Input() icon: string;
   @Input() role: UserRoles;
+  @Input() color: 'green' | 'red' = 'green';
+  @Input() outline: boolean = false;
   @Input() disabledCheck: () => boolean = () => false;
 
   @Output() buttonClickEmitter = new EventEmitter<any>();
