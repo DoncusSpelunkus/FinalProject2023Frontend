@@ -1,1 +1,5 @@
-<p>delete-type works!</p>
+<div class="w-full h-full flex flex-row justify-center items-center">
+  <mat-checkbox (change)="onCheckboxChange($event)">
+    <header *ngIf="selectedType" class="text-lg">I confirm that type name - <span class="font-bold">{{getBrandName}}</span> will be deleted <span class="underline font-bold">permanently</span> from the records</header>
+  </mat-checkbox>
+</div>

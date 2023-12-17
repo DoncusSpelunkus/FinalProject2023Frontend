@@ -61,7 +61,13 @@ export class TypeService {
     }
   }
 
-  deleteBrand(typeId: number) {
-    console.error('not implemented yey',typeId);
+  async deleteType(typeId: number) {
+    try {
+      const response = await customAxios.delete(`/Delete/${typeId}`);
+      return response.data;
+    }
+    catch(error) {
+      throw error;
+    }
   }
 }

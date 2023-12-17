@@ -3,11 +3,11 @@ import {LoadableComponent} from "../../../interfaces/component-interfaces";
 import {Brand} from "../../../entities/Brand";
 import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
 import {TypeService} from "../../../services/HttpRequestSevices/type.service";
+import {Type} from "../../../entities/Inventory";
 
 @Component({
   selector: 'app-delete-type',
-  templateUrl: './delete-type.component.html',
-  styleUrls: ['./delete-type.component.scss']
+  templateUrl: './delete-type.component.html'
 })
 export class DeleteTypeComponent implements LoadableComponent{
 
@@ -16,16 +16,17 @@ export class DeleteTypeComponent implements LoadableComponent{
 
 @Output() isValidEmitter = new EventEmitter<boolean>();
 
-  selectedBrand: Brand;
+  selectedType: Type;
   constructor(private typeService: TypeService) {
   }
 
   setData(data: any): void {
-    this.selectedBrand = data;
+    this.selectedType = data;
   }
 
   submit(): void {
-    this.typeService.deleteBrand(2)
+    console.log(this.selectedType.typeId)
+    this.typeService.deleteType(this.selectedType.typeId)
   }
 
   onCheckboxChange(event: any) {
@@ -34,6 +35,6 @@ export class DeleteTypeComponent implements LoadableComponent{
 
   get getBrandName() {
     console.error('need to get shipment object')
-    return this.selectedBrand.Name
+    return this.selectedType.name
   }
 }
