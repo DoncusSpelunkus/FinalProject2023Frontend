@@ -7,6 +7,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {debounceTime} from "rxjs";
+import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
+import {CreateBrandComponent} from "../brands-page/create-brand/create-brand.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateTypeComponent} from "./create-type/create-type.component";
 
 @Component({
   selector: 'app-types-page',
@@ -27,7 +31,8 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog) {
     super();
     this.initializeFormGroup();
   }
@@ -134,6 +139,17 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
       relativeTo: this.route,
       queryParams: { [paramName]: value || null },
       queryParamsHandling: 'merge', // preserve other query params
+    });
+  }
+
+  handleOpenCreateTypeModal() {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '40%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: CreateTypeComponent,
+        inputs: null // No dependent data to pass
+      }
     });
   }
 }
