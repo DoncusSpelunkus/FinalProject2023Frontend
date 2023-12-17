@@ -26,7 +26,7 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<SimpleDummyData>();
 
-  displayedColumns = ['name'];
+  displayedColumns = ['name','delete'];
 
   constructor(
     private formBuilder: FormBuilder,
