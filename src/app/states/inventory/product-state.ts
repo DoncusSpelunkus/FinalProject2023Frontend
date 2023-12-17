@@ -1,16 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
-import { Product } from "src/entities/Product";
-import { createItem, getLocations, getProductLocations, getProducts, deleteItem, updateItem } from "./product-actions";
-import { ProductLocation } from "src/entities/ProductLocation";
+import { createItem, deleteItem, updateItem, getItems } from "./product-actions";
 import { InventorySocket } from "src/services/SocketServices/inventorySocket";
 import { InventoryService } from "src/services/HttpRequestSevices/inventory.service";
 import { establishConnection } from "../crossStateAction";
+import { Brand, Type, Product, ProductLocation, Location } from "src/entities/Inventory";
 
 export interface InventoryStateModel {
     products: Product[];
     productLocations: ProductLocation[];
     location: Location[];
+    brand : Brand[];
+    type : Type[];
 }
 
 @State<InventoryStateModel>
@@ -19,7 +20,9 @@ export interface InventoryStateModel {
         defaults: {
             products: [],
             location: [],
-            productLocations: []
+            productLocations: [],
+            brand : [],
+            type : []
         }
     })
 @Injectable()
@@ -28,31 +31,45 @@ export class InventoryState {
         private inventoryService: InventoryService) {
     }
 
-    @Action(getProducts)
-    getProducts({ getState, patchState }: StateContext<InventoryStateModel>) {
-        this.inventorySocket.getProducts().subscribe((data) => {
-            patchState({
-                products: [...getState().products, data]
-            })
-        })
-    }
-
-    @Action(getProductLocations)
-    getProductLocations({ getState, patchState }: StateContext<InventoryStateModel>) {
-        this.inventorySocket.getProductLocations().subscribe((data) => {
-            patchState({
-                products: [...getState().productLocations, data]
-            })
-        })
-    }
-
-    @Action(getLocations)
-    getLocations({ getState, patchState }: StateContext<InventoryStateModel>) {
-        this.inventorySocket.getLocations().subscribe((data) => {
-            patchState({
-                products: [...getState().location, data]
-            })
-        })
+    @Action(getItems)
+    getItems({ getState, patchState }: StateContext<InventoryStateModel>, { entityType }: getItems) {
+        switch (entityType) {
+            case "Product":
+                this.inventorySocket.getProducts().subscribe((data) => {
+                    patchState({
+                        products: [...getState().products, data]
+                    })
+                })
+                break;
+            case "ProductLocation":
+                this.inventorySocket.getProductLocations().subscribe((data) => {
+                    patchState({
+                        products: [...getState().productLocations, data]
+                    })
+                })
+                break;
+            case "Location":
+                this.inventorySocket.getLocations().subscribe((data) => {
+                    patchState({
+                        products: [...getState().location, data]
+                    })
+                })
+                break;
+            case "Brand":
+                this.inventorySocket.getBrands().subscribe((data) => {
+                    patchState({
+                        products: [...getState().brand, data]
+                    })
+                })
+                break;
+            case "Type":
+                this.inventorySocket.getTypes().subscribe((data) => {
+                    patchState({
+                        products: [...getState().type, data]
+                    })
+                })
+                break;
+        }
     }
 
     @Action(establishConnection)

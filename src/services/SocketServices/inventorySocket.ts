@@ -13,6 +13,9 @@ export class InventorySocket {
     private productSubject = new Subject<any>();
     private locationSubject = new Subject<any>();
     private productLocationSubject = new Subject<any>();
+    private brandSubject = new Subject<any>();
+    private typeSubject = new Subject<any>();
+
     private connectionEstablished = false;
 
 
@@ -52,6 +55,15 @@ export class InventorySocket {
                 this.hubConnection.on("ProductLocationListUpdate", (data) => {
                     this.productLocationSubject.next(data);
                 });
+
+                this.hubConnection.on("BrandListUpdate", (data) => {
+                    this.brandSubject.next(data);
+                });
+
+                this.hubConnection.on("TypeListUpdate", (data) => {
+                    this.typeSubject.next(data);
+                });
+
             }
             catch (error) {
                 console.log(error)
@@ -75,5 +87,13 @@ export class InventorySocket {
 
     public getProductLocations() {
         return this.productLocationSubject.asObservable();
+    }
+
+    public getBrands() {
+        return this.brandSubject.asObservable();
+    }
+
+    public getTypes() {
+        return this.typeSubject.asObservable();
     }
 }

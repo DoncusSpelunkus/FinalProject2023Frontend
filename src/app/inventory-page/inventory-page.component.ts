@@ -6,11 +6,11 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { FormControlNames } from "../../constants/input-field-constants";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
-import { ProductLocation } from "../../entities/ProductLocation";
+
 import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
 import { Observable, Subscription } from 'rxjs';
-import { Product } from 'src/entities/Product';
+import { Product, ProductLocation } from 'src/entities/Inventory';
 import {FormBuilding} from "../../interfaces/component-interfaces";
 import {CreateProductComponent} from "../manage-products/create-product/create-product.component";
 
@@ -25,7 +25,7 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  @Select(ProductSelector.getProductLocations) simpleItems$!: Observable<Product[]>; // Will get the products from the store
+  @Select(ProductSelector.getProducts) simpleItems$!: Observable<Product[]>; // Will get the products from the store
   private subscription: Subscription = new Subscription();
 
 

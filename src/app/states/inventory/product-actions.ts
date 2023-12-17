@@ -1,16 +1,7 @@
-export class getProducts {
-    static readonly type = '[Product] Get products'
-    constructor() { }
-}
+export class getItems {
+    static readonly type = '[Product] Get items'
+    constructor(public entityType: string) { }
 
-export class getProductLocations {
-    static readonly type = '[Product] Get product locations'
-    constructor() { }
-}
-
-export class getLocations {
-    static readonly type = '[Product] Get locations'
-    constructor() { }
 }
 
 export class createItem {
