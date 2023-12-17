@@ -7,6 +7,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {debounceTime} from "rxjs";
+import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
+import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateBrandComponent} from "./create-brand/create-brand.component";
 
 @Component({
   selector: 'app-brands-page',
@@ -27,7 +31,8 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog) {
     super();
     this.initializeFormGroup();
   }
@@ -134,6 +139,17 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
       relativeTo: this.route,
       queryParams: { [paramName]: value || null },
       queryParamsHandling: 'merge', // preserve other query params
+    });
+  }
+
+  handleOpenCreateBrandModal() {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '40%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: CreateBrandComponent,
+        inputs: null // No dependent data to pass
+      }
     });
   }
 }
