@@ -20,7 +20,9 @@ export enum FormControlNames {
   DESCRIPTION = "Description",
   CATEGORY = "Category",
   BRAND = "Brand",
+  BRAND_NAME = "Brand name",
   TYPE = "Type",
+  TYPE_NAME = "Type name",
 
   WEIGHT = 'Weight',
   LENGTH = 'Length',

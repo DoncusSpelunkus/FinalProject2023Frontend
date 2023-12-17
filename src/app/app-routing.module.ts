@@ -14,20 +14,20 @@ import {AuthenticatedGuard} from "../services/AuthGuardSevices/authenticatedGuar
 import {ManageProductsComponent} from "./manage-products/manage-products.component";
 import {ManageTemplateComponent} from "./templates/manage-template/manage-template.component";
 import {LocationsPageComponent} from "./locations-page/locations-page.component";
-import {ManageTypesComponent} from "./manage-types/manage-types.component";
-import {ManageBrandsComponent} from "./manage-brands/manage-brands.component";
+import {TypesPageComponent} from "./types-page/types-page.component";
+import {BrandsPageComponent} from "./brands-page/brands-page.component";
 
 const routes: Routes = [
   { path: 'login', component:  LoginPageComponent, canActivate: [UnauthenticatedAccessGuard]},
   { path: "userManagement", component: ManageUsersPageComponent, canActivate: [AdminGuardService]},
   { path: "logs", component: LogsPageComponent, canActivate: [AdminGuardService] },
   { path: "inventory", component: InventoryPageComponent, canActivate: [SalesGuardService]},
+  { path: "types", component: TypesPageComponent, canActivate: [SalesGuardService]},
+  { path: "brands", component: BrandsPageComponent, canActivate: [SalesGuardService]},
   { path: "shipments", component: ShipmentPageComponent, canActivate: [SalesGuardService]},
   { path: "settings", component: SettingsPageComponent, canActivate:[AuthenticatedGuard]},
   { path: 'locations', component: LocationsPageComponent, canActivate: [AdminGuardService]},
   { path: "products", component: ManageProductsComponent, canActivate: [SalesGuardService]},
-  { path: "types", component: ManageTypesComponent, canActivate: [AuthenticatedGuard]},
-  { path: "brands", component: ManageBrandsComponent, canActivate: [AuthenticatedGuard]},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '404'}

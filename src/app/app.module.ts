@@ -56,15 +56,18 @@ import { SettingsCardComponent } from './util/settings-card/settings-card.compon
 import { ChangePasswordComponent } from './settings-page/modals/change-password/change-password.component';
 import { ManageTemplateComponent } from './templates/manage-template/manage-template.component';
 import { LocationsPageComponent } from './locations-page/locations-page.component';
-import { ManageBrandsComponent } from './manage-brands/manage-brands.component';
-import { ManageTypesComponent } from './manage-types/manage-types.component';
 import { ReceiveShipmentComponent } from './shipment-page/receive-shipment/receive-shipment.component';
 import {MatListModule} from "@angular/material/list";
 import { AddShipmentDetailsComponent } from './shipment-page/add-shipment-details/add-shipment-details.component';
 import { RemoveShipmentDetailsComponent } from './shipment-page/remove-shipment-details/remove-shipment-details.component';
 import { DeleteShipmentComponent } from './shipment-page/delete-shipment/delete-shipment.component';
 import { ShipmentInfoComponent } from './shipment-page/shipment-info/shipment-info.component';
-
+import { TypesPageComponent } from './types-page/types-page.component';
+import { BrandsPageComponent } from './brands-page/brands-page.component';
+import { CreateBrandComponent } from './brands-page/create-brand/create-brand.component';
+import { CreateTypeComponent } from './types-page/create-type/create-type.component';
+import { DeleteBrandComponent } from './brands-page/delete-brand/delete-brand.component';
+import { DeleteTypeComponent } from './types-page/delete-type/delete-type.component';
 
 @NgModule({
   declarations: [
@@ -99,14 +102,17 @@ import { ShipmentInfoComponent } from './shipment-page/shipment-info/shipment-in
     SearchSelectInputComponent,
     ManageTemplateComponent,
     LocationsPageComponent,
-    ManageBrandsComponent,
-    ManageTypesComponent,
     ReceiveShipmentComponent,
     AddShipmentDetailsComponent,
     RemoveShipmentDetailsComponent,
     DeleteShipmentComponent,
-    ShipmentInfoComponent
-
+    ShipmentInfoComponent,
+    TypesPageComponent,
+    BrandsPageComponent,
+    CreateBrandComponent,
+    CreateTypeComponent,
+    DeleteBrandComponent,
+    DeleteTypeComponent
   ],
     imports: [
 

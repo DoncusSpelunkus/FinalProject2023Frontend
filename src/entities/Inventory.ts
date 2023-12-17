@@ -4,8 +4,13 @@ export class Brand {
 }
 
 export class Type {
-    TypeId?: number;
-    Name?: string;
+    typeId?: number;
+    name?: string;
+}
+
+export class CreateTypeDTO {
+  Name: string;
+  WarehouseId: number;
 }
 
 export class ProductLocation{
