@@ -1,16 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
-import { Product } from "src/entities/Product";
-import { createItem, getLocations, getProductLocations, getProducts, deleteItem, updateItem } from "./product-actions";
-import { ProductLocation } from "src/entities/ProductLocation";
+import { createItem, deleteItem, updateItem, getItems } from "./product-actions";
 import { InventorySocket } from "src/services/SocketServices/inventorySocket";
 import { InventoryService } from "src/services/HttpRequestSevices/inventory.service";
 import { establishConnection } from "../crossStateAction";
+import { Brand, Type, Product, ProductLocation, Location } from "src/entities/Inventory";
 
 export interface InventoryStateModel {
     products: Product[];
     productLocations: ProductLocation[];
     location: Location[];
+    brand : Brand[];
+    type : Type[];
 }
 
 @State<InventoryStateModel>
@@ -19,7 +20,9 @@ export interface InventoryStateModel {
         defaults: {
             products: [],
             location: [],
-            productLocations: []
+            productLocations: [],
+            brand : [],
+            type : []
         }
     })
 @Injectable()
@@ -28,31 +31,57 @@ export class InventoryState {
         private inventoryService: InventoryService) {
     }
 
-    @Action(getProducts)
-    getProducts({ getState, patchState }: StateContext<InventoryStateModel>) {
-        this.inventorySocket.getProducts().subscribe((data) => {
-            patchState({
-                products: [...getState().products, data]
-            })
-        })
-    }
-
-    @Action(getProductLocations)
-    getProductLocations({ getState, patchState }: StateContext<InventoryStateModel>) {
-        this.inventorySocket.getProductLocations().subscribe((data) => {
-            patchState({
-                products: [...getState().productLocations, data]
-            })
-        })
-    }
-
-    @Action(getLocations)
-    getLocations({ getState, patchState }: StateContext<InventoryStateModel>) {
-        this.inventorySocket.getLocations().subscribe((data) => {
-            patchState({
-                products: [...getState().location, data]
-            })
-        })
+    @Action(getItems)
+    getItems(ctx: StateContext<InventoryStateModel>, { entityType }: getItems) {
+        switch (entityType) {
+            case "PRODUCT":
+                this.inventorySocket.getProducts().subscribe((data) => {
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        products: data
+                    })
+                })
+                break;
+            case "PRODUCTLOCATION":
+                this.inventorySocket.getProductLocations().subscribe((data) => {
+                    console.log("Productlocation")
+                    console.log(data)
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        productLocations: data
+                    })
+                })
+                break;
+            case "LOCATION":
+                this.inventorySocket.getLocations().subscribe((data) => {
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        location: data
+                    })
+                })
+                break;
+            case "BRAND":
+                this.inventorySocket.getBrands().subscribe((data) => {
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        brand: data
+                    })
+                })
+                break;
+            case "TYPE":
+                this.inventorySocket.getTypes().subscribe((data) => {
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        type: data
+                    })
+                })
+                break;
+        }
     }
 
     @Action(establishConnection)

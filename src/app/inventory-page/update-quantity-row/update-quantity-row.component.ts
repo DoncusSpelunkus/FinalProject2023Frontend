@@ -1,5 +1,5 @@
 import {Component, HostBinding, Input} from '@angular/core';
-import {ProductLocation} from "../../../entities/ProductLocation";
+import {ProductLocation} from "../../../entities/Inventory";
 
 @Component({
   selector: 'app-update-quantity-row',

@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/enviroment";
 import * as signalR from "@aspnet/signalr";
 import { Subject } from "rxjs";
+import { Store } from "@ngxs/store";
+import { getItems } from "src/app/states/inventory/product-actions";
+import { EntityTypes } from "src/constants/product-types";
 
 @Injectable({
     providedIn: 'root'
@@ -13,10 +16,13 @@ export class InventorySocket {
     private productSubject = new Subject<any>();
     private locationSubject = new Subject<any>();
     private productLocationSubject = new Subject<any>();
+    private brandSubject = new Subject<any>();
+    private typeSubject = new Subject<any>();
+
     private connectionEstablished = false;
 
 
-    constructor() {
+    constructor(private store: Store) {
         this.establishConnection();
     }
 
@@ -52,11 +58,20 @@ export class InventorySocket {
                 this.hubConnection.on("ProductLocationListUpdate", (data) => {
                     this.productLocationSubject.next(data);
                 });
+
+                this.hubConnection.on("BrandListUpdate", (data) => {
+                    this.brandSubject.next(data);
+                });
+
+                this.hubConnection.on("TypeListUpdate", (data) => {
+                    this.typeSubject.next(data);
+                });
             }
             catch (error) {
                 console.log(error)
             }
         }
+        this.InitializeData();
     }
 
     public terminateConnection() {
@@ -75,5 +90,24 @@ export class InventorySocket {
 
     public getProductLocations() {
         return this.productLocationSubject.asObservable();
+    }
+
+    public getBrands() {
+        return this.brandSubject.asObservable();
+    }
+
+    public getTypes() {
+        return this.typeSubject.asObservable();
+    }
+
+    private InitializeData() { // Probably not the best way to do this but it works
+        console.log(EntityTypes[1].toString())
+        for(let i = 1; i <= 5; i++) {
+            this.hubConnection.invoke("Request", {
+                "RequestType": i
+            });
+            this.store.dispatch(new getItems(EntityTypes[i]));
+        }
+    
     }
 }

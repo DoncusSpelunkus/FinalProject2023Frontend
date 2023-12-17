@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, HostBinding, Input, OnInit} from '@angular/core';
-import {ProductLocation} from "../../../entities/ProductLocation";
+import {ProductLocation} from "../../../entities/Inventory";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {FormBuilder, FormGroup} from "@angular/forms";
