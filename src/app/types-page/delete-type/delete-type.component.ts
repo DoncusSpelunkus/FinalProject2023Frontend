@@ -34,7 +34,6 @@ export class DeleteTypeComponent implements LoadableComponent{
   }
 
   get getBrandName() {
-    console.error('need to get shipment object')
     return this.selectedType.name
   }
 }
