@@ -33,8 +33,9 @@ export class InventoryState {
 
     @Action(getItems)
     getItems(ctx: StateContext<InventoryStateModel>, { entityType }: getItems) {
+        entityType.toLowerCase();
         switch (entityType) {
-            case "PRODUCT":
+            case "product":
                 this.inventorySocket.getProducts().subscribe((data) => {
                     const state = ctx.getState();
                     ctx.setState({
@@ -43,9 +44,8 @@ export class InventoryState {
                     })
                 })
                 break;
-            case "PRODUCTLOCATION":
+            case "productlocation":
                 this.inventorySocket.getProductLocations().subscribe((data) => {
-                    console.log("Productlocation")
                     console.log(data)
                     const state = ctx.getState();
                     ctx.setState({
@@ -54,7 +54,7 @@ export class InventoryState {
                     })
                 })
                 break;
-            case "LOCATION":
+            case "location":
                 this.inventorySocket.getLocations().subscribe((data) => {
                     const state = ctx.getState();
                     ctx.setState({
@@ -63,7 +63,7 @@ export class InventoryState {
                     })
                 })
                 break;
-            case "BRAND":
+            case "brand":
                 this.inventorySocket.getBrands().subscribe((data) => {
                     const state = ctx.getState();
                     ctx.setState({
@@ -72,7 +72,7 @@ export class InventoryState {
                     })
                 })
                 break;
-            case "TYPE":
+            case "type":
                 this.inventorySocket.getTypes().subscribe((data) => {
                     const state = ctx.getState();
                     ctx.setState({

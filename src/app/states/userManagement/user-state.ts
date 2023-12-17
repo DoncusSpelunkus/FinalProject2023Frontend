@@ -3,7 +3,7 @@ import { Action, State, StateContext } from "@ngxs/store";
 import { User } from "src/entities/User";
 import { UserManagementService } from "src/services/HttpRequestSevices/userManagement.service";
 import { UserManagementSocket } from "src/services/SocketServices/UserManagementSocket";
-import { createUser, getUsers } from "./user-actions";
+import { createUser, deleteUser, getUsers, updateUser } from "./user-actions";
 import { establishConnection } from "../crossStateAction";
 
 export interface UserManagementStateModel {
@@ -44,6 +44,16 @@ export class UserManagementState {
     @Action(createUser)
     createUser({}: StateContext<UserManagementStateModel>,{payload}: createUser) {
         this.userManagementService.createUser(payload)
+    }
+
+    @Action(updateUser)
+    updateUser({}: StateContext<UserManagementStateModel>,{payload}: updateUser) {
+        this.userManagementService.updateEmployee(payload)
+    }
+
+    @Action(deleteUser)
+    deleteUser({}: StateContext<UserManagementStateModel>,{payload}: deleteUser) {
+        this.userManagementService.deleteEmployee(payload)
     }
     
 }

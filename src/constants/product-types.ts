@@ -1,7 +1,7 @@
 export enum EntityTypes {
-    PRODUCT = 1,
-    PRODUCTLOCATION = 2,
-    LOCATION = 3,
-    BRAND = 4,
-    TYPE = 5
+    Product = 1,
+    ProductLocation = 2,
+    Location = 3,
+    Brand = 4,
+    Type = 5
 }
