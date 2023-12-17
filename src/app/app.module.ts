@@ -62,9 +62,8 @@ import { AddShipmentDetailsComponent } from './shipment-page/add-shipment-detail
 import { RemoveShipmentDetailsComponent } from './shipment-page/remove-shipment-details/remove-shipment-details.component';
 import { DeleteShipmentComponent } from './shipment-page/delete-shipment/delete-shipment.component';
 import { ShipmentInfoComponent } from './shipment-page/shipment-info/shipment-info.component';
-import { TypesComponent } from './types/types.component';
-import { BrandsComponent } from './brands/brands.component';
 import { TypesPageComponent } from './types-page/types-page.component';
+import { BrandsPageComponent } from './brands-page/brands-page.component';
 
 @NgModule({
   declarations: [
@@ -104,9 +103,8 @@ import { TypesPageComponent } from './types-page/types-page.component';
     RemoveShipmentDetailsComponent,
     DeleteShipmentComponent,
     ShipmentInfoComponent,
-    TypesComponent,
-    BrandsComponent,
-    TypesPageComponent
+    TypesPageComponent,
+    BrandsPageComponent
   ],
     imports: [
 
