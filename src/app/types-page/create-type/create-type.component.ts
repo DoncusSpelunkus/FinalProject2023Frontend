@@ -8,8 +8,8 @@ import {CreateBrandDTO} from "../../../entities/Brand";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
-import {TypeDTO} from "../../../entities/Type";
 import {TypeService} from "../../../services/HttpRequestSevices/type.service";
+import {CreateTypeDTO, Type} from "../../../entities/Inventory";
 
 @Component({
   selector: 'app-create-type',
@@ -37,7 +37,7 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   }
 
   submit(): void {
-    const createBrandDTO: CreateBrandDTO = this.getDTO();
+    const createBrandDTO: CreateTypeDTO = this.getDTO();
     this.typeService.createBrand(createBrandDTO);
   }
 
@@ -58,7 +58,7 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
     }
   }
 
-  private getDTO(): TypeDTO {
+  private getDTO(): CreateTypeDTO {
     return {
       Name: this.formGroup.get(FormControlNames.TYPE_NAME).value,
       WarehouseId: this.userObservable.getUserSynchronously().warehouseId

@@ -5,6 +5,7 @@ import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserObservable} from "../HelperSevices/userObservable";
 import {catchError} from "rxjs";
+import {CreateTypeDTO, Type} from "../../entities/Inventory";
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/Type',
@@ -40,8 +41,14 @@ export class TypeService {
     });
   }
 
-  createBrand(createBrandDTO: CreateBrandDTO) {
-    console.error('not implemented yey',createBrandDTO);
+  async createBrand(createBrandDTO: CreateTypeDTO) {
+    try {
+      const response = await customAxios.post(`/Create`,createBrandDTO);
+      return response.data;
+    }
+    catch(error) {
+      throw error;
+    }
   }
 
   async getTypesByWarehouse() {

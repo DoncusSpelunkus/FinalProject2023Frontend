@@ -8,6 +8,11 @@ export class Type {
     Name?: string;
 }
 
+export class CreateTypeDTO {
+  Name: string;
+  WarehouseId: number;
+}
+
 export class ProductLocation{
     ProductLocationId?: number;
     ProductSKU?: string;
