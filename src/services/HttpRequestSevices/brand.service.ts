@@ -65,9 +65,9 @@ export class BrandService {
     }
   }
 
-  async getBrandsByWarehouse(warehouseId: number) {
+  async getBrandsByWarehouse() {
     try {
-      const response = await customAxios.get(`/GetByWarehouseId/${warehouseId}`);
+      const response = await customAxios.get(`/GetByWarehouseId/`);
       this.brandStore.setBrands = response.data;
       return response;
     }

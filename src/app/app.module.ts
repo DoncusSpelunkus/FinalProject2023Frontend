@@ -67,6 +67,7 @@ import { BrandsPageComponent } from './brands-page/brands-page.component';
 import { CreateBrandComponent } from './brands-page/create-brand/create-brand.component';
 import { CreateTypeComponent } from './types-page/create-type/create-type.component';
 import { DeleteBrandComponent } from './brands-page/delete-brand/delete-brand.component';
+import { DeleteTypeComponent } from './types-page/delete-type/delete-type.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { DeleteBrandComponent } from './brands-page/delete-brand/delete-brand.co
     BrandsPageComponent,
     CreateBrandComponent,
     CreateTypeComponent,
-    DeleteBrandComponent
+    DeleteBrandComponent,
+    DeleteTypeComponent
   ],
     imports: [
 

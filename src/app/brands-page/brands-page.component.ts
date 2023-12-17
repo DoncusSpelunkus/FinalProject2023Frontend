@@ -157,7 +157,7 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
   }
 
   private fetchBrands() {
-    this.brandService.getBrandsByWarehouse(this.userObservable.getUserSynchronously().warehouseId);
+    this.brandService.getBrandsByWarehouse();
   }
 
   private initializeSubscriptions() {

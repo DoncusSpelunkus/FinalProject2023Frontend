@@ -11,6 +11,8 @@ import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.comp
 import {CreateBrandComponent} from "../brands-page/create-brand/create-brand.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateTypeComponent} from "./create-type/create-type.component";
+import {DeleteTypeComponent} from "./delete-type/delete-type.component";
+import {TypeService} from "../../services/HttpRequestSevices/type.service";
 
 @Component({
   selector: 'app-types-page',
@@ -24,7 +26,7 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   tableFormGroup: FormGroup;
-  dataSource = new MatTableDataSource<SimpleDummyData>();
+  dataSource = new MatTableDataSource<any>();
 
   displayedColumns = ['name','delete'];
 
@@ -32,9 +34,11 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private typeService: TypeService) {
     super();
     this.initializeFormGroup();
+    this.fetchData();
   }
 
   ngOnInit(): void {
@@ -43,7 +47,6 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
 
 
   ngAfterViewInit(): void {
-    this.initializeSourceData();//TODO REMOVE
     this.bindControlsToElements();
     this.setInitialValuesFromQueryParams();
     this.bindElementsToControls()
@@ -64,23 +67,6 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
 
   clearFilterValue() {
     getFormControl(FormControlNames.FILTER,this.tableFormGroup).reset();
-  }
-
-  private initializeSourceData(): void {
-    const values: SimpleDummyData[] = [
-      {name: 'Bob'},
-      {name: 'bin'},
-      {name: 'bon'},
-      {name: 'Van'},
-      {name: 'Helsing'},
-      {name: 'John'},
-      {name: 'Alex'},
-      {name: 'Tiffany'},
-      {name: 'JAke'},
-      {name: 'Alex'},
-      {name: 'Twink'},
-    ]
-    this.dataSource.data = values;
   }
 
   private setInitialValuesFromQueryParams() {
@@ -152,8 +138,21 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
       }
     });
   }
-}
 
-export interface SimpleDummyData {
-  name: string;
+  handleOpenDeleteTypeWindow(type) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '40%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: DeleteTypeComponent,
+        inputs: type // No dependent data to pass
+      }
+    });
+  }
+
+  private fetchData() {
+    this.typeService.getTypesByWarehouse().then((types) => {
+      this.dataSource.data = types;
+    })
+  }
 }
