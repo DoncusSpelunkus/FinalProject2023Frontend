@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BrandDTO} from "../../entities/Brand";
+import {CreateBrandDTO} from "../../entities/Brand";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ export class TypeService {
 
   constructor() { }
 
-  createBrand(createBrandDTO: BrandDTO) {
+  createBrand(createBrandDTO: CreateBrandDTO) {
     console.error('not implemented yey',createBrandDTO);
   }
 }

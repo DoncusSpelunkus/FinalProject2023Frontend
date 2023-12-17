@@ -6,7 +6,7 @@ import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {Subscription} from "rxjs";
 import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
-import {BrandDTO} from "../../../entities/Brand";
+import {CreateBrandDTO} from "../../../entities/Brand";
 import {UserObservable} from "../../../services/HelperSevices/userObservable";
 
 @Component({
@@ -35,7 +35,7 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   }
 
   submit(): void {
-    const createBrandDTO: BrandDTO = this.getDTO();
+    const createBrandDTO: CreateBrandDTO = this.getDTO();
     this.brandService.createBrand(createBrandDTO);
   }
 
@@ -56,7 +56,7 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
     }
   }
 
-  private getDTO(): BrandDTO {
+  private getDTO(): CreateBrandDTO {
     return {
       Name: this.formGroup.get(FormControlNames.BRAND_NAME).value,
       WarehouseId: this.userObservable.getUserSynchronously().warehouseId

@@ -11,6 +11,11 @@ import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.comp
 import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateBrandComponent} from "./create-brand/create-brand.component";
+import {DeleteBrandComponent} from "./delete-brand/delete-brand.component";
+import {BrandService} from "../../services/HttpRequestSevices/brand.service";
+import {UserObservable} from "../../services/HelperSevices/userObservable";
+import {BrandStore} from "../../stores/brand.store";
+import {Brand} from "../../entities/Brand";
 
 @Component({
   selector: 'app-brands-page',
@@ -24,17 +29,22 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   tableFormGroup: FormGroup;
-  dataSource = new MatTableDataSource<SimpleDummyData>();
+  dataSource = new MatTableDataSource<Brand>();
 
-  displayedColumns = ['name'];
+  displayedColumns = ['name','delete'];
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private brandService: BrandService,
+    private userObservable: UserObservable,
+    private brandStore: BrandStore) {
     super();
     this.initializeFormGroup();
+    this.initializeSubscriptions();
+    this.fetchBrands();
   }
 
   ngOnInit(): void {
@@ -43,7 +53,6 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
 
 
   ngAfterViewInit(): void {
-    this.initializeSourceData();//TODO REMOVE
     this.bindControlsToElements();
     this.setInitialValuesFromQueryParams();
     this.bindElementsToControls()
@@ -64,23 +73,6 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
 
   clearFilterValue() {
     getFormControl(FormControlNames.FILTER,this.tableFormGroup).reset();
-  }
-
-  private initializeSourceData(): void {
-    const values: SimpleDummyData[] = [
-      {name: 'Bob'},
-      {name: 'bin'},
-      {name: 'bon'},
-      {name: 'Van'},
-      {name: 'Helsing'},
-      {name: 'John'},
-      {name: 'Alex'},
-      {name: 'Tiffany'},
-      {name: 'JAke'},
-      {name: 'Alex'},
-      {name: 'Twink'},
-    ]
-    this.dataSource.data = values;
   }
 
   private setInitialValuesFromQueryParams() {
@@ -152,8 +144,25 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
       }
     });
   }
-}
 
-export interface SimpleDummyData {
-  name: string;
+  handleOpenDeleteBrandWindow(brand) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '40%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: DeleteBrandComponent,
+        inputs: brand // No dependent data to pass
+      }
+    });
+  }
+
+  private fetchBrands() {
+    this.brandService.getBrandsByWarehouse(this.userObservable.getUserSynchronously().warehouseId);
+  }
+
+  private initializeSubscriptions() {
+    this.brandStore.getBrands.subscribe((brands) => {
+      this.dataSource.data = brands;
+    })
+  }
 }

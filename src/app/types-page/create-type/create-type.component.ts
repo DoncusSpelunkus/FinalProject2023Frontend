@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
 import {UserObservable} from "../../../services/HelperSevices/userObservable";
-import {BrandDTO} from "../../../entities/Brand";
+import {CreateBrandDTO} from "../../../entities/Brand";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
@@ -13,8 +13,7 @@ import {TypeService} from "../../../services/HttpRequestSevices/type.service";
 
 @Component({
   selector: 'app-create-type',
-  templateUrl: './create-type.component.html',
-  styleUrls: ['./create-type.component.scss']
+  templateUrl: './create-type.component.html'
 })
 export class CreateTypeComponent extends FormBuilding implements LoadableComponent, OnInit, OnDestroy{
 
@@ -38,7 +37,7 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   }
 
   submit(): void {
-    const createBrandDTO: BrandDTO = this.getDTO();
+    const createBrandDTO: CreateBrandDTO = this.getDTO();
     this.typeService.createBrand(createBrandDTO);
   }
 
