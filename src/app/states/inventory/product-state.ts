@@ -32,40 +32,52 @@ export class InventoryState {
     }
 
     @Action(getItems)
-    getItems({ getState, patchState }: StateContext<InventoryStateModel>, { entityType }: getItems) {
+    getItems(ctx: StateContext<InventoryStateModel>, { entityType }: getItems) {
         switch (entityType) {
-            case "Product":
+            case "PRODUCT":
                 this.inventorySocket.getProducts().subscribe((data) => {
-                    patchState({
-                        products: [...getState().products, data]
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        products: data
                     })
                 })
                 break;
-            case "ProductLocation":
+            case "PRODUCTLOCATION":
                 this.inventorySocket.getProductLocations().subscribe((data) => {
-                    patchState({
-                        products: [...getState().productLocations, data]
+                    console.log("Productlocation")
+                    console.log(data)
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        productLocations: data
                     })
                 })
                 break;
-            case "Location":
+            case "LOCATION":
                 this.inventorySocket.getLocations().subscribe((data) => {
-                    patchState({
-                        products: [...getState().location, data]
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        location: data
                     })
                 })
                 break;
-            case "Brand":
+            case "BRAND":
                 this.inventorySocket.getBrands().subscribe((data) => {
-                    patchState({
-                        products: [...getState().brand, data]
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        brand: data
                     })
                 })
                 break;
-            case "Type":
+            case "TYPE":
                 this.inventorySocket.getTypes().subscribe((data) => {
-                    patchState({
-                        products: [...getState().type, data]
+                    const state = ctx.getState();
+                    ctx.setState({
+                        ...state,
+                        type: data
                     })
                 })
                 break;

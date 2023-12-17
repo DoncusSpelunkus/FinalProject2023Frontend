@@ -27,8 +27,8 @@ export class Location{
 }
 
 export class Product{
-    SKU?: string;
-    Name?: string;
+    sku?: string;
+    name?: string;
     Description?: string;
     Category?: string;
     Weight?: number;

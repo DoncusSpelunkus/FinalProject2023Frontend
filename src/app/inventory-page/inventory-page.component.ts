@@ -25,7 +25,7 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  @Select(ProductSelector.getProducts) simpleItems$!: Observable<Product[]>; // Will get the products from the store
+  @Select(ProductSelector.getProductLocations) simpleItems$!: Observable<ProductLocation[]>; // Will get the products from the store
   private subscription: Subscription = new Subscription();
 
 
@@ -84,10 +84,12 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
   private initializeDataSource() {
     this.subscription.add(
       this.simpleItems$.subscribe(
-        (products: Product[]) => {
-          this.dataSource.data = products;
+        (productLocations: ProductLocation[]) => {
+          this.dataSource.data = productLocations;
+          console.log(productLocations)
         })
     );
+    console.log(this.dataSource.data)
     this.dataSource.paginator = this.paginator;
   }
 
