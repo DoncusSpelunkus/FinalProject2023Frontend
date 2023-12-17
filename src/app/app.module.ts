@@ -100,7 +100,7 @@ import { ShipmentInfoComponent } from './shipment-page/shipment-info/shipment-in
     ManageTemplateComponent,
     LocationsPageComponent,
     ManageBrandsComponent,
-    ManageTypesComponent
+    ManageTypesComponent,
     ReceiveShipmentComponent,
     AddShipmentDetailsComponent,
     RemoveShipmentDetailsComponent,
