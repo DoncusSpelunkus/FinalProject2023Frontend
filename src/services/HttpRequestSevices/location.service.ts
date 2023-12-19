@@ -62,4 +62,14 @@ export class LocationService {
       throw error;
     }
   }
+
+  async createLocationBatch(locationDTO: Location) {
+    try {
+      const response = await customAxios.post('/createBatch',locationDTO);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+  }
 }

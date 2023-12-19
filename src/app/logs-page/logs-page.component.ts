@@ -120,7 +120,6 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
   }
 
   private bindElementsToControls() {
-    this.paginator.pageSize = 3;
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe((page) => {

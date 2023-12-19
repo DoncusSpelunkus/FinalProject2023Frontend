@@ -11,6 +11,11 @@ import {SimpleDummyData} from "../templates/manage-template/manage-template.comp
 import { Brand } from 'src/entities/Inventory';
 import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
+import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
+import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
+import {MatDialog} from "@angular/material/dialog";
+import {LocationSingleCreateComponent} from "./location-single-create/location-single-create.component";
+import {LocationBatchCreateComponent} from "./location-batch-create/location-batch-create.component";
 
 @Component({
   selector: 'app-locations-page',
@@ -34,7 +39,8 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private matDialog: MatDialog) {
     super();
     this.initializeFormGroup();
   }
@@ -119,7 +125,6 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   }
 
   private bindElementsToControls() {
-    this.paginator.pageSize = 3;
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe((page) => {
@@ -133,6 +138,28 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
       relativeTo: this.route,
       queryParams: { [paramName]: value || null },
       queryParamsHandling: 'merge', // preserve other query params
+    });
+  }
+
+  handleOpenCreateSingleLocationWindow() {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: LocationSingleCreateComponent,
+        inputs: null // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenBatchCreateLocationWindow() {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: LocationBatchCreateComponent,
+        inputs: null // No dependent data to pass
+      }
     });
   }
 }

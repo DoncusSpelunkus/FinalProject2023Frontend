@@ -33,7 +33,11 @@
 
 
 <ng-template #actionsSection>
-  <button mat-raised-button class="!h-14" color="primary" >Create product</button>
+  <section class="flex flex-row space-x-4">
+    <button mat-raised-button class="!h-14" color="primary" (click)="handleOpenCreateSingleLocationWindow()">Create individual</button>
+
+    <button mat-raised-button class="!h-14" color="primary" (click)="handleOpenBatchCreateLocationWindow()">Batch create</button>
+  </section>
 </ng-template>
 
 <ng-template #tableFilter>
