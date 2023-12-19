@@ -11,8 +11,8 @@
         </ngx-mat-select-search>
       </mat-option>
 
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option[displayValueProperty]">
-        {{option[displayValueProperty]}}
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="getDisplayValue(option)">
+        {{getDisplayValue(option)}}
       </mat-option>
     </mat-select>
 

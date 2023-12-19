@@ -117,7 +117,6 @@ export class ManageBrandsComponent extends FormBuilding implements OnInit, After
   }
 
   private bindElementsToControls() {
-    this.paginator.pageSize = 3;
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe((page) => {

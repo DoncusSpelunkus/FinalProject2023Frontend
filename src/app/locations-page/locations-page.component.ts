@@ -7,10 +7,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {Observable, Subscription, debounceTime} from "rxjs";
-import {SimpleDummyData} from "../templates/manage-template/manage-template.component";
-import { Brand } from 'src/entities/Inventory';
 import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
+import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {LocationSingleCreateComponent} from "./location-single-create/location-single-create.component";
+import {LocationBatchCreateComponent} from "./location-batch-create/location-batch-create.component";
+import {DeleteLocationComponent} from "./delete-location/delete-location.component";
 
 @Component({
   selector: 'app-locations-page',
@@ -26,7 +29,7 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<Location>();
 
-  displayedColumns = ['Location id'];
+  displayedColumns = ['Location id','delete','update'];
 
   @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the types from the store
   private subscription: Subscription = new Subscription();
@@ -34,7 +37,8 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private matDialog: MatDialog) {
     super();
     this.initializeFormGroup();
   }
@@ -119,7 +123,6 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   }
 
   private bindElementsToControls() {
-    this.paginator.pageSize = 3;
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe((page) => {
@@ -133,6 +136,50 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
       relativeTo: this.route,
       queryParams: { [paramName]: value || null },
       queryParamsHandling: 'merge', // preserve other query params
+    });
+  }
+
+  handleOpenCreateSingleLocationWindow() {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: LocationSingleCreateComponent,
+        inputs: null // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenBatchCreateLocationWindow() {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: LocationBatchCreateComponent,
+        inputs: null // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenDeleteLocationDialog(location) {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: DeleteLocationComponent,
+        inputs: location // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenUpdateLocationDialog(location) {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: LocationSingleCreateComponent,
+        inputs: location // No dependent data to pass
+      }
     });
   }
 }

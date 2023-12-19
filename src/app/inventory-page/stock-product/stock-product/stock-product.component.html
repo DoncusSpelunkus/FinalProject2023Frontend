@@ -4,13 +4,16 @@
   <!--   TOP ROW INPUTS (SKU and Quantity)   -->
   <section class="flex flex-row justify-between items-center space-x-8 w-full">
 
-    <app-text-input
-      class="w-full max-w-full"
+    <app-search-select-input
+      class="w-full"
       [inputFormControlName]="FormControlNames.SKU"
       [inputFormGroup]="formGroup"
-      [icon]="'qr_code'"
-      [placeholder]="'ABC-12345-S-BL'">
-    </app-text-input>
+      [showIcon]="true"
+      [displayValueProperty]="'sku'"
+      [searchValueProperty]="'sku'"
+      [list]="products"
+      (iconClickEmitter)="handleOpenCreateProductWindow()">
+    </app-search-select-input>
 
     <app-text-input
       class="w-full max-w-full"
@@ -24,13 +27,17 @@
 
   <!--   BOTTOM ROW INPUTS (Location)   -->
   <section class="w-full flex flex-row justify-between items-center space-x-8">
+
     <app-search-select-input class="w-full"
-      [inputFormControlName]="FormControlNames.SHELF"
+      [inputFormControlName]="FormControlNames.PRODUCT_LOCATION"
       [inputFormGroup]="formGroup"
+      [showIcon]="true"
       [displayValueProperty]="'locationId'"
       [searchValueProperty]="'locationId'"
-      [list]="productLocations">
+      [list]="locations"
+      (iconClickEmitter)="handleOpenCreateLocationWindow()">
     </app-search-select-input>
 
   </section>
+
 </form>

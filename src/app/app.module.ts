@@ -70,6 +70,10 @@ import { DeleteBrandComponent } from './brands-page/delete-brand/delete-brand.co
 import { DeleteTypeComponent } from './types-page/delete-type/delete-type.component';
 import { AuthState } from './states/auth/auth-state';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { LocationBatchCreateComponent } from './locations-page/location-batch-create/location-batch-create.component';
+import { LocationSingleCreateComponent } from './locations-page/location-single-create/location-single-create.component';
+import { DeleteLocationComponent } from './locations-page/delete-location/delete-location.component';
+
 
 @NgModule({
   declarations: [
@@ -114,7 +118,10 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
     CreateBrandComponent,
     CreateTypeComponent,
     DeleteBrandComponent,
-    DeleteTypeComponent
+    DeleteTypeComponent,
+    LocationBatchCreateComponent,
+    LocationSingleCreateComponent,
+    DeleteLocationComponent,
   ],
     imports: [
 

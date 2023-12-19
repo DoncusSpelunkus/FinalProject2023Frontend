@@ -111,7 +111,6 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
   }
 
   private bindElementsToControls() {
-    this.paginator.pageSize = 3;
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe((page) => {

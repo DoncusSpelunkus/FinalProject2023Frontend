@@ -24,7 +24,7 @@ export class RelocateProductRowComponent implements OnInit, AfterViewInit {
   formGroup: FormGroup;
   expandState: string = 'collapsed';
 
-  FormControlNames = [FormControlNames.AISLE, FormControlNames.COLUMN, FormControlNames.ROW, FormControlNames.SHELF,FormControlNames.QUANTITY]
+  FormControlNames = [FormControlNames.AISLE, FormControlNames.BIN, FormControlNames.RACK, FormControlNames.SHELF,FormControlNames.QUANTITY]
 
   constructor(private formBuilder: FormBuilder) {
 
@@ -41,8 +41,8 @@ export class RelocateProductRowComponent implements OnInit, AfterViewInit {
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
       [FormControlNames.AISLE]: [''],
-      [FormControlNames.ROW]: [''],
-      [FormControlNames.COLUMN]: [''],
+      [FormControlNames.RACK]: [''],
+      [FormControlNames.BIN]: [''],
       [FormControlNames.SHELF]: [''],
       [FormControlNames.QUANTITY]: ['']
     });
