@@ -57,10 +57,7 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   private initializeFormGroups() {
     this.formGroup = this._formBuilder.group({
       [FormControlNames.SKU]: ['',valueRequired(FormControlNames.SKU)],
-      [FormControlNames.AISLE]: ['',valueRequired(FormControlNames.AISLE)],
-      [FormControlNames.BIN]: ['',valueRequired(FormControlNames.BIN)],
-      [FormControlNames.RACK]: ['',valueRequired(FormControlNames.RACK)],
-      [FormControlNames.SHELF]: ['',valueRequired(FormControlNames.SHELF)],
+      [FormControlNames.PRODUCT_LOCATION]: ['',valueRequired(FormControlNames.PRODUCT_LOCATION)],
       [FormControlNames.QUANTITY]: ['',[valueRequired(FormControlNames.QUANTITY),numberOnly(FormControlNames.QUANTITY)]]
     })
   }
@@ -85,9 +82,8 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   }
 
   private initializeData() {
-    this.locations$.subscribe(locations => {
+    this.locations$.subscribe((locations: Location[]) => {
       this.locations = locations;
-      console.log(locations)
     })
 
   }

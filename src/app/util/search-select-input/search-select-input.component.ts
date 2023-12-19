@@ -3,6 +3,8 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {getFormControl} from "../../../util/form-control-validators";
 import {map, Observable, ReplaySubject, startWith} from "rxjs";
 import {FormBuilding} from "../../../interfaces/component-interfaces";
+import {getDisplayValue} from "../../../util/display-value-strategies";
+import {FormControlNames} from "../../../constants/input-field-constants";
 
 @Component({
   selector: 'app-search-select-input',
@@ -11,7 +13,7 @@ import {FormBuilding} from "../../../interfaces/component-interfaces";
 export class SearchSelectInputComponent extends FormBuilding implements OnInit{
   @Output() iconClickEmitter = new EventEmitter<any>();
 
-  @Input() inputFormControlName: string;
+  @Input() inputFormControlName: FormControlNames;
   @Input() inputFormGroup: FormGroup;
   @Input('list')
   set inputList(list: any[]) {
@@ -33,7 +35,6 @@ export class SearchSelectInputComponent extends FormBuilding implements OnInit{
   filteredOptions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 
   isLoading: any;
-
   constructor() {
     super();
   }
@@ -55,7 +56,7 @@ export class SearchSelectInputComponent extends FormBuilding implements OnInit{
 
   private filter(value: string): any[] {
     const filterValue = value.toLowerCase();
-    return this.list.filter(option => option[this.searchValueProperty].includes(filterValue));
+    return this.list.filter(option => getDisplayValue(option,this.inputFormControlName,this.displayValueProperty).includes(filterValue));
   }
 
   private changeLoadingWithTimeout(duration: number) {
@@ -64,4 +65,8 @@ export class SearchSelectInputComponent extends FormBuilding implements OnInit{
       this.isLoading = false;
     }, duration);
   }
+
+  getDisplayValue(option: any): string {
+    return getDisplayValue(option,this.inputFormControlName,this.displayValueProperty)
+  };
 }
