@@ -27,9 +27,11 @@
     <app-search-select-input class="w-full"
       [inputFormControlName]="FormControlNames.SHELF"
       [inputFormGroup]="formGroup"
+      [showIcon]="true"
       [displayValueProperty]="'locationId'"
       [searchValueProperty]="'locationId'"
-      [list]="productLocations">
+      [list]="productLocations"
+      (iconClickEmitter)="handleOpenCreateLocationWindow()">
     </app-search-select-input>
 
   </section>

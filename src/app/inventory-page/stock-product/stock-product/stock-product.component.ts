@@ -5,6 +5,8 @@ import {FormControlNames} from "../../../../constants/input-field-constants";
 import {getControlErrorMessage, numberOnly, valueRequired} from "../../../../util/form-control-validators";
 import {Subscription} from "rxjs";
 import {LocationService} from "../../../../services/HttpRequestSevices/location.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DynamicDialogComponent} from "../../../util/dynamic-dialog/dynamic-dialog.component";
 
 @Component({
   selector: 'app-stock-product',
@@ -22,7 +24,8 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   productLocations: any[]
 
   constructor(private _formBuilder: FormBuilder,
-              private locationService: LocationService) {
+              private locationService: LocationService,
+              private matDialog: MatDialog) {
     super();
   }
   ngOnInit(): void {
@@ -79,5 +82,16 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
     this.locationService.getLocationsInWarehouse().then(value => {
       this.productLocations = value.data
     })
+  }
+
+  handleOpenCreateLocationWindow() {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '80%', // Set the height
+      data: {
+        component: ,
+        inputs: null // No dependent data to pass
+      }
+    });
   }
 }
