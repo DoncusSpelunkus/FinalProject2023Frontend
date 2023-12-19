@@ -3,13 +3,16 @@ import {FormBuilding, LoadableComponent} from "../../../../interfaces/component-
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormControlNames} from "../../../../constants/input-field-constants";
 import {getControlErrorMessage, numberOnly, valueRequired} from "../../../../util/form-control-validators";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {LocationService} from "../../../../services/HttpRequestSevices/location.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DynamicDialogComponent} from "../../../util/dynamic-dialog/dynamic-dialog.component";
 import {
   LocationSingleCreateComponent
 } from "../../../locations-page/location-single-create/location-single-create.component";
+import {Select} from "@ngxs/store";
+import {ProductSelector} from "../../../states/inventory/product-selector";
+import {Location} from "../../../../entities/Inventory";
 
 @Component({
   selector: 'app-stock-product',
@@ -19,12 +22,12 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
 
   @Output() isValidEmitter = new EventEmitter<any>;
 
+  @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the products from the store
+  locations: Location[];
+
   formGroup: FormGroup;
 
   private isFormValidSubscription: Subscription;
-
-
-  productLocations: any[]
 
   constructor(private _formBuilder: FormBuilder,
               private locationService: LocationService,
@@ -82,9 +85,11 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   }
 
   private initializeData() {
-    this.locationService.getLocationsInWarehouse().then(value => {
-      this.productLocations = value.data
+    this.locations$.subscribe(locations => {
+      this.locations = locations;
+      console.log(locations)
     })
+
   }
 
   handleOpenCreateLocationWindow() {

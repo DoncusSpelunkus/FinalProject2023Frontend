@@ -1,13 +1,12 @@
-import {Component, EventEmitter, OnDestroy} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {LocationService} from "../../../services/HttpRequestSevices/location.service";
 import {Location} from "../../../entities/Inventory";
-
 @Component({
   selector: 'app-location-single-create',
   templateUrl: './location-single-create.component.html'
@@ -61,4 +60,5 @@ export class LocationSingleCreateComponent extends FormBuilding implements Loada
       Bin: this.formGroup.get(FormControlNames.BIN).value,
     }
   }
+
 }
