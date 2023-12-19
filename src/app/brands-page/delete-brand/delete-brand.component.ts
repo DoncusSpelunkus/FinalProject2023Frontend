@@ -25,7 +25,7 @@ export class DeleteBrandComponent implements LoadableComponent{
   }
 
   submit(): void {
-    this.brandService.deleteBrand(2) //TODO fix
+    this.brandService.deleteBrand(this.selectedBrand.brandId) //TODO fix
   }
 
   onCheckboxChange(event: any) {
@@ -33,7 +33,7 @@ export class DeleteBrandComponent implements LoadableComponent{
   }
 
   get getBrandName() {
-    return this.selectedBrand.Name
+    return this.selectedBrand.name
   }
 }
 

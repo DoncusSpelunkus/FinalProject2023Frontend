@@ -25,7 +25,6 @@ export class DeleteTypeComponent implements LoadableComponent{
   }
 
   submit(): void {
-    console.log(this.selectedType.typeId)
     this.typeService.deleteType(this.selectedType.typeId)
   }
 

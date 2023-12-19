@@ -6,16 +6,18 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
-import {debounceTime} from "rxjs";
+import {debounceTime, Observable} from "rxjs";
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
-import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateBrandComponent} from "./create-brand/create-brand.component";
 import {DeleteBrandComponent} from "./delete-brand/delete-brand.component";
 import {BrandService} from "../../services/HttpRequestSevices/brand.service";
 import {UserObservable} from "../../services/HelperSevices/userObservable";
-import {BrandStore} from "../../stores/brand.store";
 import {Brand} from "../../entities/Brand";
+import {Select} from "@ngxs/store";
+import {UserSelector} from "../states/userManagement/user-selectors";
+import {User} from "../../entities/User";
+import {ProductSelector} from "../states/inventory/product-selector";
 
 @Component({
   selector: 'app-brands-page',
@@ -28,6 +30,8 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
+  @Select(ProductSelector.getBrands) brands$!: Observable<Brand[]>; // Will get the products from the store
+
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<Brand>();
 
@@ -38,12 +42,9 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private brandService: BrandService,
-    private userObservable: UserObservable,
-    private brandStore: BrandStore) {
+    private userObservable: UserObservable) {
     super();
     this.initializeFormGroup();
-    this.initializeSubscriptions();
     this.fetchBrands();
   }
 
@@ -157,11 +158,7 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
   }
 
   private fetchBrands() {
-    this.brandService.getBrandsByWarehouse();
-  }
-
-  private initializeSubscriptions() {
-    this.brandStore.getBrands.subscribe((brands) => {
+    this.brands$.subscribe((brands: Brand[]) => {
       this.dataSource.data = brands;
     })
   }
