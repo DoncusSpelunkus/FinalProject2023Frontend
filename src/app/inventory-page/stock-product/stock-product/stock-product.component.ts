@@ -12,7 +12,8 @@ import {
 } from "../../../locations-page/location-single-create/location-single-create.component";
 import {Select} from "@ngxs/store";
 import {ProductSelector} from "../../../states/inventory/product-selector";
-import {Location} from "../../../../entities/Inventory";
+import {Location, Product} from "../../../../entities/Inventory";
+import {CreateProductComponent} from "../../../manage-products/create-product/create-product.component";
 
 @Component({
   selector: 'app-stock-product',
@@ -24,6 +25,8 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
 
   @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the products from the store
   locations: Location[];
+  @Select(ProductSelector.getProducts) products$!: Observable<Product[]>; // Will get the products from the store
+  products: Product[];
 
   formGroup: FormGroup;
 
@@ -86,6 +89,11 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
       this.locations = locations;
     })
 
+    this.products$.subscribe((products: Product[]) => {
+      this.products = products
+      console.log(products)
+    })
+
   }
 
   handleOpenCreateLocationWindow() {
@@ -94,6 +102,17 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
       height: '30%', // Set the height
       data: {
         component: LocationSingleCreateComponent,
+        inputs: null // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenCreateProductWindow() {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '75%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: CreateProductComponent,
         inputs: null // No dependent data to pass
       }
     });

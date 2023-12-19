@@ -56,7 +56,7 @@ export class SearchSelectInputComponent extends FormBuilding implements OnInit{
 
   private filter(value: string): any[] {
     const filterValue = value.toLowerCase();
-    return this.list.filter(option => getDisplayValue(option,this.inputFormControlName,this.displayValueProperty).includes(filterValue));
+    return this.list.filter(option => getDisplayValue(option,this.inputFormControlName,this.displayValueProperty).toLowerCase().includes(filterValue));
   }
 
   private changeLoadingWithTimeout(duration: number) {
