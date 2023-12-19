@@ -68,6 +68,8 @@ import { CreateBrandComponent } from './brands-page/create-brand/create-brand.co
 import { CreateTypeComponent } from './types-page/create-type/create-type.component';
 import { DeleteBrandComponent } from './brands-page/delete-brand/delete-brand.component';
 import { DeleteTypeComponent } from './types-page/delete-type/delete-type.component';
+import { LocationBatchCreateComponent } from './locations-page/location-batch-create/location-batch-create.component';
+import { LocationSingleCreateComponent } from './locations-page/location-single-create/location-single-create.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +114,9 @@ import { DeleteTypeComponent } from './types-page/delete-type/delete-type.compon
     CreateBrandComponent,
     CreateTypeComponent,
     DeleteBrandComponent,
-    DeleteTypeComponent
+    DeleteTypeComponent,
+    LocationBatchCreateComponent,
+    LocationSingleCreateComponent
   ],
     imports: [
 
