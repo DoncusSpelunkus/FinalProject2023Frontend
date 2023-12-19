@@ -16,6 +16,8 @@ import {CreateUserComponent} from "../manage-users/create-user/create-user.compo
 import {MatDialog} from "@angular/material/dialog";
 import {LocationSingleCreateComponent} from "./location-single-create/location-single-create.component";
 import {LocationBatchCreateComponent} from "./location-batch-create/location-batch-create.component";
+import {DeleteLocationComponent} from "./delete-location/delete-location.component";
+import {UpdateLocationComponent} from "./update-location/update-location.component";
 
 @Component({
   selector: 'app-locations-page',
@@ -31,7 +33,7 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<Location>();
 
-  displayedColumns = ['Location id'];
+  displayedColumns = ['Location id','delete','update'];
 
   @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the types from the store
   private subscription: Subscription = new Subscription();
@@ -159,6 +161,28 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
       data: {
         component: LocationBatchCreateComponent,
         inputs: null // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenDeleteLocationDialog(location) {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: DeleteLocationComponent,
+        inputs: location // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenUpdateLocationDialog(location) {
+    this.matDialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: UpdateLocationComponent,
+        inputs: location // No dependent data to pass
       }
     });
   }

@@ -70,6 +70,8 @@ import { DeleteBrandComponent } from './brands-page/delete-brand/delete-brand.co
 import { DeleteTypeComponent } from './types-page/delete-type/delete-type.component';
 import { LocationBatchCreateComponent } from './locations-page/location-batch-create/location-batch-create.component';
 import { LocationSingleCreateComponent } from './locations-page/location-single-create/location-single-create.component';
+import { DeleteLocationComponent } from './locations-page/delete-location/delete-location.component';
+import { UpdateLocationComponent } from './locations-page/update-location/update-location.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +118,9 @@ import { LocationSingleCreateComponent } from './locations-page/location-single-
     DeleteBrandComponent,
     DeleteTypeComponent,
     LocationBatchCreateComponent,
-    LocationSingleCreateComponent
+    LocationSingleCreateComponent,
+    DeleteLocationComponent,
+    UpdateLocationComponent
   ],
     imports: [
 
