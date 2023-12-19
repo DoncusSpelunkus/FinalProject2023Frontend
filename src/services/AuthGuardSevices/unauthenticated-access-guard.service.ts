@@ -3,8 +3,6 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from "rxjs";
 import { jwtDecode } from "jwt-decode";
 import { Token } from "src/entities/Token";
-import {UserRoles} from "../../app/dashboard/dashboard.component";
-import {inventoryButtonConfig, usersButtonConfig} from "../../constants/dashboard-actions";
 import {handleRoleBasedNavigation} from "../../util/role-based-actions";
 import { AuthSelectors } from "src/app/states/auth/auth-selector";
 import { Select } from "@ngxs/store";
@@ -19,15 +17,15 @@ export class UnauthenticatedAccessGuard implements CanActivate {
   }
 
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let token = "";
     this.token$.subscribe((data) => { // I dunno but this is the only way I could get the token from the store
       token = data;
     })
+    
 
-    if (!token) {
+    if (token != "") {
+
       return true;
     }
 

@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
           this.store.dispatch(new getUserConnection(token));
         }
       });
-      this.store.dispatch(new getMe()); 
       try {
         // Map each state and dispatch the establishConnection action
         const loginObservables = Object.keys(allStores).map(stateName => {

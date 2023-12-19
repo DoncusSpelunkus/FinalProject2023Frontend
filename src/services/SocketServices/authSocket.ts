@@ -3,7 +3,7 @@ import { environment } from "src/enviroment";
 import * as signalR from "@aspnet/signalr";
 import { Subject } from "rxjs";
 import { Store } from "@ngxs/store";
-import { ClearUser } from "src/app/states/auth/auth-action";
+import { ClearUser, getMe } from "src/app/states/auth/auth-action";
 
 @Injectable({
     providedIn: 'root'
@@ -42,12 +42,14 @@ export class AuthSocket {
                 try {
                     this.connectionEstablished = true;
                     await this.hubConnection.start();
+                    this.store.dispatch(new getMe());
                 }
                 catch (error) {
                     this.connectionEstablished = false;
                     return
                 }
                 this.hubConnection.on("UserUpdate", (data) => {
+                    console.log(data);
                     this.user.next(data);
                 });
                 this.hubConnection.on("UserDelete", () => {

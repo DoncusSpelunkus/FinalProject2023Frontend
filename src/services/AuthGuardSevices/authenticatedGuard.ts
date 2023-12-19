@@ -22,7 +22,7 @@ export class AuthenticatedGuard implements CanActivate {
       token = data;
     })
 
-    if (!token) {
+    if (token == "") {
       this.navigateToLogin();
       return false;
     }

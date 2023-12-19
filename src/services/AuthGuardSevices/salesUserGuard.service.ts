@@ -22,7 +22,7 @@ export class SalesGuardService implements CanActivate {
             token = data;
         })
 
-        if (token) {
+        if (token != "") {
             let decodToken = jwtDecode(token) as Token;
             let currentdate = new Date();
             if (decodToken.exp) {

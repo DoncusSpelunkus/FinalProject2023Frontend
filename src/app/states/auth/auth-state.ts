@@ -4,6 +4,8 @@ import { AuthSocket } from "src/services/SocketServices/authSocket";
 import { ClearUser, Login, getMe, getUserConnection } from "./auth-action";
 import { LoginService } from "src/services/HttpRequestSevices/login.service";
 import { User } from "src/entities/User";
+import { Route } from "@angular/router";
+
 
 
 export interface AuthStateModel {
@@ -36,6 +38,7 @@ export class AuthState {
                 ...state,
                 user: data
             })
+            console.log(data)
         })
     }
 
@@ -48,7 +51,6 @@ export class AuthState {
             ...state,
             token: token
         })
-        console.log(token);
     }
 
     @Action(ClearUser)
@@ -60,6 +62,7 @@ export class AuthState {
             token: null
         })
         this.socket.terminateConnection();
+        
     }
 
 

@@ -23,7 +23,7 @@ export class AdminGuardService implements CanActivate {
             token = data;
         })
 
-        if (token) { // checks if the local token exist at all
+        if (token != "") { // checks if the local token exist at all
             let decodToken = jwtDecode(token) as Token;
             console.log(decodToken.role)
             let currentdate = new Date();
