@@ -102,7 +102,6 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
       this.users$.subscribe(
         (users: User[]) => {
           this.dataSource.data = users;
-          console.log(users)
         })
     );
   }

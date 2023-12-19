@@ -16,13 +16,13 @@ export class InventoryService {
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
       response => {
-        if(response.status == 201) {
-          this.matSnackbar.open("Great success", "x", {duration: 1000})
+        if(response.status == 201 || response.status == 200) {
+          this.matSnackbar.open("Great success", "x", {duration: 2000})
         }
         return response;
       }, rejected => {
         if(rejected.response.status>=400 && rejected.response.status <= 500) {
-          matSnackbar.open(rejected.response.data, "x", {duration: 1000});
+          matSnackbar.open(rejected.response.data, "x", {duration: 2000});
         }
         catchError(rejected);
       }

@@ -42,7 +42,6 @@ export class InventorySocket {
                     await this.hubConnection.start();
                 }
                 catch (error) {
-                    console.log(error)
                     this.connectionEstablished = false;
                     return
                 }
@@ -101,7 +100,6 @@ export class InventorySocket {
     }
 
     private InitializeData() { // Probably not the best way to do this but it works
-        console.log(EntityTypes[1].toString())
         for(let i = 1; i <= 5; i++) {
             this.hubConnection.invoke("Request", {
                 "RequestType": i

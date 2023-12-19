@@ -6,8 +6,12 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
-import {debounceTime} from "rxjs";
+import {Observable, Subscription, debounceTime} from "rxjs";
 import {SimpleDummyData} from "../templates/manage-template/manage-template.component";
+import { Select } from '@ngxs/store';
+import { UserSelector } from '../states/userManagement/user-selectors';
+import { Type } from 'src/entities/Inventory';
+import { ProductSelector } from '../states/inventory/product-selector';
 
 @Component({
   selector: 'app-manage-types',
@@ -21,7 +25,10 @@ export class ManageTypesComponent extends FormBuilding implements OnInit, AfterV
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   tableFormGroup: FormGroup;
-  dataSource = new MatTableDataSource<SimpleDummyData>();
+  dataSource = new MatTableDataSource<Type>();
+
+  @Select(ProductSelector.getTypes) types$!: Observable<Type[]>; // Will get the types from the store
+  private subscription: Subscription = new Subscription();
 
   displayedColumns = ['name'];
 
@@ -63,20 +70,12 @@ export class ManageTypesComponent extends FormBuilding implements OnInit, AfterV
   }
 
   private initializeSourceData(): void {
-    const values: SimpleDummyData[] = [
-      {name: 'Bob'},
-      {name: 'bin'},
-      {name: 'bon'},
-      {name: 'Van'},
-      {name: 'Helsing'},
-      {name: 'John'},
-      {name: 'Alex'},
-      {name: 'Tiffany'},
-      {name: 'JAke'},
-      {name: 'Alex'},
-      {name: 'Twink'},
-    ]
-    this.dataSource.data = values;
+    this.subscription.add(
+      this.types$.subscribe(
+        (types: Type[]) => {
+          this.dataSource.data = types;
+        })
+    );
   }
 
   private setInitialValuesFromQueryParams() {
