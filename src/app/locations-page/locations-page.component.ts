@@ -7,17 +7,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {Observable, Subscription, debounceTime} from "rxjs";
-import {SimpleDummyData} from "../templates/manage-template/manage-template.component";
-import { Brand } from 'src/entities/Inventory';
 import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
-import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {LocationSingleCreateComponent} from "./location-single-create/location-single-create.component";
 import {LocationBatchCreateComponent} from "./location-batch-create/location-batch-create.component";
 import {DeleteLocationComponent} from "./delete-location/delete-location.component";
-import {UpdateLocationComponent} from "./update-location/update-location.component";
 
 @Component({
   selector: 'app-locations-page',
@@ -181,7 +177,7 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
       width: '60%', // Set the width
       height: '30%', // Set the height
       data: {
-        component: UpdateLocationComponent,
+        component: LocationSingleCreateComponent,
         inputs: location // No dependent data to pass
       }
     });

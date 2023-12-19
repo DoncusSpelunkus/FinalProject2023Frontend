@@ -71,7 +71,6 @@ import { DeleteTypeComponent } from './types-page/delete-type/delete-type.compon
 import { LocationBatchCreateComponent } from './locations-page/location-batch-create/location-batch-create.component';
 import { LocationSingleCreateComponent } from './locations-page/location-single-create/location-single-create.component';
 import { DeleteLocationComponent } from './locations-page/delete-location/delete-location.component';
-import { UpdateLocationComponent } from './locations-page/update-location/update-location.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +119,6 @@ import { UpdateLocationComponent } from './locations-page/update-location/update
     LocationBatchCreateComponent,
     LocationSingleCreateComponent,
     DeleteLocationComponent,
-    UpdateLocationComponent
   ],
     imports: [
 

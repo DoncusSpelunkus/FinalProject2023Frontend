@@ -82,4 +82,14 @@ export class LocationService {
       throw error;
     }
   }
+
+  async updateLocation(locationDTO: Location) {
+    try {
+      const response = await customAxios.put('/update',locationDTO);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+  }
 }

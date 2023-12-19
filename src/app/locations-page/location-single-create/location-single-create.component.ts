@@ -18,6 +18,8 @@ export class LocationSingleCreateComponent extends FormBuilding implements Loada
   formGroup: FormGroup;
   private formGroupStateSubscription: Subscription;
 
+  private location: Location;
+
   constructor(private formBuilder: FormBuilder,
               private locationService: LocationService) {
     super();
@@ -32,11 +34,25 @@ export class LocationSingleCreateComponent extends FormBuilding implements Loada
   }
 
   setData(data: any): void {
+    this.location = data;
+    this.formGroup.patchValue({
+      [FormControlNames.AISLE]: this.location.aisle,
+      [FormControlNames.SHELF]: this.location.shelf,
+      [FormControlNames.RACK]: this.location.rack,
+      [FormControlNames.BIN]: this.location.bin,
+    });
   }
+
 
   submit(): void {
     const locationDTO: Location = this.getDTO();
-    this.locationService.createSingleLocation(locationDTO);
+    if (!this.location) { //Create location
+      this.locationService.createSingleLocation(locationDTO);
+    } else { // update location
+      locationDTO.locationId = this.location.locationId;
+      locationDTO.warehouseId = this.location.warehouseId;
+      this.locationService.updateLocation(locationDTO);
+    }
   }
 
   private initializeFormGroup() {
