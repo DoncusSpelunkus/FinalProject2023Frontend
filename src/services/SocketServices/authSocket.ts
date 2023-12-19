@@ -1,13 +1,9 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { environment } from "src/enviroment";
 import * as signalR from "@aspnet/signalr";
-import { Observable, Subject, first } from "rxjs";
-import { Select, Store } from "@ngxs/store";
-import { AuthSelectors } from "src/app/states/auth/auth-selector";
-import { ClearUser, getMe } from "src/app/states/auth/auth-action";
-import { getUsers } from "src/app/states/userManagement/user-actions";
-import { establishConnection } from "src/app/states/crossStateAction";
-import { AuthState } from "src/app/states/auth/auth-state";
+import { Subject } from "rxjs";
+import { Store } from "@ngxs/store";
+import { ClearUser } from "src/app/states/auth/auth-action";
 
 @Injectable({
     providedIn: 'root'
@@ -55,7 +51,6 @@ export class AuthSocket {
                     this.user.next(data);
                 });
                 this.hubConnection.on("UserDelete", () => {
-                    console.log("user deleted")
                     this.store.dispatch(new ClearUser());
                 });
             }

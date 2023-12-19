@@ -4,7 +4,7 @@ import { AuthSocket } from "src/services/SocketServices/authSocket";
 import { ClearUser, Login, getMe, getUserConnection } from "./auth-action";
 import { LoginService } from "src/services/HttpRequestSevices/login.service";
 import { User } from "src/entities/User";
-import { establishConnection } from "../crossStateAction";
+
 
 export interface AuthStateModel {
     token: String;

@@ -3,8 +3,10 @@ import {CreateBrandDTO} from "../../entities/Brand";
 import axios from "axios";
 import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {catchError} from "rxjs";
+import {Observable, catchError} from "rxjs";
 import {CreateTypeDTO, Type} from "../../entities/Inventory";
+import { AuthSelectors } from 'src/app/states/auth/auth-selector';
+import { Select } from '@ngxs/store';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/Type',
@@ -15,6 +17,7 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class TypeService {
+  @Select(AuthSelectors.getToken) token$: Observable<string>;
 
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
@@ -32,10 +35,9 @@ export class TypeService {
     )
 
     customAxios.interceptors.request.use((config) => {
-      const token = localStorage.getItem('auth');
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+      this.token$.subscribe((data) => { 
+        config.headers.Authorization = `Bearer ${data}`;
+      })
       return config;
     });
   }
