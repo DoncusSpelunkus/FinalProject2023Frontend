@@ -90,7 +90,7 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   handleOpenCreateLocationWindow() {
     this.matDialog.open(DynamicDialogComponent, {
       width: '75%', // Set the width
-      height: '80%', // Set the height
+      height: '30%', // Set the height
       data: {
         component: LocationSingleCreateComponent,
         inputs: null // No dependent data to pass

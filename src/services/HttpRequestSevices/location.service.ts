@@ -4,6 +4,7 @@ import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserObservable} from "../HelperSevices/userObservable";
 import {catchError} from "rxjs";
+import {Location} from "../../entities/Inventory";
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/Location',
@@ -50,5 +51,15 @@ export class LocationService {
     return customAxios.get('/GetAllByWarehouse/'+warehouseId).then((response) => {
       return response;
     })
+  }
+
+  async createSingleLocation(locationDTO: Location) {
+    try {
+      const response = await customAxios.post('/Create',locationDTO);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
   }
 }
