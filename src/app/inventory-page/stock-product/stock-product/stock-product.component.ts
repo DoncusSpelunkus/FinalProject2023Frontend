@@ -7,6 +7,9 @@ import {Subscription} from "rxjs";
 import {LocationService} from "../../../../services/HttpRequestSevices/location.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DynamicDialogComponent} from "../../../util/dynamic-dialog/dynamic-dialog.component";
+import {
+  LocationSingleCreateComponent
+} from "../../../locations-page/location-single-create/location-single-create.component";
 
 @Component({
   selector: 'app-stock-product',
@@ -52,8 +55,8 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
     this.formGroup = this._formBuilder.group({
       [FormControlNames.SKU]: ['',valueRequired(FormControlNames.SKU)],
       [FormControlNames.AISLE]: ['',valueRequired(FormControlNames.AISLE)],
-      [FormControlNames.COLUMN]: ['',valueRequired(FormControlNames.COLUMN)],
-      [FormControlNames.ROW]: ['',valueRequired(FormControlNames.ROW)],
+      [FormControlNames.BIN]: ['',valueRequired(FormControlNames.BIN)],
+      [FormControlNames.RACK]: ['',valueRequired(FormControlNames.RACK)],
       [FormControlNames.SHELF]: ['',valueRequired(FormControlNames.SHELF)],
       [FormControlNames.QUANTITY]: ['',[valueRequired(FormControlNames.QUANTITY),numberOnly(FormControlNames.QUANTITY)]]
     })
@@ -89,7 +92,7 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
       width: '75%', // Set the width
       height: '80%', // Set the height
       data: {
-        component: ,
+        component: LocationSingleCreateComponent,
         inputs: null // No dependent data to pass
       }
     });

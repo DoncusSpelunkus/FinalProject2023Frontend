@@ -11,9 +11,9 @@ export enum FormControlNames {
   ITEMS_PER_PAGE = "pageSize",
 
   AISLE = "Aisle",
-  ROW = "Row",
+  RACK = "Rack",
   SHELF = "Shelf",
-  COLUMN = "Column",
+  BIN = "Bin",
 
   QUANTITY = "Quantity",
   SKU = "SKU",
