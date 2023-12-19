@@ -1,16 +1,16 @@
-
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormControlNames } from "../../../../constants/input-field-constants";
 import { getErrorMessage, valueRequired } from "../../../../util/form-control-validators";
-import { LoginService } from "../../../../services/HttpRequestSevices/login.service";
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { establishConnection } from 'src/app/states/crossStateAction';
-import { forkJoin, map } from 'rxjs';
-import {handleRoleBasedNavigation} from "../../../../util/role-based-actions";
-import {UserObservable} from "../../../../services/HelperSevices/userObservable";
+import { Observable, forkJoin, map } from 'rxjs';
+import { handleRoleBasedNavigation } from "../../../../util/role-based-actions";
+import { Login, getMe, getUserConnection } from 'src/app/states/auth/auth-action';
+import { User } from 'src/entities/User';
+import { AuthSelectors } from 'src/app/states/auth/auth-selector';
 
 
 @Component({
@@ -30,13 +30,14 @@ export class LoginComponent implements OnInit {
   usernameFormControl!: FormControl;
   passwordFormControl!: FormControl;
 
+  @Select(AuthSelectors.getMe) userObservable$: Observable<User>;
+  @Select(AuthSelectors.getToken) token$: Observable<string>;
+
 
   constructor(private formBuilder: FormBuilder,
-    private loginService: LoginService,
     private route: Router,
     private matSnackbar: MatSnackBar,
     private store: Store,
-    private userObservable: UserObservable
   ) {
 
 
@@ -55,16 +56,20 @@ export class LoginComponent implements OnInit {
     const username = this.usernameInput;
     const password = this.passwordInput;
     try {
-      await this.loginService.login(username, password)
+      await this.store.dispatch(new Login(username, password)).toPromise();
+      this.token$.subscribe(token => {
+        if (token != null) {
+          this.store.dispatch(new getUserConnection(token));
+        }
+      });
+      this.store.dispatch(new getMe()); 
       try {
-
         // Map each state and dispatch the establishConnection action
-
         const loginObservables = Object.keys(allStores).map(stateName => {
-          console.log(stateName)
           return this.store.dispatch(new establishConnection());
         });
-        await forkJoin(loginObservables).toPromise();
+        forkJoin(loginObservables);
+        this.store.dispatch(new getMe());
       }
       catch (e) {
         console.log(e)
@@ -77,7 +82,10 @@ export class LoginComponent implements OnInit {
     }
     finally {
       this.isLoading = false;
-      handleRoleBasedNavigation(this.userObservable.getUserSynchronously().role,this.route)
+      this.userObservable$.subscribe(user => {
+        console.log(user.role)
+        handleRoleBasedNavigation(user.role, this.route)
+      });
     }
   }
 

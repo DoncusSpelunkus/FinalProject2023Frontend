@@ -4,7 +4,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import {  catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 import {CreateUserDTO, User} from 'src/entities/User';
-import { UserObservable } from '../HelperSevices/userObservable';
 import { UserStore } from 'src/stores/user.store';
 import {ChangePasswordDTO} from "../../entities/PasswordConfirmation";
 
@@ -21,7 +20,6 @@ export const customAxios = axios.create({
 export class UserManagementService {
 
   constructor(private matSnackbar: MatSnackBar,
-              private userObservable: UserObservable,
               private userStore: UserStore) {
     this.setupSnackBar();
   }
@@ -29,8 +27,7 @@ export class UserManagementService {
 
   //TODO call this inside the loader
   async getAllByWarehouse() {
-    const warehouseId = this.userObservable.getUserSynchronously().warehouseId;
-    let response = await customAxios.get('/GetAllByWarehouseId/' + warehouseId);
+    let response = await customAxios.get('/GetAllByWarehouseId/');
 
     let users: User[] = response.data.map((any: any) => {
       const user = new User();

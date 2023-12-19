@@ -68,6 +68,8 @@ import { CreateBrandComponent } from './brands-page/create-brand/create-brand.co
 import { CreateTypeComponent } from './types-page/create-type/create-type.component';
 import { DeleteBrandComponent } from './brands-page/delete-brand/delete-brand.component';
 import { DeleteTypeComponent } from './types-page/delete-type/delete-type.component';
+import { AuthState } from './states/auth/auth-state';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 @NgModule({
   declarations: [
@@ -135,9 +137,10 @@ import { DeleteTypeComponent } from './types-page/delete-type/delete-type.compon
         MatDialogModule,
         MatSelectModule,
         MatCheckboxModule,
-        NgxsModule.forRoot([LogState, InventoryState, UserManagementState], {
+        NgxsModule.forRoot([LogState, InventoryState, UserManagementState, AuthState], {
             developmentMode: true
         }),
+        NgxsStoragePluginModule.forRoot({key: ['Auth']}),
         MatStepperModule,
         MatDatepickerModule,
         MatNativeDateModule,

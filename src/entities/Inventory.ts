@@ -10,7 +10,6 @@ export class Type {
 
 export class CreateTypeDTO {
   Name: string;
-  WarehouseId: number;
 }
 
 export class ProductLocation{

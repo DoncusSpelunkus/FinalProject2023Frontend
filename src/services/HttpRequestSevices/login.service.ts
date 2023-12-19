@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import axios, { Axios, AxiosError } from 'axios';
+import axios from 'axios';
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { BehaviorSubject, catchError } from 'rxjs';
+import { catchError } from 'rxjs';
 import { environment } from "src/enviroment";
-import {CreateUserDTO, User} from 'src/entities/User';
-import { jwtDecode } from 'jwt-decode';
-import { UserObservable } from '../HelperSevices/userObservable';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/User',
@@ -17,7 +14,7 @@ export const customAxios = axios.create({
 })
 export class LoginService {
 
-  constructor(private matSnackbar: MatSnackBar, private userObservable: UserObservable) {
+  constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
       response => {
         if(response.status == 201 || response.status == 200)  {
@@ -41,7 +38,7 @@ export class LoginService {
     });
   }
 
-  async login(username: string, password: string): Promise<void> {
+  async login(username: string, password: string): Promise<String> {
     const dto = {
       "username": username,
       "password": password,
@@ -49,11 +46,8 @@ export class LoginService {
     }
     try {
       const response = await customAxios.post('/login', dto)
-      localStorage.setItem('auth', response.data.token);
-      const { token, ...userData } = response.data;
-      const user = new User();
-      Object.assign(user, userData);
-      this.userObservable.setUser(user);
+      console.log(response.data.token)
+      return response.data.token;
     }
     catch (error) {
       throw error;

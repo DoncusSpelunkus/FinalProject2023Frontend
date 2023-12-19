@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Brand, CreateBrandDTO} from "../../entities/Brand";
+import {CreateBrandDTO} from "../../entities/Brand";
 import axios from 'axios';
 import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {catchError} from "rxjs";
-import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
-import {User} from "../../entities/User";
 import {BrandStore} from "../../stores/brand.store";
 
 export const customAxios = axios.create({

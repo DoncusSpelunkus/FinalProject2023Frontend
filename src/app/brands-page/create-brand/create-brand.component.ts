@@ -7,7 +7,6 @@ import {getCombinedFormGroupValiditySubscription} from "../../../util/subscripti
 import {Subscription} from "rxjs";
 import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
 import {CreateBrandDTO} from "../../../entities/Brand";
-import {UserObservable} from "../../../services/HelperSevices/userObservable";
 
 @Component({
   selector: 'app-create-brand',
@@ -21,8 +20,7 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   private formGroupStateSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
-              private brandService: BrandService,
-              private userObservable: UserObservable) {
+              private brandService: BrandService) {
     super();
   }
 
@@ -59,7 +57,6 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   private getDTO(): CreateBrandDTO {
     return {
       Name: this.formGroup.get(FormControlNames.BRAND_NAME).value,
-      WarehouseId: this.userObservable.getUserSynchronously().warehouseId
     }
   }
 }

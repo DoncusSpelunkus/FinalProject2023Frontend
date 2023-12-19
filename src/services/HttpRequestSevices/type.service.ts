@@ -3,7 +3,6 @@ import {CreateBrandDTO} from "../../entities/Brand";
 import axios from "axios";
 import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {UserObservable} from "../HelperSevices/userObservable";
 import {catchError} from "rxjs";
 import {CreateTypeDTO, Type} from "../../entities/Inventory";
 
@@ -17,7 +16,7 @@ export const customAxios = axios.create({
 })
 export class TypeService {
 
-  constructor(private matSnackbar: MatSnackBar, private userObservable: UserObservable) {
+  constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
       response => {
         if (response.status == 201) {

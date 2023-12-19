@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import axios, { Axios, AxiosError } from 'axios';
 import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {UserObservable} from "../HelperSevices/userObservable";
 import {catchError} from "rxjs";
 
 export const customAxios = axios.create({
@@ -16,8 +15,7 @@ export const customAxios = axios.create({
 export class LocationService {
 
   constructor(
-    private matSnackbar: MatSnackBar,
-    private userObservable: UserObservable) {
+    private matSnackbar: MatSnackBar) {
     this.setupSnackBar();
   }
 
@@ -46,8 +44,7 @@ export class LocationService {
   }
 
   async getLocationsInWarehouse(): Promise<any> {
-    const warehouseId = this.userObservable.getUserSynchronously().warehouseId
-    return customAxios.get('/GetAllByWarehouse/'+warehouseId).then((response) => {
+    return customAxios.get('/GetAllByWarehouse/').then((response) => {
       return response;
     })
   }

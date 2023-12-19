@@ -4,22 +4,23 @@ import {
   Component,
   HostBinding,
   OnInit,
-  signal,
   TemplateRef,
   ViewChild
 } from '@angular/core';
 import { ButtonConfig, DashboardCommunicationService } from "../../services/HelperSevices/dashboard-communication.service";
-import { identity, Subscription } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import {
   inventoryButtonConfig, locationButtonConfig,
   productsButtonConfig, shipmentButtonConfig,
   systemButtonConfig,
   usersButtonConfig
 } from "../../constants/dashboard-actions";
-import { UserObservable } from 'src/services/HelperSevices/userObservable';
 import { User } from 'src/entities/User';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {LocationStrategy} from "@angular/common";
+import { Select, Store } from '@ngxs/store';
+import { AuthSelectors } from '../states/auth/auth-selector';
+import { ClearUser } from '../states/auth/auth-action';
 
 @Component({
   selector: 'app-dashboard',
@@ -44,6 +45,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   private userSubscription: Subscription;
 
+  @Select(AuthSelectors.getMe) userObservable$: Observable<User>;
+  private subscription: Subscription = new Subscription();
+
   private actionSelectionSubscription: Subscription;
   private extendedActionClickSubscription: Subscription;
 
@@ -54,11 +58,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   constructor(public communicationService: DashboardCommunicationService,
-              private userObservable: UserObservable,
               private route: Router,
               private cdRef: ChangeDetectorRef,
-              private activeRoute: ActivatedRoute,
-              private location: LocationStrategy) {
+              private location: LocationStrategy,
+              private store: Store
+              ) {
 
   }
 
@@ -117,11 +121,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    * @private
    */
   private async setupSubscriptions() {
-    this. userSubscription = this.userObservable.user$.subscribe((user) => {
-      this.userRole = user?.role;
-      this.enableUserActions();
-    });
-
+    await this.subscription.add(
+      this.userObservable$.subscribe(
+        (user: User) => {
+          this.userRole = user?.role;
+        })
+    );
+    this.enableUserActions();
     this.actionSelectionSubscription = this.communicationService.buttonConfig$.subscribe(selectedAction => {
       this.selectedAction = selectedAction;
       if (selectedAction?.childrenActions) {
@@ -136,7 +142,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   async logout() {
     this.route.navigateByUrl("/login");
-    await this.userObservable.clearUser();
+    this.store.dispatch(new ClearUser());
     this.ngAfterViewInit();
     this.collapseNavigation();
   }
@@ -163,7 +169,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ];
 
   private tryAndSetUserOnReload() {
-    this.userRole = this.userObservable.getUserSynchronously()?.role;
+    this.userObservable$.subscribe((user) => {
+      this.userRole = user.role;
+    });
     this.cdRef.detectChanges();
   }
 

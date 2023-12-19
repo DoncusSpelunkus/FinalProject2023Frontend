@@ -6,6 +6,7 @@ export const environment = {
     userManagementSocketUrl: "http://localhost:5000/SocketUserManagement",
     logsSocketUrl: "http://localhost:5000/SocketLogs",
     shipmentSocketUrl: "http://localhost:5000/SocketShipment",
+    authSocketUrl: "http://localhost:5000/SocketAuth",
 
     // Other configuration variables
   };

@@ -11,8 +11,6 @@ import {
 } from "../../../util/form-control-validators";
 import {Subscription} from "rxjs";
 import {CreateUserDTO} from "../../../entities/User";
-import {UserObservable} from "../../../services/HelperSevices/userObservable";
-import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 import {UserRoles} from "../../dashboard/dashboard.component";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import { Store } from '@ngxs/store';
@@ -39,8 +37,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
   id: number;
 
   constructor(private formBuilder: FormBuilder,
-              private store: Store,
-              private userObservable: UserObservable) {
+              private store: Store) {
     this.roles = this.mapEnumToArray(UserRoles);
   }
 
@@ -102,7 +99,6 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
       password: this.formGroup.get(FormControlNames.PASSWORD)?.value,
       role: this.formGroup.get(FormControlNames.ROLE)?.value,
       username: this.formGroup.get(FormControlNames.USERNAME)?.value,
-      warehouseId: this.userObservable.getUserSynchronously().warehouseId
     };
   }
   private mapEnumToArray(enumObj: any): any[] {
