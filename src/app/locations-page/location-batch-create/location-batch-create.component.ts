@@ -55,10 +55,10 @@ export class LocationBatchCreateComponent extends FormBuilding implements Loadab
 
   private getDTO(): Location {
     return {
-      Aisle: this.formGroup.get(FormControlNames.AISLE_COUNT).value,
-      Rack: this.formGroup.get(FormControlNames.RACK_COUNT).value,
-      Shelf: this.formGroup.get(FormControlNames.SHELF_COUNT).value,
-      Bin: this.formGroup.get(FormControlNames.BIN_COUNT).value,
+      aisle: this.formGroup.get(FormControlNames.AISLE_COUNT).value,
+      rack: this.formGroup.get(FormControlNames.RACK_COUNT).value,
+      shelf: this.formGroup.get(FormControlNames.SHELF_COUNT).value,
+      bin: this.formGroup.get(FormControlNames.BIN_COUNT).value,
     }
   }
 

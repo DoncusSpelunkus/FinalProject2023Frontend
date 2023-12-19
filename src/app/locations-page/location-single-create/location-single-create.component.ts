@@ -54,10 +54,10 @@ export class LocationSingleCreateComponent extends FormBuilding implements Loada
 
   private getDTO(): Location {
     return {
-      Aisle: this.formGroup.get(FormControlNames.AISLE).value,
-      Rack: this.formGroup.get(FormControlNames.RACK).value,
-      Shelf: this.formGroup.get(FormControlNames.SHELF).value,
-      Bin: this.formGroup.get(FormControlNames.BIN).value,
+      aisle: this.formGroup.get(FormControlNames.AISLE).value,
+      rack: this.formGroup.get(FormControlNames.RACK).value,
+      shelf: this.formGroup.get(FormControlNames.SHELF).value,
+      bin: this.formGroup.get(FormControlNames.BIN).value,
     }
   }
 

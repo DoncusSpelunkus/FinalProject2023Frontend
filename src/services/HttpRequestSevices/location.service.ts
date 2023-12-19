@@ -72,4 +72,14 @@ export class LocationService {
       throw error;
     }
   }
+
+  async deleteLocation(locationId: number) {
+    try {
+      const response = await customAxios.delete(`/delete/${locationId}`);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+  }
 }
