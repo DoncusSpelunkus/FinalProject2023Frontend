@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Output} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
-import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 import {User} from "../../../entities/User";
+import { Store } from '@ngxs/store';
+import { deleteUser } from 'src/app/states/userManagement/user-actions';
 
 @Component({
   selector: 'app-delete-user-confirmation',
@@ -14,7 +15,7 @@ export class DeleteUserConfirmationComponent implements LoadableComponent{
   @Output() isValidEmitter = new EventEmitter<boolean>();
 
   selectedUser: User;
-  constructor(private userService: UserManagementService) {
+  constructor(private store: Store) {
   }
 
   setData(data: any): void {
@@ -22,7 +23,7 @@ export class DeleteUserConfirmationComponent implements LoadableComponent{
   }
 
   submit(): void {
-    this.userService.deleteEmployee(this.selectedUser.employeeId);
+    this.store.dispatch(new deleteUser(this.selectedUser.employeeId));
   }
 
   onCheckboxChange(event: any) {

@@ -86,26 +86,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   private enableUserActions() {
     const template = this.userRole;
-    console.log(template)
     switch (template) {
       case UserRoles.EMPLOYEE:
         this.currentActionsTemplate = this.publicActionsTemplate;
-        console.log('public')
         break;
       case UserRoles.SuperAdmin:
         this.currentActionsTemplate = this.superAdminActionsTemplate;
         break;
       case UserRoles.Admin:
         this.currentActionsTemplate = this.adminActionsTemplate;
-        console.log('admin')
         break;
       case UserRoles.Sales:
         this.currentActionsTemplate = this.userActionsTemplate;
-        console.log('user')
         break;
       default:
         this.currentActionsTemplate = this.publicActionsTemplate;
-        console.log('default')
     }
   }
 
@@ -124,7 +119,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   private async setupSubscriptions() {
     this. userSubscription = this.userObservable.user$.subscribe((user) => {
       this.userRole = user?.role;
-      console.log('changed',this.userRole)
       this.enableUserActions();
     });
 

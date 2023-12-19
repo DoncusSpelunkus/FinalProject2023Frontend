@@ -6,11 +6,13 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
-import {debounceTime} from "rxjs";
+import {Observable, Subscription, debounceTime} from "rxjs";
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
-import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateProductComponent} from "./create-product/create-product.component";
+import { Select } from '@ngxs/store';
+import { ProductSelector } from '../states/inventory/product-selector';
+import { Product } from 'src/entities/Inventory';
 
 @Component({
   selector: 'app-manage-products',
@@ -23,8 +25,12 @@ export class ManageProductsComponent extends FormBuilding implements OnInit, Aft
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
+  @Select(ProductSelector.getProducts) products$!: Observable<Product[]>; // Will get the types from the store
+  private subscription: Subscription = new Subscription();
+
+
   tableFormGroup: FormGroup;
-  dataSource = new MatTableDataSource<SimpleDummyData>();
+  dataSource = new MatTableDataSource<Product>();
 
   displayedColumns = ['name'];
 
@@ -67,20 +73,12 @@ export class ManageProductsComponent extends FormBuilding implements OnInit, Aft
   }
 
   private initializeSourceData(): void {
-    const values: SimpleDummyData[] = [
-      {name: 'Bob'},
-      {name: 'bin'},
-      {name: 'bon'},
-      {name: 'Van'},
-      {name: 'Helsing'},
-      {name: 'John'},
-      {name: 'Alex'},
-      {name: 'Tiffany'},
-      {name: 'JAke'},
-      {name: 'Alex'},
-      {name: 'Twink'},
-    ]
-    this.dataSource.data = values;
+    this.subscription.add(
+      this.products$.subscribe(
+        (products: Product[]) => {
+          this.dataSource.data = products;
+        })
+    );
   }
 
   private setInitialValuesFromQueryParams() {
