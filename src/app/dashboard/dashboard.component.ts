@@ -125,9 +125,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.userObservable$.subscribe(
         (user: User) => {
           this.userRole = user?.role;
+          this.enableUserActions();
         })
     );
-    this.enableUserActions();
     this.actionSelectionSubscription = this.communicationService.buttonConfig$.subscribe(selectedAction => {
       this.selectedAction = selectedAction;
       if (selectedAction?.childrenActions) {

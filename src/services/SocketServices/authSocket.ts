@@ -4,6 +4,7 @@ import * as signalR from "@aspnet/signalr";
 import { Subject } from "rxjs";
 import { Store } from "@ngxs/store";
 import { ClearUser, getMe } from "src/app/states/auth/auth-action";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -42,7 +43,7 @@ export class AuthSocket {
                 try {
                     this.connectionEstablished = true;
                     await this.hubConnection.start();
-                    this.store.dispatch(new getMe());
+                    await this.store.dispatch(new getMe()).toPromise()
                 }
                 catch (error) {
                     this.connectionEstablished = false;
