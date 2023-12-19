@@ -1,0 +1,31 @@
+<section class="w-full h-full flex flex-row justify-center items-center space-x-4" [formGroup]="formGroup">
+
+  <app-text-input
+    class="w-1/4 max-w-full"
+    [inputFormControlName]="FormControlNames.AISLE"
+    [inputFormGroup]="formGroup"
+    [placeholder]="'04'">
+  </app-text-input>
+
+  <app-text-input
+    class="w-1/4 max-w-full"
+    [inputFormControlName]="FormControlNames.RACK"
+    [inputFormGroup]="formGroup"
+    [placeholder]="'03'">
+  </app-text-input>
+
+  <app-text-input
+    class="w-1/4 max-w-full"
+    [inputFormControlName]="FormControlNames.SHELF"
+    [inputFormGroup]="formGroup"
+    [placeholder]="'01'">
+  </app-text-input>
+
+  <app-text-input
+    class="w-1/4 max-w-full"
+    [inputFormControlName]="FormControlNames.BIN"
+    [inputFormGroup]="formGroup"
+    [placeholder]="'02'">
+  </app-text-input>
+
+</section>

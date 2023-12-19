@@ -120,7 +120,6 @@ export class ManageTemplateComponent extends FormBuilding implements OnInit, Aft
   }
 
   private bindElementsToControls() {
-    this.paginator.pageSize = 3;
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe((page) => {
