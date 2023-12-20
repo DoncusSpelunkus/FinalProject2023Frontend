@@ -6,11 +6,9 @@ import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {Observable, Subscription} from "rxjs";
 import {Select, Store} from '@ngxs/store';
-import { createItem } from 'src/app/states/inventory/product-actions';
+import {createItem, updateItem} from 'src/app/states/inventory/product-actions';
 import { EntityTypes } from 'src/constants/product-types';
 import {Brand} from "../../../entities/Brand";
-import {UserSelector} from "../../states/userManagement/user-selectors";
-import {User} from "../../../entities/User";
 import {ProductSelector} from "../../states/inventory/product-selector";
 import {Product, Type} from "../../../entities/Inventory";
 
@@ -20,9 +18,9 @@ import {Product, Type} from "../../../entities/Inventory";
 })
 export class CreateProductComponent extends FormBuilding implements LoadableComponent, OnInit, OnDestroy{
 
-  @Output() isValidEmitter = new EventEmitter<any>;
+  isLinear = false;
 
-  productInfoFormGroup: FormGroup;
+  @Output() isValidEmitter = new EventEmitter<any>;
 
   @Select(ProductSelector.getBrands) brands$!: Observable<Brand[]>;
   brandList: Brand[];
@@ -30,30 +28,37 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
   @Select(ProductSelector.getTypes) types$!: Observable<Type[]>;
   typeList: Type[];
 
+  productInfoFormGroup: FormGroup;
   productStorageInfoFormGroup: FormGroup;
-
   supplierInfoFormGroup: FormGroup;
+
   private formGroupStatusSubscription: Subscription;
   private brandSubscription: Subscription;
   private typeSubscription: Subscription;
+
+  private product: Product;
 
   constructor(private _formBuilder: FormBuilder,
     private store: Store) {
     super();
   }
+
   ngOnInit(): void {
     this.initializeFormGroups();
     this.initializeSubscriptions();
+    this.setFormControlData(this.product);
   }
-
   setData(data: any): void {
+    this.product = data;
   }
   submit(): void {
     const productDTO: Product = this.getProductDTO();
-    console.log(productDTO)
-    this.store.dispatch(new createItem(productDTO, EntityTypes[1]));
+    if (!this.product) {
+      this.store.dispatch(new createItem(productDTO, EntityTypes[1]));
+    } else {
+      this.store.dispatch(new updateItem(productDTO,EntityTypes[1]))
+    }
   }
-  isLinear = false;
 
   private initializeFormGroups() {
     this.productInfoFormGroup = this._formBuilder.group({
@@ -123,12 +128,40 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
       height: this.productStorageInfoFormGroup.get(FormControlNames.HEIGHT).value,
       length: this.productStorageInfoFormGroup.get(FormControlNames.LENGTH).value,
       width: this.productStorageInfoFormGroup.get(FormControlNames.WIDTH).value,
-      ExpireDateTime: this.productStorageInfoFormGroup.get(FormControlNames.EXPIRY_DATE).value,
+      expireDateTime: this.productStorageInfoFormGroup.get(FormControlNames.EXPIRY_DATE).value,
       minimumCapacity: this.productStorageInfoFormGroup.get(FormControlNames.MINIMUM_CAPACITY).value,
 
       supplierContact: this.supplierInfoFormGroup.get(FormControlNames.SUPPLIER_CONTACT).value,
       supplierName: this.supplierInfoFormGroup.get(FormControlNames.SUPPLIER_NAME).value
     }
 
+  }
+
+  private setFormControlData(data: Product) {
+    if (!data) {
+      return;
+    }
+    this.productInfoFormGroup.patchValue({
+      [FormControlNames.SKU]: data.sku,
+      [FormControlNames.NAME]: data.name,
+      [FormControlNames.DESCRIPTION]: data.description,
+      [FormControlNames.CATEGORY]: data.category,
+      [FormControlNames.BRAND]: this.brandList.find(brand => brand.brandId === data.brandId),
+      [FormControlNames.TYPE]: this.typeList.find(type => type.typeId === data.typeId)
+    });
+
+    this.productStorageInfoFormGroup.patchValue({
+      [FormControlNames.WEIGHT]: data.weight,
+      [FormControlNames.HEIGHT]: data.height,
+      [FormControlNames.LENGTH]: data.length,
+      [FormControlNames.WIDTH]: data.width,
+      [FormControlNames.EXPIRY_DATE]: data.expireDateTime,
+      [FormControlNames.MINIMUM_CAPACITY]: data.minimumCapacity
+    });
+
+    this.supplierInfoFormGroup.patchValue({
+      [FormControlNames.SUPPLIER_CONTACT]: data.supplierContact,
+      [FormControlNames.SUPPLIER_NAME]: data.supplierName
+    });
   }
 }

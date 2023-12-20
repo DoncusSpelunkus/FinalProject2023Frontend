@@ -73,6 +73,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { LocationBatchCreateComponent } from './locations-page/location-batch-create/location-batch-create.component';
 import { LocationSingleCreateComponent } from './locations-page/location-single-create/location-single-create.component';
 import { DeleteLocationComponent } from './locations-page/delete-location/delete-location.component';
+import { DeleteProductsComponent } from './manage-products/delete-products/delete-products.component';
 
 
 @NgModule({
@@ -122,6 +123,7 @@ import { DeleteLocationComponent } from './locations-page/delete-location/delete
     LocationBatchCreateComponent,
     LocationSingleCreateComponent,
     DeleteLocationComponent,
+    DeleteProductsComponent,
   ],
     imports: [
 
