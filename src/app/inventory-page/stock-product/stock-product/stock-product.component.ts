@@ -91,7 +91,6 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
 
     this.products$.subscribe((products: Product[]) => {
       this.products = products
-      console.log(products)
     })
 
   }
