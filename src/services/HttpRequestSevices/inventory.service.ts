@@ -41,7 +41,7 @@ export class InventoryService {
     });
   }
 
-  async deleteItem(id: number, type: String): Promise<any> {
+  async deleteItem(id: any, type: String): Promise<any> {
     try {
       const response = await customAxios.delete(type + '/Delete/' + id);
       return response;

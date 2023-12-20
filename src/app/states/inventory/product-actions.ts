@@ -11,7 +11,7 @@ export class createItem {
 
 export class deleteItem {
     static readonly type = '[Product] Delete item';
-    constructor(public payload: number, public entityType: string) { }
+    constructor(public payload: any, public entityType: string) { }
 }
 
 export class updateItem {
