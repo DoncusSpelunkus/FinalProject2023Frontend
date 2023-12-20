@@ -11,13 +11,8 @@ import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.comp
 import {MatDialog} from "@angular/material/dialog";
 import {CreateBrandComponent} from "./create-brand/create-brand.component";
 import {DeleteBrandComponent} from "./delete-brand/delete-brand.component";
-import {BrandService} from "../../services/HttpRequestSevices/brand.service";
-import {UserObservable} from "../../services/HelperSevices/userObservable";
-import {BrandStore} from "../../stores/brand.store";
 import {Brand} from "../../entities/Brand";
 import {Select} from "@ngxs/store";
-import {UserSelector} from "../states/userManagement/user-selectors";
-import {User} from "../../entities/User";
 import {ProductSelector} from "../states/inventory/product-selector";
 
 @Component({
@@ -42,8 +37,7 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
-    private userObservable: UserObservable) {
+    private dialog: MatDialog) {
     super();
     this.initializeFormGroup();
     this.fetchBrands();
