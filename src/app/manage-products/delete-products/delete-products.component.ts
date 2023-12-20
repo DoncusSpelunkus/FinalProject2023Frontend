@@ -25,7 +25,7 @@ export class DeleteProductsComponent  implements LoadableComponent{
   }
 
   submit(): void {
-    this.store.dispatch(new deleteItem(this.selectedProduct.brandId, EntityTypes[1]));
+    this.store.dispatch(new deleteItem(this.selectedProduct.sku, EntityTypes[1]));
   }
 
   onCheckboxChange(event: any) {
