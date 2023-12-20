@@ -41,7 +41,7 @@ export class TypeService {
     });
   }
 
-  async createBrand(createBrandDTO: CreateTypeDTO) {
+  async createType(createBrandDTO: CreateTypeDTO) {
     try {
       const response = await customAxios.post(`/Create`,createBrandDTO);
       return response.data;
@@ -64,6 +64,16 @@ export class TypeService {
   async deleteType(typeId: number) {
     try {
       const response = await customAxios.delete(`/Delete/${typeId}`);
+      return response.data;
+    }
+    catch(error) {
+      throw error;
+    }
+  }
+
+  async updateType(type: Type) {
+    try {
+      const response = await customAxios.post(`/Create`,type);
       return response.data;
     }
     catch(error) {

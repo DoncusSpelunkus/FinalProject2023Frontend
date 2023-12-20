@@ -35,7 +35,7 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<Type>();
 
-  displayedColumns = ['name','delete'];
+  displayedColumns = ['name','delete','update'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -135,13 +135,13 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
     });
   }
 
-  handleOpenCreateTypeModal() {
+  handleOpenCreateTypeModal(type?) {
     this.dialog.open(DynamicDialogComponent, {
       width: '40%', // Set the width
       height: '30%', // Set the height
       data: {
         component: CreateTypeComponent,
-        inputs: null // No dependent data to pass
+        inputs: type // No dependent data to pass
       }
     });
   }

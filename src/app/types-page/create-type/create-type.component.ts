@@ -22,6 +22,8 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   formGroup: FormGroup
   private formGroupStateSubscription: Subscription;
 
+  type: Type
+
   constructor(private formBuilder: FormBuilder,
               private typeService: TypeService,
               private userObservable: UserObservable) {
@@ -34,11 +36,18 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   }
 
   setData(data: any): void {
+    this.type = data;
   }
 
   submit(): void {
     const createBrandDTO: CreateTypeDTO = this.getDTO();
-    this.typeService.createBrand(createBrandDTO);
+    let editableType = { ...this.type };
+    if (!this.type) {
+      this.typeService.createType(createBrandDTO);
+    } else {
+      editableType.name = createBrandDTO.Name;
+      this.typeService.updateType(editableType);
+    }
   }
 
 
