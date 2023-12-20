@@ -46,7 +46,7 @@ export class ShipmentService {
 
   async getShipment(id: number): Promise<Shipment> {
     try {
-      const response = await customAxios.get('/GetByShipmentId' + id)
+      const response = await customAxios.get('/GetByShipmentId/' + id)
       return response.data;
     }
     catch (error) {
