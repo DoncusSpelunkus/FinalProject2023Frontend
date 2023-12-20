@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/enviroment";
 import * as signalR from "@aspnet/signalr";
-import { Subject } from "rxjs";
-import { Store } from "@ngxs/store";
+import { Observable, Subject } from "rxjs";
+import { Select, Store } from "@ngxs/store";
 import { getItems } from "src/app/states/inventory/product-actions";
 import { EntityTypes } from "src/constants/product-types";
+import { AuthSelectors } from "src/app/states/auth/auth-selector";
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,7 @@ export class InventorySocket {
     private typeSubject = new Subject<any>();
 
     private connectionEstablished = false;
+    @Select(AuthSelectors.getToken) token$: Observable<string>;
 
 
     constructor(private store: Store) {
@@ -27,49 +29,52 @@ export class InventorySocket {
     }
 
     public async establishConnection() { // We establish a connection with a socket defined by our enbironment file
-        if (localStorage.getItem("auth") != null) {
+        let token = "";
+        await this.token$.subscribe((data) => { // I dunno but this is the only way I could get the token from the store
+            token = data;
+        })
+        try {
+            if (this.connectionEstablished == true) { return; }
+            this.hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl(environment.inventorySocketUrl, {
+                    accessTokenFactory: () => {
+                        return token;
+                    }
+                })
+                .build();
             try {
-                if (this.connectionEstablished == true) { return; }
-                this.hubConnection = new signalR.HubConnectionBuilder()
-                    .withUrl(environment.inventorySocketUrl, {
-                        accessTokenFactory: () => {
-                            return localStorage.getItem("auth") || '';
-                        }
-                    })
-                    .build();
-                try {
-                    this.connectionEstablished = true;
-                    await this.hubConnection.start();
-                }
-                catch (error) {
-                    this.connectionEstablished = false;
-                    return
-                }
-                // we describe the event we want to listen to and what we want to do when we get the event
-                this.hubConnection.on("ProductListUpdate", (data) => {
-                    this.productSubject.next(data);
-                });
-
-                this.hubConnection.on("LocationListUpdate", (data) => {
-                    this.locationSubject.next(data);
-                });
-
-                this.hubConnection.on("ProductLocationListUpdate", (data) => {
-                    this.productLocationSubject.next(data);
-                });
-
-                this.hubConnection.on("BrandListUpdate", (data) => {
-                    this.brandSubject.next(data);
-                });
-
-                this.hubConnection.on("TypeListUpdate", (data) => {
-                    this.typeSubject.next(data);
-                });
+                this.connectionEstablished = true;
+                await this.hubConnection.start();
             }
             catch (error) {
-                console.log(error)
+                this.connectionEstablished = false;
+                return
             }
+            // we describe the event we want to listen to and what we want to do when we get the event
+            this.hubConnection.on("ProductListUpdate", (data) => {
+                this.productSubject.next(data);
+            });
+
+            this.hubConnection.on("LocationListUpdate", (data) => {
+                this.locationSubject.next(data);
+            });
+
+            this.hubConnection.on("ProductLocationListUpdate", (data) => {
+                this.productLocationSubject.next(data);
+            });
+
+            this.hubConnection.on("BrandListUpdate", (data) => {
+                this.brandSubject.next(data);
+            });
+
+            this.hubConnection.on("TypeListUpdate", (data) => {
+                this.typeSubject.next(data);
+            });
         }
+        catch (error) {
+            console.log(error)
+        }
+
         this.InitializeData();
     }
 
@@ -100,12 +105,12 @@ export class InventorySocket {
     }
 
     private InitializeData() { // Probably not the best way to do this but it works
-        for(let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 5; i++) {
             this.hubConnection.invoke("Request", {
                 "RequestType": i
             });
             this.store.dispatch(new getItems(EntityTypes[i]));
         }
-    
+
     }
 }

@@ -2,8 +2,6 @@ import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {UserObservable} from "../../../services/HelperSevices/userObservable";
-
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
@@ -22,8 +20,7 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   private formGroupStateSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
-              private typeService: TypeService,
-              private userObservable: UserObservable) {
+              private typeService: TypeService) {
     super();
   }
 

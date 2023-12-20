@@ -15,7 +15,6 @@ import { Brand } from "../../entities/Inventory";
 import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
 
-
 @Component({
   selector: 'app-brands-page',
   templateUrl: './brands-page.component.html'
@@ -40,10 +39,7 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-
-
   ) {
-
     super();
     this.initializeFormGroup();
     this.fetchBrands();

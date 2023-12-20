@@ -14,7 +14,9 @@ export class Type {
 }
 
 export class CreateTypeDTO {
+
     Name: string;
+
 }
 
 export class ProductLocation {

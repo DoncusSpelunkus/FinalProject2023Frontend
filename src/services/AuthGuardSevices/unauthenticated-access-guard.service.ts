@@ -3,30 +3,33 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from "rxjs";
 import { jwtDecode } from "jwt-decode";
 import { Token } from "src/entities/Token";
-import {UserRoles} from "../../app/dashboard/dashboard.component";
-import {inventoryButtonConfig, usersButtonConfig} from "../../constants/dashboard-actions";
 import {handleRoleBasedNavigation} from "../../util/role-based-actions";
+import { AuthSelectors } from "src/app/states/auth/auth-selector";
+import { Select } from "@ngxs/store";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UnauthenticatedAccessGuard implements CanActivate {
-
+  @Select(AuthSelectors.getToken) token$: Observable<string>;
   constructor(private router: Router) {
   }
 
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const localToken = localStorage.getItem('auth');
+    let token = "";
+    this.token$.subscribe((data) => { // I dunno but this is the only way I could get the token from the store
+      token = data;
+    })
+    
 
-    if (!localToken) {
+    if (token != "") {
+
       return true;
     }
 
-    const decodedToken = jwtDecode<Token>(localToken);
+    const decodedToken = jwtDecode<Token>(token);
     const currentdate = new Date();
 
     console.log(decodedToken)

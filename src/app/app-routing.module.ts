@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from "./login-page/login-page/login-page.component";
 import { AdminGuardService } from 'src/services/AuthGuardSevices/adminGuard.service';
@@ -16,6 +16,7 @@ import {ManageTemplateComponent} from "./templates/manage-template/manage-templa
 import {LocationsPageComponent} from "./locations-page/locations-page.component";
 import {TypesPageComponent} from "./types-page/types-page.component";
 import {BrandsPageComponent} from "./brands-page/brands-page.component";
+
 
 const routes: Routes = [
   { path: 'login', component:  LoginPageComponent, canActivate: [UnauthenticatedAccessGuard]},

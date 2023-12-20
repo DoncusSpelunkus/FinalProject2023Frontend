@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import { catchError } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { environment } from "src/enviroment";
+import { Select } from '@ngxs/store';
+import { AuthSelectors } from 'src/app/states/auth/auth-selector';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl,
@@ -13,6 +15,9 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class InventoryService {
+  
+  @Select(AuthSelectors.getToken) token$: Observable<string>;
+
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
       response => {
@@ -29,10 +34,9 @@ export class InventoryService {
     )
 
     customAxios.interceptors.request.use((config) => {
-      const token = localStorage.getItem('auth');
-      if(token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+      this.token$.subscribe((data) => { 
+        config.headers.Authorization = `Bearer ${data}`;
+      })
       return config;
     });
   }

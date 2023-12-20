@@ -3,7 +3,7 @@ import { Action, State, StateContext } from "@ngxs/store";
 import { createItem, deleteItem, updateItem, getItems } from "./product-actions";
 import { InventorySocket } from "src/services/SocketServices/inventorySocket";
 import { InventoryService } from "src/services/HttpRequestSevices/inventory.service";
-import { establishConnection } from "../crossStateAction";
+import { establishConnection, terminateConnection } from "../crossStateAction";
 import { Brand, Type, Product, ProductLocation, Location } from "src/entities/Inventory";
 
 export interface InventoryStateModel {
@@ -102,6 +102,11 @@ export class InventoryState {
     @Action(updateItem)
     updateItem({ }: StateContext<InventoryStateModel>, { payload, entityType }: updateItem) {
         this.inventoryService.updateItem(payload, entityType);
+    }
+
+    @Action(terminateConnection)
+    async terminateConnection({ }: StateContext<InventoryStateModel>) {
+        this.inventorySocket.terminateConnection();
     }
 
 
