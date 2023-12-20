@@ -5,7 +5,6 @@ import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {Subscription} from "rxjs";
-import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
 import {Brand, CreateBrandDTO} from "../../../entities/Brand";
 import {Store} from "@ngxs/store";
 import {createItem, updateItem} from "../../states/inventory/product-actions";
