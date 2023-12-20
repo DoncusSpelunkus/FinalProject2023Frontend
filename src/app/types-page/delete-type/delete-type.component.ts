@@ -1,7 +1,5 @@
 import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
-import {Brand} from "../../../entities/Brand";
-import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
 import {TypeService} from "../../../services/HttpRequestSevices/type.service";
 import {Type} from "../../../entities/Inventory";
 

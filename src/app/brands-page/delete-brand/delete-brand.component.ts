@@ -1,9 +1,9 @@
 import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
-import {User} from "../../../entities/User";
-import {ShipmentService} from "../../../services/HttpRequestSevices/shipment.service";
-import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
-import {Brand, CreateBrandDTO} from "../../../entities/Brand";
+import {Brand} from "../../../entities/Inventory";
+import { Store } from '@ngxs/store';
+import { EntityTypes } from 'src/constants/product-types';
+import { createItem, deleteItem } from 'src/app/states/inventory/product-actions';
 
 @Component({
   selector: 'app-delete-brand',
@@ -17,7 +17,7 @@ export class DeleteBrandComponent implements LoadableComponent{
   @Output() isValidEmitter = new EventEmitter<boolean>();
 
   selectedBrand: Brand;
-  constructor(private brandService: BrandService) {
+  constructor(private store: Store) {
   }
 
   setData(data: any): void {
@@ -25,7 +25,7 @@ export class DeleteBrandComponent implements LoadableComponent{
   }
 
   submit(): void {
-    this.brandService.deleteBrand(this.selectedBrand.brandId) //TODO fix
+    this.store.dispatch(new deleteItem(this.selectedBrand.BrandId, EntityTypes[4]));
   }
 
   onCheckboxChange(event: any) {

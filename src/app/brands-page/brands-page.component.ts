@@ -19,17 +19,18 @@ import {ProductSelector} from "../states/inventory/product-selector";
   selector: 'app-brands-page',
   templateUrl: './brands-page.component.html'
 })
-export class BrandsPageComponent extends FormBuilding implements OnInit, AfterViewInit{
+export class BrandsPageComponent extends FormBuilding implements OnInit, AfterViewInit {
 
   @HostBinding('style.width') width = '100%';
   @HostBinding('style.height') height = '100%';
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-
-  @Select(ProductSelector.getBrands) brands$!: Observable<Brand[]>; // Will get the products from the store
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<Brand>();
+
+  @Select(ProductSelector.getBrands) brands$!: Observable<Brand[]>; // Will get the types from the store
+  private subscription: Subscription = new Subscription();
 
   displayedColumns = ['name','delete','update'];
 
@@ -64,11 +65,11 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
 
 
   get filterValue(): string {
-    return getFormControl(FormControlNames.FILTER,this.tableFormGroup).value;
+    return getFormControl(FormControlNames.FILTER, this.tableFormGroup).value;
   }
 
   clearFilterValue() {
-    getFormControl(FormControlNames.FILTER,this.tableFormGroup).reset();
+    getFormControl(FormControlNames.FILTER, this.tableFormGroup).reset();
   }
 
   private setInitialValuesFromQueryParams() {
@@ -116,8 +117,8 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe((page) => {
-      getFormControl(FormControlNames.PAGE,this.tableFormGroup).setValue(page.pageIndex,{emitEvent:true});
-      getFormControl(FormControlNames.ITEMS_PER_PAGE,this.tableFormGroup).setValue(page.pageSize,{emitEvent:true});
+      getFormControl(FormControlNames.PAGE, this.tableFormGroup).setValue(page.pageIndex, { emitEvent: true });
+      getFormControl(FormControlNames.ITEMS_PER_PAGE, this.tableFormGroup).setValue(page.pageSize, { emitEvent: true });
     })
   }
 
@@ -152,9 +153,9 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
   }
 
   private fetchBrands() {
-    this.brands$.subscribe((brands: Brand[]) => {
+    this.subscription.add(this.brands$.subscribe(brands => {
       this.dataSource.data = brands;
-    })
+    }));
   }
 
   handleOpenUpdateBrandWindow(brand) {
@@ -167,4 +168,5 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
       }
     });
   }
+
 }

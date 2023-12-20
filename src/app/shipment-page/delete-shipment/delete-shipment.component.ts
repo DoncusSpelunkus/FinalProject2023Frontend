@@ -1,7 +1,6 @@
 import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
 import {User} from "../../../entities/User";
-import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 import {ShipmentService} from "../../../services/HttpRequestSevices/shipment.service";
 
 @Component({

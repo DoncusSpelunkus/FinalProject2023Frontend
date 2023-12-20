@@ -7,10 +7,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Select, Store } from '@ngxs/store';
 import { establishConnection } from 'src/app/states/crossStateAction';
 import { Observable, forkJoin, map } from 'rxjs';
-import { handleRoleBasedNavigation } from "../../../../util/role-based-actions";
 import { Login, getMe, getUserConnection } from 'src/app/states/auth/auth-action';
 import { User } from 'src/entities/User';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
+import { handleRoleBasedNavigation } from 'src/util/role-based-actions';
+
 
 
 @Component({
@@ -64,10 +65,7 @@ export class LoginComponent implements OnInit {
       });
       try {
         // Map each state and dispatch the establishConnection action
-        const loginObservables = Object.keys(allStores).map(stateName => {
-          return this.store.dispatch(new establishConnection());
-        });
-        forkJoin(loginObservables);
+        this.store.dispatch(new establishConnection());
         this.store.dispatch(new getMe());
       }
       catch (e) {

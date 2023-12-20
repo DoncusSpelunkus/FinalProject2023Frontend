@@ -12,7 +12,7 @@ import {Brand, CreateBrandDTO} from "../../../entities/Brand";
   selector: 'app-create-brand',
   templateUrl: './create-brand.component.html'
 })
-export class CreateBrandComponent extends FormBuilding implements LoadableComponent, OnInit, OnDestroy{
+export class CreateBrandComponent extends FormBuilding implements LoadableComponent, OnInit, OnDestroy {
 
   isValidEmitter = new EventEmitter<boolean>();
 
@@ -22,9 +22,7 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   brand: Brand
 
   constructor(private formBuilder: FormBuilder,
-              private brandService: BrandService) {
-    super();
-  }
+    private store: Store) { super() }
 
   ngOnInit(): void {
     this.initializeFormGroup();
@@ -39,7 +37,7 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
     const createBrandDTO: CreateBrandDTO = this.getDTO();
     let editableBrand = { ...this.brand };
     if (!this.brand) {
-      this.brandService.createBrand(createBrandDTO);
+      this.store.dispatch(new createItem(createBrandDTO, EntityTypes[4]));
     } else {
       editableBrand.name = createBrandDTO.Name;
       this.brandService.updateBrand(editableBrand);
@@ -49,12 +47,12 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
 
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
-      [FormControlNames.BRAND_NAME]: ['',valueRequired(FormControlNames.BRAND_NAME)]
+      [FormControlNames.BRAND_NAME]: ['', valueRequired(FormControlNames.BRAND_NAME)]
     })
   }
 
   private initializeSubscriptions() {
-    this.formGroupStateSubscription = getCombinedFormGroupValiditySubscription([this.formGroup],this.isValidEmitter);
+    this.formGroupStateSubscription = getCombinedFormGroupValiditySubscription([this.formGroup], this.isValidEmitter);
   }
 
   ngOnDestroy(): void {

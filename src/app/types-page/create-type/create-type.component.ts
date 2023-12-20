@@ -6,7 +6,7 @@ import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {TypeService} from "../../../services/HttpRequestSevices/type.service";
-import {CreateTypeDTO, Type} from "../../../entities/Inventory";
+import {CreateTypeDTO} from "../../../entities/Inventory";
 
 @Component({
   selector: 'app-create-type',
@@ -65,7 +65,7 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
 
   private getDTO(): CreateTypeDTO {
     return {
-      Name: this.formGroup.get(FormControlNames.TYPE_NAME).value
+      Name: this.formGroup.get(FormControlNames.TYPE_NAME).value,
     }
   }
 }
