@@ -4,7 +4,7 @@ import {MatSelectionListChange} from "@angular/material/list";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {nonEmptyListValidator, numberOnly, valueRequired} from "../../../util/form-control-validators";
-import {ShipmentDetails} from "../../../entities/Shipment";
+import {ShipmentDetail} from "../../../entities/Shipment";
 import {Subscription} from "rxjs";
 import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
@@ -24,7 +24,7 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
 
   shipmentCreationFormGroup: FormGroup;
   selectedFormDetailIndices: any[];
-  details: ShipmentDetails[] = [];
+  details: ShipmentDetail[] = [];
   productSKUs: any[] = [
     {value: '21-124'},
     {value: '21-gds'},
@@ -84,9 +84,9 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
   }
 
   handleAddDetailsObject() {
-    const shipmentDetailsDTO: ShipmentDetails = {
-      ProductSKU: this.shipmentDetailCreationFormGroup.get(FormControlNames.SKU).value,
-      Quantity: this.shipmentDetailCreationFormGroup.get(FormControlNames.QUANTITY).value
+    const shipmentDetailsDTO: ShipmentDetail = {
+      productSKU: this.shipmentDetailCreationFormGroup.get(FormControlNames.SKU).value,
+      quantity: this.shipmentDetailCreationFormGroup.get(FormControlNames.QUANTITY).value
     }
     let currentListValue = this.getShipmentDetailsList;
     currentListValue.push(shipmentDetailsDTO);

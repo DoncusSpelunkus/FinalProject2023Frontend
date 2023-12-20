@@ -23,7 +23,7 @@ export class DeleteShipmentComponent implements LoadableComponent{
   }
 
   submit(): void {
-    this.shipmentService.deleteEmployee(this.selectedUser.employeeId);
+    
   }
 
   onCheckboxChange(event: any) {
