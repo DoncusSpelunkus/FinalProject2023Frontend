@@ -68,13 +68,4 @@ export class BrandService {
       throw error;
     }
   }
-
-  async updateBrand(brand: Brand) {
-    try {
-      console.error('Not implemented yet')
-    }
-    catch(error) {
-      throw error;
-    }
-  }
 }
