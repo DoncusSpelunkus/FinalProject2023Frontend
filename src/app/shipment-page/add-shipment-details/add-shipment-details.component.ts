@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {Observable, Subscription} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {ShipmentDetail} from "../../../entities/Shipment";
+import {Shipment, ShipmentDetail} from "../../../entities/Shipment";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSelectionListChange} from "@angular/material/list";
 import {FormControlNames} from "../../../constants/input-field-constants";
@@ -10,10 +10,10 @@ import {nonEmptyListValidator, numberOnly, valueRequired} from "../../../util/fo
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
 import {CreateProductComponent} from "../../manage-products/create-product/create-product.component";
+import {ProductSelector} from "../../states/inventory/product-selector";
+import {Product} from "../../../entities/Inventory";
 import { addToShipment } from 'src/app/states/shipment/shipment-actions';
-import { Product } from 'src/entities/Inventory';
 import { Select, Store } from '@ngxs/store';
-import { ProductSelector } from 'src/app/states/inventory/product-selector';
 
 @Component({
   selector: 'app-add-shipment-details',
@@ -29,11 +29,11 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   shipmentCreationFormGroup: FormGroup;
   selectedFormDetailIndices: any[];
   details: ShipmentDetail[] = [];
-  dataSources: String[] = [];
-  @Select(ProductSelector.getProducts) simpleItems$!: Observable<Product[]>; // Will get the products from the store
-  private subscription: Subscription = new Subscription();
-  shipmentId = 0;
 
+  shipment: Shipment;
+
+  @Select(ProductSelector.getProducts) products$!: Observable<Product[]>; // Will get the products from the store
+  products: Product[];
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -47,11 +47,11 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   setData(data: any): void {
-    this.shipmentId = data.shipmentId;
+    this.shipment = data
   }
 
   submit(): void {
-    this.store.dispatch(new addToShipment(this.shipmentId, this.getShipmentDetailsList));
+    this.store.dispatch(new addToShipment(this.shipment.shipmentId, this.getShipmentDetailsList));
   }
 
   onSelectionChange(event: MatSelectionListChange) {
@@ -60,16 +60,6 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   private initializeFormGroups() {
-    this.subscription.add(
-      this.simpleItems$.subscribe(
-        (products) => {
-          this.dataSources = products.map(product => {
-            return product.sku
-          });
-        }
-      )
-    )
-    console.log(this.dataSources) 
     this.shipmentDetailCreationFormGroup = this.formBuilder.group({
       [FormControlNames.QUANTITY]: ['', [valueRequired(FormControlNames.QUANTITY), numberOnly(FormControlNames.QUANTITY)]],
       [FormControlNames.SKU]: ['', valueRequired(FormControlNames.SKU)],
@@ -100,7 +90,7 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
 
   handleAddDetailsObject() {
     const shipmentDetailsDTO: ShipmentDetail = {
-      productSKU: this.shipmentDetailCreationFormGroup.get(FormControlNames.SKU).value,
+      productSKU: this.shipmentDetailCreationFormGroup.get(FormControlNames.SKU).value.sku,
       quantity: this.shipmentDetailCreationFormGroup.get(FormControlNames.QUANTITY).value
     }
     let currentListValue = this.getShipmentDetailsList;
@@ -109,8 +99,10 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   private initializeSubscriptions() {
-    
     this.formDetailsListSubscription = getCombinedFormGroupValiditySubscription([this.shipmentCreationFormGroup],this.isValidEmitter);
+    this.products$.subscribe((products: Product[]) => {
+      this.products = products;
+    })
   }
 
   ngOnDestroy(): void {

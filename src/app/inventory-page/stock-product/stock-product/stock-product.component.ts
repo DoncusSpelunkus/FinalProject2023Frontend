@@ -13,6 +13,7 @@ import {Select} from "@ngxs/store";
 import {ProductSelector} from "../../../states/inventory/product-selector";
 import {Location, Product} from "../../../../entities/Inventory";
 import {CreateProductComponent} from "../../../manage-products/create-product/create-product.component";
+import {ShipmentDetail} from "../../../../entities/Shipment";
 
 @Component({
   selector: 'app-stock-product',
@@ -36,6 +37,9 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
               private matDialog: MatDialog) {
     super();
   }
+
+  shipmentDetails: ShipmentDetail;
+
   ngOnInit(): void {
     this.initializeFormGroups();
     this.initializeSubscriptions();
@@ -48,6 +52,7 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
     }
   }
   setData(data: any): void {
+    this.shipmentDetails = data;
   }
 
   submit(): void {
@@ -90,9 +95,10 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
 
     this.products$.subscribe((products: Product[]) => {
       this.products = products
-      console.log(products)
     })
 
+    this.formGroup.get(FormControlNames.QUANTITY).setValue(this.shipmentDetails.quantity);
+    this.formGroup.get(FormControlNames.SKU).setValue(this.products.find(product => product.sku === this.shipmentDetails.productSKU));
   }
 
   handleOpenCreateLocationWindow() {
@@ -109,7 +115,7 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   handleOpenCreateProductWindow() {
     this.matDialog.open(DynamicDialogComponent, {
       width: '75%', // Set the width
-      height: '30%', // Set the height
+      height: '70%', // Set the height
       data: {
         component: CreateProductComponent,
         inputs: null // No dependent data to pass

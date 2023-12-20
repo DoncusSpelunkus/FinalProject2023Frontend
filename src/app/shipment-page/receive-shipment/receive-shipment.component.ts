@@ -4,12 +4,16 @@ import {MatSelectionListChange} from "@angular/material/list";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {nonEmptyListValidator, numberOnly, valueRequired} from "../../../util/form-control-validators";
-import {ShipmentDetail} from "../../../entities/Shipment";
-import {Subscription} from "rxjs";
+import {Shipment, ShipmentDetail} from "../../../entities/Shipment";
+import {Observable, Subscription} from "rxjs";
 import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateProductComponent} from "../../manage-products/create-product/create-product.component";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
+import {Select} from "@ngxs/store";
+import {ProductSelector} from "../../states/inventory/product-selector";
+import {Product} from "../../../entities/Inventory";
+import {ShipmentService} from "../../../services/HttpRequestSevices/shipment.service";
 
 @Component({
   selector: 'app-receive-shipment',
@@ -25,15 +29,14 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
   shipmentCreationFormGroup: FormGroup;
   selectedFormDetailIndices: any[];
   details: ShipmentDetail[] = [];
-  productSKUs: any[] = [
-    {value: '21-124'},
-    {value: '21-gds'},
-    {value: '21-12312'},
-    {value: '21-FDSF-ewg'},
-  ];
+
+  @Select(ProductSelector.getProducts) products$!: Observable<Product[]>; // Will get the products from the store
+  products: Product[];
 
   constructor(private formBuilder: FormBuilder,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private shipmentService: ShipmentService
+              ) {
     super();
   }
 
@@ -46,6 +49,8 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
   }
 
   submit(): void {
+    const shipmentDTO: Shipment = this.getDTO();
+    this.shipmentService.createShipment(shipmentDTO);
   }
 
   onSelectionChange(event: MatSelectionListChange) {
@@ -85,7 +90,7 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
 
   handleAddDetailsObject() {
     const shipmentDetailsDTO: ShipmentDetail = {
-      productSKU: this.shipmentDetailCreationFormGroup.get(FormControlNames.SKU).value,
+      productSKU: this.shipmentDetailCreationFormGroup.get(FormControlNames.SKU).value.sku,
       quantity: this.shipmentDetailCreationFormGroup.get(FormControlNames.QUANTITY).value
     }
     let currentListValue = this.getShipmentDetailsList;
@@ -95,6 +100,9 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
 
   private initializeSubscriptions() {
     this.formDetailsListSubscription = getCombinedFormGroupValiditySubscription([this.shipmentCreationFormGroup],this.isValidEmitter);
+    this.products$.subscribe((products: Product[]) => {
+      this.products = products;
+    })
   }
 
   ngOnDestroy(): void {
@@ -116,5 +124,12 @@ export class ReceiveShipmentComponent extends FormBuilding implements LoadableCo
         inputs: null // No dependent data to pass
       }
     });
+  }
+
+  private getDTO(): Shipment {
+    return {
+      dateShipped: this.shipmentCreationFormGroup.get(FormControlNames.DATE_RECEIVED).value,
+      shipmentDetails: this.getShipmentDetailsList
+    }
   }
 }

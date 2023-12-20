@@ -1,1 +1,18 @@
-<p>remove-shipment-details works!</p>
+<section class="flex flex-row w-full h-full justify-center items-center space-x-10 overflow-hidden" [formGroup]="shipmentDetailFormGroup">
+
+  <!-- List of Shipment Detail objects -->
+  <section class="flex-col flex justify-end w-full h-full">
+
+    <!--  List  -->
+    <section class="w-full h-full overflow-clip">
+      <mat-selection-list class="max-h-full overflow-scroll" (selectionChange)="onSelectionChange($event)">
+        <mat-list-option *ngFor="let detail of shipment.shipmentDetails; let i = index" [value]="{ detail, index: i }">
+          <b>SKU:</b> {{detail.productSKU}} <b>Quantity: </b>{{detail.quantity}}
+        </mat-list-option>
+      </mat-selection-list>
+    </section>
+
+  </section>
+
+</section>
+

@@ -20,14 +20,14 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class UserManagementService {
-  
+
   @Select(AuthSelectors.getToken) token$: Observable<string>;
 
   constructor(private matSnackbar: MatSnackBar,
               private userStore: UserStore) {
     this.setupSnackBar();
   }
-  
+
 
   //TODO call this inside the loader
   async getAllByWarehouse() {
@@ -41,10 +41,14 @@ export class UserManagementService {
     this.userStore.setUsers = users;
   }
 
-  async getByEmployeeId(employeeId: number) {
-    await customAxios.get('/GetEmployeeById' + employeeId).then(response => {
-      return response;
-    });
+  async getByEmployeeId(employeeId: number): Promise<User> {
+    try {
+      const response = await customAxios.get('/GetById/' + employeeId)
+      return response.data;
+    }
+    catch(error) {
+      throw error;
+    }
   }
 
   async updateEmployee(employee: any) {
@@ -83,7 +87,7 @@ export class UserManagementService {
     )
 
     customAxios.interceptors.request.use((config) => {
-      this.token$.subscribe((data) => { 
+      this.token$.subscribe((data) => {
         config.headers.Authorization = `Bearer ${data}`;
       })
       return config;

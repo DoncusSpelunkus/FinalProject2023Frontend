@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core'
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
-import {valueRequired} from "../../../util/form-control-validators";
+import {numberOnly, valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {Observable, Subscription} from "rxjs";
 import {Select, Store} from '@ngxs/store';
@@ -72,11 +72,11 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
 
     this.productStorageInfoFormGroup = this._formBuilder.group({
       [FormControlNames.EXPIRY_DATE]: ['',valueRequired(FormControlNames.EXPIRY_DATE)],
-      [FormControlNames.MINIMUM_CAPACITY]: ['',valueRequired(FormControlNames.MINIMUM_CAPACITY)],
-      [FormControlNames.WIDTH]: ['',valueRequired(FormControlNames.WIDTH)],
-      [FormControlNames.WEIGHT]: ['',valueRequired(FormControlNames.WEIGHT)],
-      [FormControlNames.LENGTH]: ['',valueRequired(FormControlNames.LENGTH)],
-      [FormControlNames.HEIGHT]: ['',valueRequired(FormControlNames.HEIGHT)]
+      [FormControlNames.MINIMUM_CAPACITY]: ['',[valueRequired(FormControlNames.MINIMUM_CAPACITY),numberOnly(FormControlNames.MINIMUM_CAPACITY)]],
+      [FormControlNames.WIDTH]: ['',[valueRequired(FormControlNames.WIDTH),numberOnly(FormControlNames.WIDTH)]],
+      [FormControlNames.WEIGHT]: ['',[valueRequired(FormControlNames.WEIGHT),numberOnly(FormControlNames.WEIGHT)]],
+      [FormControlNames.LENGTH]: ['',[valueRequired(FormControlNames.LENGTH),numberOnly(FormControlNames.LENGTH)]],
+      [FormControlNames.HEIGHT]: ['',[valueRequired(FormControlNames.HEIGHT),numberOnly(FormControlNames.HEIGHT)]]
     })
 
     this.supplierInfoFormGroup = this._formBuilder.group({
