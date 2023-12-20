@@ -76,8 +76,11 @@ export class ShipmentService {
 
   // Detail specific
 
-  async addToShipment(shipmentId: number, shipmentDetail: ShipmentDetail) {
+  async addToShipment(shipmentId: number, shipmentDetail: ShipmentDetail[]) {
     try {
+      const shipmentDetails = {
+        shipmentDetail: shipmentDetail
+      }
       const response = await customAxios.post('/AddToShipment/' + shipmentId, shipmentDetail);
       return response.data;
     }

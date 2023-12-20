@@ -14,6 +14,10 @@ import {Select} from "@ngxs/store";
 import {ProductSelector} from "../../states/inventory/product-selector";
 import {Product} from "../../../entities/Inventory";
 import {ShipmentService} from "../../../services/HttpRequestSevices/shipment.service";
+import { addToShipment } from 'src/app/states/shipment/shipment-actions';
+import { Product } from 'src/entities/Inventory';
+import { Select, Store } from '@ngxs/store';
+import { ProductSelector } from 'src/app/states/inventory/product-selector';
 
 @Component({
   selector: 'app-add-shipment-details',
@@ -37,7 +41,7 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
-              private shipmentService: ShipmentService) {
+              private store: Store) {
     super();
   }
 
@@ -51,11 +55,7 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   submit(): void {
-    this.getShipmentDetailsList.forEach((shipment: ShipmentDetail) =>
-      {
-        this.shipmentService.addToShipment(this.shipment.shipmentId,shipment)
-      }
-    )
+    this.store.dispatch(new addToShipment(this.shipment.shipmentId, this.getShipmentDetailsList));
   }
 
   onSelectionChange(event: MatSelectionListChange) {
@@ -64,6 +64,16 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   private initializeFormGroups() {
+    this.subscription.add(
+      this.simpleItems$.subscribe(
+        (products) => {
+          this.dataSources = products.map(product => {
+            return product.sku
+          });
+        }
+      )
+    )
+    console.log(this.dataSources)
     this.shipmentDetailCreationFormGroup = this.formBuilder.group({
       [FormControlNames.QUANTITY]: ['', [valueRequired(FormControlNames.QUANTITY), numberOnly(FormControlNames.QUANTITY)]],
       [FormControlNames.SKU]: ['', valueRequired(FormControlNames.SKU)],

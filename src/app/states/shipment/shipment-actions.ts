@@ -17,7 +17,7 @@ export class changeQuantity {
 
 export class addToShipment {
     static readonly type = '[Shipment] Add to shipment'
-    constructor(public id: number, public payload: ShipmentDetail) { }
+    constructor(public id: number, public payload: ShipmentDetail[]) { }
 }
 
 export class removeFromShipment {
