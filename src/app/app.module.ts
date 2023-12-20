@@ -74,6 +74,7 @@ import { LocationBatchCreateComponent } from './locations-page/location-batch-cr
 import { LocationSingleCreateComponent } from './locations-page/location-single-create/location-single-create.component';
 import { DeleteLocationComponent } from './locations-page/delete-location/delete-location.component';
 import { DeleteProductsComponent } from './manage-products/delete-products/delete-products.component';
+import { ShipmentState } from './states/shipment/shipment-state';
 
 
 @NgModule({
@@ -146,7 +147,7 @@ import { DeleteProductsComponent } from './manage-products/delete-products/delet
         MatDialogModule,
         MatSelectModule,
         MatCheckboxModule,
-        NgxsModule.forRoot([LogState, InventoryState, UserManagementState, AuthState], {
+        NgxsModule.forRoot([LogState, InventoryState, UserManagementState, AuthState, ShipmentState], {
             developmentMode: true
         }),
         NgxsStoragePluginModule.forRoot({key: ['Auth']}),

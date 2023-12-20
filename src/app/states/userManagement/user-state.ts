@@ -27,6 +27,7 @@ export class UserManagementState {
     
     @Action(establishConnection)
     async establishConnection({ }: StateContext<UserManagementStateModel>) {
+        console.log("establishing connection")
         this.userManagementSocket.establishConnection();
     }
 

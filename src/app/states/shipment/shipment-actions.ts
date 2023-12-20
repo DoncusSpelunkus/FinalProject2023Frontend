@@ -1,5 +1,10 @@
 import { Shipment, ShipmentDetail } from "src/entities/Shipment";
 
+export class getShipments {
+    static readonly type = '[Shipment] Get shipments'
+    constructor() { }
+}
+
 export class createShipments {
     static readonly type = '[Shipment] Create shipment'
     constructor(public payload: Shipment) { }
