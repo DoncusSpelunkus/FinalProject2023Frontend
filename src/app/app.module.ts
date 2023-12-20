@@ -68,9 +68,12 @@ import { CreateBrandComponent } from './brands-page/create-brand/create-brand.co
 import { CreateTypeComponent } from './types-page/create-type/create-type.component';
 import { DeleteBrandComponent } from './brands-page/delete-brand/delete-brand.component';
 import { DeleteTypeComponent } from './types-page/delete-type/delete-type.component';
+import { AuthState } from './states/auth/auth-state';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { LocationBatchCreateComponent } from './locations-page/location-batch-create/location-batch-create.component';
 import { LocationSingleCreateComponent } from './locations-page/location-single-create/location-single-create.component';
 import { DeleteLocationComponent } from './locations-page/delete-location/delete-location.component';
+
 
 @NgModule({
   declarations: [
@@ -141,9 +144,10 @@ import { DeleteLocationComponent } from './locations-page/delete-location/delete
         MatDialogModule,
         MatSelectModule,
         MatCheckboxModule,
-        NgxsModule.forRoot([LogState, InventoryState, UserManagementState], {
+        NgxsModule.forRoot([LogState, InventoryState, UserManagementState, AuthState], {
             developmentMode: true
         }),
+        NgxsStoragePluginModule.forRoot({key: ['Auth']}),
         MatStepperModule,
         MatDatepickerModule,
         MatNativeDateModule,

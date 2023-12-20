@@ -1,6 +1,9 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {UserRoles} from "../../dashboard/dashboard.component";
-import {UserObservable} from "../../../services/HelperSevices/userObservable";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { UserRoles } from "../../dashboard/dashboard.component";
+import { Select } from '@ngxs/store';
+import { AuthSelectors } from 'src/app/states/auth/auth-selector';
+import { Observable } from 'rxjs';
+import { User } from 'src/entities/User';
 
 @Component({
   selector: 'app-button',
@@ -16,8 +19,10 @@ export class ButtonComponent {
   @Input() disabledCheck: () => boolean = () => false;
 
   @Output() buttonClickEmitter = new EventEmitter<any>();
-  constructor(private userObservable: UserObservable) {
+  constructor() {
   }
+
+  @Select(AuthSelectors.getMe) userObservable$: Observable<User>;
 
   /**
    * Check if the button should be disabled by the function provided
@@ -40,7 +45,10 @@ export class ButtonComponent {
     if (!this.role) {
       return true;
     } else {
-      return this.userObservable.getUserSynchronously().role === this.role;
+      this.userObservable$.subscribe(user => {
+        return user.role === this.role;
+      });
     }
+    return false;
   }
 }

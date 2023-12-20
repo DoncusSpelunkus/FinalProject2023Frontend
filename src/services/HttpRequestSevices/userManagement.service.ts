@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { MatSnackBar } from "@angular/material/snack-bar";
-import {  catchError } from 'rxjs';
+import {  Observable, catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 import {CreateUserDTO, User} from 'src/entities/User';
-import { UserObservable } from '../HelperSevices/userObservable';
 import { UserStore } from 'src/stores/user.store';
 import {ChangePasswordDTO} from "../../entities/PasswordConfirmation";
+import { Select } from '@ngxs/store';
+import { AuthSelectors } from 'src/app/states/auth/auth-selector';
 
 
 export const customAxios = axios.create({
@@ -19,9 +20,10 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class UserManagementService {
+  
+  @Select(AuthSelectors.getToken) token$: Observable<string>;
 
   constructor(private matSnackbar: MatSnackBar,
-              private userObservable: UserObservable,
               private userStore: UserStore) {
     this.setupSnackBar();
   }
@@ -29,8 +31,7 @@ export class UserManagementService {
 
   //TODO call this inside the loader
   async getAllByWarehouse() {
-    const warehouseId = this.userObservable.getUserSynchronously().warehouseId;
-    let response = await customAxios.get('/GetAllByWarehouseId/' + warehouseId);
+    let response = await customAxios.get('/GetAllByWarehouseId/');
 
     let users: User[] = response.data.map((any: any) => {
       const user = new User();
@@ -82,10 +83,9 @@ export class UserManagementService {
     )
 
     customAxios.interceptors.request.use((config) => {
-      const token = localStorage.getItem('auth');
-      if(token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+      this.token$.subscribe((data) => { 
+        config.headers.Authorization = `Bearer ${data}`;
+      })
       return config;
     });
   }

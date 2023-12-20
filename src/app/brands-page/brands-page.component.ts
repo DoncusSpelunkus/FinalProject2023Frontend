@@ -8,12 +8,10 @@ import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {debounceTime} from "rxjs";
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
-import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateBrandComponent} from "./create-brand/create-brand.component";
 import {DeleteBrandComponent} from "./delete-brand/delete-brand.component";
 import {BrandService} from "../../services/HttpRequestSevices/brand.service";
-import {UserObservable} from "../../services/HelperSevices/userObservable";
 import {BrandStore} from "../../stores/brand.store";
 import {Brand} from "../../entities/Brand";
 
@@ -39,7 +37,6 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private brandService: BrandService,
-    private userObservable: UserObservable,
     private brandStore: BrandStore) {
     super();
     this.initializeFormGroup();

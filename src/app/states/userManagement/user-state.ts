@@ -4,7 +4,7 @@ import { User } from "src/entities/User";
 import { UserManagementService } from "src/services/HttpRequestSevices/userManagement.service";
 import { UserManagementSocket } from "src/services/SocketServices/UserManagementSocket";
 import { createUser, deleteUser, getUsers, updateUser } from "./user-actions";
-import { establishConnection } from "../crossStateAction";
+import { establishConnection, terminateConnection } from "../crossStateAction";
 
 export interface UserManagementStateModel {
     users: User[];
@@ -55,5 +55,11 @@ export class UserManagementState {
     deleteUser({}: StateContext<UserManagementStateModel>,{payload}: deleteUser) {
         this.userManagementService.deleteEmployee(payload)
     }
+
+    @Action(terminateConnection)
+    async terminateConnection({ }: StateContext<UserManagementStateModel>) {
+        this.userManagementSocket.terminateConnection();
+    }
+
     
 }

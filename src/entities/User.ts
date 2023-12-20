@@ -15,5 +15,4 @@ export class CreateUserDTO {
   username: string;
   role: string;
   password:string;
-  warehouseId: number;
 }

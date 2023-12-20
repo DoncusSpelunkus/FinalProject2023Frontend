@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import axios, { Axios, AxiosError } from 'axios';
 import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {UserObservable} from "../HelperSevices/userObservable";
-import {catchError} from "rxjs";
+import {Observable, catchError} from "rxjs";
 import {Location} from "../../entities/Inventory";
+import { Select } from '@ngxs/store';
+import { AuthSelectors } from 'src/app/states/auth/auth-selector';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/Location',
@@ -15,10 +16,10 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class LocationService {
+  @Select(AuthSelectors.getToken) token$: Observable<string>;
 
   constructor(
-    private matSnackbar: MatSnackBar,
-    private userObservable: UserObservable) {
+    private matSnackbar: MatSnackBar) {
     this.setupSnackBar();
   }
 
@@ -38,17 +39,15 @@ export class LocationService {
     )
 
     customAxios.interceptors.request.use((config) => {
-      const token = localStorage.getItem('auth');
-      if(token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+      this.token$.subscribe((data) => { 
+        config.headers.Authorization = `Bearer ${data}`;
+      })
       return config;
     });
   }
 
   async getLocationsInWarehouse(): Promise<any> {
-    const warehouseId = this.userObservable.getUserSynchronously().warehouseId
-    return customAxios.get('/GetAllByWarehouse/'+warehouseId).then((response) => {
+    return customAxios.get('/GetAllByWarehouse/').then((response) => {
       return response;
     })
   }

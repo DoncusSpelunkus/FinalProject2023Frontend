@@ -11,7 +11,6 @@ import {
 import {Subscription} from "rxjs";
 import {UserManagementService} from "../../../../services/HttpRequestSevices/userManagement.service";
 import {ChangePasswordDTO} from "../../../../entities/PasswordConfirmation";
-import {UserObservable} from "../../../../services/HelperSevices/userObservable";
 
 @Component({
   selector: 'app-change-password',
@@ -29,7 +28,7 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserManagementService,
-              private userObservable: UserObservable) {
+) {
     super();
     this.initializeFormGroup();
     this.initializeSubscriptions();
@@ -79,8 +78,7 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
   private getDTO() {
     const dto: ChangePasswordDTO = {
       password: getFormControl(FormControlNames.PASSWORD,this.formGroup).value,
-      passwordConfirmation: getFormControl(FormControlNames.PASSWORD_CONFIRMATION,this.formGroup).value,
-      employeeId: this.userObservable.getUserSynchronously().employeeId
+      passwordConfirmation: getFormControl(FormControlNames.PASSWORD_CONFIRMATION,this.formGroup).value
     }
     return dto;
   }
