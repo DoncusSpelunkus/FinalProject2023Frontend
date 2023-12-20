@@ -10,14 +10,10 @@ import {nonEmptyListValidator, numberOnly, valueRequired} from "../../../util/fo
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
 import {CreateProductComponent} from "../../manage-products/create-product/create-product.component";
-import {Select} from "@ngxs/store";
 import {ProductSelector} from "../../states/inventory/product-selector";
 import {Product} from "../../../entities/Inventory";
-import {ShipmentService} from "../../../services/HttpRequestSevices/shipment.service";
 import { addToShipment } from 'src/app/states/shipment/shipment-actions';
-import { Product } from 'src/entities/Inventory';
 import { Select, Store } from '@ngxs/store';
-import { ProductSelector } from 'src/app/states/inventory/product-selector';
 
 @Component({
   selector: 'app-add-shipment-details',
@@ -64,16 +60,6 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   private initializeFormGroups() {
-    this.subscription.add(
-      this.simpleItems$.subscribe(
-        (products) => {
-          this.dataSources = products.map(product => {
-            return product.sku
-          });
-        }
-      )
-    )
-    console.log(this.dataSources)
     this.shipmentDetailCreationFormGroup = this.formBuilder.group({
       [FormControlNames.QUANTITY]: ['', [valueRequired(FormControlNames.QUANTITY), numberOnly(FormControlNames.QUANTITY)]],
       [FormControlNames.SKU]: ['', valueRequired(FormControlNames.SKU)],
