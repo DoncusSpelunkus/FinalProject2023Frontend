@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/enviroment";
 import * as signalR from "@aspnet/signalr";
 import { Observable, Subject } from "rxjs";
-import { Select } from "@ngxs/store";
+import { Select, Store } from "@ngxs/store";
 import { AuthSelectors } from "src/app/states/auth/auth-selector";
+import { getLogs } from "src/app/states/log/log-actions";
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,7 @@ export class LogSocket {
     @Select(AuthSelectors.getToken) token$: Observable<string>;
 
 
-    constructor() {
+    constructor(private store: Store) {
         this.establishConnection();
     }
 
@@ -52,21 +53,26 @@ export class LogSocket {
             }
             // we describe the event we want to listen to and what we want to do when we get the event
             this.hubConnection.on("LogsListUpdate", (data) => {
-                console.log("log")
                 this.logsSubject.next(data);
-                console.log(data + "log")
             });
 
         }
         catch (error) {
             console.log(error)
         }
+        this.initialize();
+        
 
     }
 
     public terminateConnection() {
         this.hubConnection.stop();
         this.connectionEstablished = false;
+    }
+
+    private initialize(){
+        this.store.dispatch(new getLogs());
+        this.hubConnection.invoke("RequestLogs")
     }
 
     // We return the subject as an observable so we can subscribe to it

@@ -1,10 +1,10 @@
 import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
-import {TypeService} from "../../../services/HttpRequestSevices/type.service";
 import {Type} from "../../../entities/Inventory";
-import {Store} from "@ngxs/store";
-import {deleteItem} from "../../states/inventory/product-actions";
-import {EntityTypes} from "../../../constants/product-types";
+import { Store } from '@ngxs/store';
+import { deleteItem } from 'src/app/states/inventory/product-actions';
+import { EntityTypes } from 'src/constants/product-types';
+
 
 @Component({
   selector: 'app-delete-type',
@@ -26,7 +26,7 @@ export class DeleteTypeComponent implements LoadableComponent{
   }
 
   submit(): void {
-    this.store.dispatch(new deleteItem(this.selectedType.typeId,EntityTypes[4]))
+    this.store.dispatch(new deleteItem(this.selectedType.typeId, EntityTypes[5]));
   }
 
   onCheckboxChange(event: any) {

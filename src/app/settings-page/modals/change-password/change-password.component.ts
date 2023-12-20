@@ -9,8 +9,10 @@ import {
   valueRequired
 } from "../../../../util/form-control-validators";
 import {Subscription} from "rxjs";
-import {UserManagementService} from "../../../../services/HttpRequestSevices/userManagement.service";
 import {ChangePasswordDTO} from "../../../../entities/PasswordConfirmation";
+import { Store } from '@ngxs/store';
+import { changePassword } from 'src/app/states/userManagement/user-actions';
+
 
 @Component({
   selector: 'app-change-password',
@@ -27,7 +29,7 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
   private formGroupStatusSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserManagementService,
+              private store: Store,
 ) {
     super();
     this.initializeFormGroup();
@@ -46,7 +48,7 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
 
   submit(): void {
     const dto = this.getDTO();
-    this.userService.changeUserPassword(dto);
+    this.store.dispatch(new changePassword(dto));
   }
 
   private initializeFormGroup() {

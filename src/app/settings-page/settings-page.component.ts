@@ -2,7 +2,6 @@ import {Component, HostBinding} from '@angular/core';
 import {SettingsCardConfig} from "../util/settings-card/settings-card.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
-import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
 import {ChangePasswordComponent} from "./modals/change-password/change-password.component";
 
 @Component({

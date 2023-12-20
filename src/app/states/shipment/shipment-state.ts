@@ -3,7 +3,7 @@ import {Action, State, StateContext} from "@ngxs/store";
 import { ShipmentSocket } from "src/services/SocketServices/shipmentSocket";
 import { establishConnection, terminateConnection } from "../crossStateAction";
 import { Shipment } from "src/entities/Shipment";
-import { addToShipment, changeQuantity, createShipments, deleteShipment, getShipment, removeFromShipment } from "./shipment-actions";
+import { addToShipment, changeQuantity, createShipments, deleteShipment, getShipment, getShipments, removeFromShipment } from "./shipment-actions";
 import { ShipmentService } from "src/services/HttpRequestSevices/shipment.service";
 
 export interface ShipmentStateModel {
@@ -13,7 +13,7 @@ export interface ShipmentStateModel {
 
 @State<ShipmentStateModel>
     ({
-        name: 'UserManagement',
+        name: 'ShipmentState',
         defaults: {
             shipments: [],
             selectedShipment: null
@@ -24,6 +24,18 @@ export class ShipmentState {
     constructor(private shipmentSocket: ShipmentSocket,
         private shipmentService: ShipmentService) {}
 
+
+    @Action(getShipments)
+    getShipments(ctx: StateContext<ShipmentStateModel>) {
+        this.shipmentSocket.getShipments().subscribe((data) => {
+            const state = ctx.getState();
+            ctx.setState({
+                ...state,
+                shipments: data
+            })
+        })
+    }
+    
     @Action(createShipments)
     createShipments({}: StateContext<ShipmentStateModel>, {payload}: createShipments) {
         this.shipmentService.createShipment(payload)
@@ -51,13 +63,19 @@ export class ShipmentState {
     }
 
     @Action(getShipment)
-    getShipment({}: StateContext<ShipmentStateModel>, {id}: getShipment) {
-        this.shipmentService.getShipment(id)
+    async getShipment(ctx: StateContext<ShipmentStateModel>, {id}: getShipment) {
+        let thisShipment = await this.shipmentService.getShipment(id)
+        const state = ctx.getState();
+        ctx.setState({
+            ...state,
+            selectedShipment: thisShipment
+        })
     }
     
 
     @Action(establishConnection)
     async establishConnection({ }: StateContext<ShipmentStateModel>) {
+        console.log("hit")
         this.shipmentSocket.establishConnection();
     }
 

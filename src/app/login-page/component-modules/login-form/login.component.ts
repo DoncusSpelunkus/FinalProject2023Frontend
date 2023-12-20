@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Select, Store } from '@ngxs/store';
 import { establishConnection } from 'src/app/states/crossStateAction';
-import { Observable, forkJoin, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Login, getMe, getUserConnection } from 'src/app/states/auth/auth-action';
 import { User } from 'src/entities/User';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
   usernameFormControl!: FormControl;
   passwordFormControl!: FormControl;
 
-  @Select(AuthSelectors.getMe) userObservable$: Observable<User>;
-  @Select(AuthSelectors.getToken) token$: Observable<string>;
+  @Select(AuthSelectors.getToken) token$!: Observable<string>;
+  @Select(AuthSelectors.getMe) userObservable$!: Observable<User>;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
 
   //TODO implement service logic
   async onSubmit() {
-    const allStores = this.store.snapshot();
     this.isLoading = true;
     const username = this.usernameInput;
     const password = this.passwordInput;
@@ -64,13 +63,10 @@ export class LoginComponent implements OnInit {
         }
       });
       try {
-        // Map each state and dispatch the establishConnection action
         this.store.dispatch(new establishConnection());
-        this.store.dispatch(new getMe());
       }
       catch (e) {
         console.log(e)
-        // We expect some will fail as only admin's should have all connections
       }
     }
     catch (e) {
@@ -80,7 +76,6 @@ export class LoginComponent implements OnInit {
     finally {
       this.isLoading = false;
       this.userObservable$.subscribe(user => {
-        console.log(user.role)
         handleRoleBasedNavigation(user.role, this.route)
       });
     }

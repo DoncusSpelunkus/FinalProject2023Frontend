@@ -1,6 +1,5 @@
 import {Component, EventEmitter} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
-import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -14,7 +13,7 @@ export class ShipmentInfoComponent implements LoadableComponent{
 
   search = 'PostmanTest@live.dk'
 
-  constructor(private userService: UserManagementService,
+  constructor(
               private router: Router,
               private dialog: MatDialog) {
   }
