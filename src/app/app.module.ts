@@ -75,6 +75,7 @@ import { LocationSingleCreateComponent } from './locations-page/location-single-
 import { DeleteLocationComponent } from './locations-page/delete-location/delete-location.component';
 import { DeleteProductsComponent } from './manage-products/delete-products/delete-products.component';
 import { ShipmentState } from './states/shipment/shipment-state';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -126,37 +127,38 @@ import { ShipmentState } from './states/shipment/shipment-state';
     DeleteLocationComponent,
     DeleteProductsComponent,
   ],
-    imports: [
+  imports: [
 
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatIconModule,
-        CommonModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatProgressSpinnerModule,
-        BrowserAnimationsModule,
-        MatRippleModule,
-        MatDialogModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        NgxsModule.forRoot([LogState, InventoryState, UserManagementState, AuthState, ShipmentState], {
-            developmentMode: true
-        }),
-        NgxsStoragePluginModule.forRoot({key: ['Auth']}),
-        MatStepperModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        NgxMatSelectSearchModule,
-        MatListModule
-    ],
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    CommonModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule,
+    MatRippleModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    NgxsModule.forRoot([LogState, InventoryState, UserManagementState, AuthState, ShipmentState], {
+      developmentMode: true
+    }),
+    NgxsStoragePluginModule.forRoot({key: ['Auth']}),
+    MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgxMatSelectSearchModule,
+    MatListModule,
+    MatTooltipModule
+  ],
   providers: [MatSnackBar, ActivityService],
   bootstrap: [AppComponent]
 })

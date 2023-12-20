@@ -163,22 +163,22 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
 
   handleOpenShipmentInfoDialog(shipment) {
     this.dialog.open(DynamicDialogComponent, {
-      width: '75%', // Set the width
-      height: '70%', // Set the height
+      width: '50%', // Set the width
+      height: '60%', // Set the height
       data: {
         component: ShipmentInfoComponent,
-        inputs: shipment // No dependent data to pass
+        inputs: shipment
       }
     });
   }
 
   handleOpenRemoveDetailsDialog(shipment) {
     this.dialog.open(DynamicDialogComponent, {
-      width: '50', // Set the width
+      width: '50%', // Set the width
       height: '50%', // Set the height
       data: {
         component: RemoveShipmentDetailsComponent,
-        inputs: shipment // No dependent data to pass
+        inputs: shipment
       }
     });
   }
