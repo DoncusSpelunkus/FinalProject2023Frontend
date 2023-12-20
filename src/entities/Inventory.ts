@@ -1,7 +1,7 @@
 export class Brand {
-    BrandId: number;
-    Name: string;
-    WarehouseId: number;
+    brandId: number;
+    name: string;
+    warehouseId: number;
 }
 
 export class CreateBrandDTO {
@@ -14,18 +14,16 @@ export class Type {
 }
 
 export class CreateTypeDTO {
-
     Name: string;
-
 }
 
 export class ProductLocation {
-    ProductLocationId?: number;
-    ProductSKU?: string;
-    LocationId?: number;
-    Quantity?: number;
-    LastUpdated?: Date;
-    WarehouseId?: number;
+    productLocationId?: number;
+    productSKU?: string;
+    locationId?: number;
+    quantity?: number;
+    lastUpdated?: Date;
+    warehouseId?: number;
 }
 
 export class Location {
@@ -40,18 +38,18 @@ export class Location {
 export class Product {
     sku?: string;
     name?: string;
-    Description?: string;
-    Category?: string;
-    Weight?: number;
-    Price?: number;
-    Length?: number;
-    Width?: number;
-    Height?: number;
-    SupplierName?: string;
+    description?: string;
+    category?: string;
+    weight?: number;
+    price?: number;
+    length?: number;
+    width?: number;
+    height?: number;
+    supplierName?: string;
     ExpireDateTime?: Date;
-    MinimumCapacity?: number;
-    SupplierContact?: string;
-    BrandId?: number;
-    TypeId?: number;
-    WarehouseId?: number;
+    minimumCapacity?: number;
+    supplierContact?: string;
+    brandId?: number;
+    typeId?: number;
+    warehouseId?: number;
 }

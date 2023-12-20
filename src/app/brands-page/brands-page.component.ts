@@ -6,7 +6,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
-import {debounceTime, Observable} from "rxjs";
+import {debounceTime, Observable, Subscription} from "rxjs";
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateBrandComponent} from "./create-brand/create-brand.component";

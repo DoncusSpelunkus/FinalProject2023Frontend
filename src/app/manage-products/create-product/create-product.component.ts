@@ -114,20 +114,20 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
     return {
       sku: this.productInfoFormGroup.get(FormControlNames.SKU).value,
       name: this.productInfoFormGroup.get(FormControlNames.NAME).value,
-      Description: this.productInfoFormGroup.get(FormControlNames.DESCRIPTION).value,
-      Category: this.productInfoFormGroup.get(FormControlNames.CATEGORY).value,
-      BrandId: this.productInfoFormGroup.get(FormControlNames.BRAND).value.brandId,
-      TypeId: this.productInfoFormGroup.get(FormControlNames.TYPE).value.typeId,
+      description: this.productInfoFormGroup.get(FormControlNames.DESCRIPTION).value,
+      category: this.productInfoFormGroup.get(FormControlNames.CATEGORY).value,
+      brandId: this.productInfoFormGroup.get(FormControlNames.BRAND).value.brandId,
+      typeId: this.productInfoFormGroup.get(FormControlNames.TYPE).value.typeId,
 
-      Weight: this.productStorageInfoFormGroup.get(FormControlNames.WEIGHT).value,
-      Height: this.productStorageInfoFormGroup.get(FormControlNames.HEIGHT).value,
-      Length: this.productStorageInfoFormGroup.get(FormControlNames.LENGTH).value,
-      Width: this.productStorageInfoFormGroup.get(FormControlNames.WIDTH).value,
+      weight: this.productStorageInfoFormGroup.get(FormControlNames.WEIGHT).value,
+      height: this.productStorageInfoFormGroup.get(FormControlNames.HEIGHT).value,
+      length: this.productStorageInfoFormGroup.get(FormControlNames.LENGTH).value,
+      width: this.productStorageInfoFormGroup.get(FormControlNames.WIDTH).value,
       ExpireDateTime: this.productStorageInfoFormGroup.get(FormControlNames.EXPIRY_DATE).value,
-      MinimumCapacity: this.productStorageInfoFormGroup.get(FormControlNames.MINIMUM_CAPACITY).value,
+      minimumCapacity: this.productStorageInfoFormGroup.get(FormControlNames.MINIMUM_CAPACITY).value,
 
-      SupplierContact: this.supplierInfoFormGroup.get(FormControlNames.SUPPLIER_CONTACT).value,
-      SupplierName: this.supplierInfoFormGroup.get(FormControlNames.SUPPLIER_NAME).value
+      supplierContact: this.supplierInfoFormGroup.get(FormControlNames.SUPPLIER_CONTACT).value,
+      supplierName: this.supplierInfoFormGroup.get(FormControlNames.SUPPLIER_NAME).value
     }
 
   }
