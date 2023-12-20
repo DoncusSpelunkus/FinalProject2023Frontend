@@ -42,6 +42,8 @@ export class Product{
     Width?: number;
     Height?: number;
     SupplierName?: string;
+    ExpireDateTime?: Date;
+    MinimumCapacity?: number;
     SupplierContact?: string;
     BrandId?: number;
     TypeId?: number;
