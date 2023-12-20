@@ -48,8 +48,8 @@ export class LoginService {
     }
     try {
       const response = await customAxios.post('/login', dto)
-      console.log(response.data.token)
-      return response.data.token;
+      console.log(response.data)
+      return response.data;
     }
     catch (error) {
       throw error;

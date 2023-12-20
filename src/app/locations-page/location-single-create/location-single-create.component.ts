@@ -4,9 +4,12 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
-import {Observable, Subscription} from "rxjs";
-import {LocationService} from "../../../services/HttpRequestSevices/location.service";
+import {Subscription} from "rxjs";
 import {Location} from "../../../entities/Inventory";
+import { Store } from '@ngxs/store';
+import { createItem, updateItem } from 'src/app/states/inventory/product-actions';
+import { EntityTypes } from 'src/constants/product-types';
+
 @Component({
   selector: 'app-location-single-create',
   templateUrl: './location-single-create.component.html'
@@ -21,7 +24,7 @@ export class LocationSingleCreateComponent extends FormBuilding implements Loada
   private location: Location;
 
   constructor(private formBuilder: FormBuilder,
-              private locationService: LocationService) {
+              private store: Store) {
     super();
     this.initializeFormGroup();
     this.initializeSubscriptions();
@@ -47,11 +50,11 @@ export class LocationSingleCreateComponent extends FormBuilding implements Loada
   submit(): void {
     const locationDTO: Location = this.getDTO();
     if (!this.location) { //Create location
-      this.locationService.createSingleLocation(locationDTO);
+      this.store.dispatch(new createItem(locationDTO, EntityTypes[3]));
     } else { // update location
       locationDTO.locationId = this.location.locationId;
       locationDTO.warehouseId = this.location.warehouseId;
-      this.locationService.updateLocation(locationDTO);
+      this.store.dispatch(new updateItem(locationDTO, EntityTypes[3]));
     }
   }
 

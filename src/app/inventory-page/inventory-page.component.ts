@@ -6,13 +6,11 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { FormControlNames } from "../../constants/input-field-constants";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
-
 import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
 import { Observable, Subscription } from 'rxjs';
-import { Product, ProductLocation } from 'src/entities/Inventory';
-import {FormBuilding} from "../../interfaces/component-interfaces";
-import {CreateProductComponent} from "../manage-products/create-product/create-product.component";
+import { ProductLocation } from 'src/entities/Inventory';
+
 
 
 @Component({

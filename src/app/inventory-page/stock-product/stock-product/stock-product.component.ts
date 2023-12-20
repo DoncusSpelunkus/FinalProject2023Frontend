@@ -1,10 +1,9 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../../interfaces/component-interfaces";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../../constants/input-field-constants";
-import {getControlErrorMessage, numberOnly, valueRequired} from "../../../../util/form-control-validators";
+import {numberOnly, valueRequired} from "../../../../util/form-control-validators";
 import {Observable, Subscription} from "rxjs";
-import {LocationService} from "../../../../services/HttpRequestSevices/location.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DynamicDialogComponent} from "../../../util/dynamic-dialog/dynamic-dialog.component";
 import {
@@ -33,7 +32,7 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   private isFormValidSubscription: Subscription;
 
   constructor(private _formBuilder: FormBuilder,
-              private locationService: LocationService,
+
               private matDialog: MatDialog) {
     super();
   }

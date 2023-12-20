@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/enviroment";
 import * as signalR from "@aspnet/signalr";
 import { Observable, Subject } from "rxjs";
-import { Select } from "@ngxs/store";
+import { Select, Store } from "@ngxs/store";
 import { AuthSelectors } from "src/app/states/auth/auth-selector";
+import { getShipments } from "src/app/states/shipment/shipment-actions";
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,7 @@ export class ShipmentSocket {
     private connectionEstablished = false;
 
 
-    constructor() {
+    constructor(private store: Store) {
         this.establishConnection();
     }
 
@@ -53,7 +54,13 @@ export class ShipmentSocket {
         catch (error) {
             console.log(error)
         }
+        this.initialize();
 
+    }
+
+    private initialize() {
+        this.store.dispatch(new getShipments());
+        this.hubConnection.invoke("RequestShipment")
     }
 
     public terminateConnection() {
@@ -62,7 +69,7 @@ export class ShipmentSocket {
     }
 
     // We return the subject as an observable so we can subscribe to it
-    public getProducts() {
+    public getShipments() {
         return this.shipmentSubject.asObservable();
     }
 }

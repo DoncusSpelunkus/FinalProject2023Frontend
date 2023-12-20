@@ -11,10 +11,7 @@ import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.comp
 import {MatDialog} from "@angular/material/dialog";
 import {CreateTypeComponent} from "./create-type/create-type.component";
 import {DeleteTypeComponent} from "./delete-type/delete-type.component";
-import {TypeService} from "../../services/HttpRequestSevices/type.service";
 import {Select} from "@ngxs/store";
-import {UserSelector} from "../states/userManagement/user-selectors";
-import {User} from "../../entities/User";
 import {ProductSelector} from "../states/inventory/product-selector";
 import {Type} from "../../entities/Inventory";
 
@@ -40,8 +37,8 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
-    private typeService: TypeService) {
+    private dialog: MatDialog
+    ) {
     super();
     this.initializeFormGroup();
     this.fetchData();

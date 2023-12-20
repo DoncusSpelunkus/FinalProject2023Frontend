@@ -1,7 +1,10 @@
 import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
 import {Location} from "../../../entities/Inventory";
-import {LocationService} from "../../../services/HttpRequestSevices/location.service";
+import { Store } from '@ngxs/store';
+import { EntityTypes } from 'src/constants/product-types';
+import { deleteItem } from 'src/app/states/inventory/product-actions';
+
 
 @Component({
   selector: 'app-delete-location',
@@ -15,7 +18,7 @@ export class DeleteLocationComponent implements LoadableComponent{
   @Output() isValidEmitter = new EventEmitter<boolean>();
 
   location: Location;
-  constructor(private locationService: LocationService) {
+  constructor(private store: Store) {
   }
   setData(data: any): void {
     this.location = data;
@@ -23,7 +26,7 @@ export class DeleteLocationComponent implements LoadableComponent{
   }
 
   submit(): void {
-    this.locationService.deleteLocation(this.location.locationId) //TODO fix
+    this.store.dispatch(new deleteItem(this.location.locationId,  EntityTypes[3]));
   }
 
   onCheckboxChange(event: any) {

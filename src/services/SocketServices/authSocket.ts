@@ -50,7 +50,6 @@ export class AuthSocket {
                     return
                 }
                 this.hubConnection.on("UserUpdate", (data) => {
-                    console.log(data);
                     this.user.next(data);
                 });
                 this.hubConnection.on("UserDelete", () => {

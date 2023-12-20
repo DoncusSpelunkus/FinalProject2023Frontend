@@ -3,7 +3,7 @@ import {LoadableComponent} from "../../../interfaces/component-interfaces";
 import {Brand} from "../../../entities/Inventory";
 import { Store } from '@ngxs/store';
 import { EntityTypes } from 'src/constants/product-types';
-import { createItem, deleteItem } from 'src/app/states/inventory/product-actions';
+import { deleteItem } from 'src/app/states/inventory/product-actions';
 
 @Component({
   selector: 'app-delete-brand',

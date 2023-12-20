@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {MatSelectionListChange} from "@angular/material/list";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {nonEmptyListValidator, numberOnly, valueRequired} from "../../../util/form-control-validators";
 import {ShipmentDetail} from "../../../entities/Shipment";
