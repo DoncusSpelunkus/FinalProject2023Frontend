@@ -20,9 +20,9 @@ import {Product, Type} from "../../../entities/Inventory";
 })
 export class CreateProductComponent extends FormBuilding implements LoadableComponent, OnInit, OnDestroy{
 
-  @Output() isValidEmitter = new EventEmitter<any>;
+  isLinear = false;
 
-  productInfoFormGroup: FormGroup;
+  @Output() isValidEmitter = new EventEmitter<any>;
 
   @Select(ProductSelector.getBrands) brands$!: Observable<Brand[]>;
   brandList: Brand[];
@@ -30,30 +30,33 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
   @Select(ProductSelector.getTypes) types$!: Observable<Type[]>;
   typeList: Type[];
 
+  productInfoFormGroup: FormGroup;
   productStorageInfoFormGroup: FormGroup;
-
   supplierInfoFormGroup: FormGroup;
+
   private formGroupStatusSubscription: Subscription;
   private brandSubscription: Subscription;
   private typeSubscription: Subscription;
+
+  private product: Product;
 
   constructor(private _formBuilder: FormBuilder,
     private store: Store) {
     super();
   }
+
   ngOnInit(): void {
     this.initializeFormGroups();
     this.initializeSubscriptions();
+    this.setFormControlData(this.product);
   }
-
   setData(data: any): void {
+    this.product = data;
   }
   submit(): void {
     const productDTO: Product = this.getProductDTO();
-    console.log(productDTO)
     this.store.dispatch(new createItem(productDTO, EntityTypes[1]));
   }
-  isLinear = false;
 
   private initializeFormGroups() {
     this.productInfoFormGroup = this._formBuilder.group({
@@ -130,5 +133,33 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
       supplierName: this.supplierInfoFormGroup.get(FormControlNames.SUPPLIER_NAME).value
     }
 
+  }
+
+  private setFormControlData(data: Product) {
+    if (!data) {
+      return;
+    }
+    this.productInfoFormGroup.patchValue({
+      [FormControlNames.SKU]: data.sku,
+      [FormControlNames.NAME]: data.name,
+      [FormControlNames.DESCRIPTION]: data.description,
+      [FormControlNames.CATEGORY]: data.category,
+      [FormControlNames.BRAND]: { brandId: data.brandId }, // assuming BRAND is an object with brandId
+      [FormControlNames.TYPE]: { typeId: data.typeId } // assuming TYPE is an object with typeId
+    });
+
+    this.productStorageInfoFormGroup.patchValue({
+      [FormControlNames.WEIGHT]: data.weight,
+      [FormControlNames.HEIGHT]: data.height,
+      [FormControlNames.LENGTH]: data.length,
+      [FormControlNames.WIDTH]: data.width,
+      [FormControlNames.EXPIRY_DATE]: data.ExpireDateTime,
+      [FormControlNames.MINIMUM_CAPACITY]: data.minimumCapacity
+    });
+
+    this.supplierInfoFormGroup.patchValue({
+      [FormControlNames.SUPPLIER_CONTACT]: data.supplierContact,
+      [FormControlNames.SUPPLIER_NAME]: data.supplierName
+    });
   }
 }

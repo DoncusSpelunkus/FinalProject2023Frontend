@@ -13,12 +13,13 @@ import {CreateProductComponent} from "./create-product/create-product.component"
 import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
 import { Product } from 'src/entities/Inventory';
+import {DeleteProductsComponent} from "./delete-products/delete-products.component";
 
 @Component({
   selector: 'app-manage-products',
   templateUrl: './manage-products.component.html'
 })
-export class ManageProductsComponent extends FormBuilding implements OnInit, AfterViewInit{
+export class ManageProductsComponent extends FormBuilding implements AfterViewInit{
 
   @HostBinding('style.width') width = '100%';
   @HostBinding('style.height') height = '100%';
@@ -32,7 +33,7 @@ export class ManageProductsComponent extends FormBuilding implements OnInit, Aft
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<Product>();
 
-  displayedColumns = ['name'];
+  displayedColumns = ['name','delete','update'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,13 +44,8 @@ export class ManageProductsComponent extends FormBuilding implements OnInit, Aft
     this.initializeFormGroup();
   }
 
-  ngOnInit(): void {
-
-  }
-
-
   ngAfterViewInit(): void {
-    this.initializeSourceData();//TODO REMOVE
+    this.initializeSourceData();
     this.bindControlsToElements();
     this.setInitialValuesFromQueryParams();
     this.bindElementsToControls()
@@ -139,13 +135,24 @@ export class ManageProductsComponent extends FormBuilding implements OnInit, Aft
     });
   }
 
-  handleOpenCreateProductModal() {
+  handleOpenCreateProductModal(product?) {
     this.dialog.open(DynamicDialogComponent, {
       width: '70%', // Set the width
       height: '70%', // Set the height
       data: {
         component: CreateProductComponent,
-        inputs: null // No dependent data to pass
+        inputs: product // No dependent data to pass
+      }
+    });
+  }
+
+  handleOpenDeleteProductWindow(product) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '70%', // Set the width
+      height: '70%', // Set the height
+      data: {
+        component: DeleteProductsComponent,
+        inputs: product // No dependent data to pass
       }
     });
   }
