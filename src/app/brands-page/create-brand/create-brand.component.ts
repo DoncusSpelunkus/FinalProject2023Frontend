@@ -1,15 +1,15 @@
-
-import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilding, LoadableComponent } from "../../../interfaces/component-interfaces";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { FormControlNames } from "../../../constants/input-field-constants";
-import { valueRequired } from "../../../util/form-control-validators";
-import { getCombinedFormGroupValiditySubscription } from "../../../util/subscription-setup";
-import { Subscription } from "rxjs";
-import { CreateBrandDTO } from "../../../entities/Brand";
-import { Store } from '@ngxs/store';
-import { createItem } from 'src/app/states/inventory/product-actions';
-import { EntityTypes } from 'src/constants/product-types';
+import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormControlNames} from "../../../constants/input-field-constants";
+import {valueRequired} from "../../../util/form-control-validators";
+import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
+import {Subscription} from "rxjs";
+import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
+import {Brand, CreateBrandDTO} from "../../../entities/Brand";
+import {Store} from "@ngxs/store";
+import {createItem} from "../../states/inventory/product-actions";
+import {EntityTypes} from "../../../constants/product-types";
 
 @Component({
   selector: 'app-create-brand',
@@ -22,9 +22,10 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   formGroup: FormGroup
   private formGroupStateSubscription: Subscription;
 
+  brand: Brand
+
   constructor(private formBuilder: FormBuilder,
-
-
+    private brandService: BrandService,
     private store: Store) { super() }
 
   ngOnInit(): void {
@@ -33,11 +34,18 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   }
 
   setData(data: any): void {
+    this.brand = data;
   }
 
   submit(): void {
     const createBrandDTO: CreateBrandDTO = this.getDTO();
-    this.store.dispatch(new createItem(createBrandDTO, EntityTypes[4]));
+    let editableBrand = { ...this.brand };
+    if (!this.brand) {
+      this.store.dispatch(new createItem(createBrandDTO, EntityTypes[4]));
+    } else {
+      editableBrand.name = createBrandDTO.Name;
+      this.brandService.updateBrand(editableBrand);
+    }
   }
 
 

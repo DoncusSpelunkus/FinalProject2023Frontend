@@ -32,6 +32,22 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center">Update</span>
+        </th>
+        <td mat-cell *matCellDef="let brand">
+          <div class="w-full h-full flex justify-center">
+            <app-icon
+              matRipple
+              class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125 transition-all hover:scale-110 duration-300 hover:cursor-pointer"
+              icon="edit"
+              (click)="handleOpenUpdateBrandWindow(brand)">
+            </app-icon>
+          </div>
+        </td>
+      </ng-container>
+
       <!-- Columns -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

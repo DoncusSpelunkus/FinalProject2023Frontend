@@ -6,12 +6,17 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
-import {debounceTime} from "rxjs";
+import {debounceTime, Observable} from "rxjs";
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateTypeComponent} from "./create-type/create-type.component";
 import {DeleteTypeComponent} from "./delete-type/delete-type.component";
 import {TypeService} from "../../services/HttpRequestSevices/type.service";
+import {Select} from "@ngxs/store";
+import {UserSelector} from "../states/userManagement/user-selectors";
+import {User} from "../../entities/User";
+import {ProductSelector} from "../states/inventory/product-selector";
+import {Type} from "../../entities/Inventory";
 
 @Component({
   selector: 'app-types-page',
@@ -24,10 +29,12 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
-  tableFormGroup: FormGroup;
-  dataSource = new MatTableDataSource<any>();
+  @Select(ProductSelector.getTypes) types$!: Observable<Type[]>; // Will get the products from the store
 
-  displayedColumns = ['name','delete'];
+  tableFormGroup: FormGroup;
+  dataSource = new MatTableDataSource<Type>();
+
+  displayedColumns = ['name','delete','update'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -126,13 +133,13 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
     });
   }
 
-  handleOpenCreateTypeModal() {
+  handleOpenCreateTypeModal(type?) {
     this.dialog.open(DynamicDialogComponent, {
       width: '40%', // Set the width
       height: '30%', // Set the height
       data: {
         component: CreateTypeComponent,
-        inputs: null // No dependent data to pass
+        inputs: type // No dependent data to pass
       }
     });
   }
@@ -149,8 +156,9 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
   }
 
   private fetchData() {
-    this.typeService.getTypesByWarehouse().then((types) => {
+    this.types$.subscribe((types: Type[]) => {
       this.dataSource.data = types;
+      console.log('update')
     })
   }
 }

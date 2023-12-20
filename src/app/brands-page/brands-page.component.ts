@@ -1,19 +1,19 @@
-import { AfterViewInit, Component, HostBinding, OnInit, ViewChild } from '@angular/core';
-import { FormBuilding } from "../../interfaces/component-interfaces";
-import { MatPaginator } from "@angular/material/paginator";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { MatTableDataSource } from "@angular/material/table";
-import { ActivatedRoute, Router } from "@angular/router";
-import { FormControlNames } from "../../constants/input-field-constants";
-import { getFormControl } from "../../util/form-control-validators";
-import { Observable, Subscription, debounceTime } from "rxjs";
-import { DynamicDialogComponent } from "../util/dynamic-dialog/dynamic-dialog.component";
-import { MatDialog } from "@angular/material/dialog";
-import { CreateBrandComponent } from "./create-brand/create-brand.component";
-import { DeleteBrandComponent } from "./delete-brand/delete-brand.component";
-import { Brand } from "../../entities/Inventory";
-import { Select } from '@ngxs/store';
-import { ProductSelector } from '../states/inventory/product-selector';
+import {AfterViewInit, Component, HostBinding, OnInit, ViewChild} from '@angular/core';
+import {FormBuilding} from "../../interfaces/component-interfaces";
+import {MatPaginator} from "@angular/material/paginator";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {MatTableDataSource} from "@angular/material/table";
+import {ActivatedRoute, Router} from "@angular/router";
+import {FormControlNames} from "../../constants/input-field-constants";
+import {getFormControl} from "../../util/form-control-validators";
+import {debounceTime, Observable, Subscription} from "rxjs";
+import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateBrandComponent} from "./create-brand/create-brand.component";
+import {DeleteBrandComponent} from "./delete-brand/delete-brand.component";
+import {Brand} from "../../entities/Brand";
+import {Select} from "@ngxs/store";
+import {ProductSelector} from "../states/inventory/product-selector";
 
 @Component({
   selector: 'app-brands-page',
@@ -32,14 +32,13 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
   @Select(ProductSelector.getBrands) brands$!: Observable<Brand[]>; // Will get the types from the store
   private subscription: Subscription = new Subscription();
 
-  displayedColumns = ['name', 'delete'];
+  displayedColumns = ['name','delete','update'];
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
-  ) {
+    private dialog: MatDialog) {
     super();
     this.initializeFormGroup();
     this.fetchBrands();
@@ -157,6 +156,17 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
     this.subscription.add(this.brands$.subscribe(brands => {
       this.dataSource.data = brands;
     }));
+  }
+
+  handleOpenUpdateBrandWindow(brand) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '40%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: CreateBrandComponent,
+        inputs: brand // No dependent data to pass
+      }
+    });
   }
 
 }

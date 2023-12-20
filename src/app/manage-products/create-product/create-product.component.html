@@ -41,35 +41,36 @@
       <section class="w-full flex flex-row justify-between items-center space-x-4">
 
         <app-text-input
-          class="w-44"
+          class="w-full"
           [inputFormControlName]="FormControlNames.CATEGORY"
           [icon]="'category'"
           [inputFormGroup]="productInfoFormGroup"
           [placeholder]="'shirts'">
         </app-text-input>
 
-        <app-select-input
-          class="w-44"
+        <app-search-select-input
+          class="w-full"
           [inputFormControlName]="FormControlNames.BRAND"
           [inputFormGroup]="productInfoFormGroup"
-          [list]="brandList"
-          [displayValue]="'value'"
-          [showIcon]="true"
           [placeholder]="'Gucci'"
-          (iconClickEmitter)="handleOpenCreateBrandDialog()">
-        </app-select-input>
+          [showIcon]="true"
+          (iconClickEmitter)="handleOpenCreateBrandDialog()"
+          [displayValueProperty]="'name'"
+          [searchValueProperty]="'name'"
+          [list]="brandList">
+        </app-search-select-input>
 
-
-        <app-select-input
-          class="w-44"
+        <app-search-select-input
+          class="w-full"
           [inputFormControlName]="FormControlNames.TYPE"
           [inputFormGroup]="productInfoFormGroup"
-          [list]="brandList"
+          [placeholder]="'Electronics'"
           [showIcon]="true"
-          [displayValue]="'value'"
-          [placeholder]="'Silk'"
-          (iconClickEmitter)="handleOpenCreateTypeDialog()">
-        </app-select-input>
+          (iconClickEmitter)="handleOpenCreateTypeDialog()"
+          [displayValueProperty]="'name'"
+          [searchValueProperty]="'name'"
+          [list]="typeList">
+        </app-search-select-input>
 
 
       </section>
@@ -83,7 +84,7 @@
 
     <form [formGroup]="productStorageInfoFormGroup" class="flex-col flex space-y-4 h-full w-full justify-center items-center">
 
-      <section class="flex flex-row justify-between space-x-8">
+      <section class="flex flex-row justify-between space-x-8 w-full">
 
         <app-text-input
           class="w-full"
@@ -103,7 +104,7 @@
 
       </section>
 
-      <section class="flex flex-row justify-between space-x-8">
+      <section class="flex flex-row justify-between space-x-8 w-full">
 
         <app-text-input
           class="w-full"
@@ -123,7 +124,7 @@
 
       </section>
 
-      <section class="flex flex-row justify-between space-x-8">
+      <section class="flex flex-row justify-between space-x-8 w-full">
 
 
         <mat-form-field appearance="fill" class="w-full">
@@ -143,6 +144,12 @@
         </app-text-input>
 
       </section>
+
+      <div class="space-x-4">
+        <button mat-button matStepperPrevious>Previous</button>
+
+        <button mat-button matStepperNext>Next</button>
+      </div>
 
     </form>
   </mat-step>
@@ -169,6 +176,9 @@
         </app-text-input>
 
       </section>
+      <div class="space-x-4">
+        <button mat-button matStepperPrevious>Previous</button>
+      </div>
     </form>
   </mat-step>
 </mat-stepper>

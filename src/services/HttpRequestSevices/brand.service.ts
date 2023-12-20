@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import {CreateBrandDTO} from "../../entities/Brand";
+import {Brand, CreateBrandDTO} from "../../entities/Brand";
 import axios from 'axios';
 import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Observable, catchError} from "rxjs";
-import {BrandStore} from "../../stores/brand.store";
-import { Select } from '@ngxs/store';
-import { AuthSelectors } from 'src/app/states/auth/auth-selector';
+import {catchError, Observable} from "rxjs";
+import {Select} from "@ngxs/store";
+import {AuthSelectors} from "../../app/states/auth/auth-selector";
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/Brand',
@@ -19,9 +18,8 @@ export const customAxios = axios.create({
 export class BrandService {
 
   @Select(AuthSelectors.getToken) token$: Observable<string>;
-  
-  constructor(private matSnackbar: MatSnackBar,
-              private brandStore: BrandStore) {
+
+  constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
       response => {
         if(response.status == 201) {
@@ -47,7 +45,6 @@ export class BrandService {
   async createBrand(createBrandDTO: CreateBrandDTO) {
     try {
       const response = await customAxios.post(`/Create`,createBrandDTO);
-      this.brandStore.createBrand(response);
       return response;
     }
     catch(error) {
@@ -58,7 +55,6 @@ export class BrandService {
   async deleteBrand(brandId: number) {
     try {
       const response = await customAxios.delete(`/Delete/${brandId}`);
-      this.brandStore.deleteBrand(brandId);
       return response;
     }
     catch(error) {
@@ -69,7 +65,16 @@ export class BrandService {
   async getBrandsByWarehouse() {
     try {
       const response = await customAxios.get(`/GetByWarehouseId/`);
-      this.brandStore.setBrands = response.data;
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+  }
+
+  async updateBrand(brand: Brand) {
+    try {
+      const response = await customAxios.put(`/Create`,brand);
       return response;
     }
     catch(error) {

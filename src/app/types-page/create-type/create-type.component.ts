@@ -6,7 +6,7 @@ import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {TypeService} from "../../../services/HttpRequestSevices/type.service";
-import {CreateTypeDTO} from "../../../entities/Inventory";
+import {CreateTypeDTO, Type} from "../../../entities/Inventory";
 
 @Component({
   selector: 'app-create-type',
@@ -19,6 +19,8 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   formGroup: FormGroup
   private formGroupStateSubscription: Subscription;
 
+  type: Type
+
   constructor(private formBuilder: FormBuilder,
               private typeService: TypeService) {
     super();
@@ -30,11 +32,18 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   }
 
   setData(data: any): void {
+    this.type = data;
   }
 
   submit(): void {
     const createBrandDTO: CreateTypeDTO = this.getDTO();
-    this.typeService.createBrand(createBrandDTO);
+    let editableType = { ...this.type };
+    if (!this.type) {
+      this.typeService.createType(createBrandDTO);
+    } else {
+      editableType.name = createBrandDTO.Name;
+      this.typeService.updateType(editableType);
+    }
   }
 
 
