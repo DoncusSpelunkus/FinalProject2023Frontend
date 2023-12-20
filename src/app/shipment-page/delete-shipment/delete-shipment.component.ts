@@ -1,6 +1,8 @@
 import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
 import {User} from "../../../entities/User";
+import {ShipmentService} from "../../../services/HttpRequestSevices/shipment.service";
+import {Shipment} from "../../../entities/Shipment";
 
 @Component({
   selector: 'app-delete-shipment',
@@ -13,16 +15,16 @@ export class DeleteShipmentComponent implements LoadableComponent{
 
   @Output() isValidEmitter = new EventEmitter<boolean>();
 
-  selectedUser: User;
-  constructor() {
+  selectedShipment: Shipment;
+  constructor(private shipmentService: ShipmentService) {
   }
 
   setData(data: any): void {
-    this.selectedUser = data;
+    this.selectedShipment = data;
   }
 
   submit(): void {
-    
+    this.shipmentService.deleteShipment(this.selectedShipment.shipmentId);
   }
 
   onCheckboxChange(event: any) {
@@ -30,7 +32,6 @@ export class DeleteShipmentComponent implements LoadableComponent{
   }
 
   get getUserDisplayName() {
-    console.error('need to get shipment object')
-    return this.selectedUser.username
+    return this.selectedShipment.shipmentId
   }
 }
