@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ShipmentDetail} from "../../../entities/Shipment";
 import {MatDialog} from "@angular/material/dialog";
@@ -10,6 +10,10 @@ import {nonEmptyListValidator, numberOnly, valueRequired} from "../../../util/fo
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
 import {CreateProductComponent} from "../../manage-products/create-product/create-product.component";
+import { addToShipment } from 'src/app/states/shipment/shipment-actions';
+import { Product } from 'src/entities/Inventory';
+import { Select, Store } from '@ngxs/store';
+import { ProductSelector } from 'src/app/states/inventory/product-selector';
 
 @Component({
   selector: 'app-add-shipment-details',
@@ -25,15 +29,15 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   shipmentCreationFormGroup: FormGroup;
   selectedFormDetailIndices: any[];
   details: ShipmentDetail[] = [];
-  productSKUs: any[] = [
-    {value: '21-124'},
-    {value: '21-gds'},
-    {value: '21-12312'},
-    {value: '21-FDSF-ewg'},
-  ];
+  dataSources: String[] = [];
+  @Select(ProductSelector.getProducts) simpleItems$!: Observable<Product[]>; // Will get the products from the store
+  private subscription: Subscription = new Subscription();
+  shipmentId = 0;
+
 
   constructor(private formBuilder: FormBuilder,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private store: Store) {
     super();
   }
 
@@ -43,9 +47,11 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   setData(data: any): void {
+    this.shipmentId = data.shipmentId;
   }
 
   submit(): void {
+    this.store.dispatch(new addToShipment(this.shipmentId, this.getShipmentDetailsList));
   }
 
   onSelectionChange(event: MatSelectionListChange) {
@@ -54,6 +60,16 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   private initializeFormGroups() {
+    this.subscription.add(
+      this.simpleItems$.subscribe(
+        (products) => {
+          this.dataSources = products.map(product => {
+            return product.sku
+          });
+        }
+      )
+    )
+    console.log(this.dataSources) 
     this.shipmentDetailCreationFormGroup = this.formBuilder.group({
       [FormControlNames.QUANTITY]: ['', [valueRequired(FormControlNames.QUANTITY), numberOnly(FormControlNames.QUANTITY)]],
       [FormControlNames.SKU]: ['', valueRequired(FormControlNames.SKU)],
@@ -93,6 +109,7 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   private initializeSubscriptions() {
+    
     this.formDetailsListSubscription = getCombinedFormGroupValiditySubscription([this.shipmentCreationFormGroup],this.isValidEmitter);
   }
 
