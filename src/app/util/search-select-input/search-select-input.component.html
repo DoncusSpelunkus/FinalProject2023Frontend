@@ -12,7 +12,7 @@
       </mat-option>
 
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option[displayValueProperty]}}
+        {{getDisplayValue(option)}}
       </mat-option>
     </mat-select>
 

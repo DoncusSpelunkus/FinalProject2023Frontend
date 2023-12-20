@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Brand, CreateBrandDTO} from "../../entities/Brand";
+import {CreateBrandDTO} from "../../entities/Brand";
 import axios from 'axios';
 import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -14,6 +14,8 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class BrandService {
+
+  @Select(AuthSelectors.getToken) token$: Observable<string>;
 
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
@@ -31,10 +33,9 @@ export class BrandService {
     )
 
     customAxios.interceptors.request.use((config) => {
-      const token = localStorage.getItem('auth');
-      if(token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+      this.token$.subscribe((data) => {
+        config.headers.Authorization = `Bearer ${data}`;
+      })
       return config;
     });
   }

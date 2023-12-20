@@ -13,6 +13,7 @@ import {CreateBrandComponent} from "./create-brand/create-brand.component";
 import {DeleteBrandComponent} from "./delete-brand/delete-brand.component";
 import {BrandService} from "../../services/HttpRequestSevices/brand.service";
 import {UserObservable} from "../../services/HelperSevices/userObservable";
+import {BrandStore} from "../../stores/brand.store";
 import {Brand} from "../../entities/Brand";
 import {Select} from "@ngxs/store";
 import {UserSelector} from "../states/userManagement/user-selectors";
@@ -118,7 +119,6 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
   }
 
   private bindElementsToControls() {
-    this.paginator.pageSize = 3;
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe((page) => {

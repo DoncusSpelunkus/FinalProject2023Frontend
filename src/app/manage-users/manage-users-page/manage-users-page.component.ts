@@ -83,7 +83,6 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngAfterViewInit(): void {
-    this.paginator.pageSize = 3
     if (this.paginator) {
       this.paginator.page.subscribe(event => {
         this.formGroup.patchValue({

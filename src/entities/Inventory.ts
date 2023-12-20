@@ -10,7 +10,6 @@ export class Type {
 
 export class CreateTypeDTO {
   Name: string;
-  WarehouseId: number;
 }
 
 export class ProductLocation{
@@ -23,12 +22,12 @@ export class ProductLocation{
 }
 
 export class Location{
-    LocationId?: number;
-    Aisle?: string;
-    Rack?: string;
-    Shelf?: string;
-    Bin?: string;
-    WarehouseId?: number;
+    locationId?: number;
+    aisle?: string;
+    rack?: string;
+    shelf?: string;
+    bin?: string;
+    warehouseId?: number;
 }
 
 export class Product{

@@ -3,7 +3,7 @@ import { Action, State, StateContext } from "@ngxs/store";
 import { Log } from "src/entities/Log";
 import { getLogs } from "./log-actions";
 import { LogSocket } from "src/services/SocketServices/logSocket";
-import { establishConnection } from "../crossStateAction";
+import { establishConnection, terminateConnection } from "../crossStateAction";
 
 export interface LogStateModel {
     logs: Log[];
@@ -37,6 +37,11 @@ export class LogState {
     @Action(establishConnection)
     async establishConnection({ }: StateContext<LogStateModel>) {
         this.logSocket.establishConnection();
+    }
+
+    @Action(terminateConnection)
+    async terminateConnection({ }: StateContext<LogStateModel>) {
+        this.logSocket.terminateConnection();
     }
 
 }
