@@ -3,6 +3,11 @@ export class Brand {
     Name?: string;
 }
 
+export class CreateBrandDTO {
+  Name: string;
+  WarehouseId: number;
+}
+
 export class Type {
     typeId?: number;
     name?: string;

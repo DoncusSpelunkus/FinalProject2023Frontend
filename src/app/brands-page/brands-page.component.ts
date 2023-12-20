@@ -35,7 +35,7 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<Brand>();
 
-  displayedColumns = ['name','delete'];
+  displayedColumns = ['name','delete','update'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -161,5 +161,16 @@ export class BrandsPageComponent extends FormBuilding implements OnInit, AfterVi
     this.brands$.subscribe((brands: Brand[]) => {
       this.dataSource.data = brands;
     })
+  }
+
+  handleOpenUpdateBrandWindow(brand) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '40%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: CreateBrandComponent,
+        inputs: brand // No dependent data to pass
+      }
+    });
   }
 }
