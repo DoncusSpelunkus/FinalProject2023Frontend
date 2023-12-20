@@ -8,7 +8,7 @@ import {Subscription} from "rxjs";
 import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
 import {Brand, CreateBrandDTO} from "../../../entities/Brand";
 import {Store} from "@ngxs/store";
-import {createItem} from "../../states/inventory/product-actions";
+import {createItem, updateItem} from "../../states/inventory/product-actions";
 import {EntityTypes} from "../../../constants/product-types";
 
 @Component({
@@ -25,7 +25,6 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   brand: Brand
 
   constructor(private formBuilder: FormBuilder,
-    private brandService: BrandService,
     private store: Store) { super() }
 
   ngOnInit(): void {
@@ -44,7 +43,7 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
       this.store.dispatch(new createItem(createBrandDTO, EntityTypes[4]));
     } else {
       editableBrand.name = createBrandDTO.Name;
-      this.brandService.updateBrand(editableBrand);
+      this.store.dispatch(new updateItem(editableBrand,EntityTypes[4]));
     }
   }
 
