@@ -8,7 +8,6 @@ import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {debounceTime} from "rxjs";
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
-import {CreateBrandComponent} from "../brands-page/create-brand/create-brand.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateTypeComponent} from "./create-type/create-type.component";
 import {DeleteTypeComponent} from "./delete-type/delete-type.component";

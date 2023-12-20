@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {CreateBrandDTO} from "../../entities/Brand";
 import axios from "axios";
 import {environment} from "../../enviroment";
 import {MatSnackBar} from "@angular/material/snack-bar";

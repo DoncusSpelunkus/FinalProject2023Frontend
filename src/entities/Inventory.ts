@@ -1,6 +1,11 @@
 export class Brand {
-    BrandId?: number;
-    Name?: string;
+    BrandId: number;
+    Name: string;
+    WarehouseId: number;
+}
+
+export class CreateBrandDTO {
+    Name: string;
 }
 
 export class Type {
@@ -9,11 +14,10 @@ export class Type {
 }
 
 export class CreateTypeDTO {
-  Name: string;
-  WarehouseId: number;
+    Name: string;
 }
 
-export class ProductLocation{
+export class ProductLocation {
     ProductLocationId?: number;
     ProductSKU?: string;
     LocationId?: number;
@@ -22,7 +26,7 @@ export class ProductLocation{
     WarehouseId?: number;
 }
 
-export class Location{
+export class Location {
     locationId?: number;
     aisle?: string;
     rack?: string;
@@ -31,7 +35,7 @@ export class Location{
     warehouseId?: number;
 }
 
-export class Product{
+export class Product {
     sku?: string;
     name?: string;
     Description?: string;

@@ -2,14 +2,13 @@ import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
 import {UserObservable} from "../../../services/HelperSevices/userObservable";
-import {CreateBrandDTO} from "../../../entities/Brand";
+
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {TypeService} from "../../../services/HttpRequestSevices/type.service";
-import {CreateTypeDTO, Type} from "../../../entities/Inventory";
+import {CreateTypeDTO} from "../../../entities/Inventory";
 
 @Component({
   selector: 'app-create-type',
@@ -61,7 +60,6 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   private getDTO(): CreateTypeDTO {
     return {
       Name: this.formGroup.get(FormControlNames.TYPE_NAME).value,
-      WarehouseId: this.userObservable.getUserSynchronously().warehouseId
     }
   }
 }

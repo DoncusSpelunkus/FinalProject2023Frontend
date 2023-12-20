@@ -5,7 +5,7 @@ import { catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 
 export const customAxios = axios.create({
-  baseURL: environment.apiUrl + '/Product',
+  baseURL: environment.apiUrl,
   withCredentials: true,
 })
 
@@ -39,7 +39,7 @@ export class InventoryService {
 
   async deleteItem(id: number, type: String): Promise<any> {
     try {
-      const response = await customAxios.delete('/Delete/' + type + '/' + id);
+      const response = await customAxios.delete(type + '/Delete/' + id);
       return response;
     }
     catch(error) {
@@ -49,7 +49,7 @@ export class InventoryService {
 
   async createItem(item: object, type: String): Promise<any> {
     try {
-      const response = await customAxios.post('/Create/' + type, item);
+      const response = await customAxios.post(type +'/Create', item);
       return response;
     }
     catch(error) {
@@ -59,7 +59,7 @@ export class InventoryService {
 
   async updateItem(item: object, type: String): Promise<any> {
     try {
-      const response = await customAxios.put('/Update/' + type, item);
+      const response = await customAxios.put(type + '/Update', item);
       return response;
     }
     catch(error) {

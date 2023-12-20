@@ -7,9 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
 import {Observable, Subscription, debounceTime} from "rxjs";
-import {SimpleDummyData} from "../templates/manage-template/manage-template.component";
 import { Select } from '@ngxs/store';
-import { UserSelector } from '../states/userManagement/user-selectors';
 import { Type } from 'src/entities/Inventory';
 import { ProductSelector } from '../states/inventory/product-selector';
 

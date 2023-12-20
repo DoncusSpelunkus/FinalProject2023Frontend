@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngxs/store';
 import { establishConnection } from 'src/app/states/crossStateAction';
-import { forkJoin, map } from 'rxjs';
-import {handleRoleBasedNavigation} from "../../../../util/role-based-actions";
-import {UserObservable} from "../../../../services/HelperSevices/userObservable";
+import { handleRoleBasedNavigation } from "../../../../util/role-based-actions";
+
+
 
 
 @Component({
@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private route: Router,
     private matSnackbar: MatSnackBar,
-    private store: Store,
-    private userObservable: UserObservable
+    private store: Store
+
   ) {
 
 
@@ -60,11 +60,8 @@ export class LoginComponent implements OnInit {
 
         // Map each state and dispatch the establishConnection action
 
-        const loginObservables = Object.keys(allStores).map(stateName => {
-          console.log(stateName)
-          return this.store.dispatch(new establishConnection());
-        });
-        await forkJoin(loginObservables).toPromise();
+        this.store.dispatch(new establishConnection());
+
       }
       catch (e) {
         console.log(e)
@@ -77,7 +74,7 @@ export class LoginComponent implements OnInit {
     }
     finally {
       this.isLoading = false;
-      handleRoleBasedNavigation(this.userObservable.getUserSynchronously().role,this.route)
+     
     }
   }
 
