@@ -23,7 +23,8 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
 
   brand: Brand
 
-  constructor(private formBuilder: FormBuilder, private store: Store) { super() }
+  constructor(private formBuilder: FormBuilder,
+    private store: Store) { super() }
 
   ngOnInit(): void {
     this.initializeFormGroup();
@@ -41,7 +42,7 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
       this.store.dispatch(new createItem(createBrandDTO, EntityTypes[4]));
     } else {
       editableBrand.name = createBrandDTO.Name;
-      this.store.dispatch(new updateItem(editableBrand, EntityTypes[4]));
+      this.store.dispatch(new updateItem(editableBrand,EntityTypes[4]));
     }
   }
 
