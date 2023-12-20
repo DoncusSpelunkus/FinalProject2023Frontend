@@ -9,8 +9,6 @@ import {Select, Store} from '@ngxs/store';
 import { createItem } from 'src/app/states/inventory/product-actions';
 import { EntityTypes } from 'src/constants/product-types';
 import {Brand} from "../../../entities/Brand";
-import {UserSelector} from "../../states/userManagement/user-selectors";
-import {User} from "../../../entities/User";
 import {ProductSelector} from "../../states/inventory/product-selector";
 import {Product, Type} from "../../../entities/Inventory";
 
@@ -139,13 +137,18 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
     if (!data) {
       return;
     }
+    console.log(this.typeList)
+    console.log(data)
+    console.log(this.brandList)
+    const brand = this.brandList.find(brand => brand.brandId === data.brandId)
+    console.log(brand)
     this.productInfoFormGroup.patchValue({
       [FormControlNames.SKU]: data.sku,
       [FormControlNames.NAME]: data.name,
       [FormControlNames.DESCRIPTION]: data.description,
       [FormControlNames.CATEGORY]: data.category,
-      [FormControlNames.BRAND]: { brandId: data.brandId }, // assuming BRAND is an object with brandId
-      [FormControlNames.TYPE]: { typeId: data.typeId } // assuming TYPE is an object with typeId
+      [FormControlNames.BRAND]: this.brandList.find(brand => brand.brandId === data.brandId),
+      [FormControlNames.TYPE]: this.typeList.find(type => type.typeId === data.typeId)
     });
 
     this.productStorageInfoFormGroup.patchValue({
