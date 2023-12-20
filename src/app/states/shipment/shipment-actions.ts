@@ -1,12 +1,31 @@
-import { Shipment } from "src/entities/Shipment";
+import { Shipment, ShipmentDetail } from "src/entities/Shipment";
 
 export class createShipments {
     static readonly type = '[Shipment] Create shipment'
-    constructor(public entityType: Shipment) { }
-
+    constructor(public payload: Shipment) { }
 }
 
-export class updateShipments {
-    static readonly type = '[Shipment] Update shipment'
-    constructor(public entityType: Shipment) { }
+export class changeQuantity {
+    static readonly type = '[Shipment] Change quantity'
+    constructor(public shipmentId: number, public detailId: number, public quantity: number) { }
+}
+
+export class addToShipment {
+    static readonly type = '[Shipment] Add to shipment'
+    constructor(public id: number, public payload: ShipmentDetail) { }
+}
+
+export class removeFromShipment {
+    static readonly type = '[Shipment] Remove from shipment'
+    constructor(public shipmentId: number, public detailId: number) { }
+}
+
+export class deleteShipment {
+    static readonly type = '[Shipment] Delete shipment'
+    constructor(public id: number) { }
+}
+
+export class getShipment {
+    static readonly type = '[Shipment] Get shipment'
+    constructor(public id: number) { }
 }

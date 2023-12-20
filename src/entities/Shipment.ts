@@ -1,11 +1,11 @@
-export class ShipmentDetails {
-  ProductSKU: string;
-  Quantity: number;
+export class ShipmentDetail {
+  productSKU: string;
+  quantity: number;
 }
 
 export class Shipment {
-  WarehouseId: number;
-  ShippedByEmployeeId: number;
-  DateShipped: Date;
-  ShipmentDetails: ShipmentDetails[];
+  warehouseId: number;
+  shippedByEmployeeId: number;
+  dateShipped: Date;
+  shipmentDetails: ShipmentDetail[];
 }
