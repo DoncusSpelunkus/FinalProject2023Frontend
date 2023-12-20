@@ -141,7 +141,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   async logout() {
-    this.route.navigateByUrl("/login");
     this.store.dispatch(new ClearUser());
     this.ngAfterViewInit();
     this.collapseNavigation();
