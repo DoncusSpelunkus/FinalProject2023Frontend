@@ -11,6 +11,7 @@ import { EntityTypes } from 'src/constants/product-types';
 import { createItem, updateItem } from 'src/app/states/inventory/product-actions';
 
 
+
 @Component({
   selector: 'app-create-type',
   templateUrl: './create-type.component.html'

@@ -5,6 +5,7 @@ import { Store } from '@ngxs/store';
 import { deleteItem } from 'src/app/states/inventory/product-actions';
 import { EntityTypes } from 'src/constants/product-types';
 
+
 @Component({
   selector: 'app-delete-type',
   templateUrl: './delete-type.component.html'
