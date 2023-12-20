@@ -7,7 +7,7 @@
       <section class="w-full h-full overflow-clip">
         <mat-selection-list class="max-h-full overflow-scroll" (selectionChange)="onSelectionChange($event)">
           <mat-list-option *ngFor="let detail of getShipmentDetailsList; let i = index" [value]="{ detail, index: i }">
-            <b>SKU:</b> {{detail.ProductSKU}} <b>Quantity: </b>{{detail.Quantity}}
+            <b>SKU:</b> {{detail.productSKU}} <b>Quantity: </b>{{detail.quantity}}
           </mat-list-option>
         </mat-selection-list>
       </section>
@@ -34,12 +34,11 @@
       <app-search-select-input
         class="w-full"
         [inputFormControlName]="FormControlNames.SKU"
-        [placeholder]="'ABC-12345-S-BL'"
         [inputFormGroup]="shipmentDetailCreationFormGroup"
-        [displayValueProperty]="'value'"
-        [searchValueProperty]="'value'"
-        [list]="productSKUs"
         [showIcon]="true"
+        [displayValueProperty]="'sku'"
+        [searchValueProperty]="'sku'"
+        [list]="products"
         (iconClickEmitter)="handleOpenCreateProductModal()">
       </app-search-select-input>
 

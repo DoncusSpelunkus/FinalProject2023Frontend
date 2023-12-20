@@ -8,4 +8,5 @@ export class Shipment {
   shippedByEmployeeId?: number;
   dateShipped?: Date;
   shipmentDetails?: ShipmentDetail[];
+  shipmentId?: number;
 }
