@@ -78,7 +78,6 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
   private initializeSourceData(): void {
     this.shipmentSubscription = this.shipments$.subscribe((shipments: Shipment[]) => {
       this.dataSource.data = shipments;
-      console.log(shipments)
     })
   }
 
