@@ -14,6 +14,7 @@ import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
 import { Product } from 'src/entities/Inventory';
 import {DeleteProductsComponent} from "./delete-products/delete-products.component";
+import {DeleteShipmentComponent} from "../shipment-page/delete-shipment/delete-shipment.component";
 
 @Component({
   selector: 'app-manage-products',
@@ -148,8 +149,8 @@ export class ManageProductsComponent extends FormBuilding implements AfterViewIn
 
   handleOpenDeleteProductWindow(product) {
     this.dialog.open(DynamicDialogComponent, {
-      width: '70%', // Set the width
-      height: '70%', // Set the height
+      width: '50%', // Set the width
+      height: '35%', // Set the height
       data: {
         component: DeleteProductsComponent,
         inputs: product // No dependent data to pass

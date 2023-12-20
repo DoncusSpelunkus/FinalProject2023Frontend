@@ -6,7 +6,7 @@ import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {Observable, Subscription} from "rxjs";
 import {Select, Store} from '@ngxs/store';
-import { createItem } from 'src/app/states/inventory/product-actions';
+import {createItem, updateItem} from 'src/app/states/inventory/product-actions';
 import { EntityTypes } from 'src/constants/product-types';
 import {Brand} from "../../../entities/Brand";
 import {ProductSelector} from "../../states/inventory/product-selector";
@@ -53,7 +53,11 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
   }
   submit(): void {
     const productDTO: Product = this.getProductDTO();
-    this.store.dispatch(new createItem(productDTO, EntityTypes[1]));
+    if (!this.product) {
+      this.store.dispatch(new createItem(productDTO, EntityTypes[1]));
+    } else {
+      this.store.dispatch(new updateItem(productDTO,EntityTypes[1]))
+    }
   }
 
   private initializeFormGroups() {
@@ -124,7 +128,7 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
       height: this.productStorageInfoFormGroup.get(FormControlNames.HEIGHT).value,
       length: this.productStorageInfoFormGroup.get(FormControlNames.LENGTH).value,
       width: this.productStorageInfoFormGroup.get(FormControlNames.WIDTH).value,
-      ExpireDateTime: this.productStorageInfoFormGroup.get(FormControlNames.EXPIRY_DATE).value,
+      expireDateTime: this.productStorageInfoFormGroup.get(FormControlNames.EXPIRY_DATE).value,
       minimumCapacity: this.productStorageInfoFormGroup.get(FormControlNames.MINIMUM_CAPACITY).value,
 
       supplierContact: this.supplierInfoFormGroup.get(FormControlNames.SUPPLIER_CONTACT).value,
@@ -137,11 +141,6 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
     if (!data) {
       return;
     }
-    console.log(this.typeList)
-    console.log(data)
-    console.log(this.brandList)
-    const brand = this.brandList.find(brand => brand.brandId === data.brandId)
-    console.log(brand)
     this.productInfoFormGroup.patchValue({
       [FormControlNames.SKU]: data.sku,
       [FormControlNames.NAME]: data.name,
@@ -156,7 +155,7 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
       [FormControlNames.HEIGHT]: data.height,
       [FormControlNames.LENGTH]: data.length,
       [FormControlNames.WIDTH]: data.width,
-      [FormControlNames.EXPIRY_DATE]: data.ExpireDateTime,
+      [FormControlNames.EXPIRY_DATE]: data.expireDateTime,
       [FormControlNames.MINIMUM_CAPACITY]: data.minimumCapacity
     });
 
