@@ -7,5 +7,10 @@ export class ShipmentSelector {
     static getShipments(state: ShipmentStateModel) {
         return state.shipments;
     }
+
+    @Selector([ShipmentState])
+    static getSelectedShipment(state: ShipmentStateModel) {
+        return state.selectedShipment;
+    }
     
 }
