@@ -3,7 +3,7 @@ import { Action, State, StateContext } from "@ngxs/store";
 import { User } from "src/entities/User";
 import { UserManagementService } from "src/services/HttpRequestSevices/userManagement.service";
 import { UserManagementSocket } from "src/services/SocketServices/UserManagementSocket";
-import { createUser, deleteUser, getUsers, updateUser } from "./user-actions";
+import { changePassword, createUser, deleteUser, getUsers, updateUser } from "./user-actions";
 import { establishConnection, terminateConnection } from "../crossStateAction";
 
 export interface UserManagementStateModel {
@@ -59,6 +59,11 @@ export class UserManagementState {
     @Action(terminateConnection)
     async terminateConnection({ }: StateContext<UserManagementStateModel>) {
         this.userManagementSocket.terminateConnection();
+    }
+
+    @Action(changePassword)
+    changePassword({dto}: changePassword) {
+        this.userManagementService.changeUserPassword(dto);
     }
 
     

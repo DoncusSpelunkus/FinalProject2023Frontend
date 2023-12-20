@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext, Store } from "@ngxs/store";
 import { AuthSocket } from "src/services/SocketServices/authSocket";
-import { ClearUser, Login, changePassword, getMe, getUserConnection } from "./auth-action";
+import { ClearUser, Login, getMe, getUserConnection } from "./auth-action";
 import { LoginService } from "src/services/HttpRequestSevices/login.service";
 import { User } from "src/entities/User";
 import { Route, Router } from "@angular/router";
@@ -24,7 +24,7 @@ export interface AuthStateModel {
 })
 @Injectable()
 export class AuthState {
-    constructor(private socket: AuthSocket, private loginService: LoginService, private store: Store, private router: Router, private userService: UserManagementService) { }
+    constructor(private socket: AuthSocket, private loginService: LoginService, private store: Store, private router: Router) { }
 
 
     @Action(getUserConnection)
@@ -68,10 +68,6 @@ export class AuthState {
         
     }
 
-    @Action(changePassword)
-    changePassword({dto}: changePassword) {
-        this.userService.changeUserPassword(dto);
-    }
 
     @Action(terminateConnection)
     async terminateConnection({ }: StateContext<AuthStateModel>) {

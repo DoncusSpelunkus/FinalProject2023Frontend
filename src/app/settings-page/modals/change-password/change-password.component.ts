@@ -11,7 +11,8 @@ import {
 import {Subscription} from "rxjs";
 import {ChangePasswordDTO} from "../../../../entities/PasswordConfirmation";
 import { Store } from '@ngxs/store';
-import { changePassword } from 'src/app/states/auth/auth-action';
+import { changePassword } from 'src/app/states/userManagement/user-actions';
+
 
 @Component({
   selector: 'app-change-password',
