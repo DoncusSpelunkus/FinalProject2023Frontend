@@ -68,4 +68,14 @@ export class BrandService {
       throw error;
     }
   }
+
+  async updateBrand(brand: Brand) {
+    try {
+      const response = await customAxios.put(`/Create`,brand);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+  }
 }

@@ -6,7 +6,7 @@ import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {Subscription} from "rxjs";
 import {BrandService} from "../../../services/HttpRequestSevices/brand.service";
-import {CreateBrandDTO} from "../../../entities/Brand";
+import {Brand, CreateBrandDTO} from "../../../entities/Brand";
 import {UserObservable} from "../../../services/HelperSevices/userObservable";
 
 @Component({
@@ -20,6 +20,8 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   formGroup: FormGroup
   private formGroupStateSubscription: Subscription;
 
+  brand: Brand
+
   constructor(private formBuilder: FormBuilder,
               private brandService: BrandService,
               private userObservable: UserObservable) {
@@ -32,11 +34,19 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   }
 
   setData(data: any): void {
+    console.log(data)
+    this.brand = data;
   }
 
   submit(): void {
     const createBrandDTO: CreateBrandDTO = this.getDTO();
-    this.brandService.createBrand(createBrandDTO);
+    let editableBrand = { ...this.brand };
+    if (!this.brand) {
+      this.brandService.createBrand(createBrandDTO);
+    } else {
+      editableBrand.name = createBrandDTO.Name;
+      this.brandService.updateBrand(editableBrand);
+    }
   }
 
 
