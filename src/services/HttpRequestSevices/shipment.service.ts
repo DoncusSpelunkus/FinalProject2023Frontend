@@ -44,7 +44,7 @@ export class ShipmentService {
 
   // Shipment specific
 
-  async getShipment(id: number) {
+  async getShipment(id: number): Promise<Shipment> {
     try {
       const response = await customAxios.get('/GetByShipmentId' + id)
       return response.data;

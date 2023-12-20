@@ -6,7 +6,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControlNames} from "../../constants/input-field-constants";
 import {getFormControl} from "../../util/form-control-validators";
-import {debounceTime} from "rxjs";
+import {Observable, Subscription, debounceTime} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
 import {StockProductComponent} from "../inventory-page/stock-product/stock-product/stock-product.component";
@@ -15,6 +15,8 @@ import {DeleteShipmentComponent} from "./delete-shipment/delete-shipment.compone
 import {ShipmentInfoComponent} from "./shipment-info/shipment-info.component";
 import {RemoveShipmentDetailsComponent} from "./remove-shipment-details/remove-shipment-details.component";
 import {AddShipmentDetailsComponent} from "./add-shipment-details/add-shipment-details.component";
+import { ShipmentSelector } from '../states/shipment/shipment-selectors';
+import { Select } from '@ngxs/store';
 
 @Component({
   selector: 'app-shipment-page',
@@ -29,6 +31,9 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
 
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<SimpleDummyData>();
+
+  @Select(ShipmentSelector.getShipments) shipments$!: Observable<SimpleDummyData[]>; // Will get the types from the store
+  private subscription: Subscription = new Subscription();
 
   displayedColumns = ['dateShipped','addShipmentDetail','removeShipmentDetail','info','delete'];
 
@@ -71,20 +76,9 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
   }
 
   private initializeSourceData(): void {
-    const values: SimpleDummyData[] = [
-      {name: 'Bob'},
-      {name: 'bin'},
-      {name: 'bon'},
-      {name: 'Van'},
-      {name: 'Helsing'},
-      {name: 'John'},
-      {name: 'Alex'},
-      {name: 'Tiffany'},
-      {name: 'JAke'},
-      {name: 'Alex'},
-      {name: 'Twink'},
-    ]
-    this.dataSource.data = values;
+    this.subscription.add(this.shipments$.subscribe((shipments) => {
+      this.dataSource.data = shipments;
+    }));
   }
 
   private setInitialValuesFromQueryParams() {

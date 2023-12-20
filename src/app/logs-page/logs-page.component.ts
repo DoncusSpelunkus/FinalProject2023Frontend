@@ -1,26 +1,31 @@
-import {AfterViewInit, Component, HostBinding, OnInit, ViewChild} from '@angular/core';
-import {FormBuilding} from "../../interfaces/component-interfaces";
-import {MatPaginator} from "@angular/material/paginator";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {MatTableDataSource} from "@angular/material/table";
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormControlNames} from "../../constants/input-field-constants";
-import {getFormControl} from "../../util/form-control-validators";
-import {debounceTime} from "rxjs";
+import { AfterViewInit, Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { FormBuilding } from "../../interfaces/component-interfaces";
+import { MatPaginator } from "@angular/material/paginator";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { MatTableDataSource } from "@angular/material/table";
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormControlNames } from "../../constants/input-field-constants";
+import { getFormControl } from "../../util/form-control-validators";
+import { Observable, Subscription, debounceTime } from "rxjs";
+import { Select } from '@ngxs/store';
+import { LogSelectors } from '../states/log/logs-selector';
 
 @Component({
   selector: 'app-logs-page',
   templateUrl: './logs-page.component.html'
 })
-export class LogsPageComponent extends FormBuilding implements OnInit, AfterViewInit{
+export class LogsPageComponent extends FormBuilding implements OnInit, AfterViewInit {
 
   @HostBinding('style.width') width = '100%';
   @HostBinding('style.height') height = '100%';
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<SimpleDummyData>();
+
+  @Select(LogSelectors.getLogs) logs$!: Observable<SimpleDummyData[]>; // Will get the types from the store
+  private subscription: Subscription = new Subscription();
 
   displayedColumns = ['name'];
 
@@ -54,28 +59,17 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
 
 
   get filterValue(): string {
-    return getFormControl(FormControlNames.FILTER,this.tableFormGroup).value;
+    return getFormControl(FormControlNames.FILTER, this.tableFormGroup).value;
   }
 
   clearFilterValue() {
-    getFormControl(FormControlNames.FILTER,this.tableFormGroup).reset();
+    getFormControl(FormControlNames.FILTER, this.tableFormGroup).reset();
   }
 
   private initializeSourceData(): void {
-    const values: SimpleDummyData[] = [
-      {name: 'Bob'},
-      {name: 'bin'},
-      {name: 'bon'},
-      {name: 'Van'},
-      {name: 'Helsing'},
-      {name: 'John'},
-      {name: 'Alex'},
-      {name: 'Tiffany'},
-      {name: 'JAke'},
-      {name: 'Alex'},
-      {name: 'Twink'},
-    ]
-    this.dataSource.data = values;
+    this.subscription.add(this.logs$.subscribe((logs) => {
+      this.dataSource.data = logs;
+    }));
   }
 
   private setInitialValuesFromQueryParams() {
@@ -123,8 +117,8 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
     this.dataSource.paginator = this.paginator;
 
     this.paginator.page.subscribe((page) => {
-      getFormControl(FormControlNames.PAGE,this.tableFormGroup).setValue(page.pageIndex,{emitEvent:true});
-      getFormControl(FormControlNames.ITEMS_PER_PAGE,this.tableFormGroup).setValue(page.pageSize,{emitEvent:true});
+      getFormControl(FormControlNames.PAGE, this.tableFormGroup).setValue(page.pageIndex, { emitEvent: true });
+      getFormControl(FormControlNames.ITEMS_PER_PAGE, this.tableFormGroup).setValue(page.pageSize, { emitEvent: true });
     })
   }
 

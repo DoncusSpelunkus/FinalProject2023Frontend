@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
-import { createItem, deleteItem, updateItem, getItems } from "./product-actions";
+import { createItem, deleteItem, updateItem, getItems, createLocationBatch } from "./product-actions";
 import { InventorySocket } from "src/services/SocketServices/inventorySocket";
 import { InventoryService } from "src/services/HttpRequestSevices/inventory.service";
 import { establishConnection, terminateConnection } from "../crossStateAction";
@@ -104,10 +104,17 @@ export class InventoryState {
         this.inventoryService.updateItem(payload, entityType);
     }
 
+    @Action(createLocationBatch)
+    createLocationBatch({ }: StateContext<InventoryStateModel>, { payload }: createLocationBatch) {
+        this.inventoryService.createLocationBatch(payload);
+    }
+
     @Action(terminateConnection)
     async terminateConnection({ }: StateContext<InventoryStateModel>) {
         this.inventorySocket.terminateConnection();
     }
+
+
 
 
 }

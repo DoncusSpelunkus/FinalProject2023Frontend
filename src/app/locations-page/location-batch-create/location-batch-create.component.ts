@@ -2,11 +2,12 @@ import {Component, EventEmitter, OnDestroy} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {LocationService} from "../../../services/HttpRequestSevices/location.service";
 import {Location} from "../../../entities/Inventory";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
+import { Store } from '@ngxs/store';
+import { createLocationBatch } from 'src/app/states/inventory/product-actions';
 
 @Component({
   selector: 'app-location-batch-create',
@@ -20,7 +21,7 @@ export class LocationBatchCreateComponent extends FormBuilding implements Loadab
   private formGroupStateSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
-              private locationService: LocationService) {
+              private store: Store) {
     super();
     this.initializeFormGroup();
     this.initializeSubscriptions();
@@ -37,7 +38,7 @@ export class LocationBatchCreateComponent extends FormBuilding implements Loadab
 
   submit(): void {
     const locationDTO: Location = this.getDTO();
-    this.locationService.createLocationBatch(locationDTO);
+    this.store.dispatch(new createLocationBatch(locationDTO));
   }
 
   private initializeFormGroup() {

@@ -5,6 +5,7 @@ import { Observable, catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 import { Select } from '@ngxs/store';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
+import { Location } from 'src/entities/Inventory';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl,
@@ -64,6 +65,16 @@ export class InventoryService {
   async updateItem(item: object, type: String): Promise<any> {
     try {
       const response = await customAxios.put(type + '/Update', item);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+  }
+
+  async createLocationBatch(locationDTO: Location): Promise<any> {
+    try {
+      const response = await customAxios.post('Location/createBatch',locationDTO);
       return response;
     }
     catch(error) {
