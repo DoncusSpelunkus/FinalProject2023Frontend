@@ -8,6 +8,8 @@ import {nonEmptyListValidator, valueRequired} from "../../../util/form-control-v
 import {MatSelectionListChange} from "@angular/material/list";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
 import {Subscription} from "rxjs";
+import {Store} from "@ngxs/store";
+import {removeFromShipment} from "../../states/shipment/shipment-actions";
 
 @Component({
   selector: 'app-remove-shipment-details',
@@ -24,7 +26,8 @@ export class RemoveShipmentDetailsComponent implements LoadableComponent, OnInit
   private formGroupStateSubscription: Subscription;
 
   constructor(private shipmentService: ShipmentService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private store: Store) {
   }
   ngOnInit(): void {
     this.initializeFormGroup();
@@ -44,8 +47,7 @@ export class RemoveShipmentDetailsComponent implements LoadableComponent, OnInit
   }
 
   submit(): void {
-    // this.shipmentService.removeFromShipment(this.shipment.shipmentId,this.getSelectedShipmentIds())
-    console.log(this.shipment.shipmentId,this.getSelectedShipmentIds())
+    this.store.dispatch(new removeFromShipment(this.shipment.shipmentId,this.getSelectedShipmentIds()[0]))
   }
 
   handleDeleteDetailsClick() {
