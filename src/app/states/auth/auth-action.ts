@@ -1,3 +1,5 @@
+import { ChangePasswordDTO } from "src/entities/PasswordConfirmation"
+
 export class getMe {
     static readonly type = '[User] Get me'
     constructor() { }
@@ -16,4 +18,9 @@ export class ClearUser {
 export class getUserConnection {
     static readonly type = '[User] Get user connection'
     constructor(public token: string) { }
+}
+
+export class changePassword {
+    static readonly type = '[User] Establish connection'
+    constructor(public dto: ChangePasswordDTO) { }
 }

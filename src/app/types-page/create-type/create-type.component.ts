@@ -5,8 +5,11 @@ import {Subscription} from "rxjs";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {valueRequired} from "../../../util/form-control-validators";
 import {getCombinedFormGroupValiditySubscription} from "../../../util/subscription-setup";
-import {TypeService} from "../../../services/HttpRequestSevices/type.service";
 import {CreateTypeDTO, Type} from "../../../entities/Inventory";
+import { Store } from '@ngxs/store';
+import { EntityTypes } from 'src/constants/product-types';
+import { createItem, updateItem } from 'src/app/states/inventory/product-actions';
+
 
 @Component({
   selector: 'app-create-type',
@@ -22,7 +25,7 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   type: Type
 
   constructor(private formBuilder: FormBuilder,
-              private typeService: TypeService) {
+              private store: Store) {
     super();
   }
 
@@ -39,10 +42,10 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
     const createBrandDTO: CreateTypeDTO = this.getDTO();
     let editableType = { ...this.type };
     if (!this.type) {
-      this.typeService.createType(createBrandDTO);
+      this.store.dispatch(new createItem(createBrandDTO, EntityTypes[5]));
     } else {
       editableType.name = createBrandDTO.Name;
-      this.typeService.updateType(editableType);
+      this.store.dispatch(new updateItem(createBrandDTO, EntityTypes[5]));
     }
   }
 

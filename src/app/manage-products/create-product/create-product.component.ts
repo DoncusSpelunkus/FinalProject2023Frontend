@@ -9,8 +9,6 @@ import {Select, Store} from '@ngxs/store';
 import { createItem } from 'src/app/states/inventory/product-actions';
 import { EntityTypes } from 'src/constants/product-types';
 import {Brand} from "../../../entities/Brand";
-import {UserSelector} from "../../states/userManagement/user-selectors";
-import {User} from "../../../entities/User";
 import {ProductSelector} from "../../states/inventory/product-selector";
 import {Product, Type} from "../../../entities/Inventory";
 

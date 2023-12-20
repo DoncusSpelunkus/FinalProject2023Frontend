@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Action, State, StateContext, Store } from "@ngxs/store";
 import { AuthSocket } from "src/services/SocketServices/authSocket";
-import { ClearUser, Login, getMe, getUserConnection } from "./auth-action";
+import { ClearUser, Login, changePassword, getMe, getUserConnection } from "./auth-action";
 import { LoginService } from "src/services/HttpRequestSevices/login.service";
 import { User } from "src/entities/User";
 import { Route, Router } from "@angular/router";
 import { terminateConnection } from "../crossStateAction";
+import { UserManagementService } from "src/services/HttpRequestSevices/userManagement.service";
 
 
 
@@ -23,7 +24,7 @@ export interface AuthStateModel {
 })
 @Injectable()
 export class AuthState {
-    constructor(private socket: AuthSocket, private loginService: LoginService, private store: Store, private router: Router) { }
+    constructor(private socket: AuthSocket, private loginService: LoginService, private store: Store, private router: Router, private userService: UserManagementService) { }
 
 
     @Action(getUserConnection)
@@ -65,6 +66,11 @@ export class AuthState {
         this.store.dispatch(new terminateConnection());
         this.router.navigate(['/login']);
         
+    }
+
+    @Action(changePassword)
+    changePassword({dto}: changePassword) {
+        this.userService.changeUserPassword(dto);
     }
 
     @Action(terminateConnection)

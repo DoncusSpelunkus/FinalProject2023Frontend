@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Select, Store } from '@ngxs/store';
 import { establishConnection } from 'src/app/states/crossStateAction';
-import { Observable, forkJoin, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Login, getMe, getUserConnection } from 'src/app/states/auth/auth-action';
 import { User } from 'src/entities/User';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
