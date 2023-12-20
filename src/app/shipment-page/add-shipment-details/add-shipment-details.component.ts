@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {ShipmentDetails} from "../../../entities/Shipment";
+import {ShipmentDetail} from "../../../entities/Shipment";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSelectionListChange} from "@angular/material/list";
 import {FormControlNames} from "../../../constants/input-field-constants";
@@ -24,7 +24,7 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
 
   shipmentCreationFormGroup: FormGroup;
   selectedFormDetailIndices: any[];
-  details: ShipmentDetails[] = [];
+  details: ShipmentDetail[] = [];
   productSKUs: any[] = [
     {value: '21-124'},
     {value: '21-gds'},
@@ -83,9 +83,9 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   handleAddDetailsObject() {
-    const shipmentDetailsDTO: ShipmentDetails = {
-      ProductSKU: this.shipmentDetailCreationFormGroup.get(FormControlNames.SKU).value,
-      Quantity: this.shipmentDetailCreationFormGroup.get(FormControlNames.QUANTITY).value
+    const shipmentDetailsDTO: ShipmentDetail = {
+      productSKU: this.shipmentDetailCreationFormGroup.get(FormControlNames.SKU).value,
+      quantity: this.shipmentDetailCreationFormGroup.get(FormControlNames.QUANTITY).value
     }
     let currentListValue = this.getShipmentDetailsList;
     currentListValue.push(shipmentDetailsDTO);
