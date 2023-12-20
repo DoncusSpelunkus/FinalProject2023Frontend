@@ -1,7 +1,6 @@
 import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
 import {User} from "../../../entities/User";
-import {ShipmentService} from "../../../services/HttpRequestSevices/shipment.service";
 
 @Component({
   selector: 'app-delete-shipment',
@@ -15,7 +14,7 @@ export class DeleteShipmentComponent implements LoadableComponent{
   @Output() isValidEmitter = new EventEmitter<boolean>();
 
   selectedUser: User;
-  constructor(private shipmentService: ShipmentService) {
+  constructor() {
   }
 
   setData(data: any): void {
