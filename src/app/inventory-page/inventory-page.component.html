@@ -11,14 +11,14 @@
 
       <!--   PRODUCT NAME COLUMN   -->
       <ng-container matColumnDef="SKU">
-        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Product name</th>
+        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Product SKU</th>
         <td mat-cell *matCellDef="let productLocation"> {{productLocation.productSku}}</td>
       </ng-container>
 
 
       <!--   PRODUCT LOCATION COLUMN   -->
       <ng-container matColumnDef="Location">
-        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Location</th>
+        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Location ID</th>
         <td mat-cell *matCellDef="let productLocation"> {{productLocation.locationId}}</td>
       </ng-container>
 
@@ -55,14 +55,15 @@
 
       <ng-container matColumnDef="Expanded row">
         <td mat-cell *matCellDef="let productLocation" [colSpan]="displayedColumns.length">
-          <app-relocate-product-row *ngIf="productLocation.expandedRow === ExpandedRowType.RELOCATE"
-            [productLocation]="productLocation">
+          <app-relocate-product-row *ngIf="expandedRowState.row === productLocation && expandedRowState.type === ExpandedRowType.RELOCATE"
+                                    [productLocation]="productLocation">
           </app-relocate-product-row>
-          <app-update-quantity-row *ngIf="productLocation.expandedRow === ExpandedRowType.QUANTITY"
-            [productLocation]="productLocation">
+          <app-update-quantity-row *ngIf="expandedRowState.row === productLocation && expandedRowState.type === ExpandedRowType.QUANTITY"
+                                   [productLocation]="productLocation">
           </app-update-quantity-row>
         </td>
       </ng-container>
+
 
 
       <!--   Column definitions   -->
