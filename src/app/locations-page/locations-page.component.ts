@@ -14,6 +14,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {LocationSingleCreateComponent} from "./location-single-create/location-single-create.component";
 import {LocationBatchCreateComponent} from "./location-batch-create/location-batch-create.component";
 import {DeleteLocationComponent} from "./delete-location/delete-location.component";
+import {MatSort} from "@angular/material/sort";
+import {Location} from "../../entities/Inventory";
 
 @Component({
   selector: 'app-locations-page',
@@ -25,11 +27,12 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   @HostBinding('style.height') height = '100%';
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   tableFormGroup: FormGroup;
   dataSource = new MatTableDataSource<Location>();
 
-  displayedColumns = ['Location id','delete','update'];
+  displayedColumns = ['Location id','Aisle','Rack','Shelf','Bin','delete','update'];
 
   @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the types from the store
   private subscription: Subscription = new Subscription();
@@ -44,12 +47,13 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   }
 
   ngOnInit(): void {
-
+    this.initializeColumnSorting();
   }
 
 
   ngAfterViewInit(): void {
-    this.initializeSourceData();//TODO REMOVE
+    this.initializeSourceData();
+    this.initializeFilterPredicate();
     this.bindControlsToElements();
     this.setInitialValuesFromQueryParams();
     this.bindElementsToControls()
@@ -181,5 +185,27 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
         inputs: location // No dependent data to pass
       }
     });
+  }
+
+  private initializeColumnSorting() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'aisle': return Number(item.aisle);
+        case 'rack': return Number(item.rack);
+        case 'shelf': return Number(item.shelf);
+        case 'bin': return Number(item.bin);
+        // Add cases for other properties if necessary
+        default: return item[property];
+      }
+    };
+  }
+
+  private initializeFilterPredicate() {
+    // Set custom filter predicate
+    this.dataSource.filterPredicate = (data: Location, filter: string) => {
+      const combinedString = `${data.aisle}-${data.rack}-${data.shelf}-${data.bin}`;
+      return combinedString.toLowerCase().includes(filter.trim().toLowerCase());
+    };
   }
 }
