@@ -37,6 +37,8 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
   @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the types from the store
   private subscription: Subscription = new Subscription();
 
+  isLoading = true;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -81,6 +83,9 @@ export class LocationsPageComponent extends FormBuilding implements OnInit, Afte
       this.locations$.subscribe(
         (locations: Location[]) => {
           this.dataSource.data = locations;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 750); // Delay in milliseconds
         })
     );
   }
