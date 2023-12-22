@@ -29,6 +29,7 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
   ngOnInit(): void {
     this.initializeFormGroup();
     this.initializeSubscriptions();
+    this.initializeData();
   }
 
   setData(data: any): void {
@@ -67,5 +68,12 @@ export class CreateBrandComponent extends FormBuilding implements LoadableCompon
     return {
       Name: this.formGroup.get(FormControlNames.BRAND_NAME).value,
     }
+  }
+
+  private initializeData() {
+    if (!this.brand) {
+      return;
+    }
+    this.formGroup.get(FormControlNames.BRAND_NAME).setValue(this.brand.name);
   }
 }
