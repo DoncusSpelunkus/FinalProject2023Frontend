@@ -6,16 +6,24 @@ import {LoadableComponent} from "../../../interfaces/component-interfaces";
   selector: 'app-dynamic-dialog',
   templateUrl: './dynamic-dialog.component.html'
 })
-export class DynamicDialogComponent implements AfterViewInit {
+export class DynamicDialogComponent implements AfterViewInit, OnInit {
   @ViewChild('dynamicContent', { read: ViewContainerRef,static: false }) viewContainerRef: ViewContainerRef;
 
   componentRef: ComponentRef<LoadableComponent>;
   isValid = false; // keep track if the form inside of dialog is valid
 
+  needsActions = true;
+
   constructor(
     public dialogRef: MatDialogRef<DynamicDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { component: Type<any>, inputs: any }
+    @Inject(MAT_DIALOG_DATA) public data: { component: Type<any>, inputs: any, needsActions?: boolean }
   ) {}
+
+  ngOnInit(): void {
+    if (typeof this.data.needsActions !== 'undefined') {
+      this.needsActions = this.data.needsActions;
+    }
+  }
 
   ngAfterViewInit(): void {
     this.componentRef = this.viewContainerRef.createComponent<LoadableComponent>(this.data.component);
@@ -24,6 +32,7 @@ export class DynamicDialogComponent implements AfterViewInit {
     if (this.data.inputs) {
       this.componentRef.instance.setData(this.data.inputs);
     }
+
     this.componentRef.instance.isValidEmitter.subscribe(isValid => {
       this.isValid = isValid
     })

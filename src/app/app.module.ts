@@ -78,6 +78,7 @@ import { ShipmentState } from './states/shipment/shipment-state';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { DeleteProductLocationComponent } from './inventory-page/delete-product-location/delete-product-location.component';
 import { ConfirmPasswordResetComponent } from './manage-users/confirm-password-reset/confirm-password-reset.component';
+import { LogOverviewComponent } from './logs-page/log-overview/log-overview.component';
 
 
 @NgModule({
@@ -130,6 +131,7 @@ import { ConfirmPasswordResetComponent } from './manage-users/confirm-password-r
     DeleteProductsComponent,
     DeleteProductLocationComponent,
     ConfirmPasswordResetComponent,
+    LogOverviewComponent,
   ],
   imports: [
 

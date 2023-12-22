@@ -7,3 +7,5 @@ export class Log {
     timestamp: string;
     log_id: number;
 }
+
+
