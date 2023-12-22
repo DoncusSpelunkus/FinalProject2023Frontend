@@ -76,6 +76,7 @@ import { DeleteLocationComponent } from './locations-page/delete-location/delete
 import { DeleteProductsComponent } from './manage-products/delete-products/delete-products.component';
 import { ShipmentState } from './states/shipment/shipment-state';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { DeleteProductLocationComponent } from './inventory-page/delete-product-location/delete-product-location.component';
 
 
 @NgModule({
@@ -126,6 +127,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     LocationSingleCreateComponent,
     DeleteLocationComponent,
     DeleteProductsComponent,
+    DeleteProductLocationComponent,
   ],
   imports: [
 

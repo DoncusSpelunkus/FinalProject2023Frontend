@@ -10,6 +10,7 @@ import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
 import { Observable, Subscription } from 'rxjs';
 import { ProductLocation } from 'src/entities/Inventory';
+import {DeleteProductLocationComponent} from "./delete-product-location/delete-product-location.component";
 
 
 
@@ -29,7 +30,7 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
 
   ExpandedRowType = ExpandedRowType;
   FormControlNames = FormControlNames;
-  displayedColumns = ['SKU', 'Location', 'Relocate', 'Adjust quantity'];
+  displayedColumns = ['SKU', 'Location', 'Relocate', 'Adjust quantity','Delete'];
   expandedRowState: ExpandedRowState = { row: null, type: null };
 
   formGroup: FormGroup;
@@ -97,6 +98,17 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
       // Otherwise, expand the new row
       this.expandedRowState = { row, type: expandType };
     }
+  }
+
+  handleOpenDeleteProductLocationDialog(productLocation) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '45%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: DeleteProductLocationComponent,
+        inputs: productLocation // No dependent data to pass
+      }
+    });
   }
 }
 

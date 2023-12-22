@@ -29,7 +29,7 @@
       </th>
       <td mat-cell *matCellDef="let productLocation">
         <div class="w-full h-full flex justify-center">
-          <app-icon matRipple class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125" icon="expand-arrows"
+          <app-icon matRipple class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out" icon="expand-arrows"
                     (click)="toggleRow(productLocation,ExpandedRowType.RELOCATE)">
           </app-icon>
         </div>
@@ -45,12 +45,27 @@
         </th>
         <td mat-cell *matCellDef="let productLocation">
           <div class="w-full h-full flex justify-center">
-            <app-icon matRipple class="p-1.5 rounded-md bg-blue-700 text-white text-xl hover:brightness-125" icon="arrow-break"
+            <app-icon matRipple class="p-1.5 rounded-md bg-blue-700 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out" icon="arrow-break"
               (click)="toggleRow(productLocation,ExpandedRowType.QUANTITY)">
             </app-icon>
           </div>
         </td>
       </ng-container>
+
+      <ng-container matColumnDef="Delete">
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center"> Delete </span>
+        </th>
+        <td mat-cell *matCellDef="let productLocation">
+          <div class="w-full h-full flex justify-center">
+            <app-icon matRipple class="p-1.5 rounded-md bg-red-500 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out" icon="trash"
+                      (click)="handleOpenDeleteProductLocationDialog(productLocation)">
+            </app-icon>
+          </div>
+        </td>
+      </ng-container>
+
+
 
 
       <ng-container matColumnDef="Expanded row">
