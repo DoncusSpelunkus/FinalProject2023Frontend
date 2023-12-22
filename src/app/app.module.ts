@@ -79,6 +79,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import { DeleteProductLocationComponent } from './inventory-page/delete-product-location/delete-product-location.component';
 import { ConfirmPasswordResetComponent } from './manage-users/confirm-password-reset/confirm-password-reset.component';
 import { LogOverviewComponent } from './logs-page/log-overview/log-overview.component';
+import { SupportButtonComponent } from './util/support-button/support-button.component';
 
 
 @NgModule({
@@ -132,6 +133,7 @@ import { LogOverviewComponent } from './logs-page/log-overview/log-overview.comp
     DeleteProductLocationComponent,
     ConfirmPasswordResetComponent,
     LogOverviewComponent,
+    SupportButtonComponent,
   ],
   imports: [
 
