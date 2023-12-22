@@ -1,23 +1,27 @@
-import { Injectable } from '@angular/core';
-import {fromEvent, mapTo, merge, timer } from 'rxjs';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Store } from '@ngxs/store';
-import { ClearUser } from 'src/app/states/auth/auth-action';
+import {fromEvent, merge, switchMap, tap, timer} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {ClearUser} from "../../app/states/auth/auth-action";
+import {Store} from "@ngxs/store";
+import {Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActivityService {
+  // ... other properties
 
+  private activityEventsSubscription = null;
 
   private inactivityTime = 1000 * 60 * 30; // 30 minutes
-  private inactivityTimer = timer(this.inactivityTime);
 
-  
   constructor(private store: Store, private matsnackbar: MatSnackBar) { }
 
   startMonitoring() {
+    if (this.activityEventsSubscription) {
+      // If already monitoring, do nothing
+      return;
+    }
+
     const activityEvents = merge(
       fromEvent(document, 'mousemove'),
       fromEvent(document, 'click'),
@@ -26,15 +30,19 @@ export class ActivityService {
       fromEvent(document, 'touch')
     );
 
-    activityEvents.subscribe(() => {
-      this.inactivityTimer = timer(this.inactivityTime);
-    });
-
-    this.inactivityTimer.pipe(mapTo(null)).subscribe(() => { 
-      this.store.dispatch(new ClearUser());
-      this.matsnackbar.open('You have been logged out due to inactivity', 'X', {duration: 1000});
-     });
+    this.activityEventsSubscription = activityEvents.pipe(
+      switchMap(() => timer(this.inactivityTime)),
+      tap(() => {
+        this.store.dispatch(new ClearUser());
+        this.matsnackbar.open('You have been logged out due to inactivity', 'X', { duration: 1000 });
+      })
+    ).subscribe();
   }
 
-
+  stopMonitoring() {
+    if (this.activityEventsSubscription) {
+      this.activityEventsSubscription.unsubscribe();
+      this.activityEventsSubscription = null;
+    }
+  }
 }

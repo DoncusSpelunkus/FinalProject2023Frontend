@@ -7,7 +7,6 @@ import { debounceTime, Observable, Subject, Subscription, take } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { setupDistinctControlSubscription } from "../../../util/subscription-setup";
 import { User } from 'src/entities/User';
-import { ActivityService } from 'src/services/HelperSevices/activityService';
 import { MatDialog } from "@angular/material/dialog";
 import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog.component";
 import { CreateUserComponent } from "../create-user/create-user.component";
@@ -55,11 +54,9 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private activityMonitor: ActivityService,
     private dialog: MatDialog
 
   ) {
-    this.activityMonitor.startMonitoring();
     this.routeParamsSubject.pipe(
       debounceTime(300) // Debounce time in milliseconds
     ).subscribe(paramsToUpdate => {

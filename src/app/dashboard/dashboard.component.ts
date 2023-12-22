@@ -21,6 +21,7 @@ import {LocationStrategy} from "@angular/common";
 import { Select, Store } from '@ngxs/store';
 import { AuthSelectors } from '../states/auth/auth-selector';
 import { ClearUser } from '../states/auth/auth-action';
+import {ActivityService} from "../../services/HelperSevices/activityService";
 
 @Component({
   selector: 'app-dashboard',
@@ -61,7 +62,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               private route: Router,
               private cdRef: ChangeDetectorRef,
               private location: LocationStrategy,
-              private store: Store
+              private store: Store,
+              private activityService: ActivityService
               ) {
 
   }
@@ -142,6 +144,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   async logout() {
     this.store.dispatch(new ClearUser());
+    this.activityService.stopMonitoring();
     this.ngAfterViewInit();
     this.collapseNavigation();
   }

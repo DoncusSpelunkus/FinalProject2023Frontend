@@ -11,6 +11,7 @@ import { Login, getMe, getUserConnection } from 'src/app/states/auth/auth-action
 import { User } from 'src/entities/User';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
 import { handleRoleBasedNavigation } from 'src/util/role-based-actions';
+import {ActivityService} from "../../../../services/HelperSevices/activityService";
 
 
 
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
     private route: Router,
     private matSnackbar: MatSnackBar,
     private store: Store,
+    private activityService: ActivityService
   ) {
 
 
@@ -75,6 +77,7 @@ export class LoginComponent implements OnInit {
     }
     finally {
       this.isLoading = false;
+      this.activityService.startMonitoring();
       this.userObservable$.subscribe(user => {
         handleRoleBasedNavigation(user.role, this.route)
       });
