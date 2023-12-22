@@ -15,6 +15,7 @@ import { DeleteUserConfirmationComponent } from "../delete-user-confirmation/del
 import { Select } from "@ngxs/store";
 import { UserSelector } from 'src/app/states/userManagement/user-selectors';
 import {UserOverviewComponent} from "../user-overview/user-overview.component";
+import {ConfirmPasswordResetComponent} from "../confirm-password-reset/confirm-password-reset.component";
 
 
 
@@ -240,10 +241,10 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
 
   openResetPasswordWindow(user) {
     this.dialog.open(DynamicDialogComponent, {
-      width: '60%', // Set the width
-      height: '60%', // Set the height
+      width: '45%', // Set the width
+      height: '30%', // Set the height
       data: {
-        component: CreateUserComponent,
+        component: ConfirmPasswordResetComponent,
         inputs: user
       }
     });

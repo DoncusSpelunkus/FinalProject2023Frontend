@@ -96,5 +96,11 @@ export class UserManagementService {
 
   changeUserPassword(dto: ChangePasswordDTO) {
     //TODO implement call to endpoint
+    console.error('not implemented')
+  }
+
+  resetUsersPassword(employeeId: number) {
+    //
+    console.error('not implemented')
   }
 }
