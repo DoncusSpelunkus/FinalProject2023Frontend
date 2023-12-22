@@ -22,16 +22,55 @@
       </ng-container>
 
       <ng-container matColumnDef="delete">
-        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Delete</th>
-        <td mat-cell *matCellDef="let user" (click)="openDeleteUserDialog(user)">
-          <ng-container *ngTemplateOutlet="tableDeleteColumnItem"></ng-container>
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center"> Delete </span>
+        </th>
+        <td mat-cell *matCellDef="let user">
+          <div class="w-full h-full flex justify-center">
+            <app-icon matRipple class="p-1.5 rounded-md bg-red-500 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out" icon="trash"
+                      (click)="openDeleteUserDialog(user)">
+            </app-icon>
+          </div>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="edit">
-        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef>Edit</th>
-        <td mat-cell *matCellDef="let user" (click)="openEditUserDialog(user)">
-          <ng-container *ngTemplateOutlet="tableEditColumnItem"></ng-container>
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center"> Edit </span>
+        </th>
+        <td mat-cell *matCellDef="let user">
+          <div class="w-full h-full flex justify-center">
+            <app-icon matRipple class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out" icon="pen"
+                      (click)="openEditUserDialog(user)">
+            </app-icon>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="password-reset">
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center"> Reset password </span>
+        </th>
+        <td mat-cell *matCellDef="let user">
+          <div class="w-full h-full flex justify-center">
+            <app-icon matRipple class="p-1.5 rounded-md bg-blue-600 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out" icon="key-skeleton"
+                      (click)="openResetPasswordWindow(user)">
+            </app-icon>
+          </div>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Overview">
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center"> Overview </span>
+        </th>
+        <td mat-cell *matCellDef="let user">
+          <div class="w-full h-full flex justify-center">
+            <app-icon matRipple class="p-1.5 rounded-md bg-blue-600 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out" icon="key-skeleton"
+                      (click)="openUserOverviewWindow(user)">
+            </app-icon>
+          </div>
         </td>
       </ng-container>
 
@@ -67,14 +106,3 @@
   </mat-form-field>
 </ng-template>
 
-<ng-template #tableDeleteColumnItem>
-  <button mat-icon-button color="warn">
-    <mat-icon>delete</mat-icon>
-  </button>
-</ng-template>
-
-<ng-template #tableEditColumnItem>
-  <button mat-icon-button color="primary">
-    <mat-icon>edit</mat-icon>
-  </button>
-</ng-template>
