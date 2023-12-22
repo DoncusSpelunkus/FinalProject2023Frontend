@@ -81,7 +81,7 @@ export class ShipmentService {
       const shipmentDetails = {
         shipmentDetail: shipmentDetail
       }
-      const response = await customAxios.post('/AddToShipment/' + shipmentId, shipmentDetail);
+      const response = await customAxios.put('/AddToShipment/' + shipmentId, shipmentDetail);
       return response.data;
     }
     catch (error) {
@@ -91,7 +91,7 @@ export class ShipmentService {
 
   async removeFromShipment(shipmentId: number, shipmentDetailId: number) {
     try {
-      const response = await customAxios.post('/RemoveFromShipment/' + shipmentId + '/' + shipmentDetailId);
+      const response = await customAxios.delete('/RemoveFromShipment/' + shipmentId + '/' + shipmentDetailId);
       return response.data;
     }
     catch (error) {
