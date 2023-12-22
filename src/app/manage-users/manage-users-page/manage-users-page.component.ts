@@ -14,7 +14,6 @@ import { CreateUserComponent } from "../create-user/create-user.component";
 import { DeleteUserConfirmationComponent } from "../delete-user-confirmation/delete-user-confirmation.component";
 import { Select } from "@ngxs/store";
 import { UserSelector } from 'src/app/states/userManagement/user-selectors';
-import {UserOverviewComponent} from "../user-overview/user-overview.component";
 import {ConfirmPasswordResetComponent} from "../confirm-password-reset/confirm-password-reset.component";
 
 
@@ -45,7 +44,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   @ViewChild(MatPaginator) paginator: MatPaginator;
   optionsPerPage = [3, 5, 10, 15, 25]
 
-  displayedColumns: string[] = ['name', 'email', 'delete', 'edit','password-reset','Overview'];
+  displayedColumns: string[] = ['name', 'email', 'delete', 'edit','password-reset'];
   FormControlNames = FormControlNames
   warehouseId: number | undefined;
 
@@ -250,14 +249,4 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
 
-  openUserOverviewWindow(user) {
-    this.dialog.open(DynamicDialogComponent, {
-      width: '60%', // Set the width
-      height: '60%', // Set the height
-      data: {
-        component: UserOverviewComponent,
-        inputs: user
-      }
-    });
-  }
 }
