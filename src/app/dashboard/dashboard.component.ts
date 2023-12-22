@@ -10,7 +10,7 @@ import {
 import { ButtonConfig, DashboardCommunicationService } from "../../services/HelperSevices/dashboard-communication.service";
 import { Observable, Subscription } from "rxjs";
 import {
-  inventoryButtonConfig, locationButtonConfig,
+  inventoryButtonConfig,
   productsButtonConfig, shipmentButtonConfig,
   systemButtonConfig,
   usersButtonConfig
@@ -150,14 +150,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     inventoryButtonConfig,
     productsButtonConfig,
     systemButtonConfig,
-    locationButtonConfig
   ];
   adminConfig: ButtonConfig[] = [
     usersButtonConfig,
     inventoryButtonConfig,
     productsButtonConfig,
     systemButtonConfig,
-    locationButtonConfig
   ]
   salesConfig: ButtonConfig[] = [
     inventoryButtonConfig,
