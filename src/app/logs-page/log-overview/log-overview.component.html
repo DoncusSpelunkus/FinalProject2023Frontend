@@ -1,1 +1,71 @@
-<p>log-overview works!</p>
+<div class="w-full h-full flex flex-row justify-center items-center pt-2 font-bold">
+
+  <!-- Left side property names -->
+  <section class="w-1/2 h-full flex flex-col justify-start items-start space-y-6">
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label> Employee name </label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label> Product </label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label> Record date and time </label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label> Location from </label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label> Location to </label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label> Action type </label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label> Quantity </label>
+    </header>
+
+  </section>
+
+  <!-- Right side property values -->
+  <section class="w-1/2 h-full flex flex-col justify-start items-end space-y-6">
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <app-icon matTooltip='search employee' class="text-white rounded-md p-2 bg-green-800 transition-all duration-300 hover:scale-110 hover:cursor-pointer box-content" [icon]="'search'" (click)="handleFindUser()"></app-icon>
+      <label>{{getEmployeeName}}</label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <app-icon matTooltip='search product' class="text-white rounded-md p-2 bg-green-800 transition-all duration-300 hover:scale-110 hover:cursor-pointer box-content" [icon]="'search'" (click)="handleFindProduct()"></app-icon>
+      <label>{{getProduct.name}}</label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label>{{ selectedLog.timestamp | date: 'fullDate' }} - {{ selectedLog.timestamp | date: 'shortTime' }}</label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label>{{getLocationFrom}}</label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label>{{getLocationTo}}</label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label>{{selectedLog.type}}</label>
+    </header>
+
+    <header class="h-6 flex flex-row items-center justify-center space-x-2">
+      <label>{{selectedLog.quantity}}</label>
+    </header>
+
+  </section>
+
+</div>

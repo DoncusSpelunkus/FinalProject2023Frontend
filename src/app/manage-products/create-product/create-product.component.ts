@@ -142,11 +142,6 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
       return;
     }
 
-    console.log(data.brandId)
-    console.log(this.brandList)
-    console.log(this.brandList.find(brand => brand.brandId === 1))
-    console.log(this.typeList.find(brand => brand.typeId === data.typeId))
-
     this.productInfoFormGroup.patchValue({
       [FormControlNames.SKU]: data.sku,
       [FormControlNames.NAME]: data.name,

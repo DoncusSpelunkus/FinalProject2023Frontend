@@ -20,14 +20,14 @@ export class CreateTypeDTO {
 export class ProductLocation {
     productLocationId?: number;
     productSKU?: string;
-    locationId?: number;
+    locationId?: string;
     quantity?: number;
     lastUpdated?: Date;
     warehouseId?: number;
 }
 
 export class Location {
-    locationId?: number;
+    locationId?: string;
     aisle?: string;
     rack?: string;
     shelf?: string;

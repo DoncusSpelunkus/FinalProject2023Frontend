@@ -143,8 +143,8 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
 
   openViewInfoWindow(log) {
     this.dialog.open(DynamicDialogComponent, {
-      width: '60%', // Set the width
-      height: '60%', // Set the height
+      width: '40%', // Set the width
+      height: '50%', // Set the height
       data: {
         component: LogOverviewComponent,
         inputs: log,
@@ -154,6 +154,3 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
   }
 }
 
-export interface SimpleDummyData {
-  name: string;
-}

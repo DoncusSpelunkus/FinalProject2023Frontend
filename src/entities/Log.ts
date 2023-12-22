@@ -1,11 +1,13 @@
 export class Log {
-    product_sku: string;
+    productSKU: string;
     from_location_id: string;
-    to_location_id: string;
+    toLocationId: string;
     quantity: number;
-    user_id: number;
+    userId: number;
     timestamp: string;
     log_id: number;
+    type: string;
+
 }
 
 
