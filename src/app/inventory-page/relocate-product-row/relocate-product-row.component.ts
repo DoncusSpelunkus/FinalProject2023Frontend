@@ -87,9 +87,10 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
     return {
       productSKU: this.productLocation.productSku,
       quantity: this.productLocation.quantity,
-      sourcePLocationId: this.productLocation.locationId,
-      destinationPLocationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
-      type: 3//move to existing location
+      locationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
+      sourcePLocationId: this.productLocation.productLocationId,
+      destinationPLocationId: this.productLocation.productLocationId,
+      type: 2//move to existing location
     }
   }
 }
