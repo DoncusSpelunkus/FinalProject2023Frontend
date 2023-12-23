@@ -1,23 +1,20 @@
 <!-- Main container -->
 <section class="fixed left-10 bottom-10 z-50">
 
-  <div *ngIf="!isOpened" class="bg-blue-500 hover:bg-blue-600 p-3 flex items-center justify-center rounded-full group hover:cursor-pointer transition-all duration-700 ease-out shadow-2xl pulse" (click)="handleOpenWriteToSupportSection()">
+  <div class="p-0 flex rounded-2xl items-end justify-center ring-2 ring-transparent group transition-all duration-300 ease-out shadow-2xl pulse
+    {{isOpened ? 'shadow-2xl px-6 py-4 !h-96 ring-blue-500' : ''}}"
+    [style.height.px]="accessor.offsetHeight" (click)="handleOpenWriteToSupportSection()">
 
     <!--  Un-opened section  -->
-    <section class="flex items-center justify-center" (click)="isOpened = true">
-      <app-icon class="text-white text-3xl" icon="headphones-alt"></app-icon>
+    <section #accessor class="flex items-center justify-center hover:cursor-pointer bg-blue-500 hover:bg-blue-600 rounded-full p-2" (click)="isOpened = true">
+      <app-icon class="text-white text-2xl" icon="headphones-alt"></app-icon>
 
       <!-- Header with transition -->
       <header class="group-hover:ml-4 group-hover:mr-2 opacity-0 max-w-0 group-hover:opacity-100 h-4 flex font-bold font-quicksand truncate text-white justify-center overflow-clip items-center group-hover:max-w-xs transition-all duration-500 ease-in-out">
-        Contact us
+        {{isOpened ? 'Contact us' : 'Send'}}
       </header>
     </section>
 
-  </div>
-
-  <div *ngIf="isOpened" class="bg-blue-500 hover:bg-blue-600 p-3 flex items-center justify-center rounded-xl group hover:cursor-pointer transition-all duration-700 ease-out shadow-2xl pulse">
-    <section class="w-56 h-96">
-    </section>
   </div>
 
 </section>
