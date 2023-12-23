@@ -14,7 +14,7 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class LoginService {
-  
+
   constructor(private matSnackbar: MatSnackBar) {
     customAxios.interceptors.response.use(
       response => {
@@ -63,7 +63,8 @@ export class LoginService {
   }
 
   async UpdatePassword(dto: ChangePasswordDTO) {
-    await customAxios.put('/updatePassword', dto).then(response => {
+    console.log(dto)
+    await customAxios.put('/PasswordUpdate',dto).then(response => {
       return response;
     }
     );

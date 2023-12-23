@@ -1,5 +1,7 @@
 export enum FormControlNames {
   PASSWORD = 'Password',
+  CURRENT_PASSWORD = 'Current password',
+  NEW_PASSWORD = 'New password',
   EMAIL = 'Email',
   PASSWORD_CONFIRMATION = "Password confirmation",
   FILTER = 'search',

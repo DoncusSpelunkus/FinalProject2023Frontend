@@ -80,12 +80,8 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
       [FormControlNames.NAME]: ['',valueRequired(FormControlNames.NAME)],
       [FormControlNames.USERNAME]: ['',valueRequired(FormControlNames.USERNAME)],
       [FormControlNames.EMAIL]: ['',[valueRequired(FormControlNames.EMAIL),emailValidator]],
-      [FormControlNames.ROLE]: ['',valueRequired(FormControlNames.ROLE)],
-      [FormControlNames.PASSWORD]: ['',[valueRequired(FormControlNames.PASSWORD), passwordStrengthValidator()]],
-      [FormControlNames.PASSWORD_CONFIRMATION]: ['',valueRequired(FormControlNames.PASSWORD_CONFIRMATION)]
-    }, {validators: matchingValuesValidator(FormControlNames.PASSWORD,FormControlNames.PASSWORD_CONFIRMATION)}
+      [FormControlNames.ROLE]: ['',valueRequired(FormControlNames.ROLE)]}
     )
-
   }
 
   private initializeSubscriptions() {
@@ -96,9 +92,8 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
     return {
       email: this.formGroup.get(FormControlNames.EMAIL)?.value,
       name: this.formGroup.get(FormControlNames.NAME)?.value,
-      password: this.formGroup.get(FormControlNames.PASSWORD)?.value,
       role: this.formGroup.get(FormControlNames.ROLE)?.value,
-      username: this.formGroup.get(FormControlNames.USERNAME)?.value,
+      username: this.formGroup.get(FormControlNames.USERNAME)?.value
     };
   }
   private mapEnumToArray(enumObj: any): any[] {

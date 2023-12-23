@@ -12,7 +12,7 @@ export class CreateUserDTO {
   EmployeeId?: number;
   name: string;
   email: string;
-  username: string;
+  username?: string;
   role: string;
-  password:string;
+  password?:string;
 }

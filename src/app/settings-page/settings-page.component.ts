@@ -27,10 +27,7 @@ export class SettingsPageComponent {
   }
 
   items: SettingsCardConfig[] = [
-    {displayText: 'Change password', buttonText: 'Change', icon: 'lock-alt',callbackFn: this.openChangePasswordDialog},
-    {displayText: 'Change password', buttonText: 'Change', icon: 'lock-alt',callbackFn: this.openChangePasswordDialog},
-    {displayText: 'Change password', buttonText: 'Change', icon: 'lock-alt',callbackFn: this.openChangePasswordDialog},
-    {displayText: 'Change password', buttonText: 'Change', icon: 'lock-alt',callbackFn: this.openChangePasswordDialog},
+    {displayText: 'Change password', buttonText: 'Change', icon: 'lock-alt',callbackFn: this.openChangePasswordDialog}
   ];
 
 

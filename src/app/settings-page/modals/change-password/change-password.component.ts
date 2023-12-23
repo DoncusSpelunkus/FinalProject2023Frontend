@@ -53,9 +53,9 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
 
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
-      [FormControlNames.PASSWORD]: ['',[valueRequired(FormControlNames.PASSWORD),passwordStrengthValidator()]],
-      [FormControlNames.PASSWORD_CONFIRMATION]: ['',[valueRequired(FormControlNames.PASSWORD_CONFIRMATION),passwordStrengthValidator()]],
-    }, {validators: matchingValuesValidator(FormControlNames.PASSWORD,FormControlNames.PASSWORD_CONFIRMATION)})
+      [FormControlNames.CURRENT_PASSWORD]: ['',[valueRequired(FormControlNames.CURRENT_PASSWORD)]],
+      [FormControlNames.NEW_PASSWORD]: ['',[valueRequired(FormControlNames.NEW_PASSWORD),passwordStrengthValidator()]],
+    })
   }
 
   private initializeSubscriptions() {
