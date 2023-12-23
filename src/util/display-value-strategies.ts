@@ -10,7 +10,7 @@ const getLocationDisplayValue = (option: any): string => {
 };
 
 const displayValueStrategies = new Map<FormControlNames, (option: any) => string>([
-  [FormControlNames.PRODUCT_LOCATION, getLocationDisplayValue],
+  [FormControlNames.LOCATION, getLocationDisplayValue],
 ]);
 
 export const getDisplayValue = (option: any, formControlName: FormControlNames, displayValueProperty: string): string => {

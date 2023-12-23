@@ -30,7 +30,7 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
 
   ExpandedRowType = ExpandedRowType;
   FormControlNames = FormControlNames;
-  displayedColumns = ['SKU', 'Location', 'Relocate', 'Adjust quantity'];
+  displayedColumns = ['SKU', 'Location', 'Relocate','Combine', 'Adjust quantity'];
   expandedRowState: ExpandedRowState = { row: null, type: null };
 
   formGroup: FormGroup;
@@ -114,7 +114,8 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
 
 export enum ExpandedRowType {
   RELOCATE = "RELOCATE",
-  QUANTITY = "QUANTITY"
+  QUANTITY = "QUANTITY",
+  COMBINE = "COMBINE"
 }
 
 interface ExpandedRowState {

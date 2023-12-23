@@ -52,18 +52,18 @@
         </td>
       </ng-container>
 
-<!--      <ng-container matColumnDef="Delete">-->
-<!--        <th mat-header-cell *matHeaderCellDef>-->
-<!--          <span class="font-quicksand !font-black flex w-full justify-center"> Delete </span>-->
-<!--        </th>-->
-<!--        <td mat-cell *matCellDef="let productLocation">-->
-<!--          <div class="w-full h-full flex justify-center">-->
-<!--            <app-icon matRipple class="p-1.5 rounded-md bg-red-500 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out hover:cursor-pointer" icon="trash"-->
-<!--                      (click)="handleOpenDeleteProductLocationDialog(productLocation)">-->
-<!--            </app-icon>-->
-<!--          </div>-->
-<!--        </td>-->
-<!--      </ng-container>-->
+      <ng-container matColumnDef="Combine">
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center"> Combine </span>
+        </th>
+        <td mat-cell *matCellDef="let productLocation">
+          <div class="w-full h-full flex justify-center">
+            <app-icon matRipple class="p-1.5 rounded-md bg-green-800 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out hover:cursor-pointer" icon="compress-alt"
+                      (click)="toggleRow(productLocation,ExpandedRowType.COMBINE)">
+            </app-icon>
+          </div>
+        </td>
+      </ng-container>
 
 
 
@@ -76,6 +76,11 @@
           <app-update-quantity-row *ngIf="expandedRowState.row === productLocation && expandedRowState.type === ExpandedRowType.QUANTITY"
                                    [productLocation]="productLocation">
           </app-update-quantity-row>
+
+          <app-combine-stock-row *ngIf="expandedRowState.row === productLocation && expandedRowState.type === ExpandedRowType.COMBINE"
+          [productLocation]="productLocation">
+
+          </app-combine-stock-row>
         </td>
       </ng-container>
 

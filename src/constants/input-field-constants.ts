@@ -20,7 +20,8 @@ export enum FormControlNames {
   RACK_COUNT = "Rack count",
   SHELF_COUNT = "Shelf count",
   BIN_COUNT = "Bin count",
-  PRODUCT_LOCATION = "Location",
+  LOCATION = "Location",
+  PRODUCT_LOCATION = "Product location",
 
   QUANTITY = "Quantity",
   SKU = "SKU",
