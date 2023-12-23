@@ -72,6 +72,10 @@ export class LogSocket {
 
     private initialize(){
         this.store.dispatch(new getLogs());
+        this.requestLogs();
+    }
+
+    public requestLogs() {
         this.hubConnection.invoke("RequestLogs")
     }
 
