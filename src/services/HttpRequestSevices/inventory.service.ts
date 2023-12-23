@@ -5,7 +5,7 @@ import { Observable, catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 import { Select } from '@ngxs/store';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
-import {Location, MoveQuantityDTO} from 'src/entities/Inventory';
+import {ChangeQuantityDTO, Location, MoveQuantityDTO} from 'src/entities/Inventory';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl,
@@ -84,6 +84,16 @@ export class InventoryService {
 
 
   async moveQuantity(payload: MoveQuantityDTO) {
+    try {
+      const response = await customAxios.patch('ProductLocation/MoveQuantity',payload);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+  }
+
+  async changeQuantity(payload: ChangeQuantityDTO) {
     try {
       const response = await customAxios.patch('ProductLocation/MoveQuantity',payload);
       return response;

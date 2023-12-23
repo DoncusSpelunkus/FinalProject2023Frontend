@@ -56,8 +56,7 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
 
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
-      [FormControlNames.PRODUCT_LOCATION] : [this.locations.find(location => location.locationId === this.productLocation.locationId),valueRequired(FormControlNames.PRODUCT_LOCATION)],
-      [FormControlNames.QUANTITY] : [this.productLocation.quantity, valueRequired(FormControlNames.QUANTITY)]
+      [FormControlNames.PRODUCT_LOCATION] : [this.locations.find(location => location.locationId === this.productLocation.locationId),valueRequired(FormControlNames.PRODUCT_LOCATION)]
     });
   }
 
@@ -86,10 +85,8 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
   private getDTO(): MoveQuantityDTO {
     console.log(this.productLocation)
     return {
-      locationId: this.productLocation.locationId,
       productSKU: this.productLocation.productSku,
-      sourcePLocationId: this.productLocation.productLocationId,
-      destinationPLocationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
+      locationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
       quantity: this.productLocation.quantity,
       type: 2//move to existing location
     }

@@ -35,6 +35,12 @@ export class MoveQuantityDTO {
   type?: number;//action type
 }
 
+export class ChangeQuantityDTO {
+  sourcePLocationId?: string;
+  quantity?: number;
+  type?: number;
+}
+
 export class Location {
     locationId?: string;
     aisle?: string;
