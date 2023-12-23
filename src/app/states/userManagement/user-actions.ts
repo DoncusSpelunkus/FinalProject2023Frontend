@@ -21,7 +21,7 @@ export class deleteUser {
     constructor(public payload: number) { }
 }
 
-export class changePassword {
-    static readonly type = '[User] Establish connection'
-    constructor(public dto: ChangePasswordDTO) { }
+export class resetUserPassword {
+    static readonly type = '[User] Reset Password'
+    constructor(public email: string) { }
 }

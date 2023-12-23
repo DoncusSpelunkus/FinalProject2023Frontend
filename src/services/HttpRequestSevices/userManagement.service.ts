@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { MatSnackBar } from "@angular/material/snack-bar";
-import {  Observable, catchError } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { environment } from "src/enviroment";
-import {CreateUserDTO, User} from 'src/entities/User';
+import { CreateUserDTO, User } from 'src/entities/User';
 import { UserStore } from 'src/stores/user.store';
-import {ChangePasswordDTO} from "../../entities/PasswordConfirmation";
+import { ChangePasswordDTO } from "../../entities/PasswordConfirmation";
 import { Select } from '@ngxs/store';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
 
@@ -24,7 +24,7 @@ export class UserManagementService {
   @Select(AuthSelectors.getToken) token$: Observable<string>;
 
   constructor(private matSnackbar: MatSnackBar,
-              private userStore: UserStore) {
+    private userStore: UserStore) {
     this.setupSnackBar();
   }
 
@@ -46,7 +46,7 @@ export class UserManagementService {
       const response = await customAxios.get('/GetById/' + employeeId)
       return response.data;
     }
-    catch(error) {
+    catch (error) {
       throw error;
     }
   }
@@ -94,18 +94,17 @@ export class UserManagementService {
     });
   }
 
-  async changeUserPassword(dto: ChangePasswordDTO) {
-    try {
-      const response = await customAxios.put('ResetPassword',dto);
-      return response;
-    }
-    catch(error) {
-      throw error;
-    }
+  changeUserPassword(dto: ChangePasswordDTO) {
+    //TODO implement call to endpoint
+    console.error('not implemented')
   }
 
-  resetUsersPassword(employeeId: number) {
-    //
-    console.error('not implemented')
+
+
+  async ResetUserPassword(email: string) {
+    await customAxios.put('/ResetPassword', email).then(response => {
+      this.userStore.createUser(response);
+      return response;
+    });
   }
 }

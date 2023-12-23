@@ -2,8 +2,8 @@ import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
 import {User} from "../../../entities/User";
 import {Store} from "@ngxs/store";
-import {changePassword, deleteUser} from "../../states/userManagement/user-actions";
-import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
+import {resetUserPassword} from "../../states/userManagement/user-actions";
+
 
 @Component({
   selector: 'app-confirm-password-reset',
@@ -23,8 +23,7 @@ export class ConfirmPasswordResetComponent implements LoadableComponent{
   }
 
   submit(): void {
-    // this.store.dispatch(new changePassword(this.selectedUser.email));
-    // this.store.dispatch(new reset)
+    this.store.dispatch(new resetUserPassword(this.selectedUser.email));
   }
 
   onCheckboxChange(event: any) {
