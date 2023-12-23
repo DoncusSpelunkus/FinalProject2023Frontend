@@ -190,7 +190,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   openCreateUserDialog() {
     this.dialog.open(DynamicDialogComponent, {
       width: '60%', // Set the width
-      height: '60%', // Set the height
+      height: '50%', // Set the height
       data: {
         component: CreateUserComponent,
         inputs: null // No dependent data to pass
@@ -227,7 +227,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   openEditUserDialog(user: any) {
     this.dialog.open(DynamicDialogComponent, {
       width: '60%', // Set the width
-      height: '60%', // Set the height
+      height: '50%', // Set the height
       data: {
         component: CreateUserComponent,
         inputs: user
