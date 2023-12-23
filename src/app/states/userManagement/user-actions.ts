@@ -1,4 +1,4 @@
-import { ChangePasswordDTO } from "src/entities/PasswordConfirmation"
+import { ChangePasswordDTO } from "src/entities/ChangePasswordDTO"
 import { CreateUserDTO } from "src/entities/User"
 import {SupportEmail} from "../../../entities/SupportEmail";
 

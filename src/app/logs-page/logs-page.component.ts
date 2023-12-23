@@ -7,13 +7,13 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FormControlNames } from "../../constants/input-field-constants";
 import { getFormControl } from "../../util/form-control-validators";
 import { Observable, Subscription, debounceTime } from "rxjs";
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { LogSelectors } from '../states/log/logs-selector';
 import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
-import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {LogOverviewComponent} from "./log-overview/log-overview.component";
 import {Log} from "../../entities/Log";
+import { requestLogs } from '../states/log/log-actions';
 
 @Component({
   selector: 'app-logs-page',
@@ -38,7 +38,8 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private store: Store) {
     super();
     this.initializeFormGroup();
   }
@@ -138,7 +139,7 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
   }
 
   handleRefreshData() {
-    console.error('not implemented')
+    this.store.dispatch(new requestLogs());
   }
 
   openViewInfoWindow(log) {

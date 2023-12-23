@@ -5,3 +5,8 @@ export class getLogs {
     constructor() { }
 }
 
+export class requestLogs {
+    static readonly type = '[Log] Create Log'
+    constructor() { }
+}
+

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { catchError } from 'rxjs';
 import { environment } from "src/enviroment";
-import { ChangePasswordDTO } from 'src/entities/PasswordConfirmation';
+import { ChangePasswordDTO } from 'src/entities/ChangePasswordDTO';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/User',

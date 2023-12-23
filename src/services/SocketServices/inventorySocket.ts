@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/enviroment";
-import * as signalR from "@aspnet/signalr";
+import * as signalR from "@microsoft/signalr";
 import { Observable, Subject } from "rxjs";
 import { Select, Store } from "@ngxs/store";
 import { getItems } from "src/app/states/inventory/product-actions";
@@ -20,7 +20,6 @@ export class InventorySocket {
     private brandSubject = new Subject<any>();
     private typeSubject = new Subject<any>();
 
-    private connectionEstablished = false;
     @Select(AuthSelectors.getToken) token$: Observable<string>;
 
 
@@ -34,20 +33,18 @@ export class InventorySocket {
             token = data;
         })
         try {
-            if (this.connectionEstablished == true) { return; }
             this.hubConnection = new signalR.HubConnectionBuilder()
                 .withUrl(environment.inventorySocketUrl, {
                     accessTokenFactory: () => {
                         return token;
                     }
                 })
+                .withAutomaticReconnect()
                 .build();
             try {
-                this.connectionEstablished = true;
                 await this.hubConnection.start();
             }
             catch (error) {
-                this.connectionEstablished = false;
                 return
             }
             // we describe the event we want to listen to and what we want to do when we get the event
@@ -61,6 +58,7 @@ export class InventorySocket {
 
             this.hubConnection.on("ProductLocationListUpdate", (data) => {
                 this.productLocationSubject.next(data);
+                console.log(data)
             });
 
             this.hubConnection.on("BrandListUpdate", (data) => {
@@ -80,7 +78,6 @@ export class InventorySocket {
 
     public terminateConnection() {
         this.hubConnection.stop();
-        this.connectionEstablished = false;
     }
 
     // We return the subject as an observable so we can subscribe to it
