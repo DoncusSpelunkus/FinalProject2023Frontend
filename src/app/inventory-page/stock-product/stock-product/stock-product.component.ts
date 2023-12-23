@@ -128,7 +128,7 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
 
   private getDTO(): ProductLocation {
     return {
-      productSKU: this.formGroup.get(FormControlNames.SKU).value.sku,
+      productSku: this.formGroup.get(FormControlNames.SKU).value.sku,
       locationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
       quantity: this.formGroup.get(FormControlNames.QUANTITY).value
     }

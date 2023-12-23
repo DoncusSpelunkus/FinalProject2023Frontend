@@ -5,7 +5,7 @@ import { Observable, catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 import { Select } from '@ngxs/store';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
-import { Location } from 'src/entities/Inventory';
+import {Location, MoveQuantityDTO} from 'src/entities/Inventory';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl,
@@ -16,7 +16,7 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class InventoryService {
-  
+
   @Select(AuthSelectors.getToken) token$: Observable<string>;
 
   constructor(private matSnackbar: MatSnackBar) {
@@ -35,7 +35,7 @@ export class InventoryService {
     )
 
     customAxios.interceptors.request.use((config) => {
-      this.token$.subscribe((data) => { 
+      this.token$.subscribe((data) => {
         config.headers.Authorization = `Bearer ${data}`;
       })
       return config;
@@ -83,5 +83,13 @@ export class InventoryService {
   }
 
 
-
+  async moveQuantity(payload: MoveQuantityDTO) {
+    try {
+      const response = await customAxios.patch('ProductLocation/MoveQuantity',payload);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+  }
 }

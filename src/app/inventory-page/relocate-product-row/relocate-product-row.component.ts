@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, HostBinding, Input, OnInit} from '@angular/core';
-import {Location, ProductLocation} from "../../../entities/Inventory";
+import {Location, ProductLocation, MoveQuantityDTO} from "../../../entities/Inventory";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormBuilding} from "../../../interfaces/component-interfaces";
-import {Select} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {ProductSelector} from "../../states/inventory/product-selector";
 import {Observable} from "rxjs";
 import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
@@ -14,6 +14,7 @@ import {
   LocationSingleCreateComponent
 } from "../../locations-page/location-single-create/location-single-create.component";
 import {valueRequired} from "../../../util/form-control-validators";
+import {createItem, moveQuantity} from "../../states/inventory/product-actions";
 
 @Component({
   selector: 'app-relocate-product-row',
@@ -39,7 +40,8 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
   locations: Location[];
 
   constructor(private formBuilder: FormBuilder,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private store: Store) {
   super();
   }
 
@@ -54,7 +56,8 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
 
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
-      [FormControlNames.PRODUCT_LOCATION]: [this.locations.find(location => location.locationId === this.productLocation.locationId),valueRequired(FormControlNames.PRODUCT_LOCATION)],
+      [FormControlNames.PRODUCT_LOCATION] : [this.locations.find(location => location.locationId === this.productLocation.locationId),valueRequired(FormControlNames.PRODUCT_LOCATION)],
+      [FormControlNames.QUANTITY] : [this.productLocation.quantity, valueRequired(FormControlNames.QUANTITY)]
     });
   }
 
@@ -76,6 +79,19 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
   }
 
   handleUpdateLocation() {
-    console.error('not implemented')
+    const dto: MoveQuantityDTO = this.getDTO();
+    this.store.dispatch(new moveQuantity(dto))
+  }
+
+  private getDTO(): MoveQuantityDTO {
+    console.log(this.productLocation)
+    return {
+      locationId: this.productLocation.locationId,
+      productSKU: this.productLocation.productSku,
+      sourcePLocationId: this.productLocation.productLocationId,
+      destinationPLocationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
+      quantity: this.productLocation.quantity,
+      type: 2//move to existing location
+    }
   }
 }
