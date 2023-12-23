@@ -35,8 +35,8 @@ export class CombineStockRowComponent extends FormBuilding implements OnInit, Af
   formGroup: FormGroup;
   expandState: string = 'collapsed';
 
-  @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the products from the store
-  locations: Location[];
+  @Select(ProductSelector.getProductLocations) productLocations$!: Observable<ProductLocation[]>; // Will get the products from the store
+  productLocations: ProductLocation[];
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -55,7 +55,7 @@ export class CombineStockRowComponent extends FormBuilding implements OnInit, Af
 
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
-      [FormControlNames.LOCATION] : [this.locations.find(location => location.locationId === this.productLocation.locationId),valueRequired(FormControlNames.LOCATION)]
+      [FormControlNames.PRODUCT_LOCATION] : [this.productLocations.find(location => location.locationId === this.productLocation.locationId),valueRequired(FormControlNames.PRODUCT_LOCATION)]
     });
   }
 
@@ -71,8 +71,8 @@ export class CombineStockRowComponent extends FormBuilding implements OnInit, Af
   }
 
   private initializeData() {
-    this.locations$.subscribe((locations: Location[]) => {
-      this.locations = locations;
+    this.productLocations$.subscribe((locations: Location[]) => {
+      this.productLocations = locations;
     })
   }
 
@@ -86,10 +86,10 @@ export class CombineStockRowComponent extends FormBuilding implements OnInit, Af
     return {
       productSKU: this.productLocation.productSku,
       quantity: this.productLocation.quantity,
-      locationId: this.formGroup.get(FormControlNames.LOCATION).value.locationId,
+      locationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
       sourcePLocationId: this.productLocation.productLocationId,
       destinationPLocationId: this.productLocation.productLocationId,
-      type: 2//move to existing location
+      type: 3//move to existing location
     }
   }
 }
