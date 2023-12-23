@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/enviroment";
-import * as signalR from "@aspnet/signalr";
+import * as signalR from "@microsoft/signalr";
 import { Subject } from "rxjs";
 import { Store } from "@ngxs/store";
 import { ClearUser, getMe } from "src/app/states/auth/auth-action";
-import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +14,6 @@ export class AuthSocket {
 
     private user = new Subject<any>();
 
-    private connectionEstablished = false;
 
 
     constructor(private store: Store) {
@@ -31,22 +29,20 @@ export class AuthSocket {
         console.log(token)
         if (token != null) {
             try {
-                if (this.connectionEstablished == true) { return; }
                 this.hubConnection = new signalR.HubConnectionBuilder()
                     .withUrl(environment.authSocketUrl, {
                         accessTokenFactory: () => {
                             return token; 
                         }
                     })
+                    .withAutomaticReconnect()
                     .build();
                 
                 try {
-                    this.connectionEstablished = true;
                     await this.hubConnection.start();
                     await this.store.dispatch(new getMe()).toPromise()
                 }
                 catch (error) {
-                    this.connectionEstablished = false;
                     return
                 }
                 this.hubConnection.on("UserUpdate", (data) => {
@@ -75,7 +71,6 @@ export class AuthSocket {
         this.user = new Subject<any>();
         if (this.hubConnection != null) {
             this.hubConnection.stop();
-            this.connectionEstablished = false;
         }
     }
 }
