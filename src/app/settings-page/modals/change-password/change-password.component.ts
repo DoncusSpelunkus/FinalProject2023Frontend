@@ -79,8 +79,8 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
 
   private getDTO() {
     const dto: ChangePasswordDTO = {
-      password: getFormControl(FormControlNames.PASSWORD,this.formGroup).value,
-      passwordConfirmation: getFormControl(FormControlNames.PASSWORD_CONFIRMATION,this.formGroup).value
+      oldPassword: getFormControl(FormControlNames.PASSWORD,this.formGroup).value,
+      newPassword: getFormControl(FormControlNames.PASSWORD_CONFIRMATION,this.formGroup).value
     }
     return dto;
   }

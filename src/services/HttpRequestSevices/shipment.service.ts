@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError } from 'rxjs';
 import { environment } from 'src/enviroment';
 import axios from 'axios';
-import { Shipment, ShipmentDetail } from 'src/entities/Shipment';
+import {AddToShipmentDetails, Shipment, ShipmentDetail} from 'src/entities/Shipment';
 
 
 export const customAxios = axios.create({
@@ -76,11 +76,8 @@ export class ShipmentService {
 
   // Detail specific
 
-  async addToShipment(shipmentId: number, shipmentDetail: ShipmentDetail[]) {
+  async addToShipment(shipmentId: number, shipmentDetail: AddToShipmentDetails) {
     try {
-      const shipmentDetails = {
-        shipmentDetail: shipmentDetail
-      }
       const response = await customAxios.put('/AddToShipment/' + shipmentId, shipmentDetail);
       return response.data;
     }

@@ -94,9 +94,14 @@ export class UserManagementService {
     });
   }
 
-  changeUserPassword(dto: ChangePasswordDTO) {
-    //TODO implement call to endpoint
-    console.error('not implemented')
+  async changeUserPassword(dto: ChangePasswordDTO) {
+    try {
+      const response = await customAxios.put('ResetPassword',dto);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
   }
 
   resetUsersPassword(employeeId: number) {

@@ -1,4 +1,4 @@
-import { Shipment, ShipmentDetail } from "src/entities/Shipment";
+import {AddToShipmentDetails, Shipment, ShipmentDetail} from "src/entities/Shipment";
 
 export class getShipments {
     static readonly type = '[Shipment] Get shipments'
@@ -17,7 +17,7 @@ export class changeQuantity {
 
 export class addToShipment {
     static readonly type = '[Shipment] Add to shipment'
-    constructor(public id: number, public payload: ShipmentDetail[]) { }
+    constructor(public id: number, public payload: AddToShipmentDetails) { }
 }
 
 export class removeFromShipment {

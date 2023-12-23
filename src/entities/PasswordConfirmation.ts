@@ -1,4 +1,4 @@
 export class ChangePasswordDTO {
-  password: string;
-  passwordConfirmation: string;
+  oldPassword: string;
+  newPassword: string;
 }
