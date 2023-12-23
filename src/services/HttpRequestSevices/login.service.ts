@@ -63,8 +63,7 @@ export class LoginService {
   }
 
   async UpdatePassword(dto: ChangePasswordDTO) {
-    console.log(dto)
-    await customAxios.put('/PasswordUpdate',dto).then(response => {
+    await customAxios.patch('/PasswordUpdate',dto).then(response => {
       return response;
     }
     );

@@ -70,7 +70,6 @@ export class AuthState {
 
     @Action(UpdatePassword)
     async updatePassword({ }: StateContext<AuthStateModel>,{dto}: UpdatePassword) {
-      console.log(dto)
         await this.loginService.UpdatePassword(dto);
     }
 
