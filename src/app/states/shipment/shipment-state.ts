@@ -54,7 +54,6 @@ export class ShipmentState {
 
     @Action(removeFromShipment)
     removeFromShipment({}: StateContext<ShipmentStateModel>, {shipmentId, detailId}: removeFromShipment) {
-        console.log(shipmentId)
         this.shipmentService.removeFromShipment(shipmentId, detailId)
     }
 
