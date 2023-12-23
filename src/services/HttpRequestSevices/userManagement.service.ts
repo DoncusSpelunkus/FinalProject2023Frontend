@@ -102,7 +102,7 @@ export class UserManagementService {
 
 
   async ResetUserPassword(email: string) {
-    await customAxios.put('/ResetPassword', email).then(response => {
+    await customAxios.put('/ResetPassword/' + email).then(response => {
       this.userStore.createUser(response);
       return response;
     });
