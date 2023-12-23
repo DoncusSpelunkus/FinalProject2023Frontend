@@ -86,11 +86,15 @@ export class ShipmentService {
     }
   }
 
-  async removeFromShipment(shipmentId, shipmentDetailIds) {
+  async removeFromShipment(shipmentId: number, shipmentDetail: number[]) {
+    const data = {
+      data: shipmentDetail
+    }
     try {
-      const response = await customAxios.patch('/RemoveFromShipment/' + shipmentId, shipmentDetailIds);
+      const response = await customAxios.put('/RemoveFromShipment/' + shipmentId, data);
       return response.data;
-    } catch (error) {
+    }
+    catch (error) {
       throw error;
     }
   }

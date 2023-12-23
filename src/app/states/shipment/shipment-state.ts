@@ -53,12 +53,14 @@ export class ShipmentState {
     }
 
     @Action(removeFromShipment)
-    removeFromShipment({}: StateContext<ShipmentStateModel>, {shipmentId, detailIds}: removeFromShipment) {
-        this.shipmentService.removeFromShipment(shipmentId, detailIds)
+    removeFromShipment({}: StateContext<ShipmentStateModel>, {shipmentId, detailId}: removeFromShipment) {
+        console.log(shipmentId)
+        this.shipmentService.removeFromShipment(shipmentId, detailId)
     }
 
     @Action(deleteShipment)
     deleteShipment({}: StateContext<ShipmentStateModel>, {id}: deleteShipment) {
+
         this.shipmentService.deleteShipment(id)
     }
 
