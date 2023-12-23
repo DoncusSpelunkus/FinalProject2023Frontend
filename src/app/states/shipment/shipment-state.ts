@@ -35,7 +35,7 @@ export class ShipmentState {
             })
         })
     }
-    
+
     @Action(createShipments)
     createShipments({}: StateContext<ShipmentStateModel>, {payload}: createShipments) {
         this.shipmentService.createShipment(payload)
@@ -53,8 +53,8 @@ export class ShipmentState {
     }
 
     @Action(removeFromShipment)
-    removeFromShipment({}: StateContext<ShipmentStateModel>, {shipmentId, detailId}: removeFromShipment) {
-        this.shipmentService.removeFromShipment(shipmentId, detailId)
+    removeFromShipment({}: StateContext<ShipmentStateModel>, {shipmentId, detailIds}: removeFromShipment) {
+        this.shipmentService.removeFromShipment(shipmentId, detailIds)
     }
 
     @Action(deleteShipment)
@@ -71,7 +71,7 @@ export class ShipmentState {
             selectedShipment: thisShipment
         })
     }
-    
+
 
     @Action(establishConnection)
     async establishConnection({ }: StateContext<ShipmentStateModel>) {
