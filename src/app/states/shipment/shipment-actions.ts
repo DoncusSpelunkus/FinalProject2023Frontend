@@ -22,7 +22,7 @@ export class addToShipment {
 
 export class removeFromShipment {
     static readonly type = '[Shipment] Remove from shipment'
-    constructor(public shipmentId: number, public detailId: number) { }
+    constructor(public shipmentId: number, public detailId: number[]) { }
 }
 
 export class deleteShipment {
