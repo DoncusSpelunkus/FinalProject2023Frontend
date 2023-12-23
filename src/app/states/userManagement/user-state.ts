@@ -3,8 +3,9 @@ import { Action, State, StateContext } from "@ngxs/store";
 import { User } from "src/entities/User";
 import { UserManagementService } from "src/services/HttpRequestSevices/userManagement.service";
 import { UserManagementSocket } from "src/services/SocketServices/UserManagementSocket";
-import { createUser, deleteUser, getUsers, resetUserPassword, updateUser } from "./user-actions";
+import {contactSupport, createUser, deleteUser, getUsers, resetUserPassword, updateUser} from "./user-actions";
 import { establishConnection, terminateConnection } from "../crossStateAction";
+import {SupportEmail} from "../../../entities/SupportEmail";
 
 export interface UserManagementStateModel {
     users: User[];
@@ -24,7 +25,7 @@ export class UserManagementState {
         private userManagementService: UserManagementService) {
 
         }
-    
+
     @Action(establishConnection)
     async establishConnection({ }: StateContext<UserManagementStateModel>) {
         console.log("establishing connection")
@@ -66,5 +67,10 @@ export class UserManagementState {
     async ResetPassword({ }: StateContext<UserManagementStateModel>, {email}: resetUserPassword) {
         this.userManagementService.ResetUserPassword(email)
     }
-    
+
+    @Action(contactSupport)
+    async ContactSupport({ }: StateContext<UserManagementStateModel>, {dto}: contactSupport) {
+      this.userManagementService.ContactSupport(dto)
+    }
+
 }

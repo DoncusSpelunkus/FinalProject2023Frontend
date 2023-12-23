@@ -8,6 +8,7 @@ import { UserStore } from 'src/stores/user.store';
 import { ChangePasswordDTO } from "../../entities/PasswordConfirmation";
 import { Select } from '@ngxs/store';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
+import {SupportEmail} from "../../entities/SupportEmail";
 
 
 export const customAxios = axios.create({
@@ -106,5 +107,20 @@ export class UserManagementService {
       this.userStore.createUser(response);
       return response;
     });
+  }
+
+  async ContactSupport(dto: SupportEmail) {
+    try {
+      const response = await customAxios.post('/ContactSupport', null, {
+        params: {
+          contactEmail: dto.contactEmail,
+          description: dto.description
+        }
+      });
+      return response;
+    } catch (error) {
+      console.error('Error in contacting support:', error);
+      throw error;
+    }
   }
 }
