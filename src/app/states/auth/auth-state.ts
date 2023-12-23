@@ -66,11 +66,12 @@ export class AuthState {
         })
         this.store.dispatch(new terminateConnection());
         this.router.navigate(['/login']);
-        
+
     }
 
     @Action(UpdatePassword)
-    async updatePassword(dto: ChangePasswordDTO) {
+    async updatePassword({ }: StateContext<AuthStateModel>,{dto}: UpdatePassword) {
+      console.log(dto)
         await this.loginService.UpdatePassword(dto);
     }
 

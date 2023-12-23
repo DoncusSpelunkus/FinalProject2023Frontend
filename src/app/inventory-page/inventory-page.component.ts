@@ -30,7 +30,7 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
 
   ExpandedRowType = ExpandedRowType;
   FormControlNames = FormControlNames;
-  displayedColumns = ['SKU', 'Location', 'Relocate', 'Adjust quantity','Delete'];
+  displayedColumns = ['SKU', 'Location', 'Relocate', 'Adjust quantity'];
   expandedRowState: ExpandedRowState = { row: null, type: null };
 
   formGroup: FormGroup;

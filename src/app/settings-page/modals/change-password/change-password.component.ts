@@ -53,9 +53,9 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
 
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
-      [FormControlNames.PASSWORD]: ['',[valueRequired(FormControlNames.PASSWORD),passwordStrengthValidator()]],
-      [FormControlNames.PASSWORD_CONFIRMATION]: ['',[valueRequired(FormControlNames.PASSWORD_CONFIRMATION),passwordStrengthValidator()]],
-    }, {validators: matchingValuesValidator(FormControlNames.PASSWORD,FormControlNames.PASSWORD_CONFIRMATION)})
+      [FormControlNames.CURRENT_PASSWORD]: ['',[valueRequired(FormControlNames.CURRENT_PASSWORD)]],
+      [FormControlNames.NEW_PASSWORD]: ['',[valueRequired(FormControlNames.NEW_PASSWORD),passwordStrengthValidator()]],
+    })
   }
 
   private initializeSubscriptions() {
@@ -79,8 +79,8 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
 
   private getDTO() {
     const dto: ChangePasswordDTO = {
-      newPassword: getFormControl(FormControlNames.PASSWORD,this.formGroup).value,
-      oldPassword: getFormControl(FormControlNames.PASSWORD_CONFIRMATION,this.formGroup).value
+      newPassword: getFormControl(FormControlNames.NEW_PASSWORD,this.formGroup).value,
+      oldPassword: getFormControl(FormControlNames.CURRENT_PASSWORD,this.formGroup).value
     }
     return dto;
   }

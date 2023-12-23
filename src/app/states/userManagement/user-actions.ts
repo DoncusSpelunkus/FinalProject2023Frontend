@@ -1,5 +1,6 @@
 import { ChangePasswordDTO } from "src/entities/PasswordConfirmation"
 import { CreateUserDTO } from "src/entities/User"
+import {SupportEmail} from "../../../entities/SupportEmail";
 
 export class getUsers {
     static readonly type = '[UserManagement] Get users'
@@ -24,4 +25,9 @@ export class deleteUser {
 export class resetUserPassword {
     static readonly type = '[User] Reset Password'
     constructor(public email: string) { }
+}
+
+export class contactSupport {
+  static readonly type = '[User] Contact Support'
+  constructor(public dto: SupportEmail) { }
 }

@@ -1,6 +1,7 @@
 export class ShipmentDetail {
   productSKU?: string;
   quantity?: number;
+  shipmentId?: number;
 }
 
 export class Shipment {
@@ -9,4 +10,8 @@ export class Shipment {
   dateShipped?: Date;
   shipmentDetails?: ShipmentDetail[];
   shipmentId?: number;
+}
+
+export class AddToShipmentDetails {
+  shipmentDetails: ShipmentDetail[];
 }

@@ -43,25 +43,6 @@
 
   <!-- Password fields -->
   <section class="flex flex-row justify-between space-x-10">
-
-    <mat-form-field class="w-full" appearance="fill">
-      <mat-label>Password</mat-label>
-      <input matInput [type]="hidePassword ? 'password' : 'text'" [formControlName]="FormControlNames.PASSWORD">
-      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-      <mat-error>{{getControlErrorMessage(FormControlNames.PASSWORD)}}</mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="w-full" appearance="fill">
-      <mat-label>Confirm password</mat-label>
-      <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" [formControlName]="FormControlNames.PASSWORD_CONFIRMATION">
-      <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
-        <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-      <mat-error>{{getControlErrorMessage(FormControlNames.PASSWORD_CONFIRMATION)}}</mat-error>
-    </mat-form-field>
-
   </section>
 
 </div>

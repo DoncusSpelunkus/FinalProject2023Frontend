@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilding, LoadableComponent} from "../../../interfaces/component-interfaces";
 import {Observable, Subscription} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Shipment, ShipmentDetail} from "../../../entities/Shipment";
+import {AddToShipmentDetails, Shipment, ShipmentDetail} from "../../../entities/Shipment";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSelectionListChange} from "@angular/material/list";
 import {FormControlNames} from "../../../constants/input-field-constants";
@@ -52,7 +52,8 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
 
   submit(): void {
     console.log(this.getShipmentDetailsList)
-    this.store.dispatch(new addToShipment(this.shipment.shipmentId, this.getShipmentDetailsList));
+    const addtoShipment: AddToShipmentDetails = {shipmentDetails: this.getShipmentDetailsList}
+    this.store.dispatch(new addToShipment(this.shipment.shipmentId, addtoShipment));
   }
 
   onSelectionChange(event: MatSelectionListChange) {
@@ -92,7 +93,8 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   handleAddDetailsObject() {
     const shipmentDetailsDTO: ShipmentDetail = {
       productSKU: this.shipmentDetailCreationFormGroup.get(FormControlNames.SKU).value.sku,
-      quantity: this.shipmentDetailCreationFormGroup.get(FormControlNames.QUANTITY).value
+      quantity: this.shipmentDetailCreationFormGroup.get(FormControlNames.QUANTITY).value,
+      shipmentId: this.shipment.shipmentId
     }
     let currentListValue = this.getShipmentDetailsList;
     currentListValue.push(shipmentDetailsDTO);
