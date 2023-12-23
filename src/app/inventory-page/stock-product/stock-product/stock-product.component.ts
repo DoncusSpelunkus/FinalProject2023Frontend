@@ -9,11 +9,13 @@ import {DynamicDialogComponent} from "../../../util/dynamic-dialog/dynamic-dialo
 import {
   LocationSingleCreateComponent
 } from "../../../locations-page/location-single-create/location-single-create.component";
-import {Select} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {ProductSelector} from "../../../states/inventory/product-selector";
-import {Location, Product} from "../../../../entities/Inventory";
+import {Location, Product, ProductLocation} from "../../../../entities/Inventory";
 import {CreateProductComponent} from "../../../manage-products/create-product/create-product.component";
 import {ShipmentDetail} from "../../../../entities/Shipment";
+import {createItem} from "../../../states/inventory/product-actions";
+import {EntityTypes} from "../../../../constants/product-types";
 
 @Component({
   selector: 'app-stock-product',
@@ -33,8 +35,8 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   private isFormValidSubscription: Subscription;
 
   constructor(private _formBuilder: FormBuilder,
-
-              private matDialog: MatDialog) {
+              private matDialog: MatDialog,
+              private store: Store) {
     super();
   }
 
@@ -56,7 +58,8 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   }
 
   submit(): void {
-    console.log(this.formGroup.value);
+    const productLocation: ProductLocation = this.getDTO();
+    this.store.dispatch(new createItem(productLocation,EntityTypes[2]))
   }
 
   isLinear = false;
@@ -121,5 +124,13 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
         inputs: null // No dependent data to pass
       }
     });
+  }
+
+  private getDTO(): ProductLocation {
+    return {
+      productSKU: this.formGroup.get(FormControlNames.SKU).value.sku,
+      locationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
+      quantity: this.formGroup.get(FormControlNames.QUANTITY).value
+    }
   }
 }

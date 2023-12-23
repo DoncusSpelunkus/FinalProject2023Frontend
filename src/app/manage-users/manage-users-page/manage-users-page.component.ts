@@ -7,13 +7,13 @@ import { debounceTime, Observable, Subject, Subscription, take } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { setupDistinctControlSubscription } from "../../../util/subscription-setup";
 import { User } from 'src/entities/User';
-import { ActivityService } from 'src/services/HelperSevices/activityService';
 import { MatDialog } from "@angular/material/dialog";
 import { DynamicDialogComponent } from "../../util/dynamic-dialog/dynamic-dialog.component";
 import { CreateUserComponent } from "../create-user/create-user.component";
 import { DeleteUserConfirmationComponent } from "../delete-user-confirmation/delete-user-confirmation.component";
 import { Select } from "@ngxs/store";
 import { UserSelector } from 'src/app/states/userManagement/user-selectors';
+import {ConfirmPasswordResetComponent} from "../confirm-password-reset/confirm-password-reset.component";
 
 
 
@@ -43,7 +43,7 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
   @ViewChild(MatPaginator) paginator: MatPaginator;
   optionsPerPage = [3, 5, 10, 15, 25]
 
-  displayedColumns: string[] = ['name', 'email', 'delete', 'edit'];
+  displayedColumns: string[] = ['name', 'email', 'delete', 'edit','password-reset'];
   FormControlNames = FormControlNames
   warehouseId: number | undefined;
 
@@ -54,11 +54,9 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private activityMonitor: ActivityService,
     private dialog: MatDialog
 
   ) {
-    this.activityMonitor.startMonitoring();
     this.routeParamsSubject.pipe(
       debounceTime(300) // Debounce time in milliseconds
     ).subscribe(paramsToUpdate => {
@@ -236,4 +234,16 @@ export class ManageUsersPageComponent implements OnInit, AfterViewInit, OnDestro
       }
     });
   }
+
+  openResetPasswordWindow(user) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '45%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: ConfirmPasswordResetComponent,
+        inputs: user
+      }
+    });
+  }
+
 }

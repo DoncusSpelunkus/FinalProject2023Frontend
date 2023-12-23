@@ -33,6 +33,7 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
   ngOnInit(): void {
     this.initializeFormGroup();
     this.initializeSubscriptions();
+    this.initializeData();
   }
 
   setData(data: any): void {
@@ -71,5 +72,12 @@ export class CreateTypeComponent extends FormBuilding implements LoadableCompone
     return {
       Name: this.formGroup.get(FormControlNames.TYPE_NAME).value,
     }
+  }
+
+  private initializeData() {
+    if (!this.type) {
+      return;
+    }
+    this.formGroup.get(FormControlNames.TYPE_NAME).setValue(this.type.name);
   }
 }

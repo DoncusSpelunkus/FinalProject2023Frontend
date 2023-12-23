@@ -1,1 +1,23 @@
-<p>update-quantity-row works!</p>
+<section [@expandAnimation]="expandState" class="w-full pt-6">
+
+
+  <div  class="w-full flex flex-row justify-between space-x-3">
+    <form class="flex flex-row justify-center items-center space-x-6" [formGroup]="formGroup">
+
+      <app-text-input
+        class="w-full max-w-full"
+        [inputFormControlName]="FormControlNames.QUANTITY"
+        [inputFormGroup]="formGroup"
+        [placeholder]="'Adidas sport'">
+      </app-text-input>
+
+    </form>
+
+    <section class="flex flex-row space-x-4 w-fit">
+      <button class="bg-green-800 px-3 py-1.5 !text-white uppercase rounded-md font-quicksand w-36 font-black h-14" (click)="handleUpdateQuantity()"
+        [disabled]="!formGroup.valid"
+        [class.brightness-75]="!formGroup.valid">Update quantity</button>
+    </section>
+  </div>
+
+</section>

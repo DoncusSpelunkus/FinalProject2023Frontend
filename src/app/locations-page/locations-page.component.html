@@ -7,12 +7,36 @@
 
 
   <!-- Table container -->
-  <div class="w-full h-fit">
-    <table mat-table [dataSource]="dataSource" class="font-quicksand">
+  <div class="w-full fit justify-center items-center flex flex-col">
+    <table mat-table [dataSource]="dataSource" matSort class="font-quicksand">
       <!-- Name Column -->
       <ng-container matColumnDef="Location id">
         <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef> Location id </th>
         <td mat-cell *matCellDef="let location"> {{location.locationId}} </td>
+      </ng-container>
+
+      <!-- Aisle Column -->
+      <ng-container matColumnDef="Aisle">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="aisle"> Aisle </th>
+        <td mat-cell *matCellDef="let location"> {{location.aisle}} </td>
+      </ng-container>
+
+      <!-- Rack Column -->
+      <ng-container matColumnDef="Rack">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="rack"> Rack </th>
+        <td mat-cell *matCellDef="let location"> {{location.rack}} </td>
+      </ng-container>
+
+      <!-- Shelf Column -->
+      <ng-container matColumnDef="Shelf">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="shelf"> Shelf </th>
+        <td mat-cell *matCellDef="let location"> {{location.shelf}} </td>
+      </ng-container>
+
+      <!-- Bin Column -->
+      <ng-container matColumnDef="Bin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="bin"> Bin </th>
+        <td mat-cell *matCellDef="let location"> {{location.bin}} </td>
       </ng-container>
 
       <!--   Delete shipment action column   -->
@@ -55,7 +79,9 @@
     </table>
 
     <!-- Paginator -->
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <mat-paginator *ngIf="!isLoading" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+    <ng-container *ngTemplateOutlet="loading"></ng-container>
 
   </div>
 
@@ -81,4 +107,8 @@
     </button>
     <mat-icon matPrefix *ngIf="!filterValue">search</mat-icon>
   </mat-form-field>
+</ng-template>
+
+<ng-template #loading>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
 </ng-template>

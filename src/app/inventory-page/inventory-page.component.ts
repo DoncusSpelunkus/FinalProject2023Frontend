@@ -10,6 +10,7 @@ import { Select } from '@ngxs/store';
 import { ProductSelector } from '../states/inventory/product-selector';
 import { Observable, Subscription } from 'rxjs';
 import { ProductLocation } from 'src/entities/Inventory';
+import {DeleteProductLocationComponent} from "./delete-product-location/delete-product-location.component";
 
 
 
@@ -29,13 +30,12 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
 
   ExpandedRowType = ExpandedRowType;
   FormControlNames = FormControlNames;
-  displayedColumns = ['SKU', 'Location', 'Relocate', 'Adjust quantity'];
+  displayedColumns = ['SKU', 'Location', 'Relocate', 'Adjust quantity','Delete'];
+  expandedRowState: ExpandedRowState = { row: null, type: null };
 
   formGroup: FormGroup;
   dataSource = new MatTableDataSource<any>();
-  isExpandedRow = (productLocationIndex: number) => {
-    return this.dataSource.data[productLocationIndex].isExpanded;
-  }/* your condition to identify the row */;
+
   constructor(
     private dialog: MatDialog,
     private formBuilder: FormBuilder) {
@@ -84,21 +84,40 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
       this.simpleItems$.subscribe(
         (productLocations: ProductLocation[]) => {
           this.dataSource.data = productLocations;
+          console.log(productLocations)
         })
     );
     this.dataSource.paginator = this.paginator;
   }
 
-  toggleRow(productLocation: any, rowType: ExpandedRowType) {
-    if (productLocation.expandedRow === rowType) {
-      productLocation.expandedRow = undefined;
+  toggleRow(row: ProductLocation, expandType: ExpandedRowType) {
+    if (this.expandedRowState.row === row && this.expandedRowState.type === expandType) {
+      // If the same row and type are selected, collapse it
+      this.expandedRowState = { row: null, type: null };
     } else {
-      productLocation.expandedRow = rowType;
+      // Otherwise, expand the new row
+      this.expandedRowState = { row, type: expandType };
     }
+  }
+
+  handleOpenDeleteProductLocationDialog(productLocation) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '45%', // Set the width
+      height: '30%', // Set the height
+      data: {
+        component: DeleteProductLocationComponent,
+        inputs: productLocation // No dependent data to pass
+      }
+    });
   }
 }
 
 export enum ExpandedRowType {
   RELOCATE = "RELOCATE",
   QUANTITY = "QUANTITY"
+}
+
+interface ExpandedRowState {
+  row: ProductLocation | null;
+  type: ExpandedRowType | null;
 }

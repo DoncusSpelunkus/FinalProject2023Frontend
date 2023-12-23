@@ -35,6 +35,10 @@ export const inventoryButtonConfig: ButtonConfig = {
       actionLink: 'inventory',
       actionName: 'Stock'
     },
+    {
+      actionLink: 'locations',
+      actionName: 'Locations'
+    }
 
   ]
 };

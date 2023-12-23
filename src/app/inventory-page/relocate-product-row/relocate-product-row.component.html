@@ -3,19 +3,21 @@
 
   <div  class="w-full flex flex-row justify-between space-x-3">
     <form class="flex flex-row justify-center items-center space-x-6" [formGroup]="formGroup">
-      <!-- Aisle -->
-      <mat-form-field *ngFor="let control of FormControlNames" class="w-24 max-w-full" appearance="fill">
-        <mat-label>{{control}}</mat-label>
-        <input matInput type="number" [formControlName]="control">
-      </mat-form-field>
+
+      <app-search-select-input class="w-full"
+                               [inputFormControlName]="FormControlNames.PRODUCT_LOCATION"
+                               [inputFormGroup]="formGroup"
+                               [showIcon]="true"
+                               [displayValueProperty]="'locationId'"
+                               [searchValueProperty]="'locationId'"
+                               [list]="locations"
+                               (iconClickEmitter)="handleOpenCreateLocationWindow()">
+      </app-search-select-input>
+
     </form>
 
     <section class="flex flex-row space-x-4 w-fit">
-      <button class="bg-green-800 px-3 py-1.5 !text-white -scale-x-100 h-14 !w-14 uppercase rounded-md font-quicksand  font-black h-14">
-        <app-icon class="text-2xl text-white" icon="redo"></app-icon>
-      </button>
-
-      <button class="bg-green-800 px-3 py-1.5 !text-white uppercase rounded-md font-quicksand w-36 font-black h-14">Update location</button>
+      <button class="bg-green-800 px-3 py-1.5 !text-white uppercase rounded-md font-quicksand w-36 font-black h-14" (click)="handleUpdateLocation()">Update location</button>
     </section>
   </div>
 

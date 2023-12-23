@@ -141,6 +141,7 @@ export class CreateProductComponent extends FormBuilding implements LoadableComp
     if (!data) {
       return;
     }
+
     this.productInfoFormGroup.patchValue({
       [FormControlNames.SKU]: data.sku,
       [FormControlNames.NAME]: data.name,

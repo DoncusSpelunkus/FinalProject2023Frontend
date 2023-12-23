@@ -167,7 +167,8 @@ export class ShipmentPageComponent extends FormBuilding implements OnInit, After
       height: '60%', // Set the height
       data: {
         component: ShipmentInfoComponent,
-        inputs: shipment
+        inputs: shipment,
+        needsActions: false
       }
     });
   }

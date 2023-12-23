@@ -76,6 +76,10 @@ import { DeleteLocationComponent } from './locations-page/delete-location/delete
 import { DeleteProductsComponent } from './manage-products/delete-products/delete-products.component';
 import { ShipmentState } from './states/shipment/shipment-state';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { DeleteProductLocationComponent } from './inventory-page/delete-product-location/delete-product-location.component';
+import { ConfirmPasswordResetComponent } from './manage-users/confirm-password-reset/confirm-password-reset.component';
+import { LogOverviewComponent } from './logs-page/log-overview/log-overview.component';
+import { SupportButtonComponent } from './util/support-button/support-button.component';
 
 
 @NgModule({
@@ -126,6 +130,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     LocationSingleCreateComponent,
     DeleteLocationComponent,
     DeleteProductsComponent,
+    DeleteProductLocationComponent,
+    ConfirmPasswordResetComponent,
+    LogOverviewComponent,
+    SupportButtonComponent,
   ],
   imports: [
 

@@ -1,8 +1,19 @@
 import {AfterViewInit, Component, HostBinding, Input, OnInit} from '@angular/core';
-import {ProductLocation} from "../../../entities/Inventory";
+import {Location, ProductLocation} from "../../../entities/Inventory";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilding} from "../../../interfaces/component-interfaces";
+import {Select} from "@ngxs/store";
+import {ProductSelector} from "../../states/inventory/product-selector";
+import {Observable} from "rxjs";
+import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
+import {DeleteProductsComponent} from "../../manage-products/delete-products/delete-products.component";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  LocationSingleCreateComponent
+} from "../../locations-page/location-single-create/location-single-create.component";
+import {valueRequired} from "../../../util/form-control-validators";
 
 @Component({
   selector: 'app-relocate-product-row',
@@ -15,7 +26,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
     ]),
   ],
 })
-export class RelocateProductRowComponent implements OnInit, AfterViewInit {
+export class RelocateProductRowComponent extends FormBuilding implements OnInit, AfterViewInit {
   @HostBinding('style.width') width = '100%'
   @HostBinding('style.height') height = '100%'
 
@@ -24,13 +35,16 @@ export class RelocateProductRowComponent implements OnInit, AfterViewInit {
   formGroup: FormGroup;
   expandState: string = 'collapsed';
 
-  FormControlNames = [FormControlNames.AISLE, FormControlNames.BIN, FormControlNames.RACK, FormControlNames.SHELF,FormControlNames.QUANTITY]
+  @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the products from the store
+  locations: Location[];
 
-  constructor(private formBuilder: FormBuilder) {
-
+  constructor(private formBuilder: FormBuilder,
+              private dialog: MatDialog) {
+  super();
   }
 
   ngOnInit(): void {
+    this.initializeData();
     this.initializeFormGroup();
   }
 
@@ -40,11 +54,28 @@ export class RelocateProductRowComponent implements OnInit, AfterViewInit {
 
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
-      [FormControlNames.AISLE]: [''],
-      [FormControlNames.RACK]: [''],
-      [FormControlNames.BIN]: [''],
-      [FormControlNames.SHELF]: [''],
-      [FormControlNames.QUANTITY]: ['']
+      [FormControlNames.PRODUCT_LOCATION]: [this.locations.find(location => location.locationId === this.productLocation.locationId),valueRequired(FormControlNames.PRODUCT_LOCATION)],
     });
+  }
+
+  handleOpenCreateLocationWindow() {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '60%', // Set the width
+      height: '35%', // Set the height
+      data: {
+        component: LocationSingleCreateComponent,
+        inputs: null
+      }
+    });
+  }
+
+  private initializeData() {
+    this.locations$.subscribe((locations: Location[]) => {
+      this.locations = locations;
+    })
+  }
+
+  handleUpdateLocation() {
+    console.error('not implemented')
   }
 }

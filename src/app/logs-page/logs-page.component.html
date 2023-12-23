@@ -10,9 +10,39 @@
   <div class="w-full h-fit">
     <table mat-table [dataSource]="dataSource" class="font-quicksand">
       <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let logs"> {{logs.productSKU}} </td>
+      <ng-container matColumnDef="productSKU">
+        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef> Product SKU </th>
+        <td mat-cell *matCellDef="let log"> {{log.productSKU}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th class="font-quicksand font-black" mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td mat-cell *matCellDef="let log"
+            [class.!bg-green-200]="log.quantity >= 100 && log.quantity < 500"
+            [class.!bg-yellow-200]="log.quantity >= 500 && log.quantity < 1000"
+            [class.!bg-red-200]="log.quantity >= 1000">
+          {{ log.quantity }}
+        </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="time">
+        <th class="font-quicksand !font-black" mat-header-cell *matHeaderCellDef> Time </th>
+        <td mat-cell *matCellDef="let log">{{ log.timestamp | date: 'fullDate' }} - {{ log.timestamp | date: 'shortTime' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="info">
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="font-quicksand !font-black flex w-full justify-center"> Info </span>
+        </th>
+        <td mat-cell *matCellDef="let log">
+          <div class="w-full h-full flex justify-center">
+            <app-icon matRipple class="p-1.5 rounded-md bg-blue-600 text-white text-xl hover:brightness-125 hover:scale-110 transition-all duration-300 ease-out" icon="info"
+                      (click)="openViewInfoWindow(log)">
+            </app-icon>
+          </div>
+        </td>
       </ng-container>
 
       <!-- Columns -->
@@ -33,7 +63,9 @@
 
 
 <ng-template #actionsSection>
-  <button mat-raised-button class="!h-14" color="primary" >Create product</button>
+  <button mat-raised-button class="!h-14" color="primary" >
+    <app-icon class="text-2xl" matTooltip="Refresh data" (click)="handleRefreshData()" icon="sync"></app-icon>
+  </button>
 </ng-template>
 
 <ng-template #tableFilter>

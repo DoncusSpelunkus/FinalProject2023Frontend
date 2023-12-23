@@ -9,6 +9,11 @@ import { getFormControl } from "../../util/form-control-validators";
 import { Observable, Subscription, debounceTime } from "rxjs";
 import { Select } from '@ngxs/store';
 import { LogSelectors } from '../states/log/logs-selector';
+import {DynamicDialogComponent} from "../util/dynamic-dialog/dynamic-dialog.component";
+import {CreateUserComponent} from "../manage-users/create-user/create-user.component";
+import {MatDialog} from "@angular/material/dialog";
+import {LogOverviewComponent} from "./log-overview/log-overview.component";
+import {Log} from "../../entities/Log";
 
 @Component({
   selector: 'app-logs-page',
@@ -22,17 +27,18 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   tableFormGroup: FormGroup;
-  dataSource = new MatTableDataSource<SimpleDummyData>();
+  dataSource = new MatTableDataSource<Log>();
 
-  @Select(LogSelectors.getLogs) logs$!: Observable<SimpleDummyData[]>; // Will get the types from the store
+  @Select(LogSelectors.getLogs) logs$!: Observable<Log[]>; // Will get the types from the store
   private subscription: Subscription = new Subscription();
 
-  displayedColumns = ['name'];
+  displayedColumns = ['productSKU','quantity','time','info'];
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog) {
     super();
     this.initializeFormGroup();
   }
@@ -69,6 +75,7 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
   private initializeSourceData(): void {
     this.subscription.add(this.logs$.subscribe((logs) => {
       this.dataSource.data = logs;
+      console.log(logs)
     }));
   }
 
@@ -129,8 +136,21 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
       queryParamsHandling: 'merge', // preserve other query params
     });
   }
+
+  handleRefreshData() {
+    console.error('not implemented')
+  }
+
+  openViewInfoWindow(log) {
+    this.dialog.open(DynamicDialogComponent, {
+      width: '40%', // Set the width
+      height: '50%', // Set the height
+      data: {
+        component: LogOverviewComponent,
+        inputs: log,
+        needsActions: false
+      }
+    });
+  }
 }
 
-export interface SimpleDummyData {
-  name: string;
-}
