@@ -2,8 +2,8 @@ import {Component, EventEmitter, HostBinding, Output} from '@angular/core';
 import {LoadableComponent} from "../../../interfaces/component-interfaces";
 import {User} from "../../../entities/User";
 import {Store} from "@ngxs/store";
-import {deleteUser} from "../../states/userManagement/user-actions";
-import {UserManagementService} from "../../../services/HttpRequestSevices/userManagement.service";
+import {resetUserPassword} from "../../states/userManagement/user-actions";
+
 
 @Component({
   selector: 'app-confirm-password-reset',
@@ -16,14 +16,14 @@ export class ConfirmPasswordResetComponent implements LoadableComponent{
   @Output() isValidEmitter = new EventEmitter<boolean>();
 
   selectedUser: User;
-  constructor(private userService: UserManagementService) {
+  constructor(private store: Store) {
   }
   setData(data: any): void {
     this.selectedUser = data;
   }
 
   submit(): void {
-    this.userService.resetUsersPassword(this.selectedUser.employeeId);
+    this.store.dispatch(new resetUserPassword(this.selectedUser.email));
   }
 
   onCheckboxChange(event: any) {

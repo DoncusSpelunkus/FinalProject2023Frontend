@@ -11,7 +11,7 @@ import {
 import {Subscription} from "rxjs";
 import {ChangePasswordDTO} from "../../../../entities/PasswordConfirmation";
 import { Store } from '@ngxs/store';
-import { changePassword } from 'src/app/states/userManagement/user-actions';
+import { UpdatePassword } from 'src/app/states/auth/auth-action';
 
 
 @Component({
@@ -48,7 +48,7 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
 
   submit(): void {
     const dto = this.getDTO();
-    this.store.dispatch(new changePassword(dto));
+    this.store.dispatch(new UpdatePassword(dto));
   }
 
   private initializeFormGroup() {
@@ -79,8 +79,8 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
 
   private getDTO() {
     const dto: ChangePasswordDTO = {
-      password: getFormControl(FormControlNames.PASSWORD,this.formGroup).value,
-      passwordConfirmation: getFormControl(FormControlNames.PASSWORD_CONFIRMATION,this.formGroup).value
+      newPassword: getFormControl(FormControlNames.PASSWORD,this.formGroup).value,
+      oldPassword: getFormControl(FormControlNames.PASSWORD_CONFIRMATION,this.formGroup).value
     }
     return dto;
   }

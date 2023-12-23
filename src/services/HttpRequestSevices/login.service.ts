@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Observable, catchError } from 'rxjs';
+import { catchError } from 'rxjs';
 import { environment } from "src/enviroment";
-import { AuthSelectors } from 'src/app/states/auth/auth-selector';
-import { Select } from '@ngxs/store';
+import { ChangePasswordDTO } from 'src/entities/PasswordConfirmation';
 
 export const customAxios = axios.create({
   baseURL: environment.apiUrl + '/User',
@@ -20,12 +19,12 @@ export class LoginService {
     customAxios.interceptors.response.use(
       response => {
         if(response.status == 201 || response.status == 200)  {
-          this.matSnackbar.open("Great success", "x", { duration: 2000 })
+          this.matSnackbar.open("Great success", "x", { duration: 5000 })
         }
         return response;
       }, rejected => {
         if (rejected.response.status >= 400 && rejected.response.status <= 500) {
-          matSnackbar.open(rejected.response.data, "x", { duration: 2000 });
+          matSnackbar.open(rejected.response.data, "x", { duration: 5000 });
         }
         catchError(rejected);
       }
@@ -61,6 +60,13 @@ export class LoginService {
       localStorage.setItem('auth', response.data);
       return;
     });
+  }
+
+  async UpdatePassword(dto: ChangePasswordDTO) {
+    await customAxios.put('/updatePassword', dto).then(response => {
+      return response;
+    }
+    );
   }
 
 }
