@@ -5,7 +5,7 @@ import { Observable, catchError } from 'rxjs';
 import { environment } from "src/enviroment";
 import { CreateUserDTO, User } from 'src/entities/User';
 import { UserStore } from 'src/stores/user.store';
-import { ChangePasswordDTO } from "../../entities/PasswordConfirmation";
+import { ChangePasswordDTO } from "../../entities/ChangePasswordDTO";
 import { Select } from '@ngxs/store';
 import { AuthSelectors } from 'src/app/states/auth/auth-selector';
 

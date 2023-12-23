@@ -1,4 +1,4 @@
-import { ChangePasswordDTO } from "src/entities/PasswordConfirmation"
+import { ChangePasswordDTO } from "src/entities/ChangePasswordDTO"
 
 export class getMe {
     static readonly type = '[User] Get me'

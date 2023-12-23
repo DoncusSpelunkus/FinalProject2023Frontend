@@ -6,8 +6,7 @@ import { LoginService } from "src/services/HttpRequestSevices/login.service";
 import { User } from "src/entities/User";
 import { Route, Router } from "@angular/router";
 import { terminateConnection } from "../crossStateAction";
-import { UserManagementService } from "src/services/HttpRequestSevices/userManagement.service";
-import { ChangePasswordDTO } from "src/entities/PasswordConfirmation";
+import { ChangePasswordDTO } from "src/entities/ChangePasswordDTO";
 
 
 

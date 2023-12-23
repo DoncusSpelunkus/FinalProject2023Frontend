@@ -9,7 +9,7 @@ import {
   valueRequired
 } from "../../../../util/form-control-validators";
 import {Subscription} from "rxjs";
-import {ChangePasswordDTO} from "../../../../entities/PasswordConfirmation";
+import {ChangePasswordDTO} from "../../../../entities/ChangePasswordDTO";
 import { Store } from '@ngxs/store';
 import { UpdatePassword } from 'src/app/states/auth/auth-action';
 
@@ -79,8 +79,8 @@ export class ChangePasswordComponent extends FormBuilding implements LoadableCom
 
   private getDTO() {
     const dto: ChangePasswordDTO = {
-      newPassword: getFormControl(FormControlNames.PASSWORD,this.formGroup).value,
-      oldPassword: getFormControl(FormControlNames.PASSWORD_CONFIRMATION,this.formGroup).value
+      NewPassword: getFormControl(FormControlNames.PASSWORD,this.formGroup).value,
+      OldPassword: getFormControl(FormControlNames.PASSWORD_CONFIRMATION,this.formGroup).value
     }
     return dto;
   }
