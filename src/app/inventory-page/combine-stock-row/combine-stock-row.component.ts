@@ -86,9 +86,8 @@ export class CombineStockRowComponent extends FormBuilding implements OnInit, Af
     return {
       productSKU: this.productLocation.productSku,
       quantity: this.productLocation.quantity,
-      locationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
       sourcePLocationId: this.productLocation.productLocationId,
-      destinationPLocationId: this.productLocation.productLocationId,
+      destinationPLocationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.productLocationId,
       type: 3//move to existing location
     }
   }

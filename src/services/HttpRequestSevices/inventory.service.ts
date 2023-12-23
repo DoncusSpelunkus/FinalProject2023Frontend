@@ -95,7 +95,7 @@ export class InventoryService {
 
   async changeQuantity(payload: ChangeQuantityDTO) {
     try {
-      const response = await customAxios.patch('ProductLocation/MoveQuantity',payload);
+      const response = await customAxios.patch('ProductLocation/ChangeQuantity',payload);
       return response;
     }
     catch(error) {
