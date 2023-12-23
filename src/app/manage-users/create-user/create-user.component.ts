@@ -93,8 +93,7 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
       email: this.formGroup.get(FormControlNames.EMAIL)?.value,
       name: this.formGroup.get(FormControlNames.NAME)?.value,
       role: this.formGroup.get(FormControlNames.ROLE)?.value,
-      username: this.formGroup.get(FormControlNames.USERNAME)?.value,
-      password: ''
+      username: this.formGroup.get(FormControlNames.USERNAME)?.value
     };
   }
   private mapEnumToArray(enumObj: any): any[] {
