@@ -18,12 +18,27 @@ export class CreateTypeDTO {
 }
 
 export class ProductLocation {
-    productLocationId?: number;
-    productSKU?: string;
+    productLocationId?: string;
+    productSku?: string;
     locationId?: string;
     quantity?: number;
     lastUpdated?: Date;
     warehouseId?: number;
+}
+
+export class MoveQuantityDTO {
+  locationId?: string;
+  productSKU?: string;
+  sourcePLocationId?: string;
+  destinationPLocationId?: string;
+  quantity?: number;
+  type?: number;//action type
+}
+
+export class ChangeQuantityDTO {
+  sourcePLocationId?: string;
+  quantity?: number;
+  type?: number;
 }
 
 export class Location {

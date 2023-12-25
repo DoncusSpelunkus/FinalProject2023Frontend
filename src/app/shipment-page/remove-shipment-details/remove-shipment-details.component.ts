@@ -47,7 +47,7 @@ export class RemoveShipmentDetailsComponent implements LoadableComponent, OnInit
   }
 
   submit(): void {
-    this.store.dispatch(new removeFromShipment(this.shipment.shipmentId,this.getSelectedShipmentIds()[0]))
+    this.store.dispatch(new removeFromShipment(this.shipment.shipmentId,this.getSelectedShipmentIds()))
   }
 
   handleDeleteDetailsClick() {

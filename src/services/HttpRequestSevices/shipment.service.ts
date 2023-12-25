@@ -91,7 +91,7 @@ export class ShipmentService {
       data: shipmentDetail
     }
     try {
-      const response = await customAxios.put('/RemoveFromShipment/' + shipmentId, data);
+      const response = await customAxios.patch('/RemoveFromShipment/' + shipmentId, data);
       return response.data;
     }
     catch (error) {

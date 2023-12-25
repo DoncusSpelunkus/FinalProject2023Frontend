@@ -67,7 +67,7 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
   private initializeFormGroups() {
     this.formGroup = this._formBuilder.group({
       [FormControlNames.SKU]: ['',valueRequired(FormControlNames.SKU)],
-      [FormControlNames.PRODUCT_LOCATION]: ['',valueRequired(FormControlNames.PRODUCT_LOCATION)],
+      [FormControlNames.LOCATION]: ['',valueRequired(FormControlNames.LOCATION)],
       [FormControlNames.QUANTITY]: ['',[valueRequired(FormControlNames.QUANTITY),numberOnly(FormControlNames.QUANTITY)]]
     })
   }
@@ -128,8 +128,8 @@ export class StockProductComponent extends FormBuilding implements LoadableCompo
 
   private getDTO(): ProductLocation {
     return {
-      productSKU: this.formGroup.get(FormControlNames.SKU).value.sku,
-      locationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
+      productSku: this.formGroup.get(FormControlNames.SKU).value.sku,
+      locationId: this.formGroup.get(FormControlNames.LOCATION).value.locationId,
       quantity: this.formGroup.get(FormControlNames.QUANTITY).value
     }
   }

@@ -5,7 +5,7 @@
 
     <!--  List  -->
     <section class="w-full h-full overflow-clip">
-      <mat-selection-list [multiple]="false" class="max-h-full overflow-scroll" (selectionChange)="onSelectionChange($event)">
+      <mat-selection-list [multiple]="true" class="max-h-full overflow-scroll" (selectionChange)="onSelectionChange($event)">
         <mat-list-option *ngFor="let detail of shipment.shipmentDetails; let i = index" [value]="{ detail, index: i }">
           <b>SKU:</b> {{detail.productSKU}} <b>Quantity: </b>{{detail.quantity}}
         </mat-list-option>

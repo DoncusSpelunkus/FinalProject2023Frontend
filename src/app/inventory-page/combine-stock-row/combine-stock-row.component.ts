@@ -1,24 +1,23 @@
 import {AfterViewInit, Component, HostBinding, Input, OnInit} from '@angular/core';
-import {Location, ProductLocation, MoveQuantityDTO} from "../../../entities/Inventory";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {FormControlNames} from "../../../constants/input-field-constants";
+import {Location, MoveQuantityDTO, ProductLocation} from "../../../entities/Inventory";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {FormBuilding} from "../../../interfaces/component-interfaces";
 import {Select, Store} from "@ngxs/store";
 import {ProductSelector} from "../../states/inventory/product-selector";
 import {Observable} from "rxjs";
-import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
-import {DeleteProductsComponent} from "../../manage-products/delete-products/delete-products.component";
 import {MatDialog} from "@angular/material/dialog";
+import {FormControlNames} from "../../../constants/input-field-constants";
+import {valueRequired} from "../../../util/form-control-validators";
+import {DynamicDialogComponent} from "../../util/dynamic-dialog/dynamic-dialog.component";
 import {
   LocationSingleCreateComponent
 } from "../../locations-page/location-single-create/location-single-create.component";
-import {valueRequired} from "../../../util/form-control-validators";
-import {createItem, moveQuantity} from "../../states/inventory/product-actions";
+import {moveQuantity} from "../../states/inventory/product-actions";
+import {FormBuilding} from "../../../interfaces/component-interfaces";
 
 @Component({
-  selector: 'app-relocate-product-row',
-  templateUrl: './relocate-product-row.component.html',
+  selector: 'app-combine-stock-row',
+  templateUrl: './combine-stock-row.component.html',
   animations: [
     trigger('expandAnimation', [
       state('collapsed', style({ height: '0', overflow: 'hidden' })),
@@ -27,7 +26,7 @@ import {createItem, moveQuantity} from "../../states/inventory/product-actions";
     ]),
   ],
 })
-export class RelocateProductRowComponent extends FormBuilding implements OnInit, AfterViewInit {
+export class CombineStockRowComponent extends FormBuilding implements OnInit, AfterViewInit{
   @HostBinding('style.width') width = '100%'
   @HostBinding('style.height') height = '100%'
 
@@ -36,13 +35,13 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
   formGroup: FormGroup;
   expandState: string = 'collapsed';
 
-  @Select(ProductSelector.getLocations) locations$!: Observable<Location[]>; // Will get the products from the store
-  locations: Location[];
+  @Select(ProductSelector.getProductLocations) productLocations$!: Observable<ProductLocation[]>; // Will get the products from the store
+  productLocations: ProductLocation[];
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private store: Store) {
-  super();
+    super();
   }
 
   ngOnInit(): void {
@@ -56,7 +55,7 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
 
   private initializeFormGroup() {
     this.formGroup = this.formBuilder.group({
-      [FormControlNames.PRODUCT_LOCATION] : [this.locations.find(location => location.locationId === this.productLocation.locationId),valueRequired(FormControlNames.PRODUCT_LOCATION)]
+      [FormControlNames.PRODUCT_LOCATION] : [this.productLocations.find(location => location.locationId === this.productLocation.locationId),valueRequired(FormControlNames.PRODUCT_LOCATION)]
     });
   }
 
@@ -72,8 +71,8 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
   }
 
   private initializeData() {
-    this.locations$.subscribe((locations: Location[]) => {
-      this.locations = locations;
+    this.productLocations$.subscribe((locations: Location[]) => {
+      this.productLocations = locations;
     })
   }
 
@@ -87,10 +86,9 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
     return {
       productSKU: this.productLocation.productSku,
       quantity: this.productLocation.quantity,
-      locationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.locationId,
       sourcePLocationId: this.productLocation.productLocationId,
-      destinationPLocationId: this.productLocation.productLocationId,
-      type: 2//move to a new location
+      destinationPLocationId: this.formGroup.get(FormControlNames.PRODUCT_LOCATION).value.productLocationId,
+      type: 3//move to existing location
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Location } from "src/entities/Inventory";
+import {ChangeQuantityDTO, Location, MoveQuantityDTO} from "src/entities/Inventory";
 
 export class getItems {
     static readonly type = '[Product] Get items'
@@ -24,4 +24,14 @@ export class updateItem {
 export class createLocationBatch {
     static readonly type = '[Location] Create batch'
     constructor(public payload: Location) { }
+}
+
+export class moveQuantity {
+  static readonly type = '[Product] ¨Move Quantity'
+  constructor(public payload: MoveQuantityDTO) { }
+}
+
+export class changeQuantity {
+  static readonly type = '[Product] ¨Change Quantity'
+  constructor(public payload: ChangeQuantityDTO) { }
 }

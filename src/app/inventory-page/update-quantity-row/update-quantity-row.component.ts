@@ -1,10 +1,12 @@
 import {AfterViewInit, Component, HostBinding, Input, OnInit} from '@angular/core';
-import {ProductLocation} from "../../../entities/Inventory";
+import {ChangeQuantityDTO, ProductLocation} from "../../../entities/Inventory";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {FormBuilding} from "../../../interfaces/component-interfaces";
 import {Form, FormBuilder, FormGroup} from "@angular/forms";
 import {FormControlNames} from "../../../constants/input-field-constants";
 import {numberOnly, valueRequired} from "../../../util/form-control-validators";
+import {Store} from "@ngxs/store";
+import {changeQuantity} from "../../states/inventory/product-actions";
 
 @Component({
   selector: 'app-update-quantity-row',
@@ -26,7 +28,8 @@ export class UpdateQuantityRowComponent extends FormBuilding implements OnInit, 
 
   expandState: string = 'collapsed';
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private store: Store) {
     super();
   }
 
@@ -45,6 +48,15 @@ export class UpdateQuantityRowComponent extends FormBuilding implements OnInit, 
   }
 
   handleUpdateQuantity() {
-    console.error('not implemented')
+    const changeQuantityDTO : ChangeQuantityDTO = this.getDTO();
+    this.store.dispatch(new changeQuantity(changeQuantityDTO))
+  }
+
+  private getDTO(): ChangeQuantityDTO {
+    return {
+      sourcePLocationId: this.productLocation.productLocationId,
+      quantity: this.formGroup.get(FormControlNames.QUANTITY).value,
+      type: 4
+    }
   }
 }
