@@ -47,7 +47,6 @@ export class LoginService {
     }
     try {
       const response = await customAxios.post('/login', dto)
-      console.log(response.data)
       return response.data;
     }
     catch (error) {

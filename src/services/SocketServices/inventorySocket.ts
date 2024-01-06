@@ -58,7 +58,6 @@ export class InventorySocket {
 
             this.hubConnection.on("ProductLocationListUpdate", (data) => {
                 this.productLocationSubject.next(data);
-                console.log(data)
             });
 
             this.hubConnection.on("BrandListUpdate", (data) => {

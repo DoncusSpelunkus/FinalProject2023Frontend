@@ -39,13 +39,11 @@ export class LogSocket {
                     .build();
             }
             catch (error) {
-                console.log(error)
             }
             try {
                 await this.hubConnection.start();
             }
             catch (error) {
-                console.log(error)
             }
             // we describe the event we want to listen to and what we want to do when we get the event
             this.hubConnection.on("LogsListUpdate", (data) => {
@@ -57,7 +55,7 @@ export class LogSocket {
             console.log(error)
         }
         this.initialize();
-        
+
 
     }
 

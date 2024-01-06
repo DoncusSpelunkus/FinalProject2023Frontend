@@ -40,7 +40,6 @@ export class AuthState {
                 ...state,
                 user: data
             })
-            console.log(data)
         })
     }
 

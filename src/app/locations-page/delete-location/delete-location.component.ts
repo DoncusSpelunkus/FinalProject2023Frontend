@@ -22,7 +22,6 @@ export class DeleteLocationComponent implements LoadableComponent{
   }
   setData(data: any): void {
     this.location = data;
-    console.log(data)
   }
 
   submit(): void {

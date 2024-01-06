@@ -76,7 +76,6 @@ export class LogsPageComponent extends FormBuilding implements OnInit, AfterView
   private initializeSourceData(): void {
     this.subscription.add(this.logs$.subscribe((logs) => {
       this.dataSource.data = logs;
-      console.log(logs)
     }));
   }
 
