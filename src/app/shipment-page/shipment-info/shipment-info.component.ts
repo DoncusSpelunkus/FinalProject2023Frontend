@@ -52,7 +52,6 @@ export class ShipmentInfoComponent implements LoadableComponent{
   onSelectionChange(event: MatSelectionListChange) {
     const selectedOption = event.source.selectedOptions.selected[0].value.detail || null;
     this.selectedProductDetail = selectedOption;
-    console.log(selectedOption)
   }
 
   handleOpenStockProductWindow() {

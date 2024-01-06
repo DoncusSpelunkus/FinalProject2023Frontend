@@ -83,7 +83,6 @@ export class RelocateProductRowComponent extends FormBuilding implements OnInit,
   }
 
   private getDTO(): MoveQuantityDTO {
-    console.log(this.productLocation)
     return {
       productSKU: this.productLocation.productSku,
       quantity: this.productLocation.quantity,

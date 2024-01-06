@@ -82,7 +82,6 @@ export class CombineStockRowComponent extends FormBuilding implements OnInit, Af
   }
 
   private getDTO(): MoveQuantityDTO {
-    console.log(this.productLocation)
     return {
       productSKU: this.productLocation.productSku,
       quantity: this.productLocation.quantity,

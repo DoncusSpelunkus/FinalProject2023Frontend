@@ -26,18 +26,17 @@ export class AuthSocket {
 
 
     public async getUserConnection(token: string) { // We establish a connection with a socket defined by our enbironment file
-        console.log(token)
         if (token != null) {
             try {
                 this.hubConnection = new signalR.HubConnectionBuilder()
                     .withUrl(environment.authSocketUrl, {
                         accessTokenFactory: () => {
-                            return token; 
+                            return token;
                         }
                     })
                     .withAutomaticReconnect()
                     .build();
-                
+
                 try {
                     await this.hubConnection.start();
                     await this.store.dispatch(new getMe()).toPromise()

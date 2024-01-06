@@ -64,7 +64,6 @@ export class CreateUserComponent implements LoadableComponent,OnInit{
     if (this.isUpdatingEmployee) {
       createUserDTO.EmployeeId = this.id;
       this.store.dispatch(new updateUser(createUserDTO));
-      console.log(createUserDTO);
     } else {
       this.store.dispatch(new createUser(createUserDTO));
     }

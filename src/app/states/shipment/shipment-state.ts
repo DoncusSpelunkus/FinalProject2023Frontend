@@ -76,7 +76,6 @@ export class ShipmentState {
 
     @Action(establishConnection)
     async establishConnection({ }: StateContext<ShipmentStateModel>) {
-        console.log("hit")
         this.shipmentSocket.establishConnection();
     }
 

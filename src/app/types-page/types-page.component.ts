@@ -155,7 +155,6 @@ export class TypesPageComponent extends FormBuilding implements OnInit, AfterVie
   private fetchData() {
     this.types$.subscribe((types: Type[]) => {
       this.dataSource.data = types;
-      console.log('update')
     })
   }
 }

@@ -51,7 +51,6 @@ export class AddShipmentDetailsComponent extends FormBuilding implements Loadabl
   }
 
   submit(): void {
-    console.log(this.getShipmentDetailsList)
     const addtoShipment: AddToShipmentDetails = {shipmentDetails: this.getShipmentDetailsList}
     this.store.dispatch(new addToShipment(this.shipment.shipmentId, addtoShipment));
   }

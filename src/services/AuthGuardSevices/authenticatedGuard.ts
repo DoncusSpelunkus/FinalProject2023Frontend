@@ -30,9 +30,7 @@ export class AuthenticatedGuard implements CanActivate {
     try {
       const decodedToken = jwtDecode<Token>(token);
       const currentdate = new Date();
-      console.log(decodedToken)
       if (decodedToken.exp && new Date(decodedToken.exp * 1000) > currentdate) {
-        console.log("Token is valid");
         return true; // The token is valid
       }
     } catch (error) {

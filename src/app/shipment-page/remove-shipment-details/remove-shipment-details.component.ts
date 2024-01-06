@@ -76,7 +76,6 @@ export class RemoveShipmentDetailsComponent implements LoadableComponent, OnInit
   }
 
   private getSelectedShipmentIds(): number[] {
-    console.log(this.shipmentDetailFormGroup.get(FormControlNames.SHIPMENT_DETAIL_LIST).value)
     const shipmentDetails: any[] = this.shipmentDetailFormGroup.get(FormControlNames.SHIPMENT_DETAIL_LIST).value;
     return shipmentDetails.map(detail => detail.shipmentDetailId);
   }

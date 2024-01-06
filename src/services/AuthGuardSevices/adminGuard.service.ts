@@ -25,7 +25,6 @@ export class AdminGuardService implements CanActivate {
 
         if (token != "") { // checks if the local token exist at all
             let decodToken = jwtDecode(token) as Token;
-            console.log(decodToken.role)
             let currentdate = new Date();
             if (decodToken.exp) {
                 let expiry = new Date(decodToken.exp * 1000);

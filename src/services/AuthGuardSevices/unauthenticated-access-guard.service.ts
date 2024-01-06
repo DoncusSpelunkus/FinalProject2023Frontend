@@ -22,7 +22,7 @@ export class UnauthenticatedAccessGuard implements CanActivate {
     this.token$.subscribe((data) => { // I dunno but this is the only way I could get the token from the store
       token = data;
     })
-    
+
 
     if (token != "") {
 
@@ -32,7 +32,6 @@ export class UnauthenticatedAccessGuard implements CanActivate {
     const decodedToken = jwtDecode<Token>(token);
     const currentdate = new Date();
 
-    console.log(decodedToken)
 
     if (decodedToken.exp && new Date(decodedToken.exp * 1000) > currentdate) {
       return handleRoleBasedNavigation(decodedToken.role,this.router);

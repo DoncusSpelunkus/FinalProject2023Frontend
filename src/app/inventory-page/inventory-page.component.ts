@@ -84,7 +84,6 @@ export class InventoryPageComponent implements OnInit, AfterViewInit {
       this.simpleItems$.subscribe(
         (productLocations: ProductLocation[]) => {
           this.dataSource.data = productLocations;
-          console.log(productLocations)
         })
     );
     this.dataSource.paginator = this.paginator;
